@@ -16,6 +16,28 @@
     <!-- SAS strings -->
     <string name="title_activity_sas">SAS</string>
 
+        <!--Navigation Button Strings :: SAS -->
+        <string name="to_courseFragment_button">To Courses</string>
+        <string name="to_addDropFragment_button">To Add/Drop Courses</string>
+        <string name="to_timetableFragment_button">To Timetable</string>
+        <string name="to_classmapFragment_button">To Class Map</string>
+        <string name="to_transcriptFragment_button">To Transcript</string>
+
+        <!-- Add/Drop Fragment Strings -->
+        <string name="adddropFragment_title">SAS :: Add/Drop</string>
+
+        <!-- Course Fragment Strings -->
+        <string name="courseFragment_title">SAS :: Courses</string>
+
+        <!-- TimeTableFragment Strings -->
+        <string name="timetableFragment_title">SAS :: Timetable</string>
+
+        <!-- ClassMapFragment Strings -->
+        <string name="classmapFragment_title">SAS :: Class Map</string>
+
+        <!-- Transcript Fragment -->
+        <string name="transcriptFragment_title">SAS :: Transcript</string>
+
     <!-- BOSS Strings -->
     <string name="title_activity_boss">BOSS</string>
 
