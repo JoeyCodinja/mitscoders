@@ -12,6 +12,11 @@
 
     <!-- OurVLE strings -->
     <string name="title_activity_our_vle">OurVLE</string>
+        <!--Navigation Buttons :: OURVle -->
+
+        <!-- Course List Fragments Strings-->
+
+        <!-- Course Fragment -->
 
     <!-- SAS strings -->
     <string name="title_activity_sas">SAS</string>
@@ -40,6 +45,7 @@
 
     <!-- BOSS Strings -->
     <string name="title_activity_boss">BOSS</string>
+    <string name="title_activity_campus_information">CampusInformationActivity</string>
 
     <!-- Transportation Strings -->
 
