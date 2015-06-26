@@ -19,26 +19,34 @@
         <activity
             android:name=".OurVLEActivity"
             android:label="@string/title_activity_our_vle"
-            android:parentActivityName="mits.uwi.com.ourmobileenvironment.LandingActivity">
+            android:parentActivityName=".LandingActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="mits.uwi.com.ourmobileenvironment.LandingActivity"/>
+                android:value="mits.uwi.com.ourmobileenvironment.LandingActivity" />
         </activity>
         <activity
             android:name=".SASActivity"
             android:label="@string/title_activity_sas"
-            android:parentActivityName="mits.uwi.com.ourmobileenvironment.LandingActivity">
+            android:parentActivityName=".LandingActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="mits.uwi.com.ourmobileenvironment.LandingActivity"/>
+                android:value="mits.uwi.com.ourmobileenvironment.LandingActivity" />
         </activity>
         <activity
             android:name=".BOSSActivity"
             android:label="@string/title_activity_boss"
-            android:parentActivityName="mits.uwi.com.ourmobileenvironment.LandingActivity">
+            android:parentActivityName=".LandingActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="mits.uwi.com.ourmobileenvironment.LandingActivity"/>
+                android:value="mits.uwi.com.ourmobileenvironment.LandingActivity" />
+        </activity>
+        <activity
+            android:name=".BusScheduleActivity"
+            android:label="@string/title_activity_bus_schedule"
+            android:parentActivityName=".LandingActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="mits.uwi.com.ourmobileenvironment.LandingActivity" />
         </activity>
     </application>
 

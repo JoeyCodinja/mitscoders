@@ -28,6 +28,12 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:text="@string/sas_activity_button"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bus"
+            android:id="@+id/to_bus_schedule_activity"/>
+
 
     </LinearLayout>
 

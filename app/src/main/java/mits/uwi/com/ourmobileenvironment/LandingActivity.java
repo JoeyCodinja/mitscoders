@@ -12,7 +12,7 @@ import android.widget.Button;
 
 public class LandingActivity extends AppCompatActivity {
 
-    private Button mToSASActivity, mToBOSSActivity, mToOURLVEActivity;
+    private Button mToSASActivity, mToBOSSActivity, mToOURLVEActivity, mToBusScheduleActivity;
 
     private static final String TAG = "LandingActivity";
 
@@ -47,6 +47,14 @@ public class LandingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(LandingActivity.this, OurVLEActivity.class);
                 Log.d(TAG, "StartingOurVLEActivity");
+                startActivity(i);
+            }
+        });
+        mToBusScheduleActivity=(Button)findViewById((R.id.to_bus_schedule_activity));
+        mToBusScheduleActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(LandingActivity.this, BusScheduleActivity.class);
                 startActivity(i);
             }
         });
