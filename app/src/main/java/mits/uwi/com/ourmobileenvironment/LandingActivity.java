@@ -14,7 +14,7 @@ import mits.uwi.com.ourmobileenvironment.sasfragments.CourseFragment;
 
 public class LandingActivity extends AppCompatActivity {
 
-    private Button mToSASActivity, mToBOSSActivity, mToOURLVEActivity;
+    private Button mToSASActivity, mToBOSSActivity, mToOURLVEActivity, mToCampusInformationActivity;
 
     private static final String TAG = "LandingActivity";
 
@@ -49,6 +49,16 @@ public class LandingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(LandingActivity.this, OurVLEActivity.class);
                 Log.d(TAG, "StartingOurVLEActivity");
+                startActivity(i);
+            }
+        });
+
+        mToCampusInformationActivity = (Button)findViewById(R.id.to_campus_information_activity_button);
+        mToCampusInformationActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Intent i = new Intent(LandingActivity.this, CampusInformationActivity.class);
+                Log.d(TAG, "Starting CampusInfo Activity");
                 startActivity(i);
             }
         });

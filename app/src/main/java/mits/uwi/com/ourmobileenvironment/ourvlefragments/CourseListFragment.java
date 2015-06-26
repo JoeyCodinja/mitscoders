@@ -48,7 +48,7 @@ public class CourseListFragment extends ListFragment {
         // to the fragment containing the information within the course container
 
         //TODO 1 Pass arguments with info identifying the course and sending
-        //TODO 2 user data to validate their ability to see the course
+        //TODO 2 user data to validate their course permissions
         FragmentManager fm = getActivity().getSupportFragmentManager();
         Fragment fragment = new CourseContainerFragment();
         fm.beginTransaction()

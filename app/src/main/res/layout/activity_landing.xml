@@ -29,6 +29,11 @@
             android:layout_width="wrap_content"
             android:text="@string/sas_activity_button"/>
 
+        <Button
+            android:id='@+id/to_campus_information_activity_button'
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/campus_information_activity"/>
     </LinearLayout>
 
 </FrameLayout>

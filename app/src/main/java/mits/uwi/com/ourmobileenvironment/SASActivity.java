@@ -2,18 +2,14 @@ package mits.uwi.com.ourmobileenvironment;
 
 
 
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
-import android.view.MenuItem;
-
-import mits.uwi.com.ourmobileenvironment.sasfragments.AddDropCourseFragment;
+import android.support.v7.app.AppCompatActivity;
 import mits.uwi.com.ourmobileenvironment.sasfragments.CourseFragment;
 
 
-public class SASActivity extends FragmentActivity {
+public class SASActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

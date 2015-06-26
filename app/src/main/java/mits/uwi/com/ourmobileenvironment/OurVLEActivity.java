@@ -1,18 +1,18 @@
 package mits.uwi.com.ourmobileenvironment;
 
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NavUtils;
 import android.os.Bundle;
-
 import android.view.Menu;
 import android.view.MenuItem;
 
 import mits.uwi.com.ourmobileenvironment.ourvlefragments.CourseListFragment;
 
 
-public class OurVLEActivity extends FragmentActivity {
+public class OurVLEActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
