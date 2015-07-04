@@ -40,7 +40,8 @@ public class TimeTableFragment extends Fragment {
                 Fragment fragment = new ClassMapFragment();
 
                 fm.beginTransaction()
-                        .replace(R.id.sas_fragmentContainer,fragment)
+                        .replace(R.id.sas_fragmentContainer, fragment)
+                        .addToBackStack(null)
                         .commit();
             }
         });
@@ -54,6 +55,7 @@ public class TimeTableFragment extends Fragment {
 
                 fm.beginTransaction()
                         .replace(R.id.sas_fragmentContainer,fragment)
+                        .addToBackStack(null)
                         .commit();
             }
         });

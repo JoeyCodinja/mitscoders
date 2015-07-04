@@ -41,6 +41,7 @@ public class CourseFragment extends Fragment {
 
                 fm.beginTransaction()
                         .replace(R.id.sas_fragmentContainer, fragment)
+                        .addToBackStack(null)
                         .commit();
             }
         });
@@ -55,6 +56,7 @@ public class CourseFragment extends Fragment {
 
                 fm.beginTransaction()
                         .replace(R.id.sas_fragmentContainer, fragment)
+                        .addToBackStack(null)
                         .commit();
             }
         });
@@ -69,6 +71,7 @@ public class CourseFragment extends Fragment {
 
                 fm.beginTransaction()
                         .replace(R.id.sas_fragmentContainer, fragment)
+                        .addToBackStack(null)
                         .commit();
             }
         });

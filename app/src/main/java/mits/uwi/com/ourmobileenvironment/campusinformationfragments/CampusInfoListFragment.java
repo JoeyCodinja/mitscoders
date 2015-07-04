@@ -36,6 +36,9 @@ public class CampusInfoListFragment extends ListFragment {
 
         FragmentManager fm = getActivity().getSupportFragmentManager();
         Fragment fragment;
+        //Transfers the user to the fragment associated with the first time in the list
+        // which in this case the Eateries Fragment, CampusListings Fragment as well as the
+        // Campus Information Fragment, respectively
         if (position == 0){
             fragment = new EateriesFragment();
             fm.beginTransaction().replace(R.id.campusinfo_fragmentContainer, fragment)

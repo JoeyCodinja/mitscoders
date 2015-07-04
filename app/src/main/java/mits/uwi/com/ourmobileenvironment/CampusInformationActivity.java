@@ -25,6 +25,7 @@ public class CampusInformationActivity extends AppCompatActivity {
             fragment = new CampusInfoListFragment();
             fm.beginTransaction()
                     .add(R.id.campusinfo_fragmentContainer, fragment)
+                    .addToBackStack(null)
                     .commit();
 
         }
