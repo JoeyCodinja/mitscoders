@@ -43,7 +43,8 @@
         <activity
             android:name=".BusScheduleActivity"
             android:label="@string/title_activity_bus_schedule"
-            android:parentActivityName=".LandingActivity" >
+            android:parentActivityName=".LandingActivity"
+            android:theme="@style/actionbartheme" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mits.uwi.com.ourmobileenvironment.LandingActivity" />

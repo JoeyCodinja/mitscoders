@@ -5,4 +5,17 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="actionbartheme"
+        parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:actionBarStyle">@style/orange_bar</item>
+        <item name="actionBarStyle">@style/orange_bar</item>
+
+    </style>
+    <style name="orange_bar"
+        parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="android:colorBackground">@color/actionbar_background</item>
+        <item name="background">@color/actionbar_background</item>
+
+    </style>
+
 </resources>
