@@ -6,31 +6,26 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-
 public class BusScheduleActivity extends AppCompatActivity {
 
     private TextView tex;
     private ArrayList<BusRoute> broutelist;
+    ViewPager bPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ViewPager bPage;
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bus_schedule);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        setContentView(R.layout.buspager);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         FragmentManager fm=getSupportFragmentManager();
-        Fragment BusScheduleFragment=fm.findFragmentById(R.id.BusScheduleContainer);
-        if (BusScheduleFragment==null){
-            BusScheduleFragment=new BusSchedule();
-            fm.beginTransaction().add(R.id.BusScheduleContainer,BusScheduleFragment).commit();
-        }
+        Busfactory.populate();
+        broutelist=Busfactory.getBusList();
         bPage=(ViewPager)findViewById(R.id.buspager);
         bPage.setAdapter(new FragmentPagerAdapter(fm) {
             @Override
@@ -40,7 +35,7 @@ public class BusScheduleActivity extends AppCompatActivity {
 
             @Override
             public int getCount() {
-                return 0;
+                return 1;
             }
         });
 
