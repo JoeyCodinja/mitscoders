@@ -13,14 +13,14 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 
-public class BusSchedule extends Fragment {
+public class BusScheduleFragment extends Fragment {
 
 
 
 
 
 
-    public BusSchedule() {
+    public BusScheduleFragment() {
         // Required empty public constructor
     }
 
@@ -65,7 +65,7 @@ public class BusSchedule extends Fragment {
 
 
 
-    private class BusScheduleAdapter extends RecyclerView.Adapter<BusSchedule.BusScheduleViewHolder>{
+    private class BusScheduleAdapter extends RecyclerView.Adapter<BusScheduleFragment.BusScheduleViewHolder>{
 
 
         private ArrayList<BusRoute> rlist;
@@ -96,6 +96,9 @@ public class BusSchedule extends Fragment {
             busScheduleViewHolder.nextdepart.setText(br.getNextDeparture());
             busScheduleViewHolder.freq.setText(br.getFrequency());
         }
+
+
+
 
 
 

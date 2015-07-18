@@ -3,19 +3,23 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
+
     </style>
 
     <style name="actionbartheme"
         parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:actionBarStyle">@style/orange_bar</item>
         <item name="actionBarStyle">@style/orange_bar</item>
+        <item name="android:windowActionBarOverlay">@null</item>
+        <item name="elevation">0dp</item>
+        <item name="windowActionBarOverlay">@null</item>
 
     </style>
     <style name="orange_bar"
         parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
         <item name="android:colorBackground">@color/actionbar_background</item>
         <item name="background">@color/actionbar_background</item>
-
+        <item name="elevation">0dp</item>
     </style>
 
 </resources>

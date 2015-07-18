@@ -17,12 +17,14 @@ public class BusScheduleActivity extends AppCompatActivity {
     private TextView tex;
     private ArrayList<BusRoute> broutelist;
     ViewPager bPage;
+    private SlidingTabLayout mSlidingTabLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.buspager);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setElevation(0);
         FragmentManager fm=getSupportFragmentManager();
         Busfactory.populate();
         broutelist=Busfactory.getBusList();
@@ -30,14 +32,28 @@ public class BusScheduleActivity extends AppCompatActivity {
         bPage.setAdapter(new FragmentPagerAdapter(fm) {
             @Override
             public Fragment getItem(int position) {
-                return new BusSchedule();
+                return new BusScheduleFragment();
             }
 
             @Override
             public int getCount() {
-                return 1;
+                return 3;
             }
+
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return "Bus";
+            }
+
+
         });
+        mSlidingTabLayout=(SlidingTabLayout) findViewById(R.id.sltab);
+        mSlidingTabLayout.setCustomTabView(R.layout.tabview, R.id.tabtitle);
+        mSlidingTabLayout.setViewPager(bPage);
+        mSlidingTabLayout.setSelectedIndicatorColors(getResources().getColor(R.color.tabstrip));
+        mSlidingTabLayout.setDividerColors(getResources().getColor(R.color.actionbar_background));
+        mSlidingTabLayout.setTabsBackgroundColor(getResources().getColor(R.color.actionbar_background));
+
 
 
     }
