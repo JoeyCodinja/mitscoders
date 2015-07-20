@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -9,7 +9,10 @@
                 tools:context=".LandingActivity">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/linearLayout"
+        android:layout_alignStart="@+id/linearLayout">
 
         <Button
             android:id="@+id/to_boss_activity_button"
@@ -22,7 +25,16 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:text="@string/ourvle_activity_button"/>
+        </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="32dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="32dp"
+            android:id="@+id/linearLayout">
         <Button
             android:id="@+id/to_sas_activity_button"
             android:layout_height="wrap_content"
@@ -37,4 +49,4 @@
 
     </LinearLayout>
 
-</FrameLayout>
+</RelativeLayout>

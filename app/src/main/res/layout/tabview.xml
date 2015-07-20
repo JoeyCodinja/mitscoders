@@ -12,7 +12,6 @@
         android:id="@+id/tabtitle"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:drawable="@drawable/selector"
         android:padding="@dimen/abc_text_size_body_1_material"/>
 
 </LinearLayout>

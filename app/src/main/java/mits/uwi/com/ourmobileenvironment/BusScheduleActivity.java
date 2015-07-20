@@ -1,11 +1,14 @@
 package mits.uwi.com.ourmobileenvironment;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -24,7 +27,6 @@ public class BusScheduleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.buspager);
-        getSupportActionBar().setElevation(0);
         FragmentManager fm=getSupportFragmentManager();
         Busfactory.populate();
         broutelist=Busfactory.getBusList();
@@ -42,7 +44,12 @@ public class BusScheduleActivity extends AppCompatActivity {
 
             @Override
             public CharSequence getPageTitle(int position) {
-                return "Bus";
+                ArrayList<String> title=new ArrayList<String>();
+                title.add("Shuttle");
+                title.add("JUTC");
+                title.add("Taxi");
+                return title.get(position);
+
             }
 
 
@@ -56,6 +63,12 @@ public class BusScheduleActivity extends AppCompatActivity {
 
 
 
+    }
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+            mSlidingTabLayout.populateTabStrip();
+        Log.d("test","it worked");
     }
 
     @Override

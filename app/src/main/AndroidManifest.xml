@@ -43,6 +43,7 @@
         <activity
             android:name=".BusScheduleActivity"
             android:label="@string/title_activity_bus_schedule"
+            android:configChanges="orientation"
             android:parentActivityName=".LandingActivity"
             android:theme="@style/actionbartheme" >
             <meta-data
