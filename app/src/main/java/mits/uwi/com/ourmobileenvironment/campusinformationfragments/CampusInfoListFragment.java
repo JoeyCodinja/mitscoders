@@ -1,5 +1,6 @@
 package mits.uwi.com.ourmobileenvironment.campusinformationfragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -52,10 +53,12 @@ public class CampusInfoListFragment extends ListFragment {
                     .commit();
         }
         if (position == 2){
-            fragment = new CampusInformationFragment();
-            fm.beginTransaction().replace(R.id.campusinfo_fragmentContainer,fragment)
-                    .addToBackStack(null)
-                    .commit();
+            Intent i = new Intent(CampusInfoListFragment.this.getActivity(), CampusInformationPagerActivity.class);
+            startActivity(i);
+//            fragment = new CampusInformationFragment();
+//            fm.beginTransaction().replace(R.id.campusinfo_fragmentContainer,fragment)
+//                    .addToBackStack(null)
+//                    .commit();
         }
     }
 }
