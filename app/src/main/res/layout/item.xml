@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/cv">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        >
+
+
+        <com.pkmmte.view.CircularImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/eateries_photo"
+            app:border="false"
+            app:shadow="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/eateries_name"
+            android:layout_toRightOf="@+id/eateries_photo"
+            android:layout_alignParentTop="true"
+            android:textSize="20sp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/eateries_location"
+            android:layout_toRightOf="@+id/eateries_photo"
+            android:layout_below="@+id/eateries_name"
+            android:textSize="10sp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/eateries_hours"
+            android:layout_toRightOf="@+id/eateries_photo"
+            android:layout_below="@+id/eateries_location"
+            android:textSize="10sp"
+            />
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

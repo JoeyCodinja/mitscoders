@@ -51,5 +51,9 @@
 
     <!-- Wi-Fi Tracker Strings -->
 
-    <!-- -->
+    <!-- Eateries Strings-->
+    <string name="action_all">All</string>
+    <string name="action_fast">Fast Food</string>
+    <string name="action_cooked">Cooked Food</string>
+    <string name="action_fav">Favourites</string>
 </resources>
