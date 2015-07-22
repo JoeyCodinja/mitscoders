@@ -225,6 +225,8 @@ public class SlidingTabLayout extends HorizontalScrollView {
                 tabTitleView = (TextView) tabView.findViewById(mTabViewTextViewId);
                 tabTitleView.setTextColor(getResources().getColorStateList(R.color.selector));
                 setActionBarWidth(3, tabTitleView);
+                if (getResources().getConfiguration().orientation==getResources().getConfiguration().ORIENTATION_LANDSCAPE)
+                    setActionBarWidth(2,tabTitleView);
                 if (i==mViewPager.getCurrentItem())
                 tabView.setSelected(true);
 
