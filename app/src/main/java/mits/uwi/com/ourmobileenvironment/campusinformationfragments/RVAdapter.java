@@ -15,6 +15,7 @@ import mits.uwi.com.ourmobileenvironment.R;
 
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EateriesViewHolder> {
 
+
     public static class EateriesViewHolder extends RecyclerView.ViewHolder {
 
         CardView cv;

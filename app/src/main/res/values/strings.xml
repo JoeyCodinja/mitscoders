@@ -45,7 +45,7 @@
 
     <!-- BOSS Strings -->
     <string name="title_activity_boss">BOSS</string>
-    <string name="title_activity_campus_information">CampusInformationActivity</string>
+    <string name="title_activity_campus_information">Campus Info</string>
 
     <!-- Transportation Strings -->
 
