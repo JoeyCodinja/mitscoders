@@ -41,6 +41,7 @@
                 android:value="mits.uwi.com.ourmobileenvironment.LandingActivity" />
         </activity>
         <activity
+<<<<<<< HEAD
             android:name=".BusScheduleActivity"
             android:label="@string/title_activity_bus_schedule"
             android:configChanges="orientation"
@@ -49,6 +50,15 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mits.uwi.com.ourmobileenvironment.LandingActivity" />
+=======
+            android:name=".CampusInformationActivity"
+            android:label="@string/title_activity_campus_information"
+            android:parentActivityName=".LandingActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="mits.uwi.com.ourmobileenvironment.LandingActivity" />
+
+>>>>>>> master
         </activity>
     </application>
 

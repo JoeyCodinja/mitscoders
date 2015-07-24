@@ -1,20 +1,47 @@
 <resources>
     <string name="app_name">OurMobileEnvironment</string>
 
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
     <!-- Landing strings -->
     <string name="ourvle_activity_button">OurVLE</string>
     <string name="sas_activity_button">SAS</string>
     <string name="boss_activity_button">BOSS</string>
+    <string name="campus_information_activity">Campus Info</string>
 
 
     <!-- OurVLE strings -->
     <string name="title_activity_our_vle">OurVLE</string>
+        <!--Navigation Buttons :: OURVle -->
+
+        <!-- Course List Fragments Strings-->
+
+        <!-- Course Fragment -->
 
     <!-- SAS strings -->
     <string name="title_activity_sas">SAS</string>
+
+        <!--Navigation Button Strings :: SAS -->
+        <string name="to_courseFragment_button">To Courses</string>
+        <string name="to_addDropFragment_button">To Add/Drop Courses</string>
+        <string name="to_timetableFragment_button">To Timetable</string>
+        <string name="to_classmapFragment_button">To Class Map</string>
+        <string name="to_transcriptFragment_button">To Transcript</string>
+
+        <!-- Add/Drop Fragment Strings -->
+        <string name="adddropFragment_title">SAS :: Add/Drop</string>
+
+        <!-- Course Fragment Strings -->
+        <string name="courseFragment_title">SAS :: Courses</string>
+
+        <!-- TimeTableFragment Strings -->
+        <string name="timetableFragment_title">SAS :: Timetable</string>
+
+        <!-- ClassMapFragment Strings -->
+        <string name="classmapFragment_title">SAS :: Class Map</string>
+
+        <!-- Transcript Fragment -->
+        <string name="transcriptFragment_title">SAS :: Transcript</string>
 
     <!-- BOSS Strings -->
     <string name="title_activity_boss">BOSS</string>
@@ -29,5 +56,51 @@
 
     <!-- Wi-Fi Tracker Strings -->
 
-    <!-- -->
+    <!--Campus Information Strings-->
+    <string name="title_activity_campus_information">CampusInformationActivity</string>
+    <string name="campus_info_snippet_title1">We are fully Accredited</string>
+    <string name="campus_info_snippet_title2">We are the home of the Pelicans</string>
+    <string name="campus_info_snippet_title3">We are a green, progressive campus</string>
+    <string name="campus_info_snippet_title4">Who we serve</string>
+    <string name="campus_info_snippet_title5">Mission Statement</string>
+    <string name="campus_info_snippet_title6">The UWI\'s Vision</string>
+
+    <string name="campus_info_heading">
+        The University of the West Indies (UWI), Mona Campus offers world class, accredited higher
+        education programmes to Jamaica, the region and the globe. We engage in research and
+        development designed to support the social and economic growth of the Caribbean region, the
+        provision of community service, and the enrichment of the academic experience.
+    </string>
+
+    <string name="campus_info_snippet_body1">
+        UWI Mona is a fully accredited tertiary-level institution. Our Programmes - available across
+        our 5 faculties, 8 schools and 12 specialist centres - have been closely examined and
+        evaluated  and we are proud of the \'flying colours\' we have continuously received.
+    </string>
+    <string name="campus_info_snippet_body2">
+        We are the home of the Pelicans, our enduring symbol of the humble Caribbean bird that sits
+        atop our coat of arms highlighting the attitude, and altitude of the distinctive UWI student.
+    </string>
+    <string name="campus_info_snippet_body3">
+        UWI is increasingly modeling eco friendly sustainable practices in its policy, operations
+        and research.
+    </string>
+    <string name="campus_info_snippet_body4">
+        Within the region, the UWI Mona serves 16 countries of the Commonwealth Caribbean\n
+        The UWI: One Institution, Four Campuses\n
+        UWI Mona: One Campus, Two Locations\nKingston Campus, Mona | Western Jamaica Campus, Montego Bay
+    </string>
+    <string name="campus_info_snippet_body5">
+        Our Mission Statement reflects the primary purpose of our University, that is, the reason
+        for its existence.To advance education and create knowledge through excellence in teaching,
+        research, innovation, public service, intellectual leadership and outreach in order to
+        support the inclusive (social, economic, political, cultural, environmental) development
+        of the Caribbean region and beyond.
+    </string>
+    <string name="campus_info_snippet_body6">
+        By 2017, the University will be globally recognised as a regionally integrated, innovative,
+        internationally competitive university, deeply rooted in all aspects of Caribbean
+        development and committed to serving the diverse people of the region and beyond.
+    </string>
+
 </resources>
