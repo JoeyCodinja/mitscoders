@@ -207,6 +207,9 @@ public class SlidingTabLayout extends HorizontalScrollView {
         Point size = new Point();
         display.getSize(size);
         tabTitleView.setWidth(size.x / width);
+        if(getResources().getConfiguration().orientation==getResources().getConfiguration().ORIENTATION_LANDSCAPE){
+            tabTitleView.setWidth((int)Math.ceil(size.x * 0.34));
+        }
 
     }
 
@@ -224,6 +227,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
                         false);
                 tabTitleView = (TextView) tabView.findViewById(mTabViewTextViewId);
                 tabTitleView.setTextColor(getResources().getColorStateList(R.color.selector));
+                //setCustomStyle(tabTitleView);
                 setActionBarWidth(3, tabTitleView);
                 if (i==mViewPager.getCurrentItem())
                 tabView.setSelected(true);
