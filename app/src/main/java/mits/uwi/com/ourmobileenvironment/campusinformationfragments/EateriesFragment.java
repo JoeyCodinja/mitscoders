@@ -42,9 +42,11 @@ public class EateriesFragment extends Fragment {
 
     public void initializeData(){
         eateries = new ArrayList<>();
-        eateries.add(new Eateries_list("Kentucky Fried Chicken", "Ring Road, Chancellor Hall", "9am-12am", R.drawable.kfc));
-        eateries.add(new Eateries_list("Juici Patties", "Faculty of Science and Technology", "7am-7pm", R.drawable.juici));
-        eateries.add(new Eateries_list("Nardo's Snack Shop", "Humanities and Education", "6am-3am", R.drawable.nardo));
+        eateries.add(new Eateries_list("Kentucky Fried Chicken", "Ring Rd, Chancellor Hall", "Opens 9am-12am", R.drawable.kfc));
+        eateries.add(new Eateries_list("Juici Patties", "Faculty of Science and Technology", "Opens 6am-7pm", R.drawable.juici));
+        eateries.add(new Eateries_list("Yao Chinese Restaurant", "Students Union", "Opens 9am-10pm", R.drawable.yao));
+        eateries.add(new Eateries_list("BeeHive", "Ring Rd, Humanities and Education", "Opens 7am-6pm", R.drawable.bee));
+        eateries.add(new Eateries_list("Nardo's Snack Shop", "Humanities and Education", "Opens 6am-3am", R.drawable.nardo));
     }
 
     public static List<Eateries_list> getEatList() {
