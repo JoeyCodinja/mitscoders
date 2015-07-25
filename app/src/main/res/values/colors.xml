@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="actionbar_background">#FF9800</color>
-    <color name="actionbar_background_eateries">#B79F1C</color>
     <color name="white">#FFFFFF</color>
     <color name="tabstrip">#E35216</color>
     <color name="red">#FF0000</color>
     <color name="grey">#B1B0AF</color>
+    <color name="actionbar_background_eateries">#B79F1C</color>
 </resources>

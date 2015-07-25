@@ -3,6 +3,31 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
+
+
+    </style>
+
+    <style name="actionbartheme"
+        parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:actionBarStyle">@style/orange_bar</item>
+        <item name="actionBarStyle">@style/orange_bar</item>
+        <item name="android:windowContentOverlay">@null</item>
+
+    </style>
+    <style name="orange_bar"
+        parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
+        <item name="android:colorBackground">@color/actionbar_background</item>
+        <item name="background">@color/actionbar_background</item>
+        <item name="elevation">0dp</item>
+        <item name="android:textAppearance">@style/AppActionBarTitleText</item>
+    </style>
+
+    <style name="AppActionBarTitleText"
+        parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">0</item>
+        <item name="android:shadowRadius">1.5</item>
     </style>
     <style name="campusinfotheme"
         parent="Theme.AppCompat.Light.DarkActionBar">
@@ -19,13 +44,6 @@
         <item name="android:textAppearance">@style/AppActionBarTitleText</item>
     </style>
 
-    <style name="AppActionBarTitleText"
-        parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
-        <item name="android:textColor">@color/white</item>
-        <item name="android:shadowDx">0</item>
-        <item name="android:shadowDy">0</item>
-        <item name="android:shadowRadius">1.5</item>
-    </style>
 
     <!-- the theme applied to the application or activity -->
     <style name="CustomActionBarTheme"

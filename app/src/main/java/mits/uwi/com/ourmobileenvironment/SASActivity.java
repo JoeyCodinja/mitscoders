@@ -23,6 +23,7 @@ public class SASActivity extends AppCompatActivity {
             fragment = new CourseFragment();
             fm.beginTransaction()
                     .add(R.id.sas_fragmentContainer, fragment)
+                    .addToBackStack(null)
                     .commit();
         }
 

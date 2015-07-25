@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -9,7 +9,13 @@
                 tools:context=".LandingActivity">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/linearLayout"
+        android:layout_alignStart="@+id/linearLayout"
+        android:orientation="vertical">
+
 
         <Button
             android:id="@+id/to_boss_activity_button"
@@ -22,18 +28,57 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:text="@string/ourvle_activity_button"/>
+        </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="32dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="32dp"
+            android:id="@+id/linearLayout">
         <Button
             android:id="@+id/to_sas_activity_button"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:text="@string/sas_activity_button"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bus"
+            android:id="@+id/to_bus_schedule_activity"/>
+
 
         <Button
             android:id='@+id/to_campus_information_activity_button'
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/campus_information_activity"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/landing_pageFAB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/landing_pageFAB1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/landing_pageFAB2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/landing_pageFAB3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
     </LinearLayout>
 
-</FrameLayout>
+</RelativeLayout>
