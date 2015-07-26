@@ -14,7 +14,8 @@ public class BOSSActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_boss);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
     }
 
     @Override

@@ -1,10 +1,16 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="mits.uwi.com.ourmobileenvironment.CampusInformationActivity">
     <!-- Search, should appear as action button -->
     <item android:id="@+id/action_search"
         android:icon="@drawable/ic_action_search"
-        android:title="@string/action_all"
-        android:showAsAction="ifRoom" />
+        android:title="@string/action_search"
+        app:showAsAction="ifRoom"/>
     <!-- Settings, should always be in the overflow -->
+    <item android:id="@+id/action_all"
+        android:title="@string/action_all"
+        android:showAsAction="never" />
     <item android:id="@+id/action_fast"
         android:title="@string/action_fast"
         android:showAsAction="never" />
@@ -15,3 +21,4 @@
         android:title="@string/action_fav"
         android:showAsAction="never" />
 </menu>
+

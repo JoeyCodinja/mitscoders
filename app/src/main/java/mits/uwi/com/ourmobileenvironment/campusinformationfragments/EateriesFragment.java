@@ -40,6 +40,7 @@ public class EateriesFragment extends Fragment {
         return  v;
     }
 
+
     public void initializeData(){
         eateries = new ArrayList<>();
         eateries.add(new Eateries_list("Kentucky Fried Chicken", "Ring Rd, Chancellor Hall", "Opens 9am-12am", R.drawable.kfc));

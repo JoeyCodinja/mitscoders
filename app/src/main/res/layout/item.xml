@@ -3,21 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
+    android:layout_marginBottom="5dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:clickable="true"
     android:id="@+id/cv">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="5dp"
-        android:paddingBottom="10dp"
+        android:paddingBottom="5dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp">
 
-
         <com.pkmmte.view.CircularImageView
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:id="@+id/eateries_photo"
             app:border="false"
             app:shadow="true" />
@@ -29,25 +31,44 @@
             android:layout_toRightOf="@+id/eateries_photo"
             android:layout_alignParentTop="true"
             android:textStyle="bold"
-            android:textSize="20sp"
+            android:textSize="13sp"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/favorite_icon"
+            android:layout_alignParentRight="true"
+            android:clickable="true"
+            android:src="@drawable/ic_favorite_border"
             />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/eateries_location"
             android:layout_toRightOf="@+id/eateries_photo"
             android:layout_below="@+id/eateries_name"
-            android:textSize="15sp"
+            android:textSize="13sp"
             />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/eateries_hours"
             android:layout_toRightOf="@+id/eateries_photo"
             android:layout_below="@+id/eateries_location"
-            android:textSize="15sp"
+            android:textSize="13sp"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/location_icon"
+            android:layout_alignParentRight="true"
+            android:clickable="true"
+            android:layout_below="@+id/eateries_hours"
+            android:src="@drawable/ic_location"
             />
 
     </RelativeLayout>
