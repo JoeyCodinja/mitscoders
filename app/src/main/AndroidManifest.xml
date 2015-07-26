@@ -49,15 +49,6 @@
                 android:value="mits.uwi.com.ourmobileenvironment.LandingActivity" />
 
         </activity>
-        <activity
-            android:name=".campusinformationfragments.CampusInformationPagerActivity"
-            android:label="@string/title_activity_campus_information"
-            android:parentActivityName=".CampusInformationActivity"
-            >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="mits.uwi.com.ourmobileenvironment.CampusInformationActivity"/>
-        </activity>
 
     </application>
 

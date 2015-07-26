@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.bluejamesbond.text.DocumentView;
+
 import java.util.ArrayList;
 
 import mits.uwi.com.ourmobileenvironment.R;
@@ -24,11 +26,18 @@ public class CampusInfoListFragment extends ListFragment {
         mCampusInfosList.add("Campus Eateries");
         mCampusInfosList.add("Campus Listings");
         mCampusInfosList.add("Campus Information");
+        mCampusInfosList.add("CampusInformationTest");
 
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,
                         mCampusInfosList);
         setListAdapter(adapter);
+
+        DocumentView campus_info_heading= (DocumentView)getActivity().findViewById(R.id.campus_info_heading_fragment);
+        if(campus_info_heading.getVisibility() == DocumentView.VISIBLE)
+        {
+            campus_info_heading.setVisibility(DocumentView.GONE);
+        }
     }
 
     @Override
@@ -53,12 +62,16 @@ public class CampusInfoListFragment extends ListFragment {
                     .commit();
         }
         if (position == 2){
-            Intent i = new Intent(CampusInfoListFragment.this.getActivity(), CampusInformationPagerActivity.class);
-            startActivity(i);
-//            fragment = new CampusInformationFragment();
-//            fm.beginTransaction().replace(R.id.campusinfo_fragmentContainer,fragment)
-//                    .addToBackStack(null)
-//                    .commit();
+            fragment = new CampusInformationFragment();
+            fm.beginTransaction().replace(R.id.campusinfo_fragmentContainer,fragment)
+                    .addToBackStack(null)
+                    .commit();
+        }
+        if(position == 3){
+            fragment =  new CampusInformationFragmentCustom();
+            fm.beginTransaction().replace(R.id.campusinfo_fragmentContainer, fragment)
+                    .addToBackStack(null)
+                    .commit();
         }
     }
 }
