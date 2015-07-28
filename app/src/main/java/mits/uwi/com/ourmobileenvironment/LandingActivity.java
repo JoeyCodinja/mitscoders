@@ -1,8 +1,6 @@
 package mits.uwi.com.ourmobileenvironment;
 
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,16 +8,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
-
-import mits.uwi.com.ourmobileenvironment.sasfragments.CourseFragment;
 
 
 public class LandingActivity extends AppCompatActivity {
 
     private Button mToSASActivity, mToBOSSActivity, mToOURLVEActivity, mToCampusInformationActivity;
-    private ImageView mFloatingActionButton, mFloatingActionButton2, mFloatingActionButton3, mFloatingActionButton4;
+    private ImageView mFloatingActionButton, mFloatingActionButton2, mFloatingActionButton3,
+            mFloatingActionButton4, mFloatingActionButton5, mFloatingActionButton6;
+    private Boolean mMenuExpanded = false;
 
     private static final String TAG = "LandingActivity";
 
@@ -35,14 +35,62 @@ public class LandingActivity extends AppCompatActivity {
         mFloatingActionButton3.setVisibility(View.INVISIBLE);
         mFloatingActionButton4 = (ImageView)findViewById(R.id.landing_pageFAB3);
         mFloatingActionButton4.setVisibility(View.INVISIBLE);
+        mFloatingActionButton5 = (ImageView)findViewById(R.id.landing_pageFAB4);
+        mFloatingActionButton5.setVisibility(View.INVISIBLE);
+        mFloatingActionButton6 = (ImageView)findViewById(R.id.landing_pageFAB5);
+        mFloatingActionButton6.setVisibility(View.INVISIBLE);
 
-
-        mFloatingActionButton.setOnTouchListener(new View.OnTouchListener() {
+        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
+            public void onClick(View v) {
+                if (mMenuExpanded == false) {
+                    Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translate_fab);
+                    mFloatingActionButton2.setVisibility(View.VISIBLE);
+                    mFloatingActionButton2.startAnimation(animation);
 
-                Log.d(TAG, event.toString());
-                return false;
+                    Animation animation1 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translate_fab2);
+                    mFloatingActionButton3.setVisibility(View.VISIBLE);
+                    mFloatingActionButton3.startAnimation(animation1);
+
+                    Animation animation2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translate_fab3);
+                    mFloatingActionButton4.setVisibility(View.VISIBLE);
+                    mFloatingActionButton4.startAnimation(animation2);
+
+                    Animation animation3 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translate_fab4);
+                    mFloatingActionButton5.setVisibility(View.VISIBLE);
+                    mFloatingActionButton5.startAnimation(animation3);
+
+                    Animation animation4 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translate_fab5);
+                    mFloatingActionButton6.setVisibility(View.VISIBLE);
+                    mFloatingActionButton6.startAnimation(animation4);
+
+                    mMenuExpanded = true;
+                }
+                else
+                {
+                    Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rvrs_translate_fab);
+                    mFloatingActionButton2.startAnimation(animation);
+
+                    Animation animation1 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rvrs_translate_fab2);
+                    mFloatingActionButton3.startAnimation(animation1);
+
+                    Animation animation2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rvrs_translate_fab3);
+                    mFloatingActionButton4.startAnimation(animation2);
+
+                    Animation animation3 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rvrs_translate_fab4);
+                    mFloatingActionButton5.startAnimation(animation3);
+
+                    Animation animation4 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rvrs_translate_fab5);
+                    mFloatingActionButton6.startAnimation(animation4);
+
+                    mFloatingActionButton2.setVisibility(View.GONE);
+                    mFloatingActionButton3.setVisibility(View.GONE);
+                    mFloatingActionButton4.setVisibility(View.GONE);
+                    mFloatingActionButton5.setVisibility(View.GONE);
+                    mFloatingActionButton6.setVisibility(View.GONE);
+
+                    mMenuExpanded = false;
+                }
             }
         });
 

@@ -1,64 +1,87 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                tools:context=".LandingActivity">
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
-
         <Button
             android:id="@+id/to_boss_activity_button"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:layout_marginLeft="16dp"
             android:text="@string/boss_activity_button"/>
 
         <Button
             android:id="@+id/to_ourvle_activity_button"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:text="@string/ourvle_activity_button"/>
+            android:layout_marginLeft="16dp"
+            android:text="@string/ourvle_activity_button" />
 
         <Button
             android:id="@+id/to_sas_activity_button"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:layout_marginLeft="16dp"
             android:text="@string/sas_activity_button"/>
 
         <Button
             android:id='@+id/to_campus_information_activity_button'
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
             android:text="@string/campus_information_activity"/>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/landing_pageFAB"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <ImageView
-                android:id="@+id/landing_pageFAB1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <ImageView
-                android:id="@+id/landing_pageFAB2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <ImageView
-                android:id="@+id/landing_pageFAB3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </RelativeLayout>
-
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/landing_pageFAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@drawable/main_fab"
+        android:layout_gravity="bottom|end"/>
+
+    <ImageView
+            android:id="@+id/landing_pageFAB1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:src="@drawable/ourvle_fab"
+            android:layout_gravity="bottom|end"/>
+
+    <ImageView
+            android:id="@+id/landing_pageFAB2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:src="@drawable/campusinfo_fab"
+            android:layout_gravity="bottom|end"/>
+
+    <ImageView
+            android:id="@+id/landing_pageFAB3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:src="@drawable/directory_fab"
+            android:layout_gravity="bottom|end"/>
+
+    <ImageView
+        android:id="@+id/landing_pageFAB4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@drawable/sas_fab"
+        android:layout_gravity="bottom|end"/>
+
+    <ImageView
+        android:id="@+id/landing_pageFAB5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@drawable/boss_fab"
+        android:layout_gravity="bottom|end"/>
 
 </FrameLayout>
