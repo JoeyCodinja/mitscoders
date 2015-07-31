@@ -1,0 +1,69 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/to_boss_activity_button"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="@string/boss_activity_button"/>
+
+        <Button
+            android:id="@+id/to_ourvle_activity_button"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="@string/ourvle_activity_button" />
+
+        <Button
+            android:id="@+id/to_sas_activity_button"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="@string/sas_activity_button"/>
+
+        <Button
+            android:id='@+id/to_campus_information_activity_button'
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="@string/campus_information_activity"/>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/landing_pageFAB"
+        style="@style/FABButtons"
+        android:src="@drawable/main_fab"/>
+
+    <ImageView
+        android:id="@+id/landing_pageFAB1"
+        style="@style/FABButtons"
+        android:src="@drawable/ourvle_fab"/>
+
+    <ImageView
+        android:id="@+id/landing_pageFAB2"
+        style="@style/FABButtons"
+        android:src="@drawable/campusinfo_fab"/>
+
+    <ImageView
+        android:id="@+id/landing_pageFAB3"
+        style="@style/FABButtons"
+        android:src="@drawable/directory_fab"/>
+
+    <ImageView
+        android:id="@+id/landing_pageFAB4"
+        style="@style/FABButtons"
+        android:src="@drawable/sas_fab"/>
+
+    <ImageView
+        android:id="@+id/landing_pageFAB5"
+        style="@style/FABButtons"
+        android:src="@drawable/boss_fab"/>
+
+</FrameLayout>

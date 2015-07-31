@@ -6,8 +6,14 @@
     <translate
         android:startOffset="200"
         android:fromXDelta="-20%p"
-        android:fromYDelta="-40%p"
+        android:fromYDelta="-70%p"
         android:toXDelta="0%p"
         android:toYDelta="0%p"
         android:duration="200"/>
+
+    <alpha
+        android:startOffset="200"
+        android:fromAlpha="1"
+        android:toAlpha="0"
+        android:duration="2000"/>
 </set>

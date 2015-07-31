@@ -96,5 +96,14 @@
         internationally competitive university, deeply rooted in all aspects of Caribbean
         development and committed to serving the diverse people of the region and beyond.
     </string>
+    <string name="title_activity_home">Home</string>
+    <string-array name="navigation_menu_titles">
+        <item>E-mail</item>
+        <item>Notificaitons</item>
+        <item>Directory</item>
+        <item>Wi-Fi Finder</item>
+        <item>Emergency Services</item>
+    </string-array>
+
 
 </resources>
