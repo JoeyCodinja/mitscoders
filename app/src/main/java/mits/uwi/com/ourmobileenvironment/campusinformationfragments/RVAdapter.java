@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.pkmmte.view.CircularImageView;
-
 import java.util.List;
 
 import mits.uwi.com.ourmobileenvironment.R;
@@ -24,7 +22,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EateriesViewHolder
         TextView eateriesName;
         TextView eateriesLocation;
         TextView eateriesHours;
-        CircularImageView eateriesPhoto;
+        ImageView eateriesPhoto;
         ImageView favoriteIcon;
         ImageView locationIcon;
 
@@ -34,28 +32,40 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EateriesViewHolder
             eateriesName = (TextView)itemView.findViewById(R.id.eateries_name);
             eateriesLocation = (TextView)itemView.findViewById(R.id.eateries_location);
             eateriesHours = (TextView)itemView.findViewById(R.id.eateries_hours);
-            eateriesPhoto = (CircularImageView)itemView.findViewById(R.id.eateries_photo);
+            eateriesPhoto = (ImageView)itemView.findViewById(R.id.eateries_photo);
             favoriteIcon = (ImageView)itemView.findViewById(R.id.favorite_icon);
             locationIcon = (ImageView)itemView.findViewById(R.id.location_icon);
+
+            favoriteIcon.setColorFilter(R.color.grey, PorterDuff.Mode.DST_OUT);
+            locationIcon.setColorFilter(R.color.grey, PorterDuff.Mode.DST_OUT);
 
             cv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View itemView) {
                     // item clicked
+                    cv.setCardBackgroundColor(255);
+                    /*FragmentManager fm = getActivity().getSupportFragmentManager();
+                    android.support.v4.app.Fragment fragment;
+                    fragment = new EateriesFragment();
+                    fm.beginTransaction().replace(R.id.campusinfo_fragmentContainer, fragment)
+                            .addToBackStack(null)
+                            .commit();*/
                 }
             });
             favoriteIcon.setOnClickListener(new View.OnClickListener() {
-                @Override
+            @Override
                 public void onClick(View itemView) {
                     // item clicked
-                    favoriteIcon.setColorFilter(R.color.red, PorterDuff.Mode.SRC_IN);
+                    favoriteIcon.setBackgroundResource(R.color.red);
+                    //favoriteIcon.setBackgroundResource(0);
                 }
             });
             locationIcon.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View itemView) {
                     // item clicked
-                    locationIcon.setColorFilter(R.color.red, PorterDuff.Mode.SRC_IN);
+                    locationIcon.setBackgroundResource(R.color.red);
+                    //locationIcon.setBackgroundResource(0);
                 }
             });
         }
@@ -74,7 +84,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EateriesViewHolder
 
     @Override
     public EateriesViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cardview_eateries, viewGroup, false);
         EateriesViewHolder pvh = new EateriesViewHolder(v);
         return pvh;
     }
