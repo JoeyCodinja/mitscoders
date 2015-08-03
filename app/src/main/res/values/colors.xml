@@ -5,4 +5,5 @@
     <color name="tabstrip">#E35216</color>
     <color name="red">#FF0000</color>
     <color name="grey">#B1B0AF</color>
+    <color name="blue_background">#476EDE</color>
 </resources>

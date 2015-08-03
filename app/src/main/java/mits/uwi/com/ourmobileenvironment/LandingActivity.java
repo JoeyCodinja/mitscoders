@@ -12,7 +12,7 @@ import android.widget.Button;
 
 public class LandingActivity extends AppCompatActivity {
 
-    private Button mToSASActivity, mToBOSSActivity, mToOURLVEActivity, mToBusScheduleActivity;
+    private Button mToSASActivity, mToBOSSActivity, mToOURLVEActivity, mToBusScheduleActivity,mtoDirectoryActivity;
 
     private static final String TAG = "LandingActivity";
 
@@ -55,6 +55,15 @@ public class LandingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(LandingActivity.this, BusScheduleActivity.class);
+                startActivity(i);
+            }
+        });
+
+        mtoDirectoryActivity=(Button)findViewById(R.id.to_directory_activity_button);
+        mtoDirectoryActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(LandingActivity.this,DirectoryActivity.class);
                 startActivity(i);
             }
         });
