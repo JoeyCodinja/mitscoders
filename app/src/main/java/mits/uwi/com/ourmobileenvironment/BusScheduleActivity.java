@@ -57,7 +57,7 @@ public class BusScheduleActivity extends AppCompatActivity {
         mSlidingTabLayout=(SlidingTabLayout) findViewById(R.id.sltab);
         mSlidingTabLayout.setCustomTabView(R.layout.tabview, R.id.tabtitle);
         mSlidingTabLayout.setViewPager(bPage);
-        mSlidingTabLayout.setSelectedIndicatorColors(getResources().getColor(R.color.tabstrip));
+        mSlidingTabLayout.setSelectedIndicatorColors(getResources().getColor(R.color.white));
         mSlidingTabLayout.setDividerColors(getResources().getColor(R.color.actionbar_background));
         mSlidingTabLayout.setTabsBackgroundColor(getResources().getColor(R.color.actionbar_background));
 

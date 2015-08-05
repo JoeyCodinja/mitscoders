@@ -16,6 +16,18 @@ public class CampusInformationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+<<<<<<< Updated upstream:app/src/main/java/mits/uwi/com/ourmobileenvironment/CampusInformationActivity.java
+=======
+        setContentView(R.layout.activity_directory);
+        FragmentManager fm=getSupportFragmentManager();
+        Fragment dfragment=fm.findFragmentById(R.id.directoryfragmentcontainer);
+        if (dfragment==null){
+            dfragment=new DirectoryFragment();
+            fm.beginTransaction().add(R.id.directoryfragmentcontainer, dfragment).commit();
+        }
+        //Calls to this function reposition the overflow
+        ToprightBar.setTopOverflow(this);
+>>>>>>> Stashed changes:app/src/main/java/mits/uwi/com/ourmobileenvironment/DirectoryActivity.java
 
         setContentView(R.layout.activity_campus_information);
 
