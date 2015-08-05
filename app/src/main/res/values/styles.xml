@@ -59,4 +59,17 @@
 
 
 
+    <style name="blueactionbartheme"
+        parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:actionBarStyle">@style/bluebar</item>
+        <item name="actionBarStyle">@style/bluebar</item>
+    </style>
+    <style name="bluebar"
+        parent="orange_bar"
+        >
+        <item name="android:colorBackground">@color/blue_background</item>
+        <item name="background">@color/blue_background</item>
+        <item name="elevation">10dp</item>
+    </style>
+
 </resources>

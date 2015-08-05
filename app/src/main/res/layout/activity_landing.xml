@@ -28,7 +28,13 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:text="@string/ourvle_activity_button"/>
-        </LinearLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Directory"
+            android:id="@+id/to_directory_activity_button" />
+    </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"

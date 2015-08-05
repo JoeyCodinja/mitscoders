@@ -62,6 +62,14 @@
 
                 android:value="mits.uwi.com.ourmobileenvironment.LandingActivity"/>
         </activity>
+        <activity android:name=".DirectoryActivity"
+            android:label="@string/title_activity_directory"
+            android:theme="@style/blueactionbartheme"
+            android:parentActivityName=".LandingActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="mits.uwi.com.ourmobileenvironment.LandingActivity"></meta-data>
+        </activity>
 
     </application>
 

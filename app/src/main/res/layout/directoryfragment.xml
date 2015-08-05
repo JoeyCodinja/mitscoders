@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/cv"
+    android:layout_marginBottom="15dp"
+    android:background="@color/white">
+<RelativeLayout
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:id="@+id/la"
+    android:focusableInTouchMode="true">
+
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:id="@+id/roundimg"
+        android:src="@drawable/buntu"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="30dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Dr. Carlton Lowrie"
+        android:id="@+id/name"
+        android:layout_alignTop="@+id/roundimg"
+        android:layout_toRightOf="@+id/roundimg"
+        android:layout_toEndOf="@+id/roundimg" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Director"
+        android:id="@+id/title"
+        android:layout_below="@+id/name"
+        android:layout_toRightOf="@+id/roundimg"
+        android:layout_toEndOf="@+id/roundimg" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Student Services"
+        android:id="@+id/department"
+        android:layout_below="@+id/title"
+        android:layout_toRightOf="@+id/roundimg"
+        android:layout_toEndOf="@+id/roundimg" />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:id="@+id/phone"
+        android:src="@drawable/call_end"
+        android:layout_toRightOf="@+id/roundimg"
+        android:layout_toEndOf="@+id/roundimg"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        android:layout_below="@+id/roundimg" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="977-8925"
+        android:id="@+id/number"
+        android:layout_alignBottom="@+id/phone"
+        android:layout_alignRight="@+id/name"
+        android:layout_alignEnd="@+id/name" />
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:id="@+id/location"
+        android:src="@drawable/location_on"
+        android:layout_alignTop="@+id/name"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="28dp"
+        android:layout_marginEnd="28dp" />
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/arrow"
+        android:src="@drawable/arrow_down"
+        android:layout_alignBottom="@+id/number"
+        android:layout_alignRight="@+id/location"
+        android:layout_alignEnd="@+id/location"
+        android:paddingLeft="5dp" />
+
+
+</RelativeLayout>
+    </android.support.v7.widget.CardView>
