@@ -58,7 +58,6 @@
 
     <!--Directory Strings -->
     <string name="title_activity_directory">Directory</string>
-    <string name="action_all">All</string>
     <string name="action_department">Department</string>
     <string name="action_names">Names</string>
 

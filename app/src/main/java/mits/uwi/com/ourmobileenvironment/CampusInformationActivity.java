@@ -16,8 +16,6 @@ public class CampusInformationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-<<<<<<< Updated upstream:app/src/main/java/mits/uwi/com/ourmobileenvironment/CampusInformationActivity.java
-=======
         setContentView(R.layout.activity_directory);
         FragmentManager fm=getSupportFragmentManager();
         Fragment dfragment=fm.findFragmentById(R.id.directoryfragmentcontainer);
@@ -27,22 +25,10 @@ public class CampusInformationActivity extends AppCompatActivity {
         }
         //Calls to this function reposition the overflow
         ToprightBar.setTopOverflow(this);
->>>>>>> Stashed changes:app/src/main/java/mits/uwi/com/ourmobileenvironment/DirectoryActivity.java
 
-        setContentView(R.layout.activity_campus_information);
 
-        FragmentManager fm = getSupportFragmentManager();
-        Fragment fragment = fm.findFragmentById(R.id.campusinfo_fragmentContainer);
-
-        if (fragment == null){
-            fragment = new CampusInfoListFragment();
-            fm.beginTransaction()
-                    .add(R.id.campusinfo_fragmentContainer, fragment)
-                    .addToBackStack(null)
-                    .commit();
 
         }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

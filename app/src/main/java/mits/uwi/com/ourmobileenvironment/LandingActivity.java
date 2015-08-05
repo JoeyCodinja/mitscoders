@@ -18,7 +18,7 @@ import mits.uwi.com.ourmobileenvironment.sasfragments.CourseFragment;
 
 public class LandingActivity extends AppCompatActivity {
 
-    private Button mToSASActivity, mToBOSSActivity, mToOURLVEActivity, mToCampusInformationActivity,mToBusScheduleActivity;
+    private Button mToSASActivity, mToBOSSActivity, mToOURLVEActivity, mToCampusInformationActivity,mToBusScheduleActivity,mtoDirectoryActivity;
     private ImageView mFloatingActionButton, mFloatingActionButton2, mFloatingActionButton3, mFloatingActionButton4;
 
 

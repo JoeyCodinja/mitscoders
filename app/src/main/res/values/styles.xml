@@ -65,7 +65,7 @@
         <item name="actionBarStyle">@style/bluebar</item>
     </style>
     <style name="bluebar"
-        parent="orange_bar"
+        parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
         >
         <item name="android:colorBackground">@color/blue_background</item>
         <item name="background">@color/blue_background</item>
