@@ -54,6 +54,7 @@
 
     <!-- Transportation Strings -->
     <string name="title_activity_bus_schedule">Transport</string>
+    <string name="bus_search_hint">Search route</string>
 
 
     <!--Directory Strings -->
@@ -114,5 +115,8 @@
     <string name="action_fast">Fast Food</string>
     <string name="action_cooked">Cooked Food</string>
     <string name="action_fav">Favourites</string>
+    <string name="title_activity_bus_search">BusSearchActivity</string>
+
+    <string name="hello_world">Hello world!</string>
 
 </resources>

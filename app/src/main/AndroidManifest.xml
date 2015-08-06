@@ -40,37 +40,48 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mits.uwi.com.ourmobileenvironment.LandingActivity" />
         </activity>
-
         <activity
             android:name=".BusScheduleActivity"
-            android:label="@string/title_activity_bus_schedule"
             android:configChanges="orientation"
+            android:label="@string/title_activity_bus_schedule"
             android:parentActivityName=".LandingActivity"
             android:theme="@style/actionbartheme" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mits.uwi.com.ourmobileenvironment.LandingActivity" />
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable"
+                android:value=".BusSearchActivity"
+                />
         </activity>
-
         <activity
             android:name=".CampusInformationActivity"
             android:label="@string/title_activity_campus_information"
             android:parentActivityName=".LandingActivity"
-            android:theme="@style/campusinfotheme">
+            android:theme="@style/campusinfotheme" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-
-                android:value="mits.uwi.com.ourmobileenvironment.LandingActivity"/>
+                android:value="mits.uwi.com.ourmobileenvironment.LandingActivity" />
         </activity>
-        <activity android:name=".DirectoryActivity"
+        <activity
+            android:name=".DirectoryActivity"
             android:label="@string/title_activity_directory"
-            android:theme="@style/blueactionbartheme"
-            android:parentActivityName=".LandingActivity">
+            android:parentActivityName=".LandingActivity"
+            android:theme="@style/blueactionbartheme" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="mits.uwi.com.ourmobileenvironment.LandingActivity"></meta-data>
+                android:value="mits.uwi.com.ourmobileenvironment.LandingActivity" />
         </activity>
-
+        <activity
+            android:name=".BusSearchActivity"
+            android:label="@string/title_activity_bus_search" >
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
