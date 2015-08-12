@@ -1,0 +1,33 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="mits.uwi.com.ourmobileenvironment.homepagefragments.HomeNewsFragment">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal"
+            android:background="#ff3121">
+
+            <LinearLayout
+                android:id="@+id/newsColumn1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical"
+                android:layout_gravity="left"
+                android:background="#408231"/>
+            <LinearLayout
+                android:id="@+id/newsColumn2"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical"
+                android:gravity="right"
+                android:background="#123182"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

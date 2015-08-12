@@ -4,10 +4,7 @@
     <string name="action_settings">Settings</string>
 
     <!-- Landing strings -->
-    <string name="ourvle_activity_button">OurVLE</string>
-    <string name="sas_activity_button">SAS</string>
-    <string name="boss_activity_button">BOSS</string>
-    <string name="campus_information_activity">Campus Info</string>
+
 
 
     <!-- OurVLE strings -->
@@ -104,6 +101,12 @@
         <item>Wi-Fi Finder</item>
         <item>Emergency Services</item>
     </string-array>
+
+    <!-- Campus Directory Strings -->
+    <string name="title_activity_campus_directory">Campus Directory</string>
+    <string name="action_search">Search</string>
+
+
 
 
 </resources>

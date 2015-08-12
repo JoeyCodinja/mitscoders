@@ -1,5 +1,6 @@
 package mits.uwi.com.ourmobileenvironment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,12 +10,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.bluejamesbond.text.DocumentView;
-import mits.uwi.com.ourmobileenvironment.HomeActivityFragment;
+
+import mits.uwi.com.ourmobileenvironment.adapters.HomePageArrayAdapter;
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.CampusInformationFragment;
+import mits.uwi.com.ourmobileenvironment.homepagefragments.HomeActivityFragment;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -75,7 +77,8 @@ public class HomeActivity extends AppCompatActivity {
         }
         //Directory
         else if (position == 2){
-
+            Intent i = new Intent(this, CampusDirectoryActivity.class);
+            startActivity(i);
         }
         //Wi-Fi Finder
         else if (position == 3){
@@ -87,10 +90,11 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         mDrawerList.setItemChecked(position, true);
-        setTitle(mNavigationMenuTitles[position]);
         mNavigationDrawerLayout.closeDrawer(mDrawerList);
     }
 
+
+    //For use with the CampusInformation Fragment
     @Override
     public void onBackPressed() {
         if (fragment.equals( new CampusInformationFragment() )) {
@@ -100,11 +104,6 @@ public class HomeActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
-    @Override
-    public void setTitle(CharSequence title) {
-        mTitle = title;
-        getActionBar().setTitle(mTitle);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

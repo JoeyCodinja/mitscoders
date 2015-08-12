@@ -15,6 +15,7 @@ import android.support.design.widget.TabLayout;
 import com.bluejamesbond.text.DocumentView;
 
 import mits.uwi.com.ourmobileenvironment.R;
+import mits.uwi.com.ourmobileenvironment.adapters.CampusInfoViewPagerAdapter;
 
 
 /**
@@ -24,7 +25,7 @@ public class CampusInformationFragment extends Fragment {
 
     ExpandableListView mCampusInfo_ExpandableList;
     ViewPager  mCampusInfo_ViewPager;
-    ViewPagerAdapter adapter;
+    CampusInfoViewPagerAdapter adapter;
     LayoutInflater inflater;
     TabLayout tabs;
 
@@ -65,7 +66,7 @@ public class CampusInformationFragment extends Fragment {
 
         FragmentManager fm = this.getActivity().getSupportFragmentManager();
 
-        adapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager(), groups, children, groups.length);
+        adapter = new CampusInfoViewPagerAdapter(getActivity().getSupportFragmentManager(), groups, children, groups.length);
 
         mCampusInfo_ViewPager = (ViewPager)v.findViewById(R.id.campus_info_viewpager);
         mCampusInfo_ViewPager.setAdapter(adapter);
