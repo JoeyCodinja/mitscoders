@@ -13,7 +13,6 @@ import android.text.style.ImageSpan;
  */
 public class HomePageViewPagerAdapter extends FragmentStatePagerAdapter {
 
-    private Drawable[] mTabHeadings;
     private Fragment[] mTabBodies;
 
     @Override
@@ -21,7 +20,6 @@ public class HomePageViewPagerAdapter extends FragmentStatePagerAdapter {
 
     public HomePageViewPagerAdapter(FragmentManager fm, Drawable[]tabheadings, Fragment[]tabbodies){
         super(fm);
-        this.mTabHeadings = tabheadings;
         this.mTabBodies = tabbodies;
     }
 
@@ -33,14 +31,8 @@ public class HomePageViewPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        String string = "" ;
-//        Drawable image = mTabHeadings[position];
-//        image.setBounds(0, 0, image.getIntrinsicWidth()
-//                , image.getIntrinsicHeight());
-//        SpannableString string = new SpannableString(" ");
-//        ImageSpan headingImageSpan = new ImageSpan(image, ImageSpan.ALIGN_BOTTOM);
-//        string.setSpan(headingImageSpan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        return string;
+        // The Icons are set in the HomeActivityFragment
+        return new String();
     }
 
 }

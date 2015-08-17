@@ -4,7 +4,8 @@
     <string name="action_settings">Settings</string>
 
     <!-- Landing strings -->
-
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_close">Close</string>
 
 
     <!-- OurVLE strings -->

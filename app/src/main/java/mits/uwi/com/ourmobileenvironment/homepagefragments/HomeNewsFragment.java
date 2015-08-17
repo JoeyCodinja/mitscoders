@@ -1,40 +1,45 @@
 package mits.uwi.com.ourmobileenvironment.homepagefragments;
 
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+
+import java.beans.PropertyChangeEvent;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import mits.uwi.com.ourmobileenvironment.R;
+import mits.uwi.com.ourmobileenvironment.models.Home.Home_News;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link HomeNewsFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link HomeNewsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class HomeNewsFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    private CardView[] mNewsCards;
+    private ArrayList<CardView> mNewsCards = new ArrayList<>();
+    private Home_News mNewsItems;
+    private ArrayList<String> newsTitleStrings = new ArrayList<>();
+    private String[] newsDescriptionStrings = new String[50];
 
-    private String mParam1;
-    private String mParam2;
+    PropertyChangeEvent mTitleStringWatcher = new PropertyChangeEvent(newsTitleStrings, "length", newsTitleStrings.size(), newsTitleStrings.size());
 
-
-    public static HomeNewsFragment newInstance(String param1, String param2) {
+    public static HomeNewsFragment newInstance() {
         HomeNewsFragment fragment = new HomeNewsFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -46,16 +51,73 @@ public class HomeNewsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        if (getArguments() != null) {}
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home_news, container, false);
+        View v = inflater.inflate(R.layout.fragment_home_news, container, false);
+
+        LinearLayout column1 = (LinearLayout) v.findViewById(R.id.newsColumn1);
+        LinearLayout column2 = (LinearLayout) v.findViewById(R.id.newsColumn2);
+        LinearLayout[] columns = {column1, column2};
+        new RetrieveRSSFeedTask().execute("");
+
+        for (int i=0;
+             i < 25;
+             i++){
+            CardView cardNewsItem = (CardView) new CardView(getActivity()).inflate(getActivity(), R.layout.news_item_layout, null);
+            TextView newsCardTitle = (TextView) cardNewsItem.findViewById(R.id.news_item_card_title);
+            newsCardTitle.setId(i);
+            mNewsCards.add(cardNewsItem);
+            columns[i%columns.length].addView(cardNewsItem);
+        }
+        return v;
+    }
+
+    public class RetrieveRSSFeedTask extends AsyncTask<String, Void, Home_News>{
+        ArrayList<Bitmap> newsItemImages = new ArrayList<>();
+        ArrayList<String> newsItemTitles = new ArrayList<>();
+
+        @Override
+        protected Home_News doInBackground(String... params) {
+            try {
+                mNewsItems = new Home_News();
+                for (Element element: mNewsItems.getNewsItems()){
+                    newsItemTitles.add(mNewsItems.getNewsItemTitle(element));
+                    newsItemImages.add(mNewsItems.getNewsItemImage(element));
+                }
+                return mNewsItems;
+            }
+            catch(Exception e)
+            {
+                mNewsItems = null;
+                Log.e("HomeNewsFragment", e.getMessage());
+                e.printStackTrace();
+                return null;
+            }
+
+        }
+
+        @Override
+        protected void onPostExecute(Home_News home_news) {
+            if (mNewsItems != null){
+
+                Elements newsItems = mNewsItems.getNewsItems();
+
+                for (Element newsItem: newsItems){
+                    ImageView newsItemCardImage = (ImageView) mNewsCards.get(newsItems
+                            .indexOf(newsItem)).getChildAt(0);
+                    TextView newsItemCardTitle = (TextView) mNewsCards.get(newsItems.
+                            indexOf(newsItem)).getChildAt(1);
+                    newsItemCardImage.setImageBitmap(newsItemImages.get(newsItems.indexOf(newsItem)));
+                    newsItemCardTitle.setText(newsItemTitles.get(newsItems.indexOf(newsItem)));
+                }
+
+            }
+
+        }
     }
 }

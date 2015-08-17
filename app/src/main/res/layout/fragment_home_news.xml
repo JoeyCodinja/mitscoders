@@ -1,31 +1,32 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="mits.uwi.com.ourmobileenvironment.homepagefragments.HomeNewsFragment">
+    android:layout_height="fill_parent"
+    tools:context="mits.uwi.com.ourmobileenvironment.homepagefragments.HomeNewsFragment"
+    >
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:scrollbars="none">
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:orientation="horizontal"
-            android:background="#ff3121">
+            >
 
             <LinearLayout
                 android:id="@+id/newsColumn1"
-                android:layout_width="fill_parent"
+                android:layout_width="180dp"
                 android:layout_height="fill_parent"
                 android:orientation="vertical"
-                android:layout_gravity="left"
-                android:background="#408231"/>
+                android:layout_gravity="left"/>
+
             <LinearLayout
                 android:id="@+id/newsColumn2"
-                android:layout_width="fill_parent"
+                android:layout_width="180dp"
                 android:layout_height="fill_parent"
                 android:orientation="vertical"
-                android:gravity="right"
-                android:background="#123182"/>
+                android:gravity="right"/>
 
         </LinearLayout>
     </ScrollView>

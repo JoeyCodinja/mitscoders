@@ -95,6 +95,8 @@ public class HomeActivityFragment extends Fragment {
 
             @Override
             public void onAnimationCancel(Animator animation) {
+                // TODO: Ensure that image views return to their base state
+                // and the mMenuExpanded field is set to false
                 Log.d(TAG, "Animation Cancel");
 //                for (ImageView button: buttons){
 //                }
@@ -235,13 +237,6 @@ public class HomeActivityFragment extends Fragment {
             }
         });
 
-        mViewPagerTabIcons = new Drawable[]
-                {ResourcesCompat.
-                    getDrawable(getResources(),
-                            R.drawable.home_selected, null),
-                ResourcesCompat.
-                        getDrawable(getResources(),
-                                R.drawable.filmstrip, null)};
 
 
         adapter = new HomePageViewPagerAdapter(getActivity().getSupportFragmentManager(),
@@ -256,6 +251,7 @@ public class HomeActivityFragment extends Fragment {
         tabs.setupWithViewPager(mHome_ViewPager);
         tabs.getTabAt(0).setIcon(R.drawable.home_selected);
         tabs.getTabAt(1).setIcon(R.drawable.filmstrip);
+
         tabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

@@ -1,11 +1,15 @@
 package mits.uwi.com.ourmobileenvironment;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,16 +22,18 @@ import mits.uwi.com.ourmobileenvironment.adapters.HomePageArrayAdapter;
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.CampusInformationFragment;
 import mits.uwi.com.ourmobileenvironment.homepagefragments.HomeActivityFragment;
 
+import static mits.uwi.com.ourmobileenvironment.R.drawable.uwi_coat_of_arms;
+
 
 public class HomeActivity extends AppCompatActivity {
 
     private String[] mNavigationMenuTitles;
     private DrawerLayout mNavigationDrawerLayout;
     private ListView mDrawerList;
+    private ActionBarDrawerToggle mNavigationDrawerToggle;
     private HomePageArrayAdapter mAdapter;
     private FragmentManager fm ;
     private Fragment fragment;
-    private CharSequence mTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +42,35 @@ public class HomeActivity extends AppCompatActivity {
 
         mNavigationMenuTitles = getResources().getStringArray(R.array.navigation_menu_titles);
         mNavigationDrawerLayout = (DrawerLayout)findViewById(R.id.home_drawer);
+        mNavigationDrawerToggle = new ActionBarDrawerToggle(this, mNavigationDrawerLayout,
+                                                            R.string.navigation_drawer_open,
+                                                            R.string.navigation_drawer_close){
+            /** Called when a drawer is closed */
+            @Override
+            public void onDrawerClosed(View view){
+                super.onDrawerClosed(view);
+                invalidateOptionsMenu();
+            }
+
+            /** Called when a drawer is opened */
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                invalidateOptionsMenu();
+            }
+        };
+
+        mNavigationDrawerLayout.setDrawerListener(mNavigationDrawerToggle);
+
+        getSupportActionBar().
+                setIcon(getResources()
+                        .getDrawable(R.drawable.uwi_coat_of_arms));
+
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setTitle(R.string.title_activity_home);
+
         mDrawerList = (ListView) findViewById(R.id.home_drawer_menu);
 
         mAdapter = new HomePageArrayAdapter(this, mNavigationMenuTitles);
@@ -43,9 +78,7 @@ public class HomeActivity extends AppCompatActivity {
 
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
-        getSupportActionBar().setTitle(R.string.title_activity_home);
-
-        //Fragment
+        //Fragment hosting Content
 
         fm = getSupportFragmentManager();
         fragment = fm.findFragmentById(R.id.home_content);
@@ -93,6 +126,18 @@ public class HomeActivity extends AppCompatActivity {
         mNavigationDrawerLayout.closeDrawer(mDrawerList);
     }
 
+    @Override
+    public void onPostCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
+        super.onPostCreate(savedInstanceState, persistentState);
+        // Sync the toggle state after onRestoreInstanceState has occurred
+        mNavigationDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mNavigationDrawerToggle.onConfigurationChanged(newConfig);
+    }
 
     //For use with the CampusInformation Fragment
     @Override
@@ -104,6 +149,10 @@ public class HomeActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        return super.onPrepareOptionsMenu(menu);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -118,7 +167,9 @@ public class HomeActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+        if (mNavigationDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;

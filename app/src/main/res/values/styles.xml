@@ -7,6 +7,7 @@
 
     <style name="HomeActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">#ffe20502</item>
+        <item name="android:windowContentOverlay">@null</item>
     </style>
 
     <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
