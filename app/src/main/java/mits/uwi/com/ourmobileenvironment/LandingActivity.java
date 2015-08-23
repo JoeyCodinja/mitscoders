@@ -18,8 +18,9 @@ import mits.uwi.com.ourmobileenvironment.sasfragments.CourseFragment;
 
 public class LandingActivity extends AppCompatActivity {
 
-    private Button mToSASActivity, mToBOSSActivity, mToOURLVEActivity, mToCampusInformationActivity,mToBusScheduleActivity;
+    private Button mToSASActivity, mToBOSSActivity, mToOURLVEActivity, mToCampusInformationActivity,mToBusScheduleActivity,mtoDirectoryActivity;
     private ImageView mFloatingActionButton, mFloatingActionButton2, mFloatingActionButton3, mFloatingActionButton4;
+
 
     private static final String TAG = "LandingActivity";
 
@@ -92,6 +93,15 @@ public class LandingActivity extends AppCompatActivity {
                 Intent i = new Intent(LandingActivity.this, CampusInformationActivity.class);
                 Log.d(TAG, "Starting CampusInfo Activity");
 
+                startActivity(i);
+            }
+        });
+
+        mtoDirectoryActivity=(Button)findViewById(R.id.to_directory_activity_button);
+        mtoDirectoryActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(LandingActivity.this,DirectoryActivity.class);
                 startActivity(i);
             }
         });
