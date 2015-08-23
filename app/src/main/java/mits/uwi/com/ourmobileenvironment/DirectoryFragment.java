@@ -1,8 +1,6 @@
 package mits.uwi.com.ourmobileenvironment;
 
-import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,11 +20,8 @@ import java.util.ArrayList;
  */
 public class DirectoryFragment extends Fragment {
 
-
     private ArrayList<DirectoryEntry> mDirectories=new ArrayList<>();
-
     private DirectoryAdapter directoryAdapter;
-
 
     public DirectoryFragment() {
     }
@@ -50,9 +45,7 @@ public class DirectoryFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         getActivity().setTitle(R.string.title_activity_directory);
-
-
-
+        mDirectories=DirectoryEntry.getmDirectories();
 
 
 

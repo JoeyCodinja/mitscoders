@@ -52,5 +52,6 @@ public class DirectoryEntry {
         mDirectories.add(new DirectoryEntry("Steve Jobssss","987-8900","Director","Student Services",R.drawable.purple));
         mDirectories.add(new DirectoryEntry("Elon Mosssssk","987-8900","Director","Student Services",R.drawable.red));
         mDirectories.add(new DirectoryEntry("Carl Segaaaaan","987-8900","Director","Student Services",R.drawable.whatsapp));
+
     }
 }

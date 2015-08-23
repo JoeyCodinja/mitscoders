@@ -30,9 +30,6 @@ public class CampusInformationActivity extends AppCompatActivity {
         }
         //Calls to this function reposition the overflow
         ToprightBar.setTopOverflow(this);
-
-
-
         }
 
     @Override

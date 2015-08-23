@@ -42,7 +42,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mits.uwi.com.ourmobileenvironment.LandingActivity" />
         </activity>
-
         <activity
             android:name=".BusScheduleActivity"
             android:label="@string/title_activity_bus_schedule"
@@ -67,7 +66,6 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mits.uwi.com.ourmobileenvironment.LandingActivity" />
-                android:value="mits.uwi.com.ourmobileenvironment.LandingActivity"
                 />
             <meta-data android:name="android.app.searchable"
                 android:resource="@xml/searchable"/>
@@ -84,6 +82,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mits.uwi.com.ourmobileenvironment.LandingActivity" />
         </activity>
+
     </application>
 
 </manifest>
