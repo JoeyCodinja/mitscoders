@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.CampusInfoListFragment;
+import mits.uwi.com.ourmobileenvironment.campusinformationfragments.EateriesFragment;
 
 
 public class CampusInformationActivity extends AppCompatActivity {
@@ -16,12 +17,16 @@ public class CampusInformationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_directory);
-        FragmentManager fm=getSupportFragmentManager();
-        Fragment dfragment=fm.findFragmentById(R.id.directoryfragmentcontainer);
-        if (dfragment==null){
-            dfragment=new DirectoryFragment();
-            fm.beginTransaction().add(R.id.directoryfragmentcontainer, dfragment).commit();
+        setContentView(R.layout.activity_campus_information);
+
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment fragment = fm.findFragmentById(R.id.campusinfo_fragmentContainer);
+
+        if (fragment == null){
+            fragment = new CampusInfoListFragment();
+            fm.beginTransaction()
+                    .add(R.id.campusinfo_fragmentContainer, fragment)
+                    .commit();
         }
         //Calls to this function reposition the overflow
         ToprightBar.setTopOverflow(this);
