@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -60,6 +61,7 @@ public class HomeActivityFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_landing, container, false);
 
         mFloatingActionButton = (ImageView)v.findViewById(R.id.landing_pageFAB);
+        mFloatingActionButton.bringToFront();
         mFloatingActionButton2 = (ImageView)v.findViewById(R.id.landing_pageFAB1);
         mFloatingActionButton2.setVisibility(View.INVISIBLE);
         mFloatingActionButton3 = (ImageView)v.findViewById(R.id.landing_pageFAB2);
@@ -195,52 +197,37 @@ public class HomeActivityFragment extends Fragment {
             }
         });
 
-        mFloatingActionButton2.setOnClickListener(new View.OnClickListener() {
+        View.OnClickListener FABClickListener = new View.OnClickListener() {
+            Intent i;
+
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getActivity(), CampusInformationActivity.class);
-                Log.d(TAG, "Starting CampusInfo Activity");
-                startActivity(i);
+                switch(v.getId()){
+                    case R.id.landing_pageFAB1:
+                        i = new Intent(getActivity(), CampusInformationActivity.class);
+                        startActivity(i);
+                        break;
+                    case R.id.landing_pageFAB2:
+//                        i = new Intent(getActivity(), CampusTransportationActivity.class);
+//                        startActivity(i);
+                        break;
+                    case R.id.landing_pageFAB3:
+                        i = new Intent(getActivity(), OurVLEActivity.class);
+                        startActivity(i);
+                        break;
+                    case R.id.landing_pageFAB4:
+                        i = new Intent(getActivity(), BOSSActivity.class);
+                        startActivity(i);
+                        break;
+                    case R.id.landing_pageFAB5:
+                        i = new Intent(getActivity(), SASActivity.class);
+                        startActivity(i);
+                        break;
+                }
             }
-        });
-
-        mFloatingActionButton3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Intent i = new Intent(getActivity(), CampusTransportationActivity.class);
-//                startActivity(i);
-            }
-        });
-
-        mFloatingActionButton4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getActivity(), OurVLEActivity.class);
-                Log.d(TAG, "StartingOurVLEActivity");
-                startActivity(i);
-            }
-        });
-
-        mFloatingActionButton5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getActivity(), BOSSActivity.class);
-                startActivity(i);
-            }
-        });
-
-        mFloatingActionButton6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getActivity(), SASActivity.class);
-                startActivity(i);
-            }
-        });
-
-
+        };
 
         adapter = new HomePageViewPagerAdapter(getActivity().getSupportFragmentManager(),
-                mViewPagerTabIcons,
                 new Fragment[]{new HomeNewsFragment(), new HomeVideosFragment() }
                 );
 
@@ -249,25 +236,28 @@ public class HomeActivityFragment extends Fragment {
 
         tabs = (TabLayout)v.findViewById(R.id.landing_tabs);
         tabs.setupWithViewPager(mHome_ViewPager);
-        tabs.getTabAt(0).setIcon(R.drawable.home_selected);
-        tabs.getTabAt(1).setIcon(R.drawable.filmstrip);
+        tabs.getTabAt(0).setIcon(R.drawable.ic_home_white_24dp);
+        tabs.getTabAt(1).setIcon(R.drawable.filmstrip_selected);
+
 
         tabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition() == 0) {
-                    tab.setIcon(R.drawable.home_selected);
+                    tab.setIcon(R.drawable.ic_home_white_24dp);
+                    mHome_ViewPager.setCurrentItem(0, true);
                 } else if (tab.getPosition() == 1) {
-                    tab.setIcon(R.drawable.filmstrip_selected);
+                    tab.setIcon(R.drawable.filmstrip);
+                    mHome_ViewPager.setCurrentItem(1, true);
                 }
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
                 if (tab.getPosition() == 0) {
-                    tab.setIcon(R.drawable.ic_home_white_24dp);
+                    tab.setIcon(R.drawable.home_selected);
                 } else if (tab.getPosition() == 1) {
-                    tab.setIcon(R.drawable.filmstrip);
+                    tab.setIcon(R.drawable.filmstrip_selected);
                 }
             }
 

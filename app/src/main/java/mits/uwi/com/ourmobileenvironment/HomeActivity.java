@@ -2,6 +2,8 @@ package mits.uwi.com.ourmobileenvironment;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
@@ -62,11 +64,7 @@ public class HomeActivity extends AppCompatActivity {
 
         mNavigationDrawerLayout.setDrawerListener(mNavigationDrawerToggle);
 
-        getSupportActionBar().
-                setIcon(getResources()
-                        .getDrawable(R.drawable.uwi_coat_of_arms));
-
-
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.uwi_coat_of_arms_48);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setTitle(R.string.title_activity_home);

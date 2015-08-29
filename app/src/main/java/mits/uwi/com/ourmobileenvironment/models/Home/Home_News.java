@@ -1,22 +1,27 @@
 package mits.uwi.com.ourmobileenvironment.models.Home;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.parser.Parser;
-import org.jsoup.parser.XmlTreeBuilder;
 import org.jsoup.select.Elements;
-import org.jsoup.parser.Parser;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.MalformedParameterizedTypeException;
 import java.net.MalformedURLException;
+import java.net.UnknownHostException;
+
 
 import mits.uwi.com.ourmobileenvironment.R;
 
@@ -26,21 +31,27 @@ import mits.uwi.com.ourmobileenvironment.R;
  */
 public class Home_News {
 
+    private final String TAG = "Home_News";
     private Document RSS1, RSS2;
     private String[] RSS_feeds = {"http://www.mona.uwi.edu/marcom/newsroom/feed",
                                   "http://www.mona.uwi.edu/marcom/uwinotebook/feed"};
-
+    public boolean didConnect;
+    private Context calledContext;
     //Default Constructor
-    public Home_News(){
+
+    public Home_News(Context context) throws UnknownHostException {
+
+        calledContext = context;
         try{
             RSS1 = Jsoup.connect(RSS_feeds[0]).get();
             RSS2 = Jsoup.connect(RSS_feeds[1]).get();
+            didConnect = true;
         }
         catch(IOException e)
         {
-            RSS1 = null;
-            RSS2 = null;
-            System.console().printf("There seems to be a retrieving the files");
+            e.printStackTrace();
+            Log.e(TAG, e.getClass() + e.getMessage());
+            didConnect = false;
         }
     }
 
@@ -54,34 +65,31 @@ public class Home_News {
             for (Element item: RSS2.getElementsByTag("item")){
                 newsItems.add(item);
             }
-
         }
         return newsItems;
     }
 
     public Bitmap getNewsItemImage(Element newsItem){
         Bitmap image = null;
-        //Alternate
-        String newsItemImageURL2 = null;
-        Document newsItemXMLData = null;
+        Document newsItemXMLData;
         String newsItemDataString = newsItem.getElementsByTag("description")
                                 .get(0).toString();
 
         try{
             newsItemXMLData = Jsoup.parse(Parser.unescapeEntities(newsItemDataString, false));
-            Element newsItemImage3 = newsItemXMLData.getElementsByTag("img")
+            Element newsImageTag = newsItemXMLData.getElementsByTag("img")
                     .get(0);
-            InputStream in = new java.net.URL(newsItemImage3.attributes().get("src"))
+            InputStream in = new java.net.URL(newsImageTag.attributes().get("src"))
                     .openStream();
             image = BitmapFactory.decodeStream(in);
-
         }
-        catch (Exception e){
+        catch (IndexOutOfBoundsException|IOException e){
             try{
-                image = BitmapFactory.decodeResource(Resources.getSystem(),
+                image = BitmapFactory.decodeResource(calledContext.getResources(),
                         R.drawable.untitled);
             }
             catch (Exception ex){
+                Log.e(TAG, ex.getClass() + "\n" + ex.getMessage());
                 e.printStackTrace();
             }
         }
@@ -107,4 +115,47 @@ public class Home_News {
         return descriptionHTML.getElementsByTag("p").get(0).text();
     }
 
+    public boolean cacheNewsItems(Elements newsItems){
+        /* Caches the elements of the RSS feeds that are being displayed */
+
+        try {
+            File cacheDir = new File(calledContext.getCacheDir(), "newsItems");
+            FileOutputStream cacheOutput = new FileOutputStream(cacheDir);
+            cacheOutput.write(newsItems.toString().getBytes());
+            cacheOutput.close();
+        }
+        catch(IOException e){
+            Log.e(TAG, e.getClass() + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public Elements getCachedNewsItems(){
+        /** Will determine if the cache is to be
+        retrieved or if there should be a call cacheNewsItems **/
+        String cacheString = new String();
+        byte[] cacheBuffer = new byte[512];
+        Document cachedXMLFile;
+
+        //Retrieve from the internal cache dir
+        try {
+            File cacheFile = new File(calledContext.getCacheDir(), "newsItems");
+            FileInputStream cacheRead = new FileInputStream(cacheFile);
+            while(cacheRead.read(cacheBuffer, 0, 512) != -1){
+               cacheString +=  new String(cacheBuffer);
+            }
+        }
+        catch(FileNotFoundException fnf){
+            Log.e(TAG, fnf.getClass() + fnf.getMessage());
+            fnf.printStackTrace();
+        }
+        catch(IOException io){
+            io.printStackTrace();
+            Log.e(TAG, io.getClass() + io.getMessage());
+        }
+        cachedXMLFile = Jsoup.parse(cacheString);
+        return cachedXMLFile.getElementsByTag("item");
+    }
 }

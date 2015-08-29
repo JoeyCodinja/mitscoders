@@ -18,7 +18,7 @@ public class HomePageViewPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) { return mTabBodies[position]; }
 
-    public HomePageViewPagerAdapter(FragmentManager fm, Drawable[]tabheadings, Fragment[]tabbodies){
+    public HomePageViewPagerAdapter(FragmentManager fm, Fragment[]tabbodies){
         super(fm);
         this.mTabBodies = tabbodies;
     }

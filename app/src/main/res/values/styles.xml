@@ -30,7 +30,8 @@
         <item name="android:layout_width">25dp</item>
         <item name="android:layout_height">25dp</item>
         <item name="android:layout_gravity">bottom|end</item>
-        <item name="android:layout_margin">29dp</item>
+        <item name="android:layout_marginBottom">30dp</item>
+        <item name="android:layout_marginRight">28dp</item>
     </style>
 
 </resources>
