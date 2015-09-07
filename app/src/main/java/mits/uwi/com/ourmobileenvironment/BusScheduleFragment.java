@@ -14,9 +14,22 @@ import java.util.ArrayList;
 
 
 public class BusScheduleFragment extends Fragment {
+    public ArrayList<BusRoute> getTempblist() {
+        return tempblist;
+    }
+
+    private ArrayList<BusRoute> tempblist=new ArrayList<>();
+    BusScheduleAdapter busadap;
+
+    public void setBusadap(BusScheduleAdapter busadap) {
+        this.busadap = busadap;
+    }
 
 
 
+    public BusScheduleAdapter getBusadap() {
+        return busadap;
+    }
 
 
 
@@ -24,9 +37,22 @@ public class BusScheduleFragment extends Fragment {
         // Required empty public constructor
     }
 
+
+
+    public void setTempblist(ArrayList<BusRoute> blist){
+        this.tempblist.clear();
+        this.tempblist.addAll(blist);
+    }
+    public void reset(){
+        tempblist.clear();
+        tempblist.addAll(BusRoute.getBusList());
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        reset();
+
 
 
     }
@@ -40,10 +66,14 @@ public class BusScheduleFragment extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
-        BusScheduleAdapter busadap=new BusScheduleAdapter(Busfactory.getBusList());
+        busadap=new BusScheduleAdapter(tempblist);
         recList.setAdapter(busadap);
 
         return  v;
+    }
+
+    public void notifydatasetchanged(){
+        busadap.notifyDataSetChanged();
     }
 
 
