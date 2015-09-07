@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="5dp"
@@ -17,12 +16,13 @@
         android:paddingLeft="5dp"
         android:paddingRight="5dp">
 
-        <com.pkmmte.view.CircularImageView
+        <ImageView
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:id="@+id/eateries_photo"
-            app:border="false"
-            app:shadow="true" />
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            />
 
         <TextView
             android:layout_width="wrap_content"
@@ -66,7 +66,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/location_icon"
             android:layout_alignParentRight="true"
-            android:clickable="true"
+            android:clickable="@bool/abc_action_bar_embed_tabs"
             android:layout_below="@+id/eateries_hours"
             android:src="@drawable/ic_location"
             />

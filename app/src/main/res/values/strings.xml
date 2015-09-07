@@ -46,9 +46,9 @@
     <!-- BOSS Strings -->
     <string name="title_activity_boss">BOSS</string>
 
-    <string name="action_search">search</string>
+
 <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="title_activity_frag">Frag</string>
 
 
@@ -119,4 +119,10 @@
 
     <string name="hello_world">Hello world!</string>
 
+=======
+    <string name="action_search">Search</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+>>>>>>> eateries
 </resources>
