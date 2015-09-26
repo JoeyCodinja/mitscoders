@@ -6,4 +6,14 @@
           android:title="@string/action_settings"
           android:orderInCategory="100"
           app:showAsAction="never"/>
+
+    <item android:id="@+id/action_transcript"
+          android:title="@string/transcriptFragment_title"
+          android:orderInCategory="100"
+          app:showAsAction="never"/>
+
+    <item android:id="@+id/action_timetable"
+        android:title="@string/timetableFragment_title"
+        android:orderInCategory="100"
+        app:showAsAction="never"/>
 </menu>

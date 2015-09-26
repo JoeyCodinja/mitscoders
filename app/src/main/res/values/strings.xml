@@ -30,9 +30,15 @@
 
         <!-- Add/Drop Fragment Strings -->
         <string name="adddropFragment_title">SAS :: Add/Drop</string>
+        <string name="semester">Select a Semester</string>
+        <string name="add_course"> Add Course</string>
+        <string name="search_course">Search Courses</string>
+        <string name="Cancel">CANCEL</string>
+        <string name="Done">DONE</string>
 
         <!-- Course Fragment Strings -->
         <string name="courseFragment_title">SAS :: Courses</string>
+        <string name="course_info">Course Information</string>
 
         <!-- TimeTableFragment Strings -->
         <string name="timetableFragment_title">SAS :: Timetable</string>
@@ -42,6 +48,28 @@
 
         <!-- Transcript Fragment -->
         <string name="transcriptFragment_title">SAS :: Transcript</string>
+
+        <!--Course Infromation fragment -->
+        <string name="CourseInfoFragment">Course Information</string>
+        <string name="RequestOverride">Request Override</string>
+
+    <!-- testing drop down -->
+    <string-array name="semester_test">
+        <item>  Semester 1 2014/2015</item>
+        <item>  Semester 2 2014/2015</item>
+        <item>  Summer 2014/2015</item>
+        <item>  Semester 1 2015/2016</item>
+        <item>  Semester 2 2015/2016</item>
+        <item>  Summer 2015/2016</item>
+        <item>  Semester 1 2016/2017</item>
+        <item>  Semester 2 2016/2017</item>
+        <item>  Summer 2016/2017</item>
+    </string-array>
+
+
+
+
+
 
     <!-- BOSS Strings -->
     <string name="title_activity_boss">BOSS</string>

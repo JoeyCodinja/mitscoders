@@ -1,6 +1,7 @@
 package mits.uwi.com.ourmobileenvironment.sasfragments;
 
 
+import java.util.ArrayList;
 
 /**
  * Created by User on 9/17/2015.
@@ -12,7 +13,7 @@ public class Course {
     private char Campus, Days;
     private double Credits;
     private String Attribute;
-
+    private static ArrayList<Course> mCourses =new ArrayList<>();
     public Course ( int crn, String subj,int courseCode,  String title)
     {
         this.CRN = crn;
@@ -170,5 +171,20 @@ public class Course {
                 ", Credits=" + Credits +
                 ", Attribute='" + Attribute + '\'' +
                 '}';
+    }
+
+    public static ArrayList<Course> getmCourses() {
+        populate();
+        return mCourses;
+    }
+
+    public static void populate()
+    {
+        mCourses.add(new Course(54231,"Computing",1126,"Student Services"));
+        mCourses.add(new Course(123156,"Computing",1127,"Student Services"));
+        mCourses.add(new Course(678995,"Computing",3161,"Student Services"));
+        mCourses.add(new Course(78654,"Computing",2410,"Student Services"));
+        mCourses.add(new Course(792165,"Computing",2190,"Student Services"));
+        mCourses.add(new Course(22376,"Computing",3160,"Student Services"));
     }
 }

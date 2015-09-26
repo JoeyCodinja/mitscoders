@@ -27,7 +27,8 @@
         <activity
             android:name=".SASActivity"
             android:label="@string/title_activity_sas"
-            android:parentActivityName=".LandingActivity" >
+            android:parentActivityName=".LandingActivity"
+            android:theme="@style/sas_bartheme" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mits.uwi.com.ourmobileenvironment.LandingActivity" />
@@ -73,7 +74,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mits.uwi.com.ourmobileenvironment.LandingActivity" />
         </activity>
-        <activity
+        <!--activity
             android:name=".BusSearchActivity"
             android:label="@string/title_activity_bus_search" >
             <meta-data android:name="android.app.searchable"
@@ -81,7 +82,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
-        </activity>
+        </activity-->
     </application>
 
 </manifest>
