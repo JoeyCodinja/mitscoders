@@ -17,10 +17,6 @@ public class CampusInformationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/demo
         setContentView(R.layout.activity_campus_information);
 
         FragmentManager fm = getSupportFragmentManager();
@@ -31,11 +27,6 @@ public class CampusInformationActivity extends AppCompatActivity {
             fm.beginTransaction()
                     .add(R.id.campusinfo_fragmentContainer, fragment)
                     .commit();
-<<<<<<< HEAD
-
-
-=======
->>>>>>> origin/demo
         }
         //Calls to this function reposition the overflow
         ToprightBar.setTopOverflow(this);
