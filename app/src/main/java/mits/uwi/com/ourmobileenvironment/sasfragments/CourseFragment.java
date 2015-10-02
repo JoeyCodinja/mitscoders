@@ -14,8 +14,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import java.util.ArrayList;
+import java.util.List;
 
 import mits.uwi.com.ourmobileenvironment.R;
 
@@ -24,18 +26,28 @@ import mits.uwi.com.ourmobileenvironment.R;
  */
 public class CourseFragment extends Fragment {
     Button mToAddDropFragmentButton, mToTimetableFragmentButton, mToTranscriptFragmentButton;
-
+    TextView mNotify;
+    ArrayList<Course> mDummyCourses = Course.getmCourses();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getActivity().setTitle(R.string.title_activity_sas);
+
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle(R.string.title_activity_sas);
+    }
+
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //Inflates the view's layout using the respective layout file
-        View v = inflater.inflate(R.layout.fragment_course,container,false);
+        View v = inflater.inflate(R.layout.fragment_course, container, false);
 
         /*RecyclerView recyclerView=(RecyclerView)v.findViewById(R.id.course_list);
         recyclerView.setHasFixedSize(true);
@@ -47,6 +59,18 @@ public class CourseFragment extends Fragment {
 
         recyclerView.setAdapter(courseAdapter);*/
 
+        mNotify = (TextView) v.findViewById(R.id.course_notify);
+
+        if (mDummyCourses.size()== 0)
+           mNotify.setText(R.string.noCourses);
+        else
+            mNotify.setText(R.string.course_exist);
+        //super.onCreate(savedInstanceState);
+        ArrayAdapter <Course> adapter = new ArrayAdapter <Course> (getActivity(),
+                android.R.layout.simple_list_item_1,
+                mDummyCourses);
+        ListView listview = (ListView)v.findViewById(R.id.courses_list);
+        listview.setAdapter(adapter);
 
 
 

@@ -9,14 +9,22 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/courseFragment_title"/>
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:id="@+id/course_notify"/>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="335dp"
-        android:layout_weight="0.80">
+        android:layout_weight="0.80"
+        android:id="@+id/courses">
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/courses_list">
 
+        </ListView>
         <!--android.support.v7.widget.RecyclerView
             android:id="@+id/course_list"
             android:scrollbars="vertical"
@@ -52,3 +60,4 @@
     </LinearLayout>
 
 </LinearLayout>
+

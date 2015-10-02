@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import mits.uwi.com.ourmobileenvironment.sasfragments.CourseFragment;
+import mits.uwi.com.ourmobileenvironment.sasfragments.CourseInfoFragment;
 import mits.uwi.com.ourmobileenvironment.sasfragments.TimeTableFragment;
 import mits.uwi.com.ourmobileenvironment.sasfragments.TranscriptFragment;
 
@@ -63,6 +64,16 @@ public class SASActivity extends AppCompatActivity {
         if (id==R.id.action_transcript){
             FragmentManager fm = getSupportFragmentManager();
             Fragment fragment = new TranscriptFragment();
+
+            fm.beginTransaction()
+                    .replace(R.id.sas_fragmentContainer, fragment)
+                    .addToBackStack(null)
+                    .commit();
+        }
+
+        if (id==R.id.action_courseinfo){
+            FragmentManager fm = getSupportFragmentManager();
+            Fragment fragment = new CourseInfoFragment();
 
             fm.beginTransaction()
                     .replace(R.id.sas_fragmentContainer, fragment)

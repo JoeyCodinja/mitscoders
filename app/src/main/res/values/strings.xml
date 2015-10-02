@@ -39,6 +39,9 @@
         <!-- Course Fragment Strings -->
         <string name="courseFragment_title">SAS :: Courses</string>
         <string name="course_info">Course Information</string>
+        <string name="noCourses">No Registered Courses</string>
+        <string name="course_exist"> Registered Courses</string>
+
 
         <!-- TimeTableFragment Strings -->
         <string name="timetableFragment_title">SAS :: Timetable</string>
@@ -52,6 +55,13 @@
         <!--Course Infromation fragment -->
         <string name="CourseInfoFragment">Course Information</string>
         <string name="RequestOverride">Request Override</string>
+
+        <!-- Request Override Dialog -->
+        <string name="requestOverride_title">Request Over-ride</string>
+        <string name="override_needed"> Needs Over-ride Approval</string>
+        <string name="override_submitted"> Over-ride request submitted</string>
+        <string name="request_submit">SUBMIT</string>
+        <string name="request_cancel">CANCEL</string>
 
     <!-- testing drop down -->
     <string-array name="semester_test">

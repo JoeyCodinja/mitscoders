@@ -9,17 +9,18 @@ import java.util.ArrayList;
 public class Course {
 
     private int CRN,CourseCode,Capacity,Section_Actual, Section_Remaining;
-    private String Title,Subj,Section,Time, Instructor, Date, Location;
+    private String Title,Subj,Section,Time, Instructor, Date, Location,Type;
     private char Campus, Days;
     private double Credits;
     private String Attribute;
     private static ArrayList<Course> mCourses =new ArrayList<>();
-    public Course ( int crn, String subj,int courseCode,  String title)
+    public Course ( int crn, String subj,int courseCode,  String title, String type)
     {
         this.CRN = crn;
         this.Subj = subj;
         this.CourseCode = courseCode;
         this.Title = title;
+        this.Type = type;
 
     }
 
@@ -151,9 +152,17 @@ public class Course {
         Attribute = attribute;
     }
 
+    public String getType() {
+        return Type;
+    }
+
+    public void setType(String type) {
+        Type = type;
+    }
+
     @Override
     public String toString() {
-        return "Course{" +
+        return  Title+"\n"+Subj+" "+CourseCode+"\n"+Type/*"Course{" +
                 "CRN=" + CRN +
                 ", CourseCode=" + CourseCode +
                 ", Capacity=" + Capacity +
@@ -169,8 +178,8 @@ public class Course {
                 ", Campus=" + Campus +
                 ", Days=" + Days +
                 ", Credits=" + Credits +
-                ", Attribute='" + Attribute + '\'' +
-                '}';
+                ", Attribute='" + Attribute + '\'' +",Type='"+Type+'\''+
+                '}'*/;
     }
 
     public static ArrayList<Course> getmCourses() {
@@ -180,11 +189,11 @@ public class Course {
 
     public static void populate()
     {
-        mCourses.add(new Course(54231,"Computing",1126,"Student Services"));
-        mCourses.add(new Course(123156,"Computing",1127,"Student Services"));
-        mCourses.add(new Course(678995,"Computing",3161,"Student Services"));
-        mCourses.add(new Course(78654,"Computing",2410,"Student Services"));
-        mCourses.add(new Course(792165,"Computing",2190,"Student Services"));
-        mCourses.add(new Course(22376,"Computing",3160,"Student Services"));
+        mCourses.add(new Course(54231,"COMP",1126,"Introduction to Computing I","Lecture"));
+        mCourses.add(new Course(123156,"COMP",1127,"Introduction to Computing II","Lab"));
+        mCourses.add(new Course(678995,"COMP",3161,"Database Management Systems","Lecture"));
+        mCourses.add(new Course(78654,"INFO",2410,"Mathematics and Statistics for IT","Lecture"));
+        mCourses.add(new Course(792165,"COMP",2190,"Net-Centric Computing","Tutorial"));
+        mCourses.add(new Course(22376,"COMP",3160,"Artificial Intelligence","Lecture"));
     }
 }
