@@ -16,7 +16,6 @@ public class DirectoryEntry {
         this.num=num;
         this.title=title;
         this.icon=icon;
-
     }
 
     public String getName() {
@@ -46,11 +45,13 @@ public class DirectoryEntry {
 
     public static void populate()
     {
+        mDirectories.clear();
         mDirectories.add(new DirectoryEntry("Ernesto Abram","987-8900","Director","Student Services",R.drawable.buntu));
-        mDirectories.add(new DirectoryEntry("Ernesto Abram","987-8900","Director","Student Services",R.drawable.cream));
-        mDirectories.add(new DirectoryEntry("Ernesto Abram","987-8900","Director","Student Services",R.drawable.dropbox));
-        mDirectories.add(new DirectoryEntry("Ernesto Abram","987-8900","Director","Student Services",R.drawable.purple));
-        mDirectories.add(new DirectoryEntry("Ernesto Abram","987-8900","Director","Student Services",R.drawable.red));
-        mDirectories.add(new DirectoryEntry("Ernesto Abram","987-8900","Director","Student Services",R.drawable.whatsapp));
+        mDirectories.add(new DirectoryEntry("EMark Zuckerberg","987-8900","Director","Student Services",R.drawable.cream));
+        mDirectories.add(new DirectoryEntry("Bill gatessss","987-8900","Director","Student Services",R.drawable.dropbox));
+        mDirectories.add(new DirectoryEntry("Steve Jobssss","987-8900","Director","Student Services",R.drawable.purple));
+        mDirectories.add(new DirectoryEntry("Elon Mosssssk","987-8900","Director","Student Services",R.drawable.red));
+        mDirectories.add(new DirectoryEntry("Carl Segaaaaan","987-8900","Director","Student Services",R.drawable.whatsapp));
+
     }
 }

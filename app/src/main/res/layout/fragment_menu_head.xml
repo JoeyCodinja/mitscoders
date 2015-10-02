@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/eateries_photo"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/eateries_name"
+            android:layout_toRightOf="@+id/eateries_photo"
+            android:layout_alignParentTop="true"
+            android:textStyle="bold"
+            android:textSize="13sp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Menu"
+            android:layout_toRightOf="@+id/eateries_photo"
+            android:layout_below="@+id/eateries_name"
+            android:textSize="13sp"
+            />
+
+    </RelativeLayout>
+
+</android>

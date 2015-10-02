@@ -1,12 +1,11 @@
 package mits.uwi.com.ourmobileenvironment;
 
-import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +19,26 @@ import java.util.ArrayList;
  * A placeholder fragment containing a simple view.
  */
 public class DirectoryFragment extends Fragment {
-    private ArrayList<DirectoryEntry> mDirectories;
 
+    private ArrayList<DirectoryEntry> mDirectories=new ArrayList<>();
+    private DirectoryAdapter directoryAdapter;
 
     public DirectoryFragment() {
+    }
+
+    public  void reset(){
+        mDirectories.clear();
+        mDirectories.addAll(DirectoryEntry.getmDirectories());
+        Log.d("mdirectory2", "" + this.mDirectories.size());
+    }
+    public ArrayList<DirectoryEntry> getmDirectories() {
+        return mDirectories;
+    }
+
+    public int setmDirectories(ArrayList<DirectoryEntry> mDirectories) {
+        this.mDirectories.clear();
+        this.mDirectories.addAll(mDirectories);
+        return this.mDirectories.size();
     }
 
     @Override
@@ -35,6 +50,11 @@ public class DirectoryFragment extends Fragment {
 
 
     }
+
+    public DirectoryAdapter getDirectoryAdapter() {
+        return directoryAdapter;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View v= inflater.inflate(R.layout.recycle, container, false);
@@ -48,11 +68,17 @@ public class DirectoryFragment extends Fragment {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
         recyclerView.setLayoutManager(linearLayoutManager);
+<<<<<<< HEAD
 
         DirectoryAdapter directoryAdapter=new DirectoryAdapter(DirectoryEntry.getmDirectories());
 
         recyclerView.setAdapter(directoryAdapter);
 
+=======
+        directoryAdapter=new DirectoryAdapter(mDirectories);
+        recyclerView.setAdapter(directoryAdapter);
+        mDirectories.addAll(DirectoryEntry.getmDirectories());
+>>>>>>> 03f19895eef0b991762941668cc2b84b35134a86
         return v;
 
 
@@ -74,12 +100,12 @@ public class DirectoryFragment extends Fragment {
         }
     }
 
-    private class DirectoryAdapter extends RecyclerView.Adapter<DirectoryFragment.DirectoryViewHolder>{
-        private ArrayList<DirectoryEntry> dlist;
+    protected class DirectoryAdapter extends RecyclerView.Adapter<DirectoryFragment.DirectoryViewHolder>{
+        private ArrayList<DirectoryEntry> dlist=new ArrayList<>();
         private ImageView loc,phone,arrow;
 
         public DirectoryAdapter(ArrayList<DirectoryEntry> dlist){
-            this.dlist=dlist;
+          this.dlist=dlist;
 
         }
 
@@ -98,6 +124,7 @@ public class DirectoryFragment extends Fragment {
 
         @Override
         public int getItemCount(){
+            Log.d("directory size", "" + dlist.size());
             return dlist.size();
         }
 
