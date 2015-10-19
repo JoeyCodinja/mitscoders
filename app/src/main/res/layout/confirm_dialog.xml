@@ -4,11 +4,15 @@
     android:layout_height="match_parent"
     android:weightSum="1">
 
-    <EditText
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
+        android:text=" Are you Sure?"
         android:ems="10"
         android:id="@+id/request_override"
-        android:layout_weight="0.36" />
+        android:layout_weight="0"
+        android:gravity="center_vertical|center|center_horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:padding="10dp" />
 </LinearLayout>

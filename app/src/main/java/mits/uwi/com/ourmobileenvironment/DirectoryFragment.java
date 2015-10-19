@@ -58,27 +58,15 @@ public class DirectoryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View v= inflater.inflate(R.layout.recycle, container, false);
-
         RecyclerView recyclerView=(RecyclerView)v.findViewById(R.id.rv);
-
         recyclerView.setHasFixedSize(true);
-
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getActivity());
-
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-
         recyclerView.setLayoutManager(linearLayoutManager);
-<<<<<<< HEAD
-
-        DirectoryAdapter directoryAdapter=new DirectoryAdapter(DirectoryEntry.getmDirectories());
-
-        recyclerView.setAdapter(directoryAdapter);
-
-=======
         directoryAdapter=new DirectoryAdapter(mDirectories);
         recyclerView.setAdapter(directoryAdapter);
         mDirectories.addAll(DirectoryEntry.getmDirectories());
->>>>>>> 03f19895eef0b991762941668cc2b84b35134a86
+
         return v;
 
 

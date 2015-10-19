@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import mits.uwi.com.ourmobileenvironment.sasfragments.CourseFragment;
+import mits.uwi.com.ourmobileenvironment.sasfragments.SAS_Splash;
 
 
 public class LandingActivity extends AppCompatActivity {
@@ -51,7 +52,7 @@ public class LandingActivity extends AppCompatActivity {
         mToSASActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(LandingActivity.this, SASActivity.class);
+                Intent i = new Intent(LandingActivity.this, SAS_Splash.class);
                 Log.d(TAG, "Starting SASActivity");
                 startActivity(i);
             }

@@ -57,9 +57,10 @@
         <string name="RequestOverride">Request Override</string>
 
         <!-- Request Override Dialog -->
-        <string name="requestOverride_title">Request Over-ride</string>
+        <string name="requestOverride_title">Request Override</string>
         <string name="override_needed"> Needs Over-ride Approval</string>
         <string name="override_submitted"> Over-ride request submitted</string>
+        <string name="request_ok">OK</string>
         <string name="request_submit">SUBMIT</string>
         <string name="request_cancel">CANCEL</string>
 

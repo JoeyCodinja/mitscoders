@@ -1,4 +1,4 @@
-package mits.uwi.com.ourmobileenvironment.sasfragments;
+package mits.uwi.com.ourmobileenvironment.sasfragments.requestoverridefragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -20,12 +20,12 @@ public class RequestOverrideDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View v = getActivity().getLayoutInflater()
-                .inflate(R.layout.request_override, null);
+                .inflate(R.layout.confirm_dialog, null);
         //return super.onCreateDialog(savedInstanceState);
         return new AlertDialog.Builder(getActivity())
                 .setView(v)
                 .setTitle(R.string.requestOverride_title)
-                .setPositiveButton(R.string.request_submit, null)
+                .setPositiveButton(R.string.request_ok, null)
                 .setNegativeButton(R.string.request_cancel,null)
                 .create();
     }

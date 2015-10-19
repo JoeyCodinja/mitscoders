@@ -1,25 +1,21 @@
 package mits.uwi.com.ourmobileenvironment.sasfragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import java.util.ArrayList;
-import java.util.List;
 
 import mits.uwi.com.ourmobileenvironment.R;
+import mits.uwi.com.ourmobileenvironment.sasfragments.timetablefragments.TimeTableFragment;
+import mits.uwi.com.ourmobileenvironment.sasfragments.transcriptfragments.TranscriptFragment;
 
 /**
  * Created by Danuel on 16/06/2015.
@@ -33,6 +29,8 @@ public class CourseFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().setTitle(R.string.title_activity_sas);
+        //getActivity().getActionBar().setSubtitle("Registered Coursed");
+
 
     }
 
@@ -130,7 +128,7 @@ public class CourseFragment extends Fragment {
 
         public CourseViewHolder(View v){
             super(v);
-            /*name=(TextView) v.findViewById(R.id.name);
+            /*crn=(TextView) v.findViewById(R.id.course_crn);
             num=(TextView) v.findViewById(R.id.number);
             title=(TextView)v.findViewById(R.id.title);
             dept=(TextView)v.findViewById(R.id.department);

@@ -4,16 +4,14 @@ package mits.uwi.com.ourmobileenvironment.sasfragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 import mits.uwi.com.ourmobileenvironment.R;
+import mits.uwi.com.ourmobileenvironment.sasfragments.requestoverridefragments.RequestOverrideFragment;
 
 
 /**
@@ -21,7 +19,6 @@ import mits.uwi.com.ourmobileenvironment.R;
  */
 public class CourseInfoFragment extends Fragment {
     Button mRequestOverride;
-    private static final String OVER_RIDE = "Request Override";
     public CourseInfoFragment() {
     }
 
@@ -39,12 +36,17 @@ public class CourseInfoFragment extends Fragment {
         mRequestOverride = (Button)v.findViewById(R.id.request_override);
         mRequestOverride.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View v) {
+            public void onClick(View v){
                 FragmentManager fm = getActivity().getSupportFragmentManager();
-                RequestOverrideDialog dialog = new RequestOverrideDialog();
-                dialog.show(fm, OVER_RIDE);
+                Fragment fragment = new RequestOverrideFragment();
+
+                fm.beginTransaction()
+                        .replace(R.id.sas_fragmentContainer, fragment)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
+
 
         return v;
     }
