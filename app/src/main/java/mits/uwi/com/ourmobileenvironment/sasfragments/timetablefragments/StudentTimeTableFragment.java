@@ -12,7 +12,7 @@ import mits.uwi.com.ourmobileenvironment.R;
 /**
  * Created by User on 10/19/2015.
  */
-public class TeachingTimeTableFragment extends Fragment {
+public class StudentTimeTableFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,7 +21,7 @@ public class TeachingTimeTableFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_teaching_timetable,container,false);
+        View v = inflater.inflate(R.layout.fragment_student_schedule,container,false);
         return v;
     }
 }

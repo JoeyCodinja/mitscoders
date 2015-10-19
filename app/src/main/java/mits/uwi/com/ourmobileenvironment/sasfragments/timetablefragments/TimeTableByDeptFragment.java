@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import mits.uwi.com.ourmobileenvironment.R;
+
 /**
  * Created by User on 10/19/2015.
  */
@@ -20,6 +22,7 @@ public class TimeTableByDeptFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View v = inflater.inflate(R.layout.fragment_timetable_by_dept,container,false);
+        return v;
     }
 }
