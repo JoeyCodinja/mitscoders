@@ -49,6 +49,7 @@ public class AddDropCourseFragment extends Fragment {
 
                 fm.beginTransaction()
                         .replace(R.id.sas_fragmentContainer,fragment)
+                        .addToBackStack(null)
                         .commit();
             }
         });

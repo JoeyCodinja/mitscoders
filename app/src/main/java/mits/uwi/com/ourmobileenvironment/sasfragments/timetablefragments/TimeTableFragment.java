@@ -19,7 +19,7 @@ import mits.uwi.com.ourmobileenvironment.sasfragments.classmapfragments.ClassMap
  */
 public class TimeTableFragment extends Fragment {
 
-    Button mToClassMapFragmentButton, mToCourseFragmentButton;
+    Button mToClassMapFragmentButton, mToCourseFragmentButton, mToStudentDetailTimetable, mToStudentTimetable, mToTeachingTimeTable, mToDepartmentTimeTable;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,7 +52,62 @@ public class TimeTableFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getActivity().getSupportFragmentManager();
-                Fragment fragment = new CourseFragment();
+                //Fragment fragment = new CourseFragment();
+                getActivity().getSupportFragmentManager().popBackStack();
+                /*fm.beginTransaction()
+                        .replace(R.id.sas_fragmentContainer,fragment)
+                        .addToBackStack(null)
+                        .commit();*/
+            }
+        });
+
+        mToStudentDetailTimetable = (Button)v.findViewById(R.id.to_student_detail_timetable);
+        mToStudentDetailTimetable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                Fragment fragment = new StudentDetailTableFragment();
+
+                fm.beginTransaction()
+                        .replace(R.id.sas_fragmentContainer, fragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+        mToStudentTimetable = (Button)v.findViewById(R.id.to_student_timetable);
+        mToStudentTimetable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                Fragment fragment = new StudentTimeTableFragment();
+
+                fm.beginTransaction()
+                        .replace(R.id.sas_fragmentContainer, fragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
+        mToTeachingTimeTable = (Button)v.findViewById(R.id.to_teaching_timetable);
+        mToTeachingTimeTable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                Fragment fragment = new TeachingTimeTableFragment();
+
+                fm.beginTransaction()
+                        .replace(R.id.sas_fragmentContainer, fragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
+        mToDepartmentTimeTable = (Button)v.findViewById(R.id.to_timetable_by_dept);
+        mToDepartmentTimeTable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                Fragment fragment = new TimeTableByDeptFragment();
 
                 fm.beginTransaction()
                         .replace(R.id.sas_fragmentContainer,fragment)
@@ -60,7 +115,6 @@ public class TimeTableFragment extends Fragment {
                         .commit();
             }
         });
-
         return v;
     }
 }

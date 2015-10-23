@@ -77,6 +77,19 @@
         <item>  Summer 2016/2017</item>
     </string-array>
 
+    <!-- testing drop down -->
+    <string-array name="department_test">
+        <item>  Anasthetics Radiology</item>
+        <item>  Basic Medical Science</item>
+        <item>  Chemical Engineering</item>
+        <item>  Computing</item>
+        <item>  Community Health</item>
+        <item>  Dentistry</item>
+        <item>  Economics</item>
+        <item>  Foundation Courses</item>
+        <item>  Geography</item>
+    </string-array>
+
 
 
 

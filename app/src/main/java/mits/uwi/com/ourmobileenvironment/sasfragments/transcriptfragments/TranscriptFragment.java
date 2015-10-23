@@ -37,7 +37,8 @@ public class TranscriptFragment extends Fragment {
                 Fragment fragment = new CourseFragment();
 
                 fm.beginTransaction()
-                        .replace(R.id.sas_fragmentContainer,fragment)
+                        .replace(R.id.sas_fragmentContainer, fragment)
+                        .addToBackStack(null)
                         .commit();
             }
         });
@@ -47,11 +48,12 @@ public class TranscriptFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentManager fm =getActivity().getSupportFragmentManager();
-                /*Fragment fragment = new TranscriptRequestFragment();
+                Fragment fragment = new TranscriptRequestFragment();
 
                 fm.beginTransaction()
                         .replace(R.id.sas_fragmentContainer, fragment)
-                        .commit();*/
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 
@@ -65,6 +67,7 @@ public class TranscriptFragment extends Fragment {
 
                 fm.beginTransaction()
                         .replace(R.id.sas_fragmentContainer, fragment)
+                        .addToBackStack(null)
                         .commit();
             }
         });
