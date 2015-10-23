@@ -37,7 +37,7 @@ public class CourseFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        getActivity().setTitle(R.string.title_activity_sas);
+        //getActivity().setTitle(R.string.title_activity_sas);
     }
 
 

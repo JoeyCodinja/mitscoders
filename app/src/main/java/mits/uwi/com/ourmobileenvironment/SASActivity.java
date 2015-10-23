@@ -1,14 +1,21 @@
 package mits.uwi.com.ourmobileenvironment;
 
+
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import mits.uwi.com.ourmobileenvironment.sasfragments.CourseFragment;
 import mits.uwi.com.ourmobileenvironment.sasfragments.CourseInfoFragment;
@@ -21,6 +28,9 @@ public class SASActivity extends AppCompatActivity {
     private ListView mNavList;
     private DrawerLayout mDrawerLayout;
     private ArrayAdapter<String> mAdapter;
+    private ArrayAdapter<TextView> sAdapter;
+    private ActionBarDrawerToggle mDrawerToggle;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +51,57 @@ public class SASActivity extends AppCompatActivity {
         mDrawerLayout = (DrawerLayout)findViewById(R.id.sas_drawer_layout);
         mNavList = (ListView)findViewById(R.id.navList);
         addDrawerItems();
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout,
+                toolbar,
+                android.R.string.ok,
+                android.R.string.cancel){
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+            }
+        };
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerToggle.syncState();
+
+        mNavList.setOnItemClickListener(new DrawerItemClickListener());
         
     }
 
+    private class DrawerItemClickListener implements ListView.OnItemClickListener{
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Toast.makeText(SASActivity.this,((TextView)view).getText(),Toast.LENGTH_LONG).show();
+                    mDrawerLayout.closeDrawer(mNavList);
+        }
+    }
+
     private void addDrawerItems(){
+        /*TextView adddrop,timetable,transcript,override,holds;
+        adddrop = new TextView(this);
+        timetable = new TextView(this);
+        transcript =  new TextView(this);
+        override =  new TextView(this);
+        holds = new TextView(this);
+
+        adddrop.setText("Add/Drop");
+        timetable.setText("Timetable");
+        transcript.setText("transcript");
+        override.setText("Overrides");
+        holds.setText("Holds");
+
+        TextView[] list2 = {adddrop,timetable,transcript,override,holds};
+
+
+        sAdapter = new ArrayAdapter<TextView>(this,android.R.layout.simple_list_item_1,list2);*/
         String [] list = {"Add/Drop","Timetable","Transcript","Overrides","Holds"};
         mAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,list);
         mNavList.setAdapter(mAdapter);
