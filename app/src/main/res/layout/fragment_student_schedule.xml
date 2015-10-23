@@ -9,4 +9,17 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Day By Day time table"
         android:id="@+id/textView6" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <CalendarView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/timetable"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+
 </LinearLayout>

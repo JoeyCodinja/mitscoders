@@ -7,4 +7,5 @@
     <color name="grey">#B1B0AF</color>
     <color name="actionbar_background_eateries">#B79F1C</color>
     <color name="blue_background">#476EDE</color>
+    <color name="transparent" >#00FFFFFF</color>
 </resources>
