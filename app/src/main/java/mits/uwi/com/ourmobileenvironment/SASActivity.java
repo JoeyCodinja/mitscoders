@@ -17,9 +17,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import mits.uwi.com.ourmobileenvironment.sasfragments.AddDropCourseFragment;
 import mits.uwi.com.ourmobileenvironment.sasfragments.CourseFragment;
 import mits.uwi.com.ourmobileenvironment.sasfragments.CourseInfoFragment;
 import mits.uwi.com.ourmobileenvironment.sasfragments.holdfragments.HoldsFragment;
+import mits.uwi.com.ourmobileenvironment.sasfragments.requestoverridefragments.RequestOverrideFragment;
 import mits.uwi.com.ourmobileenvironment.sasfragments.timetablefragments.TimeTableFragment;
 import mits.uwi.com.ourmobileenvironment.sasfragments.transcriptfragments.TranscriptFragment;
 
@@ -44,6 +46,7 @@ public class SASActivity extends AppCompatActivity {
             fragment = new CourseFragment();
             fm.beginTransaction()
                     .add(R.id.sas_fragmentContainer, fragment)
+                    .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                     .addToBackStack(null)
                     .commit();
         }
@@ -77,11 +80,51 @@ public class SASActivity extends AppCompatActivity {
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener{
+
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment fragment = fm.findFragmentById(R.id.sas_fragmentContainer);
+
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Toast.makeText(SASActivity.this,((TextView)view).getText(),Toast.LENGTH_LONG).show();
-                    mDrawerLayout.closeDrawer(mNavList);
+            //Toast.makeText(SASActivity.this,((TextView)view).getText(),Toast.LENGTH_LONG).show();
+            switch(position) {
+                case 0:
+                    fragment = new CourseFragment();
+                    break;
+                case 1:
+                    fragment = new AddDropCourseFragment();
+                    break;
+                case 2:
+                    fragment = new TimeTableFragment();
+                    break;
+                case 3:
+
+                    fragment = new TranscriptFragment();
+                    break;
+                case 4:
+
+                    fragment = new RequestOverrideFragment();
+                    break;
+                case 5:
+                    fragment = new HoldsFragment();
+                    break;
+
+            }
+            if (position !=6) {
+                fm.beginTransaction()
+                        .replace(R.id.sas_fragmentContainer, fragment)
+                        .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                        .addToBackStack(null)
+                        .commit();
+                mDrawerLayout.closeDrawer(mNavList);
+            }
+            else{
+
+                finish();
+            }
+
         }
+
     }
 
     private void addDrawerItems(){
@@ -102,7 +145,7 @@ public class SASActivity extends AppCompatActivity {
 
 
         sAdapter = new ArrayAdapter<TextView>(this,android.R.layout.simple_list_item_1,list2);*/
-        String [] list = {"Add/Drop","Timetable","Transcript","Overrides","Holds"};
+        String [] list = {"Home","Add/Drop","Timetable","Transcript","Overrides","Holds","Exit"};
         mAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,list);
         mNavList.setAdapter(mAdapter);
     };

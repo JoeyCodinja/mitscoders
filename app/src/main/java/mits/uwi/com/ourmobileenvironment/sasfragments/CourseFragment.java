@@ -83,6 +83,7 @@ public class CourseFragment extends Fragment {
 
                 fm.beginTransaction()
                         .replace(R.id.sas_fragmentContainer, fragment)
+                        .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                         .addToBackStack(null)
                         .commit();
             }
@@ -98,6 +99,7 @@ public class CourseFragment extends Fragment {
 
                 fm.beginTransaction()
                         .replace(R.id.sas_fragmentContainer, fragment)
+                        .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                         .addToBackStack(null)
                         .commit();
             }
