@@ -16,6 +16,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.bluejamesbond.text.DocumentView;
@@ -64,6 +66,7 @@ public class HomeActivity extends AppCompatActivity {
 
         mNavigationDrawerLayout.setDrawerListener(mNavigationDrawerToggle);
 
+        //Sets the UWI Coat of Arms as the Home Icon in the Action Bar
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.uwi_coat_of_arms_48);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);

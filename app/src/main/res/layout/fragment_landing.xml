@@ -52,7 +52,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:elevation="4dp">
+        android:elevation="4dp"
+        android:id="@+id/landingFABFrame">
 
         <ImageView
             android:id="@+id/landing_pageFAB"

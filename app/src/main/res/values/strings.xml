@@ -6,7 +6,8 @@
     <!-- Landing strings -->
     <string name="navigation_drawer_open">Open</string>
     <string name="navigation_drawer_close">Close</string>
-
+        <!-- View Article Chooser Strings -->
+        <string name="view_article_string">View this news article with</string>
 
     <!-- OurVLE strings -->
     <string name="title_activity_our_vle">OurVLE</string>

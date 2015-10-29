@@ -3,10 +3,14 @@ package mits.uwi.com.ourmobileenvironment.homepagefragments;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,6 +31,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import mits.uwi.com.ourmobileenvironment.R;
 import mits.uwi.com.ourmobileenvironment.models.Home.Home_News;
@@ -61,8 +66,6 @@ public class HomeNewsFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home_news, container, false);
 
-                ImageView fabButton = (ImageView) v.findViewById(R.id.landing_pageFAB);
-
         new RetrieveRSSFeedTask().execute(getActivity());
         return v;
     }
@@ -70,7 +73,7 @@ public class HomeNewsFragment extends Fragment {
     public class RetrieveRSSFeedTask extends AsyncTask<Context, Void, Home_News>{
         ArrayList<Bitmap> newsItemImages = new ArrayList<>();
         ArrayList<String> newsItemTitles = new ArrayList<>();
-
+        ArrayList<String> newsItemURLs = new ArrayList<>();
         @Override
         protected Home_News doInBackground(Context... params) {
             try {
@@ -79,6 +82,7 @@ public class HomeNewsFragment extends Fragment {
                     for(Element element: mNewsItems.getCachedNewsItems()){
                         newsItemTitles.add(mNewsItems.getNewsItemTitle(element));
                         newsItemImages.add(mNewsItems.getNewsItemImage(element));
+                        newsItemURLs.add(mNewsItems.getNewsItemURL(element));
                     }
                 }
                 else{
@@ -86,6 +90,7 @@ public class HomeNewsFragment extends Fragment {
                     for (Element element: newsItemElements){
                         newsItemTitles.add(mNewsItems.getNewsItemTitle(element));
                         newsItemImages.add(mNewsItems.getNewsItemImage(element));
+                        newsItemURLs.add(mNewsItems.getNewsItemURL(element));
                     }
                     mNewsItems.cacheNewsItems(newsItemElements);
                 }
@@ -105,48 +110,49 @@ public class HomeNewsFragment extends Fragment {
 
             LinearLayout[] columns = {(LinearLayout) contextView.findViewById(R.id.newsColumn1),
                     (LinearLayout) contextView.findViewById(R.id.newsColumn2)};
-            LayoutInflater layoutInflater = (LayoutInflater)  getActivity()
+            LayoutInflater layoutInflater = (LayoutInflater) getActivity()
                                                             .getBaseContext()
                                                             .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             for (int i=0;i<newsItemTitles.size();i++) {
+                final int finalI = i;
+                final Context finalContext = contextView.getContext();
                 View newsCard = layoutInflater.inflate(R.layout.news_card, null);
                 ImageView newsCardImage = (ImageView)newsCard.findViewById(R.id.news_card_image);
                 TextView newsCardTitle = (TextView)newsCard.findViewById(R.id.news_card_title);
 
                 newsCard.setLayoutParams(new CardView.
-                                             LayoutParams(columns[i % 2].getWidth(),
-                                             320));
+                        LayoutParams(columns[i % 2].getWidth(),
+                        320));
 
                 newsCardImage.setImageBitmap(newsItemImages.get(i));
 
                 newsCardTitle.setText(newsItemTitles.get(i));
                 newsCardTitle.setBackground(contextView.getResources().getDrawable(R.drawable.text_shadow));
 
+                newsCard.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Uri articleURI = Uri.parse(newsItemURLs.get(finalI));
+
+                        Intent viewArticleIntent = new Intent(Intent.ACTION_VIEW, articleURI);
+
+                        //Ensure that there are apps to service our intent
+                        PackageManager packageManager = finalContext.getPackageManager();
+                        List<ResolveInfo> activities = packageManager.queryIntentActivities(viewArticleIntent, 0);
+
+                        Intent viewArticleChooser = Intent.createChooser(viewArticleIntent,
+                                getResources().getString(R.string.view_article_string));
+
+                        boolean intentSafe = activities.size() > 0;
+
+                        // If intent is serviceable then go ahead and start the activity
+                        if (intentSafe){
+                            startActivity(viewArticleIntent);
+                        }
+                    }
+                });
                 columns[i % 2].addView(newsCard);
-//                ImageView newsCardImage = new ImageView(getActivity());
-//                TextView newsCardTitle = new TextView(getActivity());
-//
-//                newsCard.setLayoutParams(new CardView.
-//                        LayoutParams(columns[i % 2]
-//                        .getWidth(), 320));
-//                newsCardImage.setLayoutParams(new CardView.
-//                        LayoutParams(CardView.LayoutParams.MATCH_PARENT,
-//                        CardView.LayoutParams.MATCH_PARENT));
-//                newsCardImage.setImageBitmap(newsItemImages.get(i));
-//                newsCardImage.setScaleType(ImageView.ScaleType.FIT_XY);
-//                newsCard.addView(newsCardImage);
-//
-//                newsCardTitle.setText(newsItemTitles.get(i));
-//                CardView.LayoutParams layoutParams = new CardView.
-//                        LayoutParams(CardView.LayoutParams.WRAP_CONTENT,
-//                        CardView.LayoutParams.WRAP_CONTENT);
-//                layoutParams.gravity = Gravity.BOTTOM;
-//                newsCardTitle.setLayoutParams(layoutParams);
-//                newsCardTitle.setGravity(Gravity.BOTTOM);
-//                newsCardTitle.setTextColor(Color.argb(255, 215, 218, 219));
-//                newsCardTitle.setPadding(16, 0, 16, 0);
-//                newsCard.addView(newsCardTitle);
 
             }
         }
