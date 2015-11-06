@@ -16,7 +16,7 @@ import mits.uwi.com.ourmobileenvironment.R;
  */
 public class TranscriptRequestFragment extends Fragment {
     WebView mTranscript;
-    String url = "https://www.google.com.jm/";
+    String url = "http://www.google.com.jm/";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

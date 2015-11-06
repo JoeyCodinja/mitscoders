@@ -22,6 +22,7 @@ import mits.uwi.com.ourmobileenvironment.sasfragments.CourseFragment;
 import mits.uwi.com.ourmobileenvironment.sasfragments.CourseInfoFragment;
 import mits.uwi.com.ourmobileenvironment.sasfragments.holdfragments.HoldsFragment;
 import mits.uwi.com.ourmobileenvironment.sasfragments.requestoverridefragments.RequestOverrideFragment;
+import mits.uwi.com.ourmobileenvironment.sasfragments.requestoverridefragments.RequestOverrideListFragment;
 import mits.uwi.com.ourmobileenvironment.sasfragments.timetablefragments.TimeTableFragment;
 import mits.uwi.com.ourmobileenvironment.sasfragments.transcriptfragments.TranscriptFragment;
 
@@ -103,7 +104,7 @@ public class SASActivity extends AppCompatActivity {
                     break;
                 case 4:
 
-                    fragment = new RequestOverrideFragment();
+                    fragment = new RequestOverrideListFragment();
                     break;
                 case 5:
                     fragment = new HoldsFragment();

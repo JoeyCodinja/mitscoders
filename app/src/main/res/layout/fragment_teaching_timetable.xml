@@ -3,15 +3,6 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:weightSum="1">
-
-    <TextView
-        android:layout_width="215dp"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Teaching Timetable"
-        android:id="@+id/textView8"
-        android:layout_weight="0.11" />
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"

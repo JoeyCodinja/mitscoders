@@ -18,18 +18,20 @@
 
         <!-- Course Fragment -->
 
+
     <!-- SAS strings -->
     <string name="title_activity_sas">SAS</string>
 
         <!--Navigation Button Strings :: SAS -->
-        <string name="to_courseFragment_button">To Courses</string>
-        <string name="to_addDropFragment_button">To Add/Drop Courses</string>
-        <string name="to_timetableFragment_button">To Timetable</string>
-        <string name="to_classmapFragment_button">To Class Map</string>
-        <string name="to_transcriptFragment_button">To Transcript</string>
+        <string name="to_sas_home"> Registered Courses</string>
+        <string name="to_courseFragment_button">Courses</string>
+        <string name="to_addDropFragment_button">Add/Drop Courses</string>
+        <string name="to_timetableFragment_button">Timetable</string>
+        <string name="to_classmapFragment_button">Class Map</string>
+        <string name="to_transcriptFragment_button">Transcript</string>
 
         <!-- Add/Drop Fragment Strings -->
-        <string name="adddropFragment_title">SAS :: Add/Drop</string>
+        <string name="adddropFragment_title">Add/Drop</string>
         <string name="semester">Select a Semester</string>
         <string name="add_course"> Add Course</string>
         <string name="search_course">Search Courses</string>
@@ -37,20 +39,20 @@
         <string name="Done">DONE</string>
 
         <!-- Course Fragment Strings -->
-        <string name="courseFragment_title">SAS :: Courses</string>
+        <string name="courseFragment_title">Courses</string>
         <string name="course_info">Course Information</string>
         <string name="noCourses">No Registered Courses</string>
         <string name="course_exist"> Registered Courses</string>
 
 
         <!-- TimeTableFragment Strings -->
-        <string name="timetableFragment_title">SAS :: Timetable</string>
+        <string name="timetableFragment_title">Timetable</string>
 
         <!-- ClassMapFragment Strings -->
-        <string name="classmapFragment_title">SAS :: Class Map</string>
+        <string name="classmapFragment_title">Class Map</string>
 
         <!-- Transcript Fragment -->
-        <string name="transcriptFragment_title">SAS :: Transcript</string>
+        <string name="transcriptFragment_title">Transcript</string>
 
         <!--Course Infromation fragment -->
         <string name="CourseInfoFragment">Course Information</string>

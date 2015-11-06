@@ -1,4 +1,4 @@
-package mits.uwi.com.ourmobileenvironment.sasfragments.transcriptfragments;
+package mits.uwi.com.ourmobileenvironment.sasfragments.requestoverridefragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,24 +10,26 @@ import android.view.ViewGroup;
 import mits.uwi.com.ourmobileenvironment.R;
 
 /**
- * Created by User on 10/8/2015.
+ * CRN
+ * COURSE
+ * STREAM
+ * ACTION
+ * COURSE TITLE
+ * STATUS/Over-ride
+ * Note to Lecturer
+ * Created by User on 11/5/2015.
  */
-public class TranscriptViewFragment extends Fragment {
+public class RequestOverrideListFragment extends Fragment {
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().setTitle(R.string.transcriptFragment_title);
-    }
-    @Override
-    public void onResume(){
-        super.onResume();
-        getActivity().setTitle(R.string.transcriptFragment_title);
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_transcript_web,container, false);
+        View v = inflater.inflate( R.layout.fragment_request_override_list,container,false);
         return v;
     }
 }

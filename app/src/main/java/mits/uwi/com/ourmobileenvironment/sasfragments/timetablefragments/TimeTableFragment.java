@@ -19,11 +19,19 @@ import mits.uwi.com.ourmobileenvironment.sasfragments.classmapfragments.ClassMap
  */
 public class TimeTableFragment extends Fragment {
 
-    Button mToClassMapFragmentButton, mToCourseFragmentButton, mToStudentDetailTimetable, mToStudentTimetable, mToTeachingTimeTable, mToDepartmentTimeTable;
+    Button mToClassMapFragmentButton, mToStudentDetailTimetable, mToStudentTimetable, mToTeachingTimeTable, mToDepartmentTimeTable;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getActivity().setTitle(R.string.timetableFragment_title);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle(R.string.timetableFragment_title);
+
     }
 
     @Nullable
@@ -44,20 +52,6 @@ public class TimeTableFragment extends Fragment {
                         .replace(R.id.sas_fragmentContainer, fragment)
                         .addToBackStack(null)
                         .commit();
-            }
-        });
-
-        mToCourseFragmentButton = (Button)v.findViewById(R.id.to_courseFragment_timetable);
-        mToCourseFragmentButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                FragmentManager fm = getActivity().getSupportFragmentManager();
-                //Fragment fragment = new CourseFragment();
-                getActivity().getSupportFragmentManager().popBackStack();
-                /*fm.beginTransaction()
-                        .replace(R.id.sas_fragmentContainer,fragment)
-                        .addToBackStack(null)
-                        .commit();*/
             }
         });
 

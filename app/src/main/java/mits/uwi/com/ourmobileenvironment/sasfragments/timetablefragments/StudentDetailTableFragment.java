@@ -16,6 +16,12 @@ public class StudentDetailTableFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getActivity().setTitle(R.string.timetableFragment_title);
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        getActivity().setTitle(R.string.timetableFragment_title);
     }
 
     @Nullable
