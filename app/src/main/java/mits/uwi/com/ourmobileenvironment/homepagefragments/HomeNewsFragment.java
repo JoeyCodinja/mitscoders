@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.apache.http.conn.ConnectTimeoutException;
@@ -57,7 +58,9 @@ public class HomeNewsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {}
+        if (getArguments() != null) {
+
+        }
     }
 
     @Override
@@ -65,6 +68,20 @@ public class HomeNewsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home_news, container, false);
+
+        LinearLayout[] columns = {(LinearLayout) v.findViewById(R.id.newsColumn1),
+                                  (LinearLayout) v.findViewById(R.id.newsColumn2)};
+
+        for (int object=0; object <= 10; object++){
+
+            CardView newsCard = (CardView)inflater.inflate(R.layout.news_card, null);
+
+            ProgressBar indeterminateProgress  = new ProgressBar(container.getContext());
+            indeterminateProgress.setIndeterminate(true);
+            newsCard.addView(indeterminateProgress);
+
+            columns[object%2].addView(newsCard);
+        }
 
         new RetrieveRSSFeedTask().execute(getActivity());
         return v;
@@ -105,6 +122,8 @@ public class HomeNewsFragment extends Fragment {
 
         }
 
+
+
         @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
         private void makeNewsItemViews(View contextView) {
 
@@ -113,8 +132,13 @@ public class HomeNewsFragment extends Fragment {
             LayoutInflater layoutInflater = (LayoutInflater) getActivity()
                                                             .getBaseContext()
                                                             .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            for (LinearLayout column: columns){
+                column.removeAllViewsInLayout();
+            }
 
             for (int i=0;i<newsItemTitles.size();i++) {
+                // Remove dummy views from both columns
+
                 final int finalI = i;
                 final Context finalContext = contextView.getContext();
                 View newsCard = layoutInflater.inflate(R.layout.news_card, null);

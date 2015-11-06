@@ -46,7 +46,7 @@
     <ImageView
         android:id="@+id/landing_pageFAB5"
         style="@style/FABButtons"
-        android:src="@drawable/sas_fab" />
+        android:src="@drawable/sas_fab"/>
 
     <FrameLayout
         android:layout_width="wrap_content"
