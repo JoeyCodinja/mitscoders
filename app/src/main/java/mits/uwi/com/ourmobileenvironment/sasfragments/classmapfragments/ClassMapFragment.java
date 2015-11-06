@@ -1,6 +1,5 @@
-package mits.uwi.com.ourmobileenvironment.sasfragments;
+package mits.uwi.com.ourmobileenvironment.sasfragments.classmapfragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import mits.uwi.com.ourmobileenvironment.R;
+import mits.uwi.com.ourmobileenvironment.sasfragments.timetablefragments.TimeTableFragment;
 
 /**
  * Created by Danuel on 16/06/2015.

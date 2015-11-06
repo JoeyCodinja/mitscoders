@@ -2,16 +2,74 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/adddropFragment_title"/>
+              android:layout_height="match_parent"
+    android:weightSum="1">
 
-    <Button
-        android:id="@+id/to_courseFragment"
+    <!--cursor adapter needed-->
+    <Spinner
+        android:id="@+id/semester"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="@string/to_courseFragment_button"/>
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="15dp">
+    </Spinner>
+    <!--cursor adapter needed-->
+
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText"
+        android:hint="@string/search_course"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="194dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1.09">
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/listView"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="102dp"
+        android:weightSum="1"
+        android:gravity="right">
+
+
+
+        <TextView
+            android:layout_width="62dp"
+            android:layout_height="53dp"
+            android:text="@string/Cancel"
+            android:id="@+id/addDrop_Cancel"
+            android:clickable="true"
+            android:onClick="onClick"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="40dp"
+            android:layout_weight="0.31" />
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="29dp"
+            android:text="@string/Done"
+            android:id="@+id/addDrop_done"
+            android:layout_gravity="bottom"
+            android:clickable="true"
+            android:onClick="onClick"
+            android:layout_marginRight="20dp" />
+
+    </LinearLayout>
 
 </LinearLayout>

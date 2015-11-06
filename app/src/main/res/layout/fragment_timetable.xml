@@ -1,21 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:weightSum="1">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/timetableFragment_title"/>
-    <Button
-        android:id="@+id/to_classmapFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/to_classmapFragment_button"/>
-    <Button
-        android:id="@+id/to_courseFragment_timetable"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/to_courseFragment_button"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:background="#FFFFFF">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Student Detail TImetable"
+            android:id="@+id/to_student_detail_timetable"
+            android:layout_margin="10dp"
+            android:textColor="#FFF"
+            android:background="#c60b0bff" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Studen TimeTable "
+            android:id="@+id/to_student_timetable"
+            android:layout_margin="10dp"
+            android:textColor="#FFF"
+            android:background="#c60b0bff" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Teaching Time Table"
+            android:id="@+id/to_teaching_timetable"
+            android:layout_margin="10dp"
+            android:textColor="#FFF"
+            android:background="#c60b0bff" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Time Table By Department"
+            android:id="@+id/to_timetable_by_dept"
+            android:layout_margin="10dp"
+            android:textColor="#FFF"
+            android:background="#c60b0bff" />
+
+        <Button
+            android:id="@+id/to_classmapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/to_classmapFragment_button"
+            android:textColor="#FFF"
+            android:background="#c60b0bff"
+            android:layout_margin="10dp" />
+
+    </LinearLayout>
+
 
 </LinearLayout>

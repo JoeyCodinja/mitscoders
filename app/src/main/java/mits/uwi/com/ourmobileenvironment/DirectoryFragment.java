@@ -66,6 +66,7 @@ public class DirectoryFragment extends Fragment {
         directoryAdapter=new DirectoryAdapter(mDirectories);
         recyclerView.setAdapter(directoryAdapter);
         mDirectories.addAll(DirectoryEntry.getmDirectories());
+
         return v;
 
 

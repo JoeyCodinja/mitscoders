@@ -64,6 +64,7 @@ public class CampusInformationActivity extends AppCompatActivity {
         mSlidingTabLayout.setSelectedIndicatorColors(getResources().getColor(R.color.white));
         mSlidingTabLayout.setDividerColors(getResources().getColor(R.color.actionbar_background_eateries));
         mSlidingTabLayout.setTabsBackgroundColor(getResources().getColor(R.color.actionbar_background_eateries));
+
         //Calls to this function reposition the overflow
         ToprightBar.setTopOverflow(this);
         }

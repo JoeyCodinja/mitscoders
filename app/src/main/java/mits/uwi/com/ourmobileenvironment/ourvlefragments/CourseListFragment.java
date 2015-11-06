@@ -29,7 +29,6 @@ public class CourseListFragment extends ListFragment {
         mDummyCourses.add("COMP1127 - Introduction to Programming(I)");
         mDummyCourses.add("COMP1126 - Introduction to Programming(II)");
 
-
         super.onCreate(savedInstanceState);
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<String>(getActivity(),
