@@ -111,6 +111,7 @@
         <item name="tabTextAppearance">@style/MyCustomTabTextAppearance</item>
     </style>
 
+
     <style name="MyCustomTabTextAppearance" parent="TextAppearance.Design.Tab">
         <item name="textAllCaps">false</item>
     </style>
