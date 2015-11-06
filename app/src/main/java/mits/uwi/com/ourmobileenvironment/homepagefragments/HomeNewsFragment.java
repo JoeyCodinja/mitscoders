@@ -136,7 +136,7 @@ public class HomeNewsFragment extends Fragment {
                 column.removeAllViewsInLayout();
             }
 
-            for (int i=0;i<newsItemTitles.size();i++) {
+            for (int i = 0; i < newsItemTitles.size() ;i++) {
                 // Remove dummy views from both columns
 
                 final int finalI = i;
