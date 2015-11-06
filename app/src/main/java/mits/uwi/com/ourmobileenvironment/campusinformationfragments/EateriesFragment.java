@@ -32,6 +32,7 @@ public class EateriesFragment extends Fragment implements View.OnClickListener{
     static List<Menu_Item> j_menu;
     static List<Menu_Item> y_menu;
     static List<Menu_Item> b_menu;
+    static List<Menu_Item> n_menu;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
@@ -66,12 +67,22 @@ public class EateriesFragment extends Fragment implements View.OnClickListener{
             y_menu.add(new Menu_Item("y", "Classic Combo", "Chinese", "2pc Chinese 1 500ml Soda", "$ 150 JMD"));
             y_menu.add(new Menu_Item("y", "Classic Combo", "Chinese", "2pc Chinese 1 500ml Soda", "$ 150 JMD"));
             y_menu.add(new Menu_Item("y", "Classic Combo", "Chinese", "2pc Chinese 1 500ml Soda", "$ 150 JMD"));
+            b_menu = new ArrayList<>();
+            b_menu.add(new Menu_Item("y", "Classic Combo", "Sweet and Sour", "2pc Sweet and Sour 1 500ml Soda", "$ 150 JMD"));
+            b_menu.add(new Menu_Item("y", "Classic Combo", "Sweet and Sour", "2pc Sweet and Sour 1 500ml Soda", "$ 150 JMD"));
+            b_menu.add(new Menu_Item("y", "Classic Combo", "Sweet and Sour", "2pc Sweet and Sour 1 500ml Soda", "$ 150 JMD"));
+            b_menu.add(new Menu_Item("y", "Classic Combo", "Sweet and Sour", "2pc Sweet and Sour 1 500ml Soda", "$ 150 JMD"));
+            n_menu = new ArrayList<>();
+            n_menu.add(new Menu_Item("y", "Classic Combo", "Corndog", "2pc Corndog 1 500ml Soda", "$ 150 JMD"));
+            n_menu.add(new Menu_Item("y", "Classic Combo", "Corndog", "2pc Corndog 1 500ml Soda", "$ 150 JMD"));
+            n_menu.add(new Menu_Item("y", "Classic Combo", "Corndog", "2pc Corndog 1 500ml Soda", "$ 150 JMD"));
+            n_menu.add(new Menu_Item("y", "Classic Combo", "Corndog", "2pc Corndog 1 500ml Soda", "$ 150 JMD"));
             eateries = new ArrayList<>();
             eateries.add(new Eateries_list("Kentucky Fried Chicken", "Ring Rd, Chancellor Hall", "Opens 9am-12am", R.drawable.kfc, (ArrayList<Menu_Item>) menu));
             eateries.add(new Eateries_list("Juici Patties", "Faculty of Science and Technology", "Opens 6am-7pm", R.drawable.juici,(ArrayList<Menu_Item>) j_menu));
             eateries.add(new Eateries_list("Yao Chinese Restaurant", "Students Union", "Opens 9am-10pm", R.drawable.yao, (ArrayList<Menu_Item>) y_menu));
-            eateries.add(new Eateries_list("BeeHive", "Ring Rd, Humanities and Education", "Opens 7am-6pm", R.drawable.beehive, (ArrayList<Menu_Item>) menu));
-            eateries.add(new Eateries_list("Nardo's Snack Shop", "Humanities and Education", "Opens 6am-3am", R.drawable.nardo, (ArrayList<Menu_Item>) menu));
+            eateries.add(new Eateries_list("BeeHive", "Ring Rd, Humanities and Education", "Opens 7am-6pm", R.drawable.beehive, (ArrayList<Menu_Item>) b_menu));
+            eateries.add(new Eateries_list("Nardo's Snack Shop", "Humanities and Education", "Opens 6am-3am", R.drawable.nardo, (ArrayList<Menu_Item>) n_menu));
     }
 
     public static List<Eateries_list> getEatList() {
