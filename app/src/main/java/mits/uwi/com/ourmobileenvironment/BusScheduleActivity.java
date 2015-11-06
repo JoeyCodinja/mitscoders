@@ -28,7 +28,7 @@ public class BusScheduleActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.buspager);
-        FragmentManager fm=getSupportFragmentManager();
+        FragmentManager fm = getSupportFragmentManager();
         bPage=(ViewPager)findViewById(R.id.buspager);
         bPage.setAdapter(new FragmentStatePagerAdapter(fm) {
             @Override
@@ -66,7 +66,7 @@ public class BusScheduleActivity extends AppCompatActivity  {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-            mSlidingTabLayout.populateTabStrip();
+        mSlidingTabLayout.populateTabStrip();
     }
 
     @Override
@@ -132,5 +132,4 @@ public class BusScheduleActivity extends AppCompatActivity  {
 
         return super.onOptionsItemSelected(item);
     }
-
 }

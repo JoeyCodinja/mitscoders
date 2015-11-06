@@ -28,9 +28,10 @@ public class EateriesFragment extends Fragment implements View.OnClickListener{
         // Required empty public constructor
     }
     static List<Eateries_list> eateries;
-    public static Eateries_list s_eateries;
-    public static int photoid;
-    private RecyclerView rv;
+    static List<Menu_Item> menu;
+    static List<Menu_Item> j_menu;
+    static List<Menu_Item> y_menu;
+    static List<Menu_Item> b_menu;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
@@ -49,14 +50,28 @@ public class EateriesFragment extends Fragment implements View.OnClickListener{
     }
 
 
-
-    public void initializeData(){
-        eateries = new ArrayList<>();
-        eateries.add(new Eateries_list("Kentucky Fried Chicken", "Ring Rd, Chancellor Hall", "Opens 9am-12am", R.drawable.kfc));
-        eateries.add(new Eateries_list("Juici Patties", "Faculty of Science and Technology", "Opens 6am-7pm", R.drawable.juici));
-        eateries.add(new Eateries_list("Yao Chinese Restaurant", "Students Union", "Opens 9am-10pm", R.drawable.yao));
-        eateries.add(new Eateries_list("BeeHive", "Ring Rd, Humanities and Education", "Opens 7am-6pm", R.drawable.beehive));
-        eateries.add(new Eateries_list("Nardo's Snack Shop", "Humanities and Education", "Opens 6am-3am", R.drawable.nardo));
+        public void initializeData(){
+            menu = new ArrayList<>();
+            menu.add(new Menu_Item("Kentucky Fried Chicken", "Classic Combo", "Meal Deal", "2pc Chicken 1 Reg fries 1 500ml Soda", "$ 100 JMD"));
+            menu.add(new Menu_Item("Kentucky Fried Chicken", "Classic Combo", "Meal Deal", "2pc Chicken 1 Reg fries 1 500ml Soda", "$ 100 JMD"));
+            menu.add(new Menu_Item("Kentucky Fried Chicken", "Classic Combo", "Meal Deal", "2pc Chicken 1 Reg fries 1 500ml Soda", "$ 100 JMD"));
+            menu.add(new Menu_Item("Kentucky Fried Chicken", "Classic Combo", "Meal Deal", "2pc Chicken 1 Reg fries 1 500ml Soda", "$ 100 JMD"));
+            j_menu = new ArrayList<>();
+            j_menu.add(new Menu_Item("Juici Patties", "Classic Combo", "Patties", "2pc Patty 1 500ml Soda", "$ 150 JMD"));
+            j_menu.add(new Menu_Item("Juici Patties", "Classic Combo", "Patties", "2pc Patty 1 500ml Soda", "$ 150 JMD"));
+            j_menu.add(new Menu_Item("Juici Patties", "Classic Combo", "Patties", "2pc Patty 1 500ml Soda", "$ 150 JMD"));
+            j_menu.add(new Menu_Item("Juici Patties", "Classic Combo", "Patties", "2pc Patty 1 500ml Soda", "$ 150 JMD"));
+            y_menu = new ArrayList<>();
+            y_menu.add(new Menu_Item("y", "Classic Combo", "Chinese", "2pc Chinese 1 500ml Soda", "$ 150 JMD"));
+            y_menu.add(new Menu_Item("y", "Classic Combo", "Chinese", "2pc Chinese 1 500ml Soda", "$ 150 JMD"));
+            y_menu.add(new Menu_Item("y", "Classic Combo", "Chinese", "2pc Chinese 1 500ml Soda", "$ 150 JMD"));
+            y_menu.add(new Menu_Item("y", "Classic Combo", "Chinese", "2pc Chinese 1 500ml Soda", "$ 150 JMD"));
+            eateries = new ArrayList<>();
+            eateries.add(new Eateries_list("Kentucky Fried Chicken", "Ring Rd, Chancellor Hall", "Opens 9am-12am", R.drawable.kfc, (ArrayList<Menu_Item>) menu));
+            eateries.add(new Eateries_list("Juici Patties", "Faculty of Science and Technology", "Opens 6am-7pm", R.drawable.juici,(ArrayList<Menu_Item>) j_menu));
+            eateries.add(new Eateries_list("Yao Chinese Restaurant", "Students Union", "Opens 9am-10pm", R.drawable.yao, (ArrayList<Menu_Item>) y_menu));
+            eateries.add(new Eateries_list("BeeHive", "Ring Rd, Humanities and Education", "Opens 7am-6pm", R.drawable.beehive, (ArrayList<Menu_Item>) menu));
+            eateries.add(new Eateries_list("Nardo's Snack Shop", "Humanities and Education", "Opens 6am-3am", R.drawable.nardo, (ArrayList<Menu_Item>) menu));
     }
 
     public static List<Eateries_list> getEatList() {
@@ -73,11 +88,8 @@ public class EateriesFragment extends Fragment implements View.OnClickListener{
 
         public class EateriesViewHolder extends RecyclerView.ViewHolder {
 
-            private ImageView Ephoto;
-            private TextView Ename;
             public View view;
             String input;
-            int id;
             CardView cv;
             TextView eateriesName;
             TextView eateriesLocation;
@@ -85,6 +97,7 @@ public class EateriesFragment extends Fragment implements View.OnClickListener{
             ImageView eateriesPhoto;
             ImageView favoriteIcon;
             ImageView locationIcon;
+            ImageView clickedIcon;
 
             EateriesViewHolder(View itemView) {
                 super(itemView);
@@ -98,28 +111,29 @@ public class EateriesFragment extends Fragment implements View.OnClickListener{
 
                 favoriteIcon.setColorFilter(R.color.grey, PorterDuff.Mode.DST_OUT);
                 locationIcon.setColorFilter(R.color.grey, PorterDuff.Mode.DST_OUT);
-
-                input = eateriesName.getText().toString();
-                id = getResources().getIdentifier(String.valueOf(eateriesPhoto), "drawable", null);
-                photoid = id;
-                //s_eateries.setName(input);
-                //s_eateries.setPhoto(id);
                 cv.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View itemView) {
                         // item clicked
-                        cv.setCardBackgroundColor(255);
+                        //cv.setCardBackgroundColor(255);
+                        //id = getResources().getIdentifier(String.valueOf(eateriesPhoto), "id", null);
+                       //id = getResources().getIdentifier(String.valueOf((ImageView)itemView.findViewById(R.id.eateries_photo)), "id", null);
+                        input = eateriesName.getText().toString();
+                        //MenuDataPasser.getInstance().setResName(input);
+                        for (int i =0 ; i <5; i++){
+                            if(input.equals(eateries.get(i).name))
+                                MenuDataPasser.getInstance().setResName(eateries.get(i));
+                        }
                         showDialog();
-                        setRName(eateriesName);
-                        setRPhoto(eateriesPhoto);
-
                     }
                 });
                 favoriteIcon.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View itemView) {
                         // item clicked
-                        favoriteIcon.setBackgroundResource(R.color.red);
+                        int id = getResources().getIdentifier("ic_favorite_clicked", "drawable", null);
+                        favoriteIcon.setImageResource(id);
+                        favoriteIcon.setColorFilter(R.color.red, PorterDuff.Mode.DST_OUT);
                         //favoriteIcon.setBackgroundResource(0);
                     }
                 });
@@ -127,27 +141,12 @@ public class EateriesFragment extends Fragment implements View.OnClickListener{
                     @Override
                     public void onClick(View itemView) {
                         // item clicked
-                        locationIcon.setBackgroundResource(R.color.red);
+                        //locationIcon.setBackgroundResource(R.color.red);
                         //locationIcon.setBackgroundResource(0);
                     }
                 });
             }
 
-            public void setRPhoto(ImageView photo){
-                this.Ephoto = photo;
-            }
-
-            public void setRName(TextView name){
-                this.Ename = name;
-            }
-
-            public ImageView getPhoto(){
-                return this.Ephoto;
-            }
-
-            public TextView getRName(){
-                return this.Ename;
-            }
         }
 
         List<Eateries_list> eateries;
@@ -174,6 +173,8 @@ public class EateriesFragment extends Fragment implements View.OnClickListener{
             eateriesViewHolder.eateriesLocation.setText(eateries.get(i).location);
             eateriesViewHolder.eateriesHours.setText(eateries.get(i).hours);
             eateriesViewHolder.eateriesPhoto.setImageResource(eateries.get(i).photoId);
+           // MenuDataPasser.getInstance().setResName(eateries.get(i));
+           //MenuDataPasser.getInstance().setResPhoto(eateries.get(i).photoId);
         }
 
         @Override

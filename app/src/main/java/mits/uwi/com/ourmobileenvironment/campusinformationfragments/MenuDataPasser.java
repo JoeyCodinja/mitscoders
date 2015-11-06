@@ -12,4 +12,19 @@ public class MenuDataPasser {
 
     private MenuDataPasser() {
     }
+    /*public static DataHolderClass getInstance() {
+        if (dataObject == null)
+            dataObject = new DataHolderClass();
+        return dataObject;
+    }*/
+    private Eateries_list resName;
+
+    public Eateries_list getResName() {
+        return resName;
+    }
+
+    public void setResName(Eateries_list name) {
+        this.resName = name;
+    }
+
 }
