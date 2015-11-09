@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mits.uwi.com.ourmobileenvironment.BOSSActivity;
+import mits.uwi.com.ourmobileenvironment.BusScheduleActivity;
 import mits.uwi.com.ourmobileenvironment.CampusInformationActivity;
 import mits.uwi.com.ourmobileenvironment.OurVLEActivity;
 import mits.uwi.com.ourmobileenvironment.R;
@@ -92,8 +93,8 @@ public class HomeActivityFragment extends Fragment {
                                 startActivity(i);
                                 break;
                             case R.id.landing_pageFAB2:
-//                        i = new Intent(getActivity(), CampusTransportationActivity.class);
-//                        startActivity(i);
+                                i = new Intent(getActivity(), BusScheduleActivity.class);
+                                startActivity(i);
                                 break;
                             case R.id.landing_pageFAB3:
                                 i = new Intent(getActivity(), OurVLEActivity.class);

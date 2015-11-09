@@ -111,7 +111,7 @@ public class HomeActivity extends AppCompatActivity {
         }
         //Directory
         else if (position == 2){
-            Intent i = new Intent(this, CampusDirectoryActivity.class);
+            Intent i = new Intent(this, DirectoryActivity.class);
             startActivity(i);
         }
         //Wi-Fi Finder

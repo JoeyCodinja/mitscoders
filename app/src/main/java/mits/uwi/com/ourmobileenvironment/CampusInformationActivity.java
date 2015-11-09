@@ -8,22 +8,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-
-<<<<<<< HEAD
-import com.bluejamesbond.text.DocumentView;
-
-import mits.uwi.com.ourmobileenvironment.campusinformationfragments.CampusInfoListFragment;
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.EateriesFragment;
-=======
 import java.util.ArrayList;
->>>>>>> 01bdb1012ddeb1f17a4207b3f3e89b3dd32e75b5
-
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.CampusInformationFragment;
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.CampusListingsFragment;
-import mits.uwi.com.ourmobileenvironment.campusinformationfragments.EateriesFragment;
 
 public class CampusInformationActivity extends AppCompatActivity {
 
