@@ -4,18 +4,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/sas_drawer_layout">
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
-
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
             <FrameLayout
                 android:id="@+id/sas_fragmentContainer"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                >
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="@drawable/toolbar_dropshadow"/>
             </FrameLayout>
 
     </LinearLayout>
+
     <ListView
         android:layout_width="200dp"
         android:layout_height="match_parent"

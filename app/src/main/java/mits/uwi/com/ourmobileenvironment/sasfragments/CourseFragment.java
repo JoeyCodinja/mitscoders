@@ -21,14 +21,15 @@ import mits.uwi.com.ourmobileenvironment.sasfragments.transcriptfragments.Transc
  * Created by Danuel on 16/06/2015.
  */
 public class CourseFragment extends Fragment {
-    Button mToAddDropFragmentButton, mToTimetableFragmentButton, mToTranscriptFragmentButton;
     TextView mNotify;
+    ListView listview;
     ArrayList<Course> mDummyCourses = Course.getmCourses();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().setTitle(R.string.title_activity_sas);
+        getActivity().setTitle(R.string.to_sas_home);
+        //getActivity().setTitle(R.string.title_activity_sas);
         //getActivity().getActionBar().setSubtitle("Registered Coursed");
 
 
@@ -37,7 +38,8 @@ public class CourseFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        getActivity().setTitle(R.string.title_activity_sas);
+        getActivity().setTitle(R.string.to_sas_home);
+       // getActivity().setTitle(R.string.title_activity_sas);
     }
 
 
@@ -58,65 +60,13 @@ public class CourseFragment extends Fragment {
         recyclerView.setAdapter(courseAdapter);*/
 
         mNotify = (TextView) v.findViewById(R.id.course_notify);
-
-        if (mDummyCourses.size()== 0)
-           mNotify.setText(R.string.noCourses);
-        else
-            mNotify.setText(R.string.course_exist);
         //super.onCreate(savedInstanceState);
         ArrayAdapter <Course> adapter = new ArrayAdapter <Course> (getActivity(),
                 android.R.layout.simple_list_item_1,
                 mDummyCourses);
-        ListView listview = (ListView)v.findViewById(R.id.courses_list);
+        listview = (ListView)v.findViewById(R.id.courses_list);
+        listview.setEmptyView(mNotify);
         listview.setAdapter(adapter);
-
-
-
-        //Button that transitions us to the Add Drop screen
-        mToAddDropFragmentButton = (Button)v.findViewById(R.id.to_addDropCourse_fragment);
-        mToAddDropFragmentButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Starts AddDropCourseFragment
-                FragmentManager fm = getActivity().getSupportFragmentManager();
-                Fragment fragment = new AddDropCourseFragment();
-
-                fm.beginTransaction()
-                        .replace(R.id.sas_fragmentContainer, fragment)
-                        .addToBackStack(null)
-                        .commit();
-            }
-        });
-
-        mToTimetableFragmentButton = (Button)v.findViewById(R.id.to_timetable_fragment);
-        mToTimetableFragmentButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Starts TimeTableFragment
-                FragmentManager fm = getActivity().getSupportFragmentManager();
-                Fragment fragment = new TimeTableFragment();
-
-                fm.beginTransaction()
-                        .replace(R.id.sas_fragmentContainer, fragment)
-                        .addToBackStack(null)
-                        .commit();
-            }
-        });
-
-        mToTranscriptFragmentButton = (Button)v.findViewById(R.id.to_transcriptFragment);
-        mToTranscriptFragmentButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                //Starts the TranscriptFragment
-                FragmentManager fm = getActivity().getSupportFragmentManager();
-                Fragment fragment = new TranscriptFragment();
-
-                fm.beginTransaction()
-                        .replace(R.id.sas_fragmentContainer, fragment)
-                        .addToBackStack(null)
-                        .commit();
-            }
-        });
 
         return v;
     }

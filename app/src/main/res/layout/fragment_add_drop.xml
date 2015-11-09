@@ -44,15 +44,10 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="102dp"
-        android:weightSum="1">
+        android:weightSum="1"
+        android:gravity="right">
 
-        <Button
-            android:id="@+id/to_courseFragment"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:text="@string/to_courseFragment_button"
-            android:layout_gravity="bottom"
-            android:layout_weight="0.31" />
+
 
         <TextView
             android:layout_width="62dp"
@@ -63,7 +58,6 @@
             android:onClick="onClick"
             android:layout_gravity="bottom"
             android:layout_marginLeft="40dp"
-            android:layout_marginRight="4dp"
             android:layout_weight="0.31" />
 
         <TextView
@@ -74,8 +68,7 @@
             android:layout_gravity="bottom"
             android:clickable="true"
             android:onClick="onClick"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp" />
+            android:layout_marginRight="20dp" />
 
     </LinearLayout>
 

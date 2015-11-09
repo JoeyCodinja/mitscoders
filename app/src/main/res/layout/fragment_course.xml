@@ -5,26 +5,26 @@
     android:orientation="vertical"
     android:weightSum="1">
 
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:id="@+id/course_notify"/>
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="335dp"
+        android:layout_height="match_parent"
         android:layout_weight="0.80"
-        android:id="@+id/courses">
+        android:id="@+id/courses"
+        android:layout_margin="10dp">
         <ListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/courses_list">
 
         </ListView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/course_notify"
+            android:text="@string/noCourses"
+            android:layout_margin="10dp"
+            android:gravity="center" />
         <!--android.support.v7.widget.RecyclerView
             android:id="@+id/course_list"
             android:scrollbars="vertical"
@@ -32,32 +32,9 @@
             android:layout_width="match_parent"/-->
 
 
+
+
+
     </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="73dp"
-        android:layout_weight="0.26">
-
-        <Button
-            android:id="@+id/to_timetable_fragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/to_timetableFragment_button" />
-
-        <Button
-            android:id="@+id/to_transcriptFragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/to_transcriptFragment_button"/>
-
-        <Button
-            android:id="@+id/to_addDropCourse_fragment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/to_addDropFragment_button"/>
-    </LinearLayout>
-
 </LinearLayout>
 
