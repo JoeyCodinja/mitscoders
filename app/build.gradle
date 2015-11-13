@@ -29,4 +29,5 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:22.0.+'
     compile 'com.github.bluejamesbond:textjustify-android:2.1.0'
     compile 'com.pkmmte.view:circularimageview:1.1'
+    compile 'com.github.alamkanak:android-week-view:1.2.3'
 }

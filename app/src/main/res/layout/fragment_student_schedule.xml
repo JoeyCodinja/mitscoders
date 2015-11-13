@@ -3,23 +3,22 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Day By Day time table"
-        android:id="@+id/textView6" />
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_gravity="top"
+        android:clickable="false"
+        android:layout_marginTop="5dp">
 
         <CalendarView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/timetable"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:background="#fff"
+            android:clickable="true"
+            android:showWeekNumber="false" />
     </LinearLayout>
 
 </LinearLayout>

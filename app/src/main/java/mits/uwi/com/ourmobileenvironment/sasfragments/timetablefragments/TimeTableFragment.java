@@ -19,7 +19,7 @@ import mits.uwi.com.ourmobileenvironment.sasfragments.classmapfragments.ClassMap
  */
 public class TimeTableFragment extends Fragment {
 
-    Button mToClassMapFragmentButton, mToStudentDetailTimetable, mToStudentTimetable, mToTeachingTimeTable, mToDepartmentTimeTable;
+    Button mToClassMapFragmentButton, mToWeek,mToStudentDetailTimetable, mToStudentTimetable, mToTeachingTimeTable, mToDepartmentTimeTable;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,7 @@ public class TimeTableFragment extends Fragment {
             public void onClick(View v) {
                 //Starts ClassMapFragment
                 FragmentManager fm = getActivity().getSupportFragmentManager();
-                Fragment fragment = new ClassMapFragment();
+                Fragment fragment = new StudentTimeTableWeekFragment();//new ClassMapFragment();
 
                 fm.beginTransaction()
                         .replace(R.id.sas_fragmentContainer, fragment)

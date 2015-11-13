@@ -3,7 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/sas_drawer_layout">
+    android:id="@+id/sas_drawer_layout"
+    android:elevation="4dp"
+    android:focusable="false">
 
     <LinearLayout
         android:orientation="vertical"
