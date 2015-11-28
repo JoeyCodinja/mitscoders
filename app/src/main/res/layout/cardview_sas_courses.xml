@@ -34,15 +34,6 @@
             android:textStyle="bold"
             android:textSize="13sp"
             />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/override_icon"
-            android:layout_alignParentRight="true"
-            android:clickable="true"
-            android:src="@drawable/exclamation" />
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -75,10 +66,9 @@
             android:id="@+id/location_icon"
             android:layout_alignParentRight="true"
             android:clickable="@bool/abc_action_bar_embed_tabs"
-
             android:src="@drawable/ic_location"
             android:layout_below="@+id/course_code"
-            android:layout_alignBaseline="@+id/course_type" />
+            />
 
     </RelativeLayout>
 

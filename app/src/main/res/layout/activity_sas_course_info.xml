@@ -1,3 +1,4 @@
+
 <android.support.v4.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -13,17 +14,17 @@
         <include
             android:id="@+id/toolbar"
             layout="@layout/toolbar" />
-            <FrameLayout
-                android:id="@+id/sas_fragmentContainer"
+        <FrameLayout
+            android:id="@+id/sas_fragmentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                >
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="5dp"
-                    android:elevation="4dp"
-                    android:background="@drawable/toolbar_dropshadow"/>
-            </FrameLayout>
+                android:layout_height="5dp"
+                android:elevation="4dp"
+                android:background="@drawable/toolbar_dropshadow"/>
+        </FrameLayout>
 
     </LinearLayout>
 
@@ -33,4 +34,4 @@
         android:layout_gravity="left|start"
         android:background="@android:color/white"
         android:id="@+id/navList" />
-    </android.support.v4.widget.DrawerLayout>
+</android.support.v4.widget.DrawerLayout>

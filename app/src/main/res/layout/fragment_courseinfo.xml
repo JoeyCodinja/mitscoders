@@ -49,15 +49,15 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
+        android:background="#aaffffff"
         android:text="This is a core course in the BSc Computer Science curriculum.It is the updated version of CS20A. Its primary focus is on the method of assessing time complexity of an algorithm, and on several algorithms that efficiently solve common problems across a wide range of domains. Hand in hand with the discussion of these algorithms, goes a discussion of the data structures that support them. Therefore each topic in this course is usually present as a family if problems, the types of algorithmc solutions available, the..."
         android:id="@+id/course_descr"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
-        android:paddingLeft="20dp"
+        android:paddingLeft="10dp"
         android:paddingTop="5dp"
-        android:paddingRight="20dp"
+        android:paddingRight="10dp"
         android:paddingBottom="5dp"
         android:singleLine="false" />
 
@@ -135,12 +135,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:id="@+id/override_notifier"/>
-
         <Button
             android:layout_width="285dp"
             android:layout_height="wrap_content"
             android:id="@+id/request_override"
             android:text="@string/RequestOverride"
+            android:drawableLeft="@drawable/ic_error_outline_black_24dp"
             android:layout_gravity="center_horizontal" />
 
         </LinearLayout>

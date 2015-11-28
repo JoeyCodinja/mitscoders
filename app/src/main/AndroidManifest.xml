@@ -36,6 +36,14 @@
                 android:value="mits.uwi.com.ourmobileenvironment.LandingActivity" />
 
         </activity>
+        <activity android:name=".sasfragments.coursefragments.CourseInfoActivity"
+            android:label="@string/course_info"
+            android:parentActivityName=".SASActivity"
+            android:theme="@style/sas_bartheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="mits.uwi.com.ourmobileenvironment.SASActivity"/>
+        </activity>
         <activity android:name=".sasfragments.SAS_Splash"
             android:theme="@style/Theme.Transparent">
         </activity>

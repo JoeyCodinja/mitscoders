@@ -11,8 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import mits.uwi.com.ourmobileenvironment.R;
-import mits.uwi.com.ourmobileenvironment.sasfragments.CourseFragment;
-import mits.uwi.com.ourmobileenvironment.sasfragments.classmapfragments.ClassMapFragment;
 
 /**
  * Created by Danuel on 16/06/2015.

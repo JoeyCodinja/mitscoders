@@ -1,4 +1,4 @@
-package mits.uwi.com.ourmobileenvironment.sasfragments;
+package mits.uwi.com.ourmobileenvironment.sasfragments.coursefragments;
 
 
 

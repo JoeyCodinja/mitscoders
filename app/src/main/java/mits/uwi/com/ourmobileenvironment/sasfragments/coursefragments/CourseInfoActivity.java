@@ -1,10 +1,9 @@
-package mits.uwi.com.ourmobileenvironment;
+package mits.uwi.com.ourmobileenvironment.sasfragments.coursefragments;
 
-
-import android.support.v4.widget.DrawerLayout;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -16,23 +15,23 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import mits.uwi.com.ourmobileenvironment.sasfragments.coursefragments.AddDropCourseFragment;
-import mits.uwi.com.ourmobileenvironment.sasfragments.coursefragments.CourseInfoFragment;
-import mits.uwi.com.ourmobileenvironment.sasfragments.coursefragments.CourseListFragment;
+import mits.uwi.com.ourmobileenvironment.R;
+import mits.uwi.com.ourmobileenvironment.ToprightBar;
 import mits.uwi.com.ourmobileenvironment.sasfragments.holdfragments.HoldsFragment;
 import mits.uwi.com.ourmobileenvironment.sasfragments.requestoverridefragments.RequestOverrideListFragment;
 import mits.uwi.com.ourmobileenvironment.sasfragments.timetablefragments.TimeTableFragment;
 import mits.uwi.com.ourmobileenvironment.sasfragments.transcriptfragments.TranscriptFragment;
 
-
-public class SASActivity extends AppCompatActivity {
+/**
+ * Created by User on 11/16/2015.
+ */
+public class CourseInfoActivity extends AppCompatActivity {
     private ListView mNavList;
     private DrawerLayout mDrawerLayout;
     private ArrayAdapter<String> mAdapter;
     private ArrayAdapter<TextView> sAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
     Toolbar toolbar;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +41,7 @@ public class SASActivity extends AppCompatActivity {
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.sas_fragmentContainer);
         if (fragment == null){
-            fragment = new CourseListFragment();//CourseFragment();
+            fragment = new CourseInfoFragment();//CourseFragment();
             fm.beginTransaction()
                     .add(R.id.sas_fragmentContainer, fragment)
                     .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
@@ -75,7 +74,7 @@ public class SASActivity extends AppCompatActivity {
         mDrawerToggle.syncState();
 
         mNavList.setOnItemClickListener(new DrawerItemClickListener());
-        
+
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener{
@@ -97,17 +96,14 @@ public class SASActivity extends AppCompatActivity {
                     fragment = new TimeTableFragment();
                     break;
                 case 3:
-
                     fragment = new TranscriptFragment();
                     break;
                 case 4:
-
                     fragment = new RequestOverrideListFragment();
                     break;
                 case 5:
                     fragment = new HoldsFragment();
                     break;
-
             }
             if (position !=6) {
                 fm.beginTransaction()
@@ -118,12 +114,9 @@ public class SASActivity extends AppCompatActivity {
                 mDrawerLayout.closeDrawer(mNavList);
             }
             else{
-
                 finish();
             }
-
         }
-
     }
 
     private void addDrawerItems(){
@@ -141,7 +134,6 @@ public class SASActivity extends AppCompatActivity {
         holds.setText("Holds");
 
         TextView[] list2 = {adddrop,timetable,transcript,override,holds};
-
 
         sAdapter = new ArrayAdapter<TextView>(this,android.R.layout.simple_list_item_1,list2);*/
         String [] list = {"Home","Add/Drop","Timetable","Transcript","Overrides","Holds","Exit"};
@@ -182,5 +174,5 @@ public class SASActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
 }
+

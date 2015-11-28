@@ -1,19 +1,23 @@
-package mits.uwi.com.ourmobileenvironment.sasfragments;
+package mits.uwi.com.ourmobileenvironment.sasfragments.coursefragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.ListView;
 import java.util.ArrayList;
 
 import mits.uwi.com.ourmobileenvironment.R;
+import mits.uwi.com.ourmobileenvironment.sasfragments.Course;
 import mits.uwi.com.ourmobileenvironment.sasfragments.timetablefragments.TimeTableFragment;
 import mits.uwi.com.ourmobileenvironment.sasfragments.transcriptfragments.TranscriptFragment;
 
@@ -24,7 +28,8 @@ public class CourseFragment extends Fragment {
     TextView mNotify;
     ListView listview;
     ArrayList<Course> mDummyCourses = Course.getmCourses();
-
+    CourseAdapter adapterc;
+    ArrayAdapter <Course> adapter;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +44,7 @@ public class CourseFragment extends Fragment {
     public void onResume() {
         super.onResume();
         getActivity().setTitle(R.string.to_sas_home);
+        adapter.notifyDataSetChanged();
        // getActivity().setTitle(R.string.title_activity_sas);
     }
 
@@ -61,16 +67,54 @@ public class CourseFragment extends Fragment {
 
         mNotify = (TextView) v.findViewById(R.id.course_notify);
         //super.onCreate(savedInstanceState);
-        ArrayAdapter <Course> adapter = new ArrayAdapter <Course> (getActivity(),
+        adapter = new ArrayAdapter <Course> (getActivity(),
                 android.R.layout.simple_list_item_1,
                 mDummyCourses);
+        adapterc = new CourseAdapter(mDummyCourses);
+
         listview = (ListView)v.findViewById(R.id.courses_list);
         listview.setEmptyView(mNotify);
-        listview.setAdapter(adapter);
+        listview.setAdapter(adapterc);
 
         return v;
     }
 
+    private class CourseAdapter extends ArrayAdapter<Course>{
+
+        public CourseAdapter (ArrayList<Course> courses){
+            super(getActivity(),0,courses);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+        // If we weren't given a view, inflate one
+            if (convertView == null) {
+                convertView = getActivity().getLayoutInflater()
+                        .inflate(R.layout.fragment_course, null);
+            }
+        // Configure the view for this Crime
+            Course c = getItem(position);
+            TextView title = (TextView)convertView.findViewById(R.id.course_title);
+            title.setText(c.getTitle());
+
+            TextView subject = (TextView)convertView.findViewById(R.id.course_subject);
+            title.setText(c.getSubj());
+
+            TextView ccode = (TextView)convertView.findViewById(R.id.course_code);
+            ccode.setText(Integer.toString(c.getCourseCode()));
+
+            TextView type = (TextView)convertView.findViewById(R.id.course_type);
+            type.setText(c.getType());
+            /*ImageView course = (ImageView) convertView.findViewById(R.id.course);
+            if (c.getType().charAt(0)=='L' && c.getType().charAt(1)=='e'){
+                course.setImageResource(R.drawable.lecture);
+            }
+            elsec.getType().charAt(0)=='L' && c.getType().charAt(1)=='e'*/
+
+
+            return convertView;
+        }
+    }
 
     /*private class  CourseViewHolder extends RecyclerView.ViewHolder {
         protected TextView name,num,title,dept;
