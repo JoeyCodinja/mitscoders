@@ -5,7 +5,7 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <users-permission android:name="android.permission.INTERNET"></users-permission>
+    <users-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -31,9 +31,6 @@
                 android:value="mits.uwi.com.ourmobileenvironment.HomeActivity" />
 
         </activity>
-        <activity android:name=".sasfragments.SAS_Splash"
-            android:theme="@style/Theme.Transparent">
-        </activity>
         <activity
             android:name=".SASActivity"
             android:label="@string/title_activity_sas"
@@ -41,8 +38,7 @@
             android:theme="@style/sas_bartheme" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-
-                android:value="mits.uwi.com.ourmobileenvironment.LandingActivity" />
+                android:value="mits.uwi.com.ourmobileenvironment.HomeActivity" />
 
         </activity>
         <activity android:name=".sasfragments.coursefragments.CourseInfoActivity"
@@ -55,7 +51,6 @@
         </activity>
         <activity android:name=".sasfragments.SAS_Splash"
             android:theme="@style/Theme.Transparent">
-
         </activity>
         <activity
             android:name=".BOSSActivity"
