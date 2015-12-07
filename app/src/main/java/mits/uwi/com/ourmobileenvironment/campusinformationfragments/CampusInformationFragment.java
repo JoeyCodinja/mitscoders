@@ -4,23 +4,19 @@ package mits.uwi.com.ourmobileenvironment.campusinformationfragments;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.Gravity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.TextView;
+import android.support.design.widget.TabLayout;
 
 import com.bluejamesbond.text.DocumentView;
-import com.bluejamesbond.text.style.TextAlignment;
-
-
-
-
-import java.util.ArrayList;
 
 import mits.uwi.com.ourmobileenvironment.R;
+import mits.uwi.com.ourmobileenvironment.adapters.CampusInfoViewPagerAdapter;
+
 
 /**
  * Created by Danuel on 17/06/2015.
@@ -28,103 +24,59 @@ import mits.uwi.com.ourmobileenvironment.R;
 public class CampusInformationFragment extends Fragment {
 
     ExpandableListView mCampusInfo_ExpandableList;
+    ViewPager  mCampusInfo_ViewPager;
+    CampusInfoViewPagerAdapter adapter;
     LayoutInflater inflater;
+    TabLayout tabs;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+
     }
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_campus_info, container, false);
-
-        mCampusInfo_ExpandableList = (ExpandableListView)v.findViewById(R.id.campus_info_expandable_list);
-        mCampusInfo_ExpandableList.setAdapter( new CampusInfoListAdapter());
-        mCampusInfo_ExpandableList.setGroupIndicator(null);
-
-        return v;
-    }
-
-    public class CampusInfoListAdapter extends BaseExpandableListAdapter{
-        private String[] groups = {getResources().getString(R.string.campus_info_snippet_title1),
-                                    getResources().getString(R.string.campus_info_snippet_title2),
-                                    getResources().getString(R.string.campus_info_snippet_title3),
-                                    getResources().getString(R.string.campus_info_snippet_title4),
-                                    getResources().getString(R.string.campus_info_snippet_title5),
-                                    getResources().getString(R.string.campus_info_snippet_title6)
-                                  };
-        private String[] children ={getResources().getString(R.string.campus_info_snippet_body1),
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        String[] groups = {getResources().getString(R.string.campus_info_snippet_title1),
+                getResources().getString(R.string.campus_info_snippet_title2),
+                getResources().getString(R.string.campus_info_snippet_title3),
+                getResources().getString(R.string.campus_info_snippet_title4),
+                getResources().getString(R.string.campus_info_snippet_title5),
+                getResources().getString(R.string.campus_info_snippet_title6)
+        };
+        String[] children = {getResources().getString(R.string.campus_info_snippet_body1),
                 getResources().getString(R.string.campus_info_snippet_body2),
                 getResources().getString(R.string.campus_info_snippet_body3),
                 getResources().getString(R.string.campus_info_snippet_body4),
                 getResources().getString(R.string.campus_info_snippet_body5),
                 getResources().getString(R.string.campus_info_snippet_body6)};
 
-        @Override
-        public int getGroupCount() {
-            return groups.length;
+        View v = inflater.inflate(R.layout.fragment_campus_info, container, false);
+
+        View parent = (View) container.getParent();
+
+        DocumentView campusHeading = (DocumentView)parent.
+                findViewById(R.id.campus_info_heading_fragment);
+        if (campusHeading.getVisibility() == DocumentView.GONE) {
+            campusHeading.setVisibility(DocumentView.VISIBLE);
         }
 
-        public int getChildrenCount(int i){
-            return 1;
-        }
+        FragmentManager fm = this.getActivity().getSupportFragmentManager();
 
-        @Override
-        public Object getGroup(int groupPosition) {
-            return groups[groupPosition];
-        }
+        adapter = new CampusInfoViewPagerAdapter(getActivity().getSupportFragmentManager(), groups, children, groups.length);
 
-        @Override
-        public Object getChild(int groupPosition, int childPosition) {
+        mCampusInfo_ViewPager = (ViewPager)v.findViewById(R.id.campus_info_viewpager);
+        mCampusInfo_ViewPager.setAdapter(adapter);
 
-            return children[groupPosition];
-        }
+        tabs = (TabLayout)v.findViewById(R.id.campusinfo_tabs);
+        tabs.setTabMode(TabLayout.MODE_SCROLLABLE);
+        tabs.setupWithViewPager(mCampusInfo_ViewPager);
 
-        @Override
-        public long getGroupId(int groupPosition) {
-            return groupPosition;
-        }
-
-        @Override
-        public long getChildId(int groupPosition, int childPosition) {
-            return childPosition;
-        }
-
-        @Override
-        public boolean hasStableIds() {
-            return true;
-        }
-
-        @Override
-        public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-
-            TextView textView = new TextView(CampusInformationFragment.this.getActivity());
-            textView.setText(getGroup(groupPosition).toString());
-            textView.setTextSize(16f);
-            textView.setGravity(Gravity.CENTER_HORIZONTAL);
-            return textView;
-        }
-
-        @Override
-        public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-
-            DocumentView textView = new DocumentView(CampusInformationFragment.this.getActivity(), DocumentView.PLAIN_TEXT);
-            textView.getDocumentLayoutParams().setTextAlignment(TextAlignment.JUSTIFIED);
-            textView.setText(getChild(groupPosition, childPosition).toString());
-            textView.getDocumentLayoutParams().setAntialias(true);
-            textView.getDocumentLayoutParams().setInsetPaddingLeft(14.0f);
-            textView.getDocumentLayoutParams().setInsetPaddingRight(14.0f);
-            return textView;
-
-        }
-
-        @Override
-        public boolean isChildSelectable(int groupPosition, int childPosition) {
-            return false;
-        }
-
-
+        return v;
     }
+
+
 }
