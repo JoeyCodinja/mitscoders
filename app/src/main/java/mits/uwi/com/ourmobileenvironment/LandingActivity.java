@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import mits.uwi.com.ourmobileenvironment.sasfragments.SAS_Splash;
+import mits.uwi.com.ourmobileenvironment.sasfragments.classmapfragments.ClassMapActivity;
 
 
 public class LandingActivity extends AppCompatActivity {

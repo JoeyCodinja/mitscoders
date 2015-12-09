@@ -1,6 +1,7 @@
 package mits.uwi.com.ourmobileenvironment;
 
 
+import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,7 +17,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import mits.uwi.com.ourmobileenvironment.sasfragments.Course;
+import mits.uwi.com.ourmobileenvironment.sasfragments.classmapfragments.ClassMapActivity;
 import mits.uwi.com.ourmobileenvironment.sasfragments.coursefragments.AddDropCourseFragment;
+import mits.uwi.com.ourmobileenvironment.sasfragments.coursefragments.CourseInfoActivity;
 import mits.uwi.com.ourmobileenvironment.sasfragments.coursefragments.CourseInfoFragment;
 import mits.uwi.com.ourmobileenvironment.sasfragments.coursefragments.CourseListFragment;
 import mits.uwi.com.ourmobileenvironment.sasfragments.holdfragments.HoldsFragment;
@@ -175,6 +179,13 @@ public class SASActivity extends AppCompatActivity {
                     .replace(R.id.sas_fragmentContainer, fragment)
                     .addToBackStack(null)
                     .commit();
+        }
+        if (id==R.id.classmap){
+            Intent i = new Intent(this,ClassMapActivity.class );
+                     //ClassMapActivity.class
+           // i.putExtra(CourseInfoFragment.EXTRA_COURSE_ID, c.getCRN());
+            startActivity(i);
+
         }
 
 
