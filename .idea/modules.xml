@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/gson-2.5/gson-2.5.iml" filepath="$PROJECT_DIR$/gson-2.5/gson-2.5.iml" />
       <module fileurl="file://$PROJECT_DIR$/mitscoders.iml" filepath="$PROJECT_DIR$/mitscoders.iml" />
     </modules>
   </component>
