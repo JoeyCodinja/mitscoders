@@ -1,4 +1,4 @@
-package mits.uwi.com.ourmobileenvironment;
+package mits.uwi.com.ourmobileenvironment.Directory;
 
 import android.graphics.PorterDuff;
 import android.support.v4.app.Fragment;
@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import mits.uwi.com.ourmobileenvironment.R;
 
 
 /**
@@ -29,7 +31,6 @@ public class DirectoryFragment extends Fragment {
     public  void reset(){
         mDirectories.clear();
         mDirectories.addAll(DirectoryEntry.getmDirectories());
-        Log.d("mdirectory2", "" + this.mDirectories.size());
     }
     public ArrayList<DirectoryEntry> getmDirectories() {
         return mDirectories;
@@ -112,7 +113,6 @@ public class DirectoryFragment extends Fragment {
 
         @Override
         public int getItemCount(){
-            Log.d("directory size", "" + dlist.size());
             return dlist.size();
         }
 

@@ -4,13 +4,17 @@
     package="mits.uwi.com.ourmobileenvironment">
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <users-permission android:name="android.permission.INTERNET"></users-permission>
     <application
+        android:name="com.orm.SugarApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         tools:replace="android:icon"
         android:theme="@style/AppTheme" >
+        <meta-data android:name="UWIMOBILEDATABASE" android:value="example.db" />
+        <meta-data android:name="VERSION" android:value="1" />
+        <meta-data android:name="QUERY_LOG" android:value="true" />
+        <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="mits.uwi.com.ourmobileenvironment" />
         <activity android:name=".HomeActivity"
             android:label="@string/app_name" >
             <intent-filter>
@@ -50,7 +54,7 @@
                 android:value="mits.uwi.com.ourmobileenvironment.HomeActivity" />
         </activity>
         <activity
-            android:name=".BusScheduleActivity"
+            android:name=".Transport.BusScheduleActivity"
             android:label="@string/title_activity_bus_schedule"
             android:launchMode="singleTask"
             android:configChanges="orientation"
@@ -89,7 +93,7 @@
                 android:value="mits.uwi.com.ourmobileenvironment.HomeActivity" />
         </activity>
         <activity
-            android:name=".DirectoryActivity"
+            android:name=".Directory.DirectoryActivity"
             android:label="@string/title_activity_directory"
             android:parentActivityName=".HomeActivity"
             android:theme="@style/blueactionbartheme" >

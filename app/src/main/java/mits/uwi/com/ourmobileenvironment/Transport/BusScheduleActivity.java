@@ -1,4 +1,4 @@
-package mits.uwi.com.ourmobileenvironment;
+package mits.uwi.com.ourmobileenvironment.Transport;
 
 import android.app.SearchManager;
 import android.content.Context;
@@ -15,6 +15,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import java.util.ArrayList;
+
+import mits.uwi.com.ourmobileenvironment.R;
+import mits.uwi.com.ourmobileenvironment.SlidingTabLayout;
+import mits.uwi.com.ourmobileenvironment.ToprightBar;
 
 public class BusScheduleActivity extends AppCompatActivity  {
 
@@ -107,7 +111,7 @@ public class BusScheduleActivity extends AppCompatActivity  {
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
-                busfragmentlist.get(bPage.getCurrentItem()).reset();
+                busfragmentlist.get(bPage.getCurrentItem()).loadroutes();
                 busfragmentlist.get(bPage.getCurrentItem()).notifydatasetchanged();
                 bPage.getAdapter().notifyDataSetChanged();
                 return false;

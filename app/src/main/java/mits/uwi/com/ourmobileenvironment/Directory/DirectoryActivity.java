@@ -1,17 +1,19 @@
-package mits.uwi.com.ourmobileenvironment;
+package mits.uwi.com.ourmobileenvironment.Directory;
 
 import android.support.v7.widget.SearchView;
 import android.app.SearchManager;
 import android.content.Context;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-
+import org.json.JSONObject;
 import java.util.ArrayList;
+import mits.uwi.com.ourmobileenvironment.GlobalRequestHandler;
+import mits.uwi.com.ourmobileenvironment.R;
+import mits.uwi.com.ourmobileenvironment.ToprightBar;
 
 
 public class DirectoryActivity extends AppCompatActivity {

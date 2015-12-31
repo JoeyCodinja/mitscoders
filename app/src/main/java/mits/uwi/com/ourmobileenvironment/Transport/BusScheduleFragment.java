@@ -1,4 +1,4 @@
-package mits.uwi.com.ourmobileenvironment;
+package mits.uwi.com.ourmobileenvironment.Transport;
 
 
 import android.os.Bundle;
@@ -9,17 +9,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import java.util.ArrayList;
+
+import mits.uwi.com.ourmobileenvironment.GlobalRequestHandler;
+import mits.uwi.com.ourmobileenvironment.R;
 
 
 public class BusScheduleFragment extends Fragment {
+    private ArrayList<BusRoute> tempblist=new ArrayList<>();
+    BusScheduleAdapter busadap;
+
     public ArrayList<BusRoute> getTempblist() {
         return tempblist;
     }
 
-    private ArrayList<BusRoute> tempblist=new ArrayList<>();
-    BusScheduleAdapter busadap;
+
 
     public void setBusadap(BusScheduleAdapter busadap) {
         this.busadap = busadap;
@@ -38,20 +42,19 @@ public class BusScheduleFragment extends Fragment {
     }
 
 
-
     public void setTempblist(ArrayList<BusRoute> blist){
         this.tempblist.clear();
         this.tempblist.addAll(blist);
     }
-    public void reset(){
-        tempblist.clear();
-        tempblist.addAll(BusRoute.getBusList());
+
+    public void loadroutes(){
+        GlobalRequestHandler.getInstance(this.getActivity()).getShuttleRoutes(tempblist);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        reset();
+        loadroutes();
 
 
 
@@ -80,14 +83,13 @@ public class BusScheduleFragment extends Fragment {
 
 
     private static class BusScheduleViewHolder extends RecyclerView.ViewHolder{
-        protected TextView depart,route,freq,nextdepart;
+        protected TextView operationTimes,route,freq, RouteDescription;
 
         public BusScheduleViewHolder (View v){
             super(v);
-            depart=(TextView) v.findViewById(R.id.departure);
+            operationTimes =(TextView) v.findViewById(R.id.operationTimes);
             route=(TextView) v.findViewById(R.id.route);
             freq=(TextView) v.findViewById(R.id.frequency);
-            nextdepart=(TextView) v.findViewById(R.id.ndparture);
         }
 
     }
@@ -121,9 +123,8 @@ public class BusScheduleFragment extends Fragment {
         @Override
         public void onBindViewHolder(BusScheduleViewHolder busScheduleViewHolder, int i) {
             BusRoute br = rlist.get(i);
-            busScheduleViewHolder.depart.setText(br.getDeparture());
+            busScheduleViewHolder.operationTimes.setText(br.getOperationTimes());
             busScheduleViewHolder.route.setText(br.getRoute());
-            busScheduleViewHolder.nextdepart.setText(br.getNextDeparture());
             busScheduleViewHolder.freq.setText(br.getFrequency());
         }
 

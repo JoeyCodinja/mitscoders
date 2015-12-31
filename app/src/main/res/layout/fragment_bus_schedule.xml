@@ -24,7 +24,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/departure"
+                android:id="@+id/operationTimes"
                 />
         <TextView
             android:id="@+id/frequency"
@@ -32,11 +32,6 @@
             android:layout_height="wrap_content"
             />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/ndparture"
-            />
         </LinearLayout>
 
     </android.support.v7.widget.CardView>

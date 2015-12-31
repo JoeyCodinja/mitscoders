@@ -1,6 +1,8 @@
-package mits.uwi.com.ourmobileenvironment;
+package mits.uwi.com.ourmobileenvironment.Directory;
 
 import java.util.ArrayList;
+
+import mits.uwi.com.ourmobileenvironment.R;
 
 /**
  * Created by rox on 8/1/15.
@@ -46,7 +48,7 @@ public class DirectoryEntry {
     public static void populate()
     {
         mDirectories.clear();
-        mDirectories.add(new DirectoryEntry("Ernesto Abram","987-8900","Director","Student Services",R.drawable.buntu));
+        mDirectories.add(new DirectoryEntry("Ernesto Abram","987-8900","Director","Student Services", R.drawable.buntu));
         mDirectories.add(new DirectoryEntry("EMark Zuckerberg","987-8900","Director","Student Services",R.drawable.cream));
         mDirectories.add(new DirectoryEntry("Bill gatessss","987-8900","Director","Student Services",R.drawable.dropbox));
         mDirectories.add(new DirectoryEntry("Steve Jobssss","987-8900","Director","Student Services",R.drawable.purple));
