@@ -112,7 +112,7 @@ public class EateriesFragment extends Fragment implements View.OnClickListener{
 
             EateriesViewHolder(View itemView) {
                 super(itemView);
-                cv = (CardView)itemView.findViewById(R.id.cv);
+                cv = (CardView)itemView.findViewById(R.id.taxi_service);
                 eateriesName = (TextView)itemView.findViewById(R.id.eateries_name);
                 eateriesLocation = (TextView)itemView.findViewById(R.id.eateries_location);
                 eateriesHours = (TextView)itemView.findViewById(R.id.eateries_hours);

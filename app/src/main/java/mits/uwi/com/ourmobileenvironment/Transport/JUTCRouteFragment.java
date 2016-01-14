@@ -1,7 +1,7 @@
 package mits.uwi.com.ourmobileenvironment.Transport;
 
-
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,72 +9,63 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import java.util.ArrayList;
-import android.support.v4.app.DialogFragment;
 
 import mits.uwi.com.ourmobileenvironment.HTTP_RequestHandlers.GlobalRequestHandler;
 import mits.uwi.com.ourmobileenvironment.R;
 
-
-public class BusScheduleFragment extends TransportFragment {
-    private ArrayList<BusRoute> tempblist=new ArrayList<>();
-    BusScheduleAdapter busadap;
-
-
-
-    public BusScheduleFragment() {
-        // Required empty public constructor
-    }
-
-    private void showDialog(int Index) {
-        FragmentManager fm = getActivity().getSupportFragmentManager();
-        RouteDescription Landmark = new RouteDescription();
-        Landmark.setDlist(tempblist.get(Index).getRouteDescription());
-        Landmark.show(fm, "fragment_route_description");
-    }
-
-    public  void refreshView(){
-        busadap.notifyDataSetChanged();
-    }
-
-    public void loadroutes(){
-       GlobalRequestHandler.getInstance(this.getActivity()).getShuttleRoutes(tempblist, this);
-    }
+/**
+ * Created by rox on 1/12/16.
+ */
+public class JUTCRouteFragment extends TransportFragment {
+    private ArrayList<JUTCRoute> JUTCList=new ArrayList<>();
+    JUTCRouteAdapter jutcRouteAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadroutes();
+        loadJUTCRoutes();
 
+    }
+
+    private void showDialog(int Index) {
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        RouteDialog Landmark = new RouteDialog();
+        Landmark.setRoutelist(JUTCList.get(Index).getRouteList());
+        Landmark.show(fm, "fragment_JUTC_Route");
+    }
+
+    public void refreshView() {
+        jutcRouteAdapter.notifyDataSetChanged();
+    }
+
+
+    public void loadJUTCRoutes() {
+        GlobalRequestHandler.getInstance(this.getActivity()).getJUTCRoutes(JUTCList, this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View v =inflater.inflate(R.layout.recycle, container, false);
         RecyclerView recList =(RecyclerView)v.findViewById(R.id.rv);
         recList.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
-        busadap=new BusScheduleAdapter(tempblist);
-        recList.setAdapter(busadap);
+        jutcRouteAdapter=new JUTCRouteAdapter(JUTCList);
+        recList.setAdapter(jutcRouteAdapter);
         return  v;
     }
 
-
-
-
-
     private  class JUTCRouteViewHolder extends RecyclerView.ViewHolder{
-        private TextView operationTimes,route,freq;
+        private TextView origin, destination,routenum;
 
-        public JUTCRouteViewHolder(View v){
+        public JUTCRouteViewHolder (View v){
             super(v);
-            operationTimes =(TextView) v.findViewById(R.id.operationTimes);
-            route=(TextView) v.findViewById(R.id.route);
-            freq=(TextView) v.findViewById(R.id.frequency);
-            v.setClickable(true);
+            origin =(TextView) v.findViewById(R.id.origin );
+            destination =(TextView) v.findViewById(R.id.destination);
+            routenum=(TextView) v.findViewById(R.id.route_num);
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -86,39 +77,36 @@ public class BusScheduleFragment extends TransportFragment {
 
     }
 
+    private class JUTCRouteAdapter extends RecyclerView.Adapter<JUTCRouteFragment.JUTCRouteViewHolder>{
 
 
-
-    private class BusScheduleAdapter extends RecyclerView.Adapter<JUTCRouteViewHolder>{
-
-
-        private ArrayList<BusRoute> rlist;
+        private ArrayList<JUTCRoute> JUTCRouteList;
 
 
-        public BusScheduleAdapter(ArrayList<BusRoute> rlist){
-            this.rlist=rlist;
+        public JUTCRouteAdapter(ArrayList<JUTCRoute> JUTCRouteList){
+            this.JUTCRouteList = JUTCRouteList;
         }
 
         @Override
         public JUTCRouteViewHolder onCreateViewHolder(ViewGroup parent,int pos){
-            View view=LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_bus_schedule,parent,false);
+            View view=LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_jutc_route,parent,false);
 
             return new JUTCRouteViewHolder(view);
 
         }
 
 
-       @Override
+        @Override
         public int getItemCount(){
-            return rlist.size();
+            return JUTCRouteList.size();
         }
 
         @Override
-        public void onBindViewHolder(JUTCRouteViewHolder JUTCRouteViewHolder, int i) {
-            BusRoute br = rlist.get(i);
-            JUTCRouteViewHolder.operationTimes.setText(br.getOperationTimes());
-            JUTCRouteViewHolder.route.setText(br.getRoute());
-            JUTCRouteViewHolder.freq.setText(br.getFrequency());
+        public void onBindViewHolder(JUTCRouteViewHolder jutcRouteViewHolder, int i) {
+            JUTCRoute jutcRoute = JUTCRouteList.get(i);
+            jutcRouteViewHolder.routenum.setText(jutcRoute.getRouteNum());
+            jutcRouteViewHolder.origin.setText("Origin: "+jutcRoute.getOrigin());
+            jutcRouteViewHolder.destination.setText("Destination: "+jutcRoute.getDestination());
 
         }
 
@@ -129,19 +117,19 @@ public class BusScheduleFragment extends TransportFragment {
 
 
 
+    }
+
+    public static class RouteDialog extends DialogFragment {
+
+
+
+        public void setRoutelist(ArrayList<String> dlist) {
+            this.Routelist = dlist;
         }
 
-    public static class RouteDescription extends DialogFragment {
+        private ArrayList<String> Routelist;
 
-
-
-        public void setDlist(ArrayList<String> dlist) {
-            this.dlist = dlist;
-        }
-
-        private ArrayList<String> dlist;
-
-        public RouteDescription() {
+        public RouteDialog() {
             // Empty constructor is required for DialogFragment
             // Make sure not to add arguments to the constructor
             // Use `newInstance` instead as shown below
@@ -158,8 +146,8 @@ public class BusScheduleFragment extends TransportFragment {
             LinearLayoutManager llm = new LinearLayoutManager(getActivity());
             llm.setOrientation(LinearLayoutManager.VERTICAL);
             recList.setLayoutManager(llm);
-            getDialog().setTitle("Route Description");
-            RouteDescAdapter routeDescAdapter=new RouteDescAdapter(dlist);
+            getDialog().setTitle("Route");
+            RouteDescAdapter routeDescAdapter=new RouteDescAdapter(Routelist);
             recList.setAdapter(routeDescAdapter);
             return v;
         }
@@ -167,11 +155,11 @@ public class BusScheduleFragment extends TransportFragment {
         private  class RouteDescViewHolder extends RecyclerView.ViewHolder
 
         {
-            private TextView landmark;
+            private TextView route;
 
             public RouteDescViewHolder(View v) {
                 super(v);
-                landmark = (TextView) v.findViewById(R.id.landmark);
+                route = (TextView) v.findViewById(R.id.route_dialog);
 
 
             }
@@ -182,16 +170,16 @@ public class BusScheduleFragment extends TransportFragment {
         private class RouteDescAdapter extends RecyclerView.Adapter<RouteDescViewHolder>{
 
 
-            private ArrayList<String > landlist;
+            private ArrayList<String > routelist;
 
 
-            public RouteDescAdapter(ArrayList<String> landlist){
-                this.landlist=landlist;
+            public RouteDescAdapter(ArrayList<String> routelist){
+                this.routelist = routelist;
             }
 
             @Override
             public RouteDescViewHolder onCreateViewHolder(ViewGroup parent,int pos){
-                View view=LayoutInflater.from(parent.getContext()).inflate(R.layout.transport_dialogue_layout,parent,false);
+                View view=LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_route_dialog,parent,false);
                 return new RouteDescViewHolder(view);
 
             }
@@ -199,13 +187,13 @@ public class BusScheduleFragment extends TransportFragment {
 
             @Override
             public int getItemCount(){
-                return landlist.size();
+                return routelist.size();
             }
 
             @Override
             public void onBindViewHolder(RouteDescViewHolder routeDescViewHolder , int i) {
-                ArrayList<String> landmark = landlist;
-                routeDescViewHolder.landmark.setText(landmark.get(i));
+                ArrayList<String> route = routelist;
+                routeDescViewHolder.route.setText(route.get(i));
 
 
             }
@@ -219,8 +207,5 @@ public class BusScheduleFragment extends TransportFragment {
 
         }
     }
-
-
-
 
 }

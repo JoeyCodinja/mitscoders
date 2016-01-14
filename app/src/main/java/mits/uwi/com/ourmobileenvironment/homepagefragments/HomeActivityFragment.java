@@ -6,12 +6,9 @@ import android.graphics.drawable.Drawable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 
 import android.view.ViewGroup;
@@ -21,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mits.uwi.com.ourmobileenvironment.BOSSActivity;
-import mits.uwi.com.ourmobileenvironment.BusScheduleActivity;
+import mits.uwi.com.ourmobileenvironment.Transport.TransportActivity;
 import mits.uwi.com.ourmobileenvironment.CampusInformationActivity;
 import mits.uwi.com.ourmobileenvironment.OurVLEActivity;
 import mits.uwi.com.ourmobileenvironment.R;
@@ -93,7 +90,7 @@ public class HomeActivityFragment extends Fragment {
                                 startActivity(i);
                                 break;
                             case R.id.landing_pageFAB2:
-                                i = new Intent(getActivity(), BusScheduleActivity.class);
+                                i = new Intent(getActivity(), TransportActivity.class);
                                 startActivity(i);
                                 break;
                             case R.id.landing_pageFAB3:

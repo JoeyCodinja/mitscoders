@@ -6,6 +6,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -20,12 +21,13 @@ import mits.uwi.com.ourmobileenvironment.R;
 import mits.uwi.com.ourmobileenvironment.SlidingTabLayout;
 import mits.uwi.com.ourmobileenvironment.ToprightBar;
 
-public class BusScheduleActivity extends AppCompatActivity  {
+public class TransportActivity extends AppCompatActivity  {
 
     ViewPager bPage;
+
     SearchView searchView;
     private SlidingTabLayout mSlidingTabLayout;
-    private ArrayList<BusScheduleFragment> busfragmentlist =new ArrayList<>();
+    private ArrayList<TransportFragment> transportFragments =new ArrayList<>();
 
 
     @Override
@@ -34,11 +36,13 @@ public class BusScheduleActivity extends AppCompatActivity  {
         setContentView(R.layout.buspager);
         FragmentManager fm = getSupportFragmentManager();
         bPage=(ViewPager)findViewById(R.id.buspager);
-        bPage.setAdapter(new FragmentStatePagerAdapter(fm) {
+        bPage.setAdapter(new FragmentPagerAdapter(fm) {
             @Override
             public Fragment getItem(int position) {
-                busfragmentlist.add(position,new BusScheduleFragment());
-                return busfragmentlist.get(position);
+                transportFragments.add(new BusScheduleFragment());
+                transportFragments.add(new JUTCRouteFragment());
+                transportFragments.add(new TaxiServiceFragment());
+                return transportFragments.get(position);
             }
 
             @Override
@@ -81,44 +85,43 @@ public class BusScheduleActivity extends AppCompatActivity  {
         SearchManager searchManager=(SearchManager) getSystemService(Context.SEARCH_SERVICE);
         searchView =(SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                ArrayList<BusRoute> blist = new ArrayList();
-                for (BusRoute busRoute : busfragmentlist.get(bPage.getCurrentItem()).getTempblist()) {
-                    if (busRoute.getRoute().toLowerCase().contains(query.toLowerCase())) {
-                        blist.add(busRoute);
-                        Log.d("test",""+blist.size());
-
-                    }
-                }
-
-                if (blist.size()>0) {
-                    busfragmentlist.get(bPage.getCurrentItem()).setTempblist(blist);
-                    busfragmentlist.get(bPage.getCurrentItem()).notifydatasetchanged();
-                    bPage.getAdapter().notifyDataSetChanged();
-                    searchView.setQuery("", false);
-                }
-
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                ArrayList<BusRoute> blist = new ArrayList();
+//                for (BusRoute busRoute : transportFragments.get(bPage.getCurrentItem()).getTempblist()) {
+//                    if (busRoute.getRouteList().toLowerCase().contains(query.toLowerCase())) {
+//                        blist.add(busRoute);
+//                        Log.d("test", "" + blist.size());
+//
+//                    }
+//                }
+//
+//                if (blist.size() > 0) {
+//                    // transportFragments.get(bPage.getCurrentItem()).setTempblist(blist);
+////                    transportFragments.get(bPage.getCurrentItem()).notifydatasetchanged();
+////                    bPage.getAdapter().notifyDataSetChanged();
+////                    searchView.setQuery("", false);
+//                }
+//
+//                return true;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                return false;
+//            }
+//        });
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
-                busfragmentlist.get(bPage.getCurrentItem()).loadroutes();
-                busfragmentlist.get(bPage.getCurrentItem()).notifydatasetchanged();
-                bPage.getAdapter().notifyDataSetChanged();
+//                transportFragments.get(bPage.getCurrentItem()).loadroutes();
+//                transportFragments.get(bPage.getCurrentItem()).notifydatasetchanged();
+//                bPage.getAdapter().notifyDataSetChanged();
                 return false;
             }
         });
-        searchView.clearFocus();
-
+        searchView.callOnClick();
         return  true;
     }
 
@@ -128,6 +131,7 @@ public class BusScheduleActivity extends AppCompatActivity  {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        Log.d("SearchActivity",id+"");
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
@@ -136,4 +140,6 @@ public class BusScheduleActivity extends AppCompatActivity  {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }

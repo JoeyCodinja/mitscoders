@@ -9,9 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import org.json.JSONObject;
+
 import java.util.ArrayList;
-import mits.uwi.com.ourmobileenvironment.GlobalRequestHandler;
+
 import mits.uwi.com.ourmobileenvironment.R;
 import mits.uwi.com.ourmobileenvironment.ToprightBar;
 
