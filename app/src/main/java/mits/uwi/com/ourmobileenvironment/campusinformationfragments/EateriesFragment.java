@@ -10,6 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -106,9 +108,9 @@ public class EateriesFragment extends Fragment implements View.OnClickListener{
             TextView eateriesLocation;
             TextView eateriesHours;
             ImageView eateriesPhoto;
-            ImageView favoriteIcon;
+            CheckBox favoriteIcon;
             ImageView locationIcon;
-            ImageView clickedIcon;
+            //ImageView clickedIcon;
 
             EateriesViewHolder(View itemView) {
                 super(itemView);
@@ -116,11 +118,11 @@ public class EateriesFragment extends Fragment implements View.OnClickListener{
                 eateriesName = (TextView)itemView.findViewById(R.id.eateries_name);
                 eateriesLocation = (TextView)itemView.findViewById(R.id.eateries_location);
                 eateriesHours = (TextView)itemView.findViewById(R.id.eateries_hours);
-                eateriesPhoto = (ImageView)itemView.findViewById(R.id.eateries_photo);
-                favoriteIcon = (ImageView)itemView.findViewById(R.id.favorite_icon);
+                 eateriesPhoto = (ImageView)itemView.findViewById(R.id.eateries_photo);
+                favoriteIcon = (CheckBox)itemView.findViewById(R.id.favorite_icon);
                 locationIcon = (ImageView)itemView.findViewById(R.id.location_icon);
 
-                favoriteIcon.setColorFilter(R.color.grey, PorterDuff.Mode.DST_OUT);
+                //favoriteIcon.setColorFilter(R.color.grey, PorterDuff.Mode.DST_OUT);
                 locationIcon.setColorFilter(R.color.grey, PorterDuff.Mode.DST_OUT);
                 cv.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -131,30 +133,33 @@ public class EateriesFragment extends Fragment implements View.OnClickListener{
                        //id = getResources().getIdentifier(String.valueOf((ImageView)itemView.findViewById(R.id.eateries_photo)), "id", null);
                         input = eateriesName.getText().toString();
                         //MenuDataPasser.getInstance().setResName(input);
-                        for (int i =0 ; i <5; i++){
+                        for (int i =0 ; i <eateries.size(); i++){
                             if(input.equals(eateries.get(i).name))
                                 MenuDataPasser.getInstance().setResName(eateries.get(i));
                         }
-                        showDialog();
+                        //showDialog();
                     }
                 });
-                favoriteIcon.setOnClickListener(new View.OnClickListener() {
+
+                favoriteIcon.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
-                    public void onClick(View itemView) {
-                        // item clicked
-                        int id = getResources().getIdentifier("ic_favorite_clicked", "drawable", null);
-                        favoriteIcon.setImageResource(id);
-                        favoriteIcon.setColorFilter(R.color.red, PorterDuff.Mode.DST_OUT);
-                        //favoriteIcon.setBackgroundResource(0);
+                    public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                        input = eateriesName.getText().toString();
+                        //MenuDataPasser.getInstance().setResName(input);
+                        for (int i =0 ; i <eateries.size(); i++){
+                            if(input.equals(eateries.get(i).name))
+                                eateries.get(i).setFav();
+                        }
                     }
                 });
+
                 locationIcon.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View itemView) {
-                        // item clicked
-                        //locationIcon.setBackgroundResource(R.color.red);
-                        //locationIcon.setBackgroundResource(0);
-                    }
+                        @Override
+                        public void onClick(View itemView) {
+                            // item clicked
+                            //locationIcon.setBackgroundResource(R.color.red);
+                            //locationIcon.setBackgroundResource(0);
+                        }
                 });
             }
 
