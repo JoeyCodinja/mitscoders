@@ -37,7 +37,6 @@ public class SASActivity extends AppCompatActivity {
     private ActionBarDrawerToggle mDrawerToggle;
     Toolbar toolbar;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +49,7 @@ public class SASActivity extends AppCompatActivity {
             fm.beginTransaction()
                     .add(R.id.sas_fragmentContainer, fragment)
                     .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                    .addToBackStack(null)
+                    //.addToBackStack(null)
                     .commit();
         }
         ToprightBar.setTopOverflow(this);
@@ -114,11 +113,19 @@ public class SASActivity extends AppCompatActivity {
 
             }
             if (position !=6) {
-                fm.beginTransaction()
-                        .replace(R.id.sas_fragmentContainer, fragment)
-                        .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                        .addToBackStack(null)
-                        .commit();
+                if (position==0) {
+                    fm.beginTransaction()
+                            .replace(R.id.sas_fragmentContainer, fragment)
+                            .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                            .commit();
+                }
+                else{
+                    fm.beginTransaction()
+                            .replace(R.id.sas_fragmentContainer, fragment)
+                            .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                            .addToBackStack(null)
+                            .commit();
+                }
                 mDrawerLayout.closeDrawer(mNavList);
             }
             else{

@@ -31,7 +31,7 @@ public class ClassMapFragment extends Fragment {
 
         /*mToTimeTableFragmentButton = (Button)v.findViewById(R.id.to_timetable_fragment_classmap);
         mToTimeTableFragmentButton.setOnClickListener(new View.OnClickListener() {
-            @Override
+            @CourseOverride
             public void onClick(View v) {
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 Fragment fragment = new TimeTableFragment();

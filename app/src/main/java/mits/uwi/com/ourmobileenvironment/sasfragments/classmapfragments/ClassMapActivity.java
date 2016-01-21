@@ -86,7 +86,7 @@ public class ClassMapActivity extends FragmentActivity implements OnMapReadyCall
    /* Google Map
    private GoogleMap googleMap;
 
-    @Override
+    @CourseOverride
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_classmap);
@@ -118,7 +118,7 @@ public class ClassMapActivity extends FragmentActivity implements OnMapReadyCall
         }
     }
 
-    @Override
+    @CourseOverride
     protected void onResume() {
         super.onResume();
         initilizeMap();
