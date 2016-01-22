@@ -64,6 +64,11 @@ public class JUTCRoute extends Transport {
 
     }
 
+    @Override
+    public String getSearchField(){
+        return getDestination()+","+getOrigin()+","+getRouteNum()+","+getSerialisedRoute();
+    }
+
 
 
 }

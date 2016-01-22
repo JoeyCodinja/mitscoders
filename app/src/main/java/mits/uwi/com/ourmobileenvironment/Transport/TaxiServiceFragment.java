@@ -5,12 +5,14 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import mits.uwi.com.ourmobileenvironment.HTTP_RequestHandlers.GlobalRequestHandler;
 import mits.uwi.com.ourmobileenvironment.R;
@@ -18,8 +20,8 @@ import mits.uwi.com.ourmobileenvironment.R;
 /**
  * Created by rox on 1/10/16.
  */
-public class TaxiServiceFragment extends TransportFragment {
-    private ArrayList<TaxiService> Tlist=new ArrayList<>();
+public class TaxiServiceFragment extends TransportFragment<TaxiService> {
+
     TaxiServiceAdapter taxiadap;
 
     @Override
@@ -31,24 +33,33 @@ public class TaxiServiceFragment extends TransportFragment {
     private void showDialog(int Index) {
         FragmentManager fm = getActivity().getSupportFragmentManager();
         TaxiContact Landmark = new TaxiContact();
-        Landmark.setContactlist(Tlist.get(Index).getNumbers());
+        Landmark.setContactlist(transportModels.get(Index).getNumbers());
         Landmark.show(fm, "fragment_taxi_contact");
     }
+    public TaxiServiceAdapter getTaxiadap() {
+        return taxiadap;
+    }
+
+    @Override
+    public TransportAdapter getAdap(){
+        return getTaxiadap();
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View v =inflater.inflate(R.layout.recycle, container, false);
-        RecyclerView recList =(RecyclerView)v.findViewById(R.id.rv);
+        recList =(RecyclerView)v.findViewById(R.id.rv);
         recList.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
-        taxiadap=new TaxiServiceAdapter(Tlist);
+        taxiadap=new TaxiServiceAdapter(transportModels);
         recList.setAdapter(taxiadap);
         return  v;
     }
 
-    private  class TaxiServiceViewHolder extends RecyclerView.ViewHolder{
+    private  class TaxiServiceViewHolder extends TransportViewHolder{
         private TextView email,name;
 
         public TaxiServiceViewHolder (View v){
@@ -65,14 +76,12 @@ public class TaxiServiceFragment extends TransportFragment {
         }
 
     }
-    private class TaxiServiceAdapter extends RecyclerView.Adapter<TaxiServiceFragment.TaxiServiceViewHolder>{
+    private class TaxiServiceAdapter extends TransportAdapter<TaxiService,TaxiServiceViewHolder>{
 
-
-        private ArrayList<TaxiService> taxiServiceArrayList;
 
 
         public TaxiServiceAdapter(ArrayList<TaxiService> taxiServiceArrayList){
-            this.taxiServiceArrayList = taxiServiceArrayList;
+           super(taxiServiceArrayList);
         }
 
         @Override
@@ -86,12 +95,12 @@ public class TaxiServiceFragment extends TransportFragment {
 
         @Override
         public int getItemCount(){
-            return taxiServiceArrayList.size();
+            return Tlist.size();
         }
 
         @Override
         public void onBindViewHolder(TaxiServiceViewHolder taxiServiceViewHolder, int i) {
-            TaxiService taxiService = taxiServiceArrayList.get(i);
+            TaxiService taxiService = Tlist.get(i);
             if(!taxiService.getEmail().isEmpty()) {
                 taxiServiceViewHolder.email.setText(taxiService.getEmail());
             }
@@ -102,16 +111,24 @@ public class TaxiServiceFragment extends TransportFragment {
 
         }
 
-
-
     }
     public void loadtaxiservices(){
-        GlobalRequestHandler.getInstance(getActivity()).getTaxiServices(Tlist,this);
+        GlobalRequestHandler.getInstance(getActivity()).getTaxiServices(transportModels,this);
     }
 
+    @Override
     public void refreshView(){
         taxiadap.notifyDataSetChanged();
+        Log.d("class",this.getClass().getName());
 
+    }
+
+    @Override
+    public boolean onQueryTextChange(String query){
+        final List<TaxiService> filteredModelList = filter(transportModels, query);
+        taxiadap.animateTo(filteredModelList);
+        recList.scrollToPosition(0);
+        return true;
     }
     public static class TaxiContact extends DialogFragment {
 

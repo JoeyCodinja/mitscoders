@@ -9,6 +9,7 @@ import com.android.volley.VolleyError;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import mits.uwi.com.ourmobileenvironment.Transport.Transport;
 import mits.uwi.com.ourmobileenvironment.Transport.TransportFragment;
@@ -35,15 +36,18 @@ public class TransportErrorListener <T extends Transport>implements Response.Err
 
     @Override
     public void onErrorResponse(VolleyError error){
-          if (T.listAll(transport).isEmpty()){
+        List<T> objlist=T.listAll(transport);
+        TransportFragment.TransportAdapter adapter=transportFragment.getAdap();
+          if (objlist.isEmpty()){
               internetConnection.show();
 
           }
         else {
               Tlist.clear();
-              for (T transport:T.listAll(this.transport)){
+              for (T transport:objlist){
                   transport.DeserialiseList();
                   Tlist.add(transport);
+                  adapter.Add(transport);
               }
               transportFragment.refreshView();
 

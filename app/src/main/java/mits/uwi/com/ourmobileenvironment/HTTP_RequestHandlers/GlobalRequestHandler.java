@@ -15,6 +15,7 @@ import com.android.volley.toolbox.ImageLoader;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v4.util.LruCache;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -45,13 +46,14 @@ public class GlobalRequestHandler {
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
     private static Context mCtx;
-    private String lastMod="";
+    private Context TransportContext;
 
 
 
 
     private GlobalRequestHandler(Context context) {
-        mCtx = context;
+        mCtx = context.getApplicationContext();
+        TransportContext=context;
         mRequestQueue = getRequestQueue();
         mImageLoader = new ImageLoader(mRequestQueue,
                 new ImageLoader.ImageCache() {
@@ -72,7 +74,7 @@ public class GlobalRequestHandler {
 
     public static synchronized GlobalRequestHandler getInstance(Context context) {
         if (mInstance == null) {
-            mInstance = new GlobalRequestHandler(context.getApplicationContext());
+            mInstance = new GlobalRequestHandler(context);
         }
         return mInstance;
     }
@@ -93,27 +95,27 @@ public class GlobalRequestHandler {
     }
 
     public void getShuttleRoutes(ArrayList<BusRoute> BusRouteList,BusScheduleFragment busScheduleFragment )  {
-        String url="http://10.0.2.2:5000/service/shuttle_routes";
-        TransportListener transportListener=new TransportListener("Shuttlelist",BusRouteList,busScheduleFragment,mCtx,lastMod,BusRoute.class);
+        String url="http://192.168.1.104:5000/service/shuttle_routes";
+        TransportListener transportListener=new TransportListener("Shuttlelist",BusRouteList,busScheduleFragment,mCtx,BusRoute.class);
         TransportErrorListener transportErrorListener= new TransportErrorListener(BusRoute.class,mCtx,busScheduleFragment,BusRouteList);
-        TransportRequest transportRequest= new TransportRequest(url,transportListener,lastMod,transportErrorListener);
+        TransportRequest transportRequest= new TransportRequest(url,transportListener,transportErrorListener,mCtx);
         mRequestQueue.add(transportRequest);
     }
 
     public void getTaxiServices( ArrayList<TaxiService> taxiServiceList,TaxiServiceFragment taxiServiceFragment){
-        String url="http://10.0.2.2:5000/service/taxi_services";
-        TransportListener transportListener=new TransportListener("TaxiList",taxiServiceList,taxiServiceFragment,mCtx,lastMod,TaxiService.class);
+        String url="http://192.168.1.104:5000/service/taxi_services";
+        TransportListener transportListener=new TransportListener("TaxiList",taxiServiceList,taxiServiceFragment,mCtx,TaxiService.class);
         TransportErrorListener transportErrorListener=new TransportErrorListener(TaxiService.class,mCtx,taxiServiceFragment,taxiServiceList);
-        TransportRequest transportRequest=new TransportRequest(url,transportListener,lastMod,transportErrorListener);
+        TransportRequest transportRequest=new TransportRequest(url,transportListener,transportErrorListener,mCtx);
         mRequestQueue.add(transportRequest);
 
     }
 
     public void getJUTCRoutes(ArrayList<JUTCRoute> jutcRoutes,JUTCRouteFragment jutcRouteFragment){
-        String url="http://10.0.2.2:5000/service/jutc_routes";
-        TransportListener transportListener=new TransportListener("JUTCList",jutcRoutes,jutcRouteFragment,mCtx,lastMod,JUTCRoute.class);
+        String url="http://192.168.1.104:5000/service/jutc_routes";
+        TransportListener transportListener=new TransportListener("JUTCList",jutcRoutes,jutcRouteFragment,mCtx,JUTCRoute.class);
         TransportErrorListener transportErrorListener=new TransportErrorListener(JUTCRoute.class,mCtx,jutcRouteFragment,jutcRoutes);
-        TransportRequest transportRequest=new TransportRequest(url,transportListener,lastMod,transportErrorListener);
+        TransportRequest transportRequest=new TransportRequest(url,transportListener,transportErrorListener,mCtx);
         mRequestQueue.add(transportRequest);
     }
 }

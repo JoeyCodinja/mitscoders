@@ -71,6 +71,11 @@ public class TaxiService extends Transport{
         return getName()+","+getEmail()+","+getNumbers().toString();
     }
 
+    @Override
+    public String getSearchField(){
+        return getName();
+    }
+
 
 
 

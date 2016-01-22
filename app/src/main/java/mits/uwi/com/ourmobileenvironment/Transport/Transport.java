@@ -14,4 +14,5 @@ public  abstract  class Transport extends SugarRecord {
     }
     public abstract void SerialiseList();
     public abstract void DeserialiseList();
+    public abstract String getSearchField();
 }

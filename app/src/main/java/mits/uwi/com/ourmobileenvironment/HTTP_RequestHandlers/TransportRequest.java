@@ -1,5 +1,9 @@
 package mits.uwi.com.ourmobileenvironment.HTTP_RequestHandlers;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
@@ -14,14 +18,17 @@ import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
+import mits.uwi.com.ourmobileenvironment.R;
+
 /**
  * Created by rox on 1/10/16.
  */
 public class TransportRequest extends JsonObjectRequest {
     private String lastMod;
-    public TransportRequest(String url,Response.Listener<JSONObject>Listener,String lastMod,Response.ErrorListener errorListener){
+    private Context context;
+    public TransportRequest(String url,Response.Listener<JSONObject>Listener,Response.ErrorListener errorListener,Context context){
         super( url,Listener, errorListener);
-        this.lastMod = lastMod;
+        this.context=context;
 
 
     }
@@ -29,17 +36,25 @@ public class TransportRequest extends JsonObjectRequest {
     @Override
     public Map<String,String>getHeaders() throws AuthFailureError{
         HashMap<String, String> headers = new HashMap<>();
-        headers.put("Last-Modified", lastMod);
+        SharedPreferences sharedPref = context.getSharedPreferences(
+                "mits.uwi.com.ourmobileenvironment.Last-Modified", Context.MODE_PRIVATE);
+        headers.put("Last-Modified",sharedPref.getString("Last-Modified",""));
+        Log.d("Lastmod", sharedPref.getString("Last-Modified", ""));
+
         return headers;
     }
 
     @Override
     protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
         try {
+            SharedPreferences sharedPref = context.getSharedPreferences(
+                    "mits.uwi.com.ourmobileenvironment.Last-Modified", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("Last-Modified", response.headers.get("Last-Modified"));
+            editor.commit();
             String jsonString = new String(response.data,
                     HttpHeaderParser.parseCharset(response.headers, PROTOCOL_CHARSET));
             JSONObject jsonObject=new JSONObject(jsonString);
-            jsonObject.put("Last-Modified", response.headers.get("Last-Modified"));
             jsonObject.put("Status",""+response.statusCode);
             return Response.success(jsonObject,
                     HttpHeaderParser.parseCacheHeaders(response));

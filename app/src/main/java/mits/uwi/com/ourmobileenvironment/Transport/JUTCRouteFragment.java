@@ -5,12 +5,14 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import mits.uwi.com.ourmobileenvironment.HTTP_RequestHandlers.GlobalRequestHandler;
 import mits.uwi.com.ourmobileenvironment.R;
@@ -18,8 +20,8 @@ import mits.uwi.com.ourmobileenvironment.R;
 /**
  * Created by rox on 1/12/16.
  */
-public class JUTCRouteFragment extends TransportFragment {
-    private ArrayList<JUTCRoute> JUTCList=new ArrayList<>();
+public class JUTCRouteFragment extends TransportFragment<JUTCRoute> {
+
     JUTCRouteAdapter jutcRouteAdapter;
 
     @Override
@@ -32,33 +34,53 @@ public class JUTCRouteFragment extends TransportFragment {
     private void showDialog(int Index) {
         FragmentManager fm = getActivity().getSupportFragmentManager();
         RouteDialog Landmark = new RouteDialog();
-        Landmark.setRoutelist(JUTCList.get(Index).getRouteList());
+        Landmark.setRoutelist(transportModels.get(Index).getRouteList());
         Landmark.show(fm, "fragment_JUTC_Route");
     }
 
+    @Override
     public void refreshView() {
         jutcRouteAdapter.notifyDataSetChanged();
+        Log.d("class", this.getClass().getName());
+    }
+    public JUTCRouteAdapter getJutcRouteAdapter() {
+        return jutcRouteAdapter;
+    }
+
+    @Override
+    public TransportAdapter getAdap(){
+        return getJutcRouteAdapter();
+    }
+
+
+
+    @Override
+    public boolean onQueryTextChange(String query){
+        final List<JUTCRoute> filteredModelList = filter(transportModels, query);
+        jutcRouteAdapter.animateTo(filteredModelList);
+        recList.scrollToPosition(0);
+        return true;
     }
 
 
     public void loadJUTCRoutes() {
-        GlobalRequestHandler.getInstance(this.getActivity()).getJUTCRoutes(JUTCList, this);
+        GlobalRequestHandler.getInstance(this.getActivity()).getJUTCRoutes(transportModels, this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View v =inflater.inflate(R.layout.recycle, container, false);
-        RecyclerView recList =(RecyclerView)v.findViewById(R.id.rv);
+        recList =(RecyclerView)v.findViewById(R.id.rv);
         recList.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
-        jutcRouteAdapter=new JUTCRouteAdapter(JUTCList);
+        jutcRouteAdapter=new JUTCRouteAdapter(transportModels);
         recList.setAdapter(jutcRouteAdapter);
         return  v;
     }
 
-    private  class JUTCRouteViewHolder extends RecyclerView.ViewHolder{
+    private  class JUTCRouteViewHolder extends TransportViewHolder{
         private TextView origin, destination,routenum;
 
         public JUTCRouteViewHolder (View v){
@@ -77,14 +99,11 @@ public class JUTCRouteFragment extends TransportFragment {
 
     }
 
-    private class JUTCRouteAdapter extends RecyclerView.Adapter<JUTCRouteFragment.JUTCRouteViewHolder>{
-
-
-        private ArrayList<JUTCRoute> JUTCRouteList;
+    private class JUTCRouteAdapter extends TransportAdapter<JUTCRoute,JUTCRouteViewHolder>{
 
 
         public JUTCRouteAdapter(ArrayList<JUTCRoute> JUTCRouteList){
-            this.JUTCRouteList = JUTCRouteList;
+            super(JUTCRouteList);
         }
 
         @Override
@@ -98,24 +117,17 @@ public class JUTCRouteFragment extends TransportFragment {
 
         @Override
         public int getItemCount(){
-            return JUTCRouteList.size();
+            return Tlist.size();
         }
 
         @Override
         public void onBindViewHolder(JUTCRouteViewHolder jutcRouteViewHolder, int i) {
-            JUTCRoute jutcRoute = JUTCRouteList.get(i);
+            JUTCRoute jutcRoute = Tlist.get(i);
             jutcRouteViewHolder.routenum.setText(jutcRoute.getRouteNum());
             jutcRouteViewHolder.origin.setText("Origin: "+jutcRoute.getOrigin());
             jutcRouteViewHolder.destination.setText("Destination: "+jutcRoute.getDestination());
 
         }
-
-
-
-
-
-
-
 
     }
 

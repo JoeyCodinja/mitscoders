@@ -79,6 +79,11 @@ public class BusRoute extends Transport{
         return RouteDescription;
     }
 
+    @Override
+    public String getSearchField(){
+        return getRoute();
+    }
+
 
 
 }

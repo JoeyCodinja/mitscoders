@@ -5,40 +5,58 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import java.util.ArrayList;
+import java.util.List;
+
 import android.support.v4.app.DialogFragment;
 
 import mits.uwi.com.ourmobileenvironment.HTTP_RequestHandlers.GlobalRequestHandler;
 import mits.uwi.com.ourmobileenvironment.R;
 
 
-public class BusScheduleFragment extends TransportFragment {
-    private ArrayList<BusRoute> tempblist=new ArrayList<>();
+public class BusScheduleFragment extends TransportFragment<BusRoute> {
+
     BusScheduleAdapter busadap;
-
-
 
     public BusScheduleFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public boolean onQueryTextChange(String query){
+        final List<BusRoute> filteredModelList = filter(transportModels, query);
+        busadap.animateTo(filteredModelList);
+        recList.scrollToPosition(0);
+        return true;
+    }
+
     private void showDialog(int Index) {
         FragmentManager fm = getActivity().getSupportFragmentManager();
         RouteDescription Landmark = new RouteDescription();
-        Landmark.setDlist(tempblist.get(Index).getRouteDescription());
+        Landmark.setDlist(transportModels.get(Index).getRouteDescription());
         Landmark.show(fm, "fragment_route_description");
     }
 
+    @Override
     public  void refreshView(){
         busadap.notifyDataSetChanged();
     }
 
+    public BusScheduleAdapter getBusadap() {
+        return busadap;
+    }
+    @Override
+    public TransportAdapter getAdap(){
+        return getBusadap();
+    }
+
     public void loadroutes(){
-       GlobalRequestHandler.getInstance(this.getActivity()).getShuttleRoutes(tempblist, this);
+       GlobalRequestHandler.getInstance(this.getActivity()).getShuttleRoutes(transportModels, this);
     }
 
     @Override
@@ -52,12 +70,12 @@ public class BusScheduleFragment extends TransportFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v =inflater.inflate(R.layout.recycle, container, false);
-        RecyclerView recList =(RecyclerView)v.findViewById(R.id.rv);
+        recList =(RecyclerView)v.findViewById(R.id.rv);
         recList.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
-        busadap=new BusScheduleAdapter(tempblist);
+        busadap=new BusScheduleAdapter(transportModels);
         recList.setAdapter(busadap);
         return  v;
     }
@@ -66,10 +84,10 @@ public class BusScheduleFragment extends TransportFragment {
 
 
 
-    private  class JUTCRouteViewHolder extends RecyclerView.ViewHolder{
+    private  class BusScheduleViewHolder extends TransportViewHolder{
         private TextView operationTimes,route,freq;
 
-        public JUTCRouteViewHolder(View v){
+        public BusScheduleViewHolder(View v){
             super(v);
             operationTimes =(TextView) v.findViewById(R.id.operationTimes);
             route=(TextView) v.findViewById(R.id.route);
@@ -89,36 +107,35 @@ public class BusScheduleFragment extends TransportFragment {
 
 
 
-    private class BusScheduleAdapter extends RecyclerView.Adapter<JUTCRouteViewHolder>{
+    private class BusScheduleAdapter extends TransportAdapter<BusRoute,BusScheduleViewHolder>{
 
 
-        private ArrayList<BusRoute> rlist;
+
 
 
         public BusScheduleAdapter(ArrayList<BusRoute> rlist){
-            this.rlist=rlist;
+            super(rlist);
         }
 
         @Override
-        public JUTCRouteViewHolder onCreateViewHolder(ViewGroup parent,int pos){
+        public BusScheduleViewHolder onCreateViewHolder(ViewGroup parent,int pos){
             View view=LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_bus_schedule,parent,false);
-
-            return new JUTCRouteViewHolder(view);
+            return new BusScheduleViewHolder(view);
 
         }
 
 
        @Override
         public int getItemCount(){
-            return rlist.size();
+            return Tlist.size();
         }
 
         @Override
-        public void onBindViewHolder(JUTCRouteViewHolder JUTCRouteViewHolder, int i) {
-            BusRoute br = rlist.get(i);
-            JUTCRouteViewHolder.operationTimes.setText(br.getOperationTimes());
-            JUTCRouteViewHolder.route.setText(br.getRoute());
-            JUTCRouteViewHolder.freq.setText(br.getFrequency());
+        public void onBindViewHolder(BusScheduleViewHolder BusScheduleViewHolder, int i) {
+            BusRoute br = Tlist.get(i);
+            BusScheduleViewHolder.operationTimes.setText(br.getOperationTimes());
+            BusScheduleViewHolder.route.setText(br.getRoute());
+            BusScheduleViewHolder.freq.setText(br.getFrequency());
 
         }
 
