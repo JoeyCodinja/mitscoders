@@ -1,6 +1,9 @@
 package mits.uwi.com.ourmobileenvironment.homepagefragments;
 
 import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.TabLayout;
@@ -15,6 +18,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
@@ -139,10 +143,7 @@ public class HomeActivityFragment extends Fragment {
             public void onAnimationCancel(Animator animation) {
                 // TODO: Images return to base state; mMenu Expanded = False
                 mMenuExpanded = false;
-                Log.d(TAG, "Animation Cancel");
-                for (ImageView button : buttons) {
-                    button.clearAnimation();
-                }
+
             }
 
             @Override
@@ -157,22 +158,62 @@ public class HomeActivityFragment extends Fragment {
                 if (!mMenuExpanded) {
                     for (int fab = 1; fab <= mFABs.size() - 1; fab++) {
                         mFABs.get(fab).setVisibility(View.VISIBLE);
-                        mFABs.get(fab).animate()
-                                .setDuration(400)
-                                .translationXBy((float) -((-35 * pow(fab, 2)) + (210 * fab) - 75))
-                                .translationYBy((float) -((150.83 * pow(fab, 1.1533f))))
-                                .setListener(mFABAnimatorListener);
-                        v.getParent().getParent().bringChildToFront(mFABs.get(fab));
+//                        mFABs.get(fab).animate()
+//                                .setDuration(400)
+//                                .translationXBy((float) -((-35 * pow(fab, 2)) + (210 * fab) - 75))
+//                                .translationYBy((float) -((150.83 * pow(fab, 1.1533f))))
+//                                .setListener(mFABAnimatorListener);
+
+                        ObjectAnimator fanOutX = ObjectAnimator.ofFloat(mFABs.get(fab),
+                                "x",
+                                mFABs.get(fab).getX(),
+                                (float) (mFABs.get(fab).getX() -
+                                        (-30 * (pow(fab, 2)) + (160 * fab) - 45)));
+                        fanOutX.setDuration(400);
+
+                        ObjectAnimator fanOutY = ObjectAnimator.ofFloat(mFABs.get(fab),
+                                "y",
+                                mFABs.get(fab).getY(),
+                                (float) (mFABs.get(fab).getY() -
+                                        (195 * fab)));
+                        fanOutY.setDuration(400);
+
+                        AnimatorSet fanOut = new AnimatorSet();
+                        fanOut.play(fanOutX).with(fanOutY);
+                        fanOut.addListener(mFABAnimatorListener);
+                        fanOut.start();
+
                     }
                     mMenuExpanded = true;
                 } else {
                     for (int fab = 1; fab <= mFABs.size() - 1; fab++) {
-                        mFABs.get(fab).animate()
-                                .setDuration(3500 - (500 * (fab - 1)))
-                                .translationXBy((float) (-35 * (pow(fab, 2))) + (210 * fab) - 75)
-                                .translationYBy((float) (150.83 * (pow(fab, 1.1533f))))
-                                .alpha(0)
-                                .setListener(mFABAnimatorListener);
+//                        mFABs.get(fab).animate()
+//                                .setDuration(3500 - (500 * (fab - 1)))
+//                                .translationXBy((float) (-35 * (pow(fab, 2))) + (210 * fab) - 75)
+//                                .translationYBy((float) (150.83 * (pow(fab, 1.1533f))))
+//                                .alpha(0)
+//                                .setListener(mFABAnimatorListener);
+
+                        ObjectAnimator fanInX = ObjectAnimator.ofFloat(mFABs.get(fab),
+                                "x",
+                                mFABs.get(fab).getX(),
+                                (float) (mFABs.get(fab).getX() +
+                                        (-30 * (pow(fab, 2)) + (160 * fab) - 45)));
+                        fanInX.setDuration(3500 - (500 * (fab - 1)));
+
+                        ObjectAnimator fanInY = ObjectAnimator.ofFloat(mFABs.get(fab),
+                                "y",
+                                mFABs.get(fab).getY(),
+                                (float) (mFABs.get(fab).getY() +
+                                        (195 * fab)));
+                        fanInY.setDuration(3500 - (500 * (fab - 1)));
+
+                        AnimatorSet fanIn = new AnimatorSet();
+                        fanIn.play(fanInX).with(fanInY);
+                        fanIn.addListener(mFABAnimatorListener);
+                        fanIn.start();
+
+
                     }
                     mMenuExpanded = false;
                 }
@@ -180,36 +221,6 @@ public class HomeActivityFragment extends Fragment {
 
             }
         });
-
-
-//        FABClickListener = new View.OnClickListener() {
-//            Intent i;
-//            @Override
-//            public void onClick(View v) {
-//                switch(v.getId()){
-//                    case R.id.landing_pageFAB1:
-//                        i = new Intent(getActivity(), CampusInformationActivity.class);
-//                        startActivity(i);
-//                        break;
-//                    case R.id.landing_pageFAB2:
-////                        i = new Intent(getActivity(), CampusTransportationActivity.class);
-////                        startActivity(i);
-//                        break;
-//                    case R.id.landing_pageFAB3:
-//                        i = new Intent(getActivity(), OurVLEActivity.class);
-//                        startActivity(i);
-//                        break;
-//                    case R.id.landing_pageFAB4:
-//                        i = new Intent(getActivity(), BOSSActivity.class);
-//                        startActivity(i);
-//                        break;
-//                    case R.id.landing_pageFAB5:
-//                        i = new Intent(getActivity(), SASActivity.class);
-//                        startActivity(i);
-//                        break;
-//                }
-//            }
-//        };
 
 
         adapter = new HomePageViewPagerAdapter(getActivity().getSupportFragmentManager(),

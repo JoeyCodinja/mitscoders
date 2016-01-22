@@ -36,6 +36,7 @@ public class Home_News {
     private String[] RSS_feeds = {"http://www.mona.uwi.edu/marcom/newsroom/feed",
                                   "http://www.mona.uwi.edu/marcom/uwinotebook/feed"};
     public boolean didConnect;
+    public boolean loaded;
     private Context calledContext;
     //Default Constructor
 
@@ -52,6 +53,7 @@ public class Home_News {
             e.printStackTrace();
             Log.e(TAG, e.getClass() + e.getMessage());
             didConnect = false;
+            loaded = false;
         }
     }
 
