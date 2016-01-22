@@ -169,7 +169,7 @@ public class StudentTimeTableWeekFragment extends Fragment implements WeekView.M
     @Override
     public List<WeekViewEvent> onMonthChange(int newYear, int newMonth) {
 
-        List<WeekViewEvent> array_list = new  ArrayList<WeekViewEvent>();
+        //List<WeekViewEvent> array_list = new  ArrayList<WeekViewEvent>();
         //CustomTimeTableDbHelper.EventCursor events = queryruns();
        // events.moveToFirst();
        // while(events.isAfterLast() == false){
@@ -194,8 +194,8 @@ public class StudentTimeTableWeekFragment extends Fragment implements WeekView.M
         //            events.getString(events.getColumnIndex(events.getColumnName(6))), Toast.LENGTH_SHORT);
        //             events.moveToNext();
        // }
-        return array_list;
-        /*/ Populate the week view with some events.
+       // return array_list;
+        //Populate the week view with some events.
         List<WeekViewEvent> events = new ArrayList<WeekViewEvent>();
 
         Calendar startTime = Calendar.getInstance();
@@ -303,7 +303,7 @@ public class StudentTimeTableWeekFragment extends Fragment implements WeekView.M
         event.setColor(getResources().getColor(R.color.event_color_02));
         events.add(event);
 
-        return events;*/
+        return events;
     }
 
     private String getEventTitle(Calendar time) {
