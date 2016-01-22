@@ -34,6 +34,8 @@ public class CourseListFragment extends ListFragment {
         adapter = new CourseAdapter(mCourses);
         setListAdapter(adapter);
         setRetainInstance(true);
+
+
     }
 
     @Override

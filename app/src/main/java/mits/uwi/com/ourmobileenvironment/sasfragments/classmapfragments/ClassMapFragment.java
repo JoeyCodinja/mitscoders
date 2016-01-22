@@ -39,7 +39,6 @@ public class ClassMapFragment extends Fragment {
                 fm.beginTransaction()
                         .replace(R.id.sas_fragmentContainer, fragment)
                         .commit();
-
             }
         });*/
 
