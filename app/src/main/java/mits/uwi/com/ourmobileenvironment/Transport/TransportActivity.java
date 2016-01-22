@@ -50,7 +50,7 @@ public class TransportActivity extends AppCompatActivity  {
 
             @Override
             public CharSequence getPageTitle(int position) {
-                ArrayList<String> title=new ArrayList<String>();
+                ArrayList<String> title = new ArrayList<String>();
                 title.add("Shuttle");
                 title.add("JUTC");
                 title.add("Taxi");
@@ -60,6 +60,7 @@ public class TransportActivity extends AppCompatActivity  {
 
 
         });
+        bPage.setOffscreenPageLimit(2);
         mSlidingTabLayout=(SlidingTabLayout) findViewById(R.id.sltab);
         mSlidingTabLayout.setCustomTabView(R.layout.tabview, R.id.tabtitle);
         mSlidingTabLayout.setViewPager(bPage);
