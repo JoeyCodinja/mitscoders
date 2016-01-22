@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.support.design.widget.TabLayout;
+import android.widget.FrameLayout;
 
 import com.bluejamesbond.text.DocumentView;
 
@@ -54,15 +55,13 @@ public class CampusInformationFragment extends Fragment {
                 getResources().getString(R.string.campus_info_snippet_body5),
                 getResources().getString(R.string.campus_info_snippet_body6)};
 
-        View v = inflater.inflate(R.layout.fragment_campus_info, container, false);
+        View v = inflater.inflate(R.layout.activity_campus_information, container, false);
 
-        View parent = (View) container.getParent();
+        FrameLayout innerFragment = (FrameLayout) v.findViewById(R.id.campusinfo_fragmentContainer);
 
-        DocumentView campusHeading = (DocumentView)parent.
-                findViewById(R.id.campus_info_heading_fragment);
-        if (campusHeading.getVisibility() == DocumentView.GONE) {
-            campusHeading.setVisibility(DocumentView.VISIBLE);
-        }
+        View v2 = inflater.inflate(R.layout.fragment_campus_info, innerFragment, false);
+
+        innerFragment.addView(v2);
 
         FragmentManager fm = this.getActivity().getSupportFragmentManager();
 

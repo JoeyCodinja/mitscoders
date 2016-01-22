@@ -13,7 +13,6 @@
         ext:documentView_text="@string/campus_info_snippet_body1"
         android:layout_gravity="center_horizontal"
         ext:documentView_textAlignment="justified"
-        android:visibility="gone"
         android:id="@+id/campus_info_heading_fragment"
         />
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"

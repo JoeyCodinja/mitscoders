@@ -125,25 +125,14 @@ public class HomeActivityFragment extends Fragment {
 
             @Override
             public void onAnimationStart(Animator animation) {
-                for (ImageView button : buttons) {
-                    if (button.getAlpha() == 0f)
-                        button.setAlpha(1f);
-                }
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                if (mMenuExpanded) {
-                    for (ImageView button : buttons) {
-                        button.setAlpha(1f);
-                    }
-                }
             }
 
             @Override
             public void onAnimationCancel(Animator animation) {
-                // TODO: Images return to base state; mMenu Expanded = False
-                mMenuExpanded = false;
 
             }
 
@@ -208,6 +197,12 @@ public class HomeActivityFragment extends Fragment {
                                 (float) (mFABs.get(fab).getY() +
                                         (195 * fab)));
                         fanInY.setDuration(3500 - (500 * (fab - 1)));
+
+                        ObjectAnimator fanInAlpha = ObjectAnimator.ofFloat(mFABs.get(fab),
+                                "alpha",
+                                mFABs.get(fab).getAlpha(),
+                                0);
+                        fanInAlpha.setDuration(3500 - (500 * (fab-1)));
 
                         AnimatorSet fanIn = new AnimatorSet();
                         fanIn.play(fanInX).with(fanInY);

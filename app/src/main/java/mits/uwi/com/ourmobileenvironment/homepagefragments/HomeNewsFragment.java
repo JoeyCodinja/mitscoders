@@ -123,8 +123,6 @@ public class HomeNewsFragment extends Fragment {
 
         }
 
-
-
         @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
         private void makeNewsItemViews(View contextView) {
 
