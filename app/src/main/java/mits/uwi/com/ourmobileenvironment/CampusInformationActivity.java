@@ -10,12 +10,10 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-
+import mits.uwi.com.ourmobileenvironment.campusinformationfragments.EateriesFragment;
 import java.util.ArrayList;
-
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.CampusInformationFragment;
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.CampusListingsFragment;
-import mits.uwi.com.ourmobileenvironment.campusinformationfragments.EateriesFragment;
 
 public class CampusInformationActivity extends AppCompatActivity {
 

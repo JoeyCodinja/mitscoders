@@ -1,5 +1,8 @@
 package mits.uwi.com.ourmobileenvironment.campusinformationfragments;
 
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -97,6 +100,45 @@ public class EateriesFragment extends Fragment implements View.OnClickListener{
 
     }
 
+    public static int calculateInSampleSize(
+            BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+
+            final int halfHeight = height / 2;
+            final int halfWidth = width / 2;
+
+            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+            // height and width larger than the requested height and width.
+            while ((halfHeight / inSampleSize) > reqHeight
+                    && (halfWidth / inSampleSize) > reqWidth) {
+                inSampleSize *= 2;
+            }
+        }
+
+        return inSampleSize;
+    }
+
+    public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
+                                                        int reqWidth, int reqHeight) {
+
+        // First decode with inJustDecodeBounds=true to check dimensions
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeResource(res, resId, options);
+
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeResource(res, resId, options);
+    }
+
     public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EateriesViewHolder> {
 
         public class EateriesViewHolder extends RecyclerView.ViewHolder {
@@ -118,7 +160,9 @@ public class EateriesFragment extends Fragment implements View.OnClickListener{
                 eateriesName = (TextView)itemView.findViewById(R.id.eateries_name);
                 eateriesLocation = (TextView)itemView.findViewById(R.id.eateries_location);
                 eateriesHours = (TextView)itemView.findViewById(R.id.eateries_hours);
-                 eateriesPhoto = (ImageView)itemView.findViewById(R.id.eateries_photo);
+                eateriesPhoto = (ImageView)itemView.findViewById(R.id.eateries_photo);
+//                eateriesPhoto.setImageBitmap(
+//                        decodeSampledBitmapFromResource(getResources(), R.id.eateries_photo, 100, 100));
                 favoriteIcon = (CheckBox)itemView.findViewById(R.id.favorite_icon);
                 locationIcon = (ImageView)itemView.findViewById(R.id.location_icon);
 
@@ -188,9 +232,9 @@ public class EateriesFragment extends Fragment implements View.OnClickListener{
             eateriesViewHolder.eateriesName.setText(eateries.get(i).name);
             eateriesViewHolder.eateriesLocation.setText(eateries.get(i).location);
             eateriesViewHolder.eateriesHours.setText(eateries.get(i).hours);
-            eateriesViewHolder.eateriesPhoto.setImageResource(eateries.get(i).photoId);
-           // MenuDataPasser.getInstance().setResName(eateries.get(i));
-           //MenuDataPasser.getInstance().setResPhoto(eateries.get(i).photoId);
+//            eateriesViewHolder.eateriesPhoto.setImageResource(eateries.get(i).photoId);
+            eateriesViewHolder.eateriesPhoto.setImageBitmap(
+                        decodeSampledBitmapFromResource(getResources(), eateries.get(i).photoId, 100, 100));
         }
 
         @Override

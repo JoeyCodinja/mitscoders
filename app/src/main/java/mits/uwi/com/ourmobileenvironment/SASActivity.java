@@ -15,13 +15,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import mits.uwi.com.ourmobileenvironment.sasfragments.AddDropCourseFragment;
-import mits.uwi.com.ourmobileenvironment.sasfragments.CourseFragment;
-import mits.uwi.com.ourmobileenvironment.sasfragments.CourseInfoFragment;
+import mits.uwi.com.ourmobileenvironment.sasfragments.coursefragments.AddDropCourseFragment;
+import mits.uwi.com.ourmobileenvironment.sasfragments.coursefragments.CourseInfoFragment;
+import mits.uwi.com.ourmobileenvironment.sasfragments.coursefragments.CourseListFragment;
 import mits.uwi.com.ourmobileenvironment.sasfragments.holdfragments.HoldsFragment;
-import mits.uwi.com.ourmobileenvironment.sasfragments.requestoverridefragments.RequestOverrideFragment;
 import mits.uwi.com.ourmobileenvironment.sasfragments.requestoverridefragments.RequestOverrideListFragment;
 import mits.uwi.com.ourmobileenvironment.sasfragments.timetablefragments.TimeTableFragment;
 import mits.uwi.com.ourmobileenvironment.sasfragments.transcriptfragments.TranscriptFragment;
@@ -35,6 +33,7 @@ public class SASActivity extends AppCompatActivity {
     private ActionBarDrawerToggle mDrawerToggle;
     Toolbar toolbar;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,9 +41,8 @@ public class SASActivity extends AppCompatActivity {
 
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.sas_fragmentContainer);
-
         if (fragment == null){
-            fragment = new CourseFragment();
+            fragment = new CourseListFragment();//CourseFragment();
             fm.beginTransaction()
                     .add(R.id.sas_fragmentContainer, fragment)
                     .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
@@ -90,7 +88,7 @@ public class SASActivity extends AppCompatActivity {
             //Toast.makeText(SASActivity.this,((TextView)view).getText(),Toast.LENGTH_LONG).show();
             switch(position) {
                 case 0:
-                    fragment = new CourseFragment();
+                    fragment = new CourseListFragment();//CourseFragment();
                     break;
                 case 1:
                     fragment = new AddDropCourseFragment();
@@ -169,26 +167,6 @@ public class SASActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-        if (id==R.id.action_timetable){
-            FragmentManager fm = getSupportFragmentManager();
-            Fragment fragment = new TimeTableFragment();
-
-            fm.beginTransaction()
-                    .replace(R.id.sas_fragmentContainer, fragment)
-                    .addToBackStack(null)
-                    .commit();
-        }
-
-        if (id==R.id.action_transcript){
-            FragmentManager fm = getSupportFragmentManager();
-            Fragment fragment = new TranscriptFragment();
-
-            fm.beginTransaction()
-                    .replace(R.id.sas_fragmentContainer, fragment)
-                    .addToBackStack(null)
-                    .commit();
-        }
-
         if (id==R.id.action_courseinfo){
             FragmentManager fm = getSupportFragmentManager();
             Fragment fragment = new CourseInfoFragment();
@@ -198,15 +176,8 @@ public class SASActivity extends AppCompatActivity {
                     .addToBackStack(null)
                     .commit();
         }
-        if (id==R.id.hold){
-            FragmentManager fm = getSupportFragmentManager();
-            Fragment fragment = new HoldsFragment();
 
-            fm.beginTransaction()
-                    .replace(R.id.sas_fragmentContainer, fragment)
-                    .addToBackStack(null)
-                    .commit();
-        }
+
 
         return super.onOptionsItemSelected(item);
     }

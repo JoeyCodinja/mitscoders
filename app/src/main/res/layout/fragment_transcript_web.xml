@@ -6,7 +6,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="447dp"
+        android:layout_height="match_parent"
         android:layout_weight="1.33"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp">
@@ -16,7 +16,7 @@
             android:orientation="vertical">
             <TableLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
                 <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
                 android:id="@+id/textView3" />
                 <TableRow
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="#200606ff">
 
                     <TextView
@@ -41,8 +41,8 @@
                         android:id="@+id/student_name" />
                 </TableRow>
                 <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:background="#200606ff">
                     <TextView
                         android:layout_width="wrap_content"
@@ -51,8 +51,8 @@
                         android:id="@+id/textView7" />
                 </TableRow>
                 <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:background="#200606ff">
                     <TextView
                         android:layout_width="wrap_content"
@@ -61,8 +61,8 @@
                         />
                 </TableRow>
                 <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:background="#200606ff">
                     <TextView
                         android:layout_width="wrap_content"
@@ -72,7 +72,7 @@
                 </TableRow>
                 <TableRow
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="#200606ff">
                     <TextView
                         android:layout_width="wrap_content"
@@ -86,8 +86,8 @@
                         android:id="@+id/student_program" />
                 </TableRow>
                 <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:background="#200606ff">
                     <TextView
                         android:layout_width="wrap_content"
@@ -101,8 +101,8 @@
                         android:id="@+id/student_college" />
                 </TableRow>
                 <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:background="#200606ff">
                     <TextView
                         android:layout_width="wrap_content"
@@ -116,7 +116,7 @@
                         android:id="@+id/student_campus" />
                 </TableRow>
                 <TableRow
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#200606ff">
                     <TextView
@@ -141,8 +141,9 @@
                 android:background="#faf5cd" />
 
             <TableLayout
+
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
                 <TableRow
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
@@ -156,7 +157,7 @@
                     </TableRow>
                 <TableRow
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="#200606ff">
                     <TextView
                         android:layout_column="0"
@@ -184,8 +185,8 @@
                         android:id="@+id/student_degree_date" />
                 </TableRow>
                 <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:background="#200606ff">
                     <TextView
                         android:layout_width="wrap_content"
@@ -193,8 +194,8 @@
                         android:text="Curriculum Information" />
                 </TableRow>
                 <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:background="#200606ff">
                     <TextView
                         android:layout_width="wrap_content"
@@ -203,8 +204,8 @@
                         android:id="@+id/student_degcurprogram" />
                 </TableRow>
                 <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:background="#200606ff">
                     <TextView
                         android:layout_width="wrap_content"
@@ -218,8 +219,8 @@
                         android:id="@+id/student_degprogram" />
                 </TableRow>
                 <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:background="#200606ff">
                     <TextView
                         android:layout_width="wrap_content"
@@ -233,8 +234,8 @@
                         android:id="@+id/student_degcollege" />
                 </TableRow>
                 <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:background="#200606ff">
                     <TextView
                         android:layout_width="wrap_content"
@@ -248,8 +249,8 @@
                         android:id="@+id/student_degcampus" />
                 </TableRow>
                 <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:background="#200606ff">
                     <TextView
                         android:layout_width="wrap_content"
@@ -334,21 +335,14 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="73dp"
-        android:gravity="bottom"
+        android:layout_height="wrap_content"
         android:weightSum="1"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp">
-        <TextView
-            android:layout_width="132dp"
-            android:layout_height="55dp"
-            android:text="Request/Printed Offical Transcript"
-            android:id="@+id/textView"
-            android:layout_weight="1.28" />
-
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             android:text=" View Status of Transcript Request"
             android:id="@+id/textView2" />
     </LinearLayout>
