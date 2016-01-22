@@ -11,19 +11,25 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import mits.uwi.com.ourmobileenvironment.R;
-import mits.uwi.com.ourmobileenvironment.sasfragments.CourseFragment;
-import mits.uwi.com.ourmobileenvironment.sasfragments.classmapfragments.ClassMapFragment;
 
 /**
  * Created by Danuel on 16/06/2015.
  */
 public class TimeTableFragment extends Fragment {
 
-    Button mToClassMapFragmentButton, mToCourseFragmentButton, mToStudentDetailTimetable, mToStudentTimetable, mToTeachingTimeTable, mToDepartmentTimeTable;
+    Button mToClassMapFragmentButton, mToWeek,mToStudentDetailTimetable, mToStudentTimetable, mToTeachingTimeTable, mToDepartmentTimeTable;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getActivity().setTitle(R.string.timetableFragment_title);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle(R.string.timetableFragment_title);
+
     }
 
     @Nullable
@@ -38,26 +44,12 @@ public class TimeTableFragment extends Fragment {
             public void onClick(View v) {
                 //Starts ClassMapFragment
                 FragmentManager fm = getActivity().getSupportFragmentManager();
-                Fragment fragment = new ClassMapFragment();
+                Fragment fragment = new StudentTimeTableWeekFragment();//new ClassMapFragment();
 
                 fm.beginTransaction()
                         .replace(R.id.sas_fragmentContainer, fragment)
                         .addToBackStack(null)
                         .commit();
-            }
-        });
-
-        mToCourseFragmentButton = (Button)v.findViewById(R.id.to_courseFragment_timetable);
-        mToCourseFragmentButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                FragmentManager fm = getActivity().getSupportFragmentManager();
-                //Fragment fragment = new CourseFragment();
-                getActivity().getSupportFragmentManager().popBackStack();
-                /*fm.beginTransaction()
-                        .replace(R.id.sas_fragmentContainer,fragment)
-                        .addToBackStack(null)
-                        .commit();*/
             }
         });
 

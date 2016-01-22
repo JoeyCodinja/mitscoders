@@ -1,4 +1,4 @@
-package mits.uwi.com.ourmobileenvironment.sasfragments;
+package mits.uwi.com.ourmobileenvironment.sasfragments.coursefragments;
 
 
 
@@ -22,8 +22,6 @@ import mits.uwi.com.ourmobileenvironment.R;
  * Created by Danuel on 15/06/2015.
  */
 public class AddDropCourseFragment extends Fragment {
-
-    Button mToCourseFragmentButton;
     TextView mCancel, mDone;
 
     @Override
@@ -33,26 +31,17 @@ public class AddDropCourseFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle(R.string.adddropFragment_title);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent,
                              Bundle savedInstanceState){
         //Inflates the view's layout using the respective layout file
         View v = inflater.inflate(R.layout.fragment_add_drop, parent, false);
 
-        //Button that transitions us to the CourseFragment screen
-        mToCourseFragmentButton = (Button)v.findViewById(R.id.to_courseFragment);
-        mToCourseFragmentButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Starts CourseFragment
-                FragmentManager fm = getActivity().getSupportFragmentManager();
-                Fragment fragment = new CourseFragment();
-
-                fm.beginTransaction()
-                        .replace(R.id.sas_fragmentContainer,fragment)
-                        .addToBackStack(null)
-                        .commit();
-            }
-        });
 
         Spinner spinner  = (Spinner) v.findViewById(R.id.semester);
         ArrayAdapter <CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.semester_test, android.R.layout.simple_spinner_item);

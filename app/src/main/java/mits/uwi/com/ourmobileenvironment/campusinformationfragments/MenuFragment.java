@@ -18,17 +18,11 @@ import mits.uwi.com.ourmobileenvironment.R;
 public class MenuFragment extends DialogFragment {
     private static List<Menu_Item> menu;
     private RecyclerView rvm;
-    private int i;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        //String name;
-        //name = EateriesFragment.RVAdapter.Res_Name();
-        //name = "Test";
-        //getDialog().setTitle(name);
-        //newFragment.setContentView(R.layout.fragment_menu_head);
+        Eateries_list E;
         View v =inflater.inflate(R.layout.menu_dialog, container, false);
         TextView name = (TextView)v.findViewById(R.id.eateries_name);
         ImageView photo = (ImageView)v.findViewById(R.id.eateries_photo);
@@ -41,22 +35,24 @@ public class MenuFragment extends DialogFragment {
         MenuAdapter menudp =new MenuAdapter(MenuFragment.getMenuList());
         recList.setAdapter(menudp);
 
-
-
         //String eateries_n = EateriesFragment.s_eateries.getName();
-        int id = EateriesFragment.photoid;
-        name.setText(EateriesFragment.eateries.get(id).name);
-        photo.setImageResource(EateriesFragment.eateries.get(id).photoId);
+        E = MenuDataPasser.getInstance().getResName();
+        //id = MenuDataPasser.getInstance().getResPhoto();
+        name.setText(E.name);
+        photo.setImageResource(E.photoId);
         return  v;
     }
 
     public void initializeData(){
-       menu = new ArrayList<>();
-        menu.add(new Menu_Item("Kentucky Fried Chicken", "Classic Combo","Meal Deal","2pc Chicken 1 Reg fries 1 500ml Soda" ,"$ 100 JMD"));
-        menu.add(new Menu_Item("Kentucky Fried Chicken", "Classic Combo","Meal Deal","2pc Chicken 1 Reg fries 1 500ml Soda" ,"$ 100 JMD"));
-        menu.add(new Menu_Item("Kentucky Fried Chicken", "Classic Combo","Meal Deal","2pc Chicken 1 Reg fries 1 500ml Soda" ,"$ 100 JMD"));
-        menu.add(new Menu_Item("Kentucky Fried Chicken", "Classic Combo","Meal Deal","2pc Chicken 1 Reg fries 1 500ml Soda" ,"$ 100 JMD"));
-        menu.add(new Menu_Item("Kentucky Fried Chicken", "Classic Combo","Meal Deal","2pc Chicken 1 Reg fries 1 500ml Soda" ,"$ 100 JMD"));
+        Eateries_list A;
+        A = MenuDataPasser.getInstance().getResName();
+        menu = new ArrayList<>();
+        menu = A.menu;
+        //menu.add(new Menu_Item("Kentucky Fried Chicken", "Classic Combo","Meal Deal","2pc Chicken 1 Reg fries 1 500ml Soda" ,"$ 100 JMD"));
+        //menu.add(new Menu_Item("Kentucky Fried Chicken", "Classic Combo","Meal Deal","2pc Chicken 1 Reg fries 1 500ml Soda" ,"$ 100 JMD"));
+        //menu.add(new Menu_Item("Juici Patties", "Classic Combo","Patties","2pc Patty 1 500ml Soda" ,"$ 150 JMD"));
+        //menu.add(new Menu_Item("Kentucky Fried Chicken", "Classic Combo","Meal Deal","2pc Chicken 1 Reg fries 1 500ml Soda" ,"$ 100 JMD"));
+        //menu.add(new Menu_Item("Kentucky Fried Chicken", "Classic Combo","Meal Deal","2pc Chicken 1 Reg fries 1 500ml Soda" ,"$ 100 JMD"));
     }
 
     public static List<Menu_Item> getMenuList() {
@@ -68,15 +64,15 @@ public class MenuFragment extends DialogFragment {
         public class MenuViewHolder extends RecyclerView.ViewHolder {
 
             TextView menuRes;
-            TextView menuMeal;
-            TextView menuName;
+            TextView menuMealGroup;
+            TextView menuMealName;
             TextView menuComponent;
             TextView menuPrice;
 
             MenuViewHolder(View itemView) {
                 super(itemView);
                 menuRes = (TextView)itemView.findViewById(R.id.eateries_name);
-                menuName = (TextView)itemView.findViewById(R.id.meal_name);
+                menuMealName = (TextView)itemView.findViewById(R.id.meal_mealname);
                 menuComponent = (TextView)itemView.findViewById(R.id.meal_component);
                 menuPrice = (TextView)itemView.findViewById(R.id.meal_price);
             }
@@ -103,14 +99,16 @@ public class MenuFragment extends DialogFragment {
         @Override
         public void onBindViewHolder(MenuViewHolder MenuViewHolder, int i) {
 
-            MenuViewHolder.menuName.setText(menu.get(i).name);
-            MenuViewHolder.menuComponent.setText(menu.get(i).components);
-            MenuViewHolder.menuPrice.setText(menu.get(i).price);
+                    MenuViewHolder.menuMealName.setText(menu.get(i).meal);
+                    MenuViewHolder.menuComponent.setText(menu.get(i).components);
+                    MenuViewHolder.menuPrice.setText(menu.get(i).price);
         }
 
         @Override
         public int getItemCount() {
+
             return menu.size();
+
         }
     }
 }

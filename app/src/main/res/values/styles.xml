@@ -45,10 +45,11 @@
     </style>
 
     <style name="sas_bartheme"
-        parent="Theme.AppCompat.Light">
+        parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:actionBarStyle">@style/white_bar</item>
         <item name="actionBarStyle">@style/white_bar</item>
         <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowActionBar">false</item>
     </style>
 
     <!-- the theme applied to the application or activity -->

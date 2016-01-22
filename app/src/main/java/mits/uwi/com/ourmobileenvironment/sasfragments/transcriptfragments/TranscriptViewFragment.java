@@ -16,6 +16,12 @@ public class TranscriptViewFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getActivity().setTitle(R.string.transcriptFragment_title);
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+        getActivity().setTitle(R.string.transcriptFragment_title);
     }
 
     @Nullable

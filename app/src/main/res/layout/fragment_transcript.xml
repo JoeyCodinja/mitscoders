@@ -36,24 +36,6 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp" />
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="20dp"
-            android:gravity="bottom"
-            android:background="#FFF">
-
-            <Button
-                android:id="@+id/to_courseFragment_transcript"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/to_courseFragment_button"
-                android:onClick="onClick"
-                android:textColor="#fff"
-                android:background="#c60b0bff" />
-        </LinearLayout>
-
     </LinearLayout>
 
 </LinearLayout>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:background="#adffffff">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/course"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/lecture"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:id="@+id/course_title"
+            android:layout_toRightOf="@+id/course"
+            android:text="test"
+            android:layout_alignParentTop="true"
+            android:textStyle="bold"
+            android:textSize="17sp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/course_subject"
+            android:layout_toRightOf="@+id/course"
+            android:text="test"
+            android:layout_alignParentTop="false"
+            android:textStyle="normal"
+            android:textSize="15sp"
+            android:layout_below="@+id/course_title"
+            android:layout_marginRight="2dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/course_code"
+            android:layout_toRightOf="@+id/course_subject"
+            android:text="test"
+            android:layout_alignParentTop="false"
+            android:textSize="13sp"
+            android:layout_below="@+id/course_title"
+            android:textStyle="normal" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/course_type"
+            android:layout_toRightOf="@+id/course"
+            android:text="test"
+            android:textStyle="normal"
+            android:textSize="13sp"
+            android:layout_below="@+id/course_code" />
+</RelativeLayout>
