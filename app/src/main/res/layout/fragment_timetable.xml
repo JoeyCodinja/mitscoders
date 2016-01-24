@@ -25,7 +25,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Studen TimeTable "
+            android:text="Student TimeTable "
             android:id="@+id/to_student_timetable"
             android:layout_margin="10dp"
             android:textColor="#FFF"

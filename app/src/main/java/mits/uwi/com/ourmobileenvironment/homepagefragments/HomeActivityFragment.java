@@ -20,10 +20,10 @@ import java.util.List;
 import mits.uwi.com.ourmobileenvironment.BOSSActivity;
 import mits.uwi.com.ourmobileenvironment.Transport.TransportActivity;
 import mits.uwi.com.ourmobileenvironment.CampusInformationActivity;
-import mits.uwi.com.ourmobileenvironment.OurVLEActivity;
 import mits.uwi.com.ourmobileenvironment.R;
-import mits.uwi.com.ourmobileenvironment.SASActivity;
 import mits.uwi.com.ourmobileenvironment.adapters.HomePageViewPagerAdapter;
+import mits.uwi.com.ourmobileenvironment.ourvle.activities.OurVLELoginActivity;
+import mits.uwi.com.ourmobileenvironment.sasfragments.SAS_Splash;
 
 import static java.lang.Math.pow;
 
@@ -94,7 +94,7 @@ public class HomeActivityFragment extends Fragment {
                                 startActivity(i);
                                 break;
                             case R.id.landing_pageFAB3:
-                                i = new Intent(getActivity(), OurVLEActivity.class);
+                                i = new Intent(getActivity(), OurVLELoginActivity.class);
                                 startActivity(i);
                                 break;
                             case R.id.landing_pageFAB4:
@@ -102,7 +102,7 @@ public class HomeActivityFragment extends Fragment {
                                 startActivity(i);
                                 break;
                             case R.id.landing_pageFAB5:
-                                i = new Intent(getActivity(), SASActivity.class);
+                                i = new Intent(getActivity(), SAS_Splash.class);
                                 startActivity(i);
                                 break;
                         }

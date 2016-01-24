@@ -7,16 +7,6 @@
           android:orderInCategory="100"
           app:showAsAction="never"/>
 
-    <item android:id="@+id/action_transcript"
-          android:title="@string/transcriptFragment_title"
-          android:orderInCategory="100"
-          app:showAsAction="never"/>
-
-    <item android:id="@+id/action_timetable"
-        android:title="@string/timetableFragment_title"
-        android:orderInCategory="100"
-        app:showAsAction="never"/>
-
     <item android:id="@+id/action_courseinfo"
         android:title="@string/course_info"
         android:orderInCategory="10"
@@ -27,13 +17,14 @@
         android:orderInCategory="110"
         app:showAsAction="never"/>
 
+    <item android:id="@+id/feedback"
+        android:title="Feedback"
+        android:orderInCategory="110"
+        app:showAsAction="never"/>
+
     <item android:id="@+id/classmap"
         android:title="@string/to_classmapFragment_button"
         android:orderInCategory="110"
         app:showAsAction="never"/>
 
-    <item android:id="@+id/hold"
-        android:title="Holds"
-        android:orderInCategory="111"
-        app:showAsAction="never"/>
 </menu>
