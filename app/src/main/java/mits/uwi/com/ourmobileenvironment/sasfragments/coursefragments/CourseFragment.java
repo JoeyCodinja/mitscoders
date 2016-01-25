@@ -139,12 +139,12 @@ public class CourseFragment extends Fragment {
             this.clist=clist;
 
         }
-        @Override
+        @CourseOverride
         public CourseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             return null;
         }
 
-        @Override
+        @CourseOverride
         public void onBindViewHolder(CourseViewHolder holder, int position) {
 
         }

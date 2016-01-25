@@ -64,7 +64,7 @@
         <string name="CourseInfoFragment">Course Information</string>
         <string name="RequestOverride">Request Override</string>
 
-        <!-- Request Override Dialog -->
+        <!-- Request CourseOverride Dialog -->
         <string name="requestOverride_title">Request Override</string>
         <string name="override_needed"> Needs Over-ride Approval</string>
         <string name="override_submitted"> Over-ride request submitted</string>

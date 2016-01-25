@@ -25,7 +25,7 @@ public class TimeTableEventDialog extends DialogFragment {
         //return super.onCreateDialog(savedInstanceState);
         return new AlertDialog.Builder(getActivity())
                 .setView(v)
-                .setTitle(R.string.new_event)
+                //.setTitle(R.string.new_event)
                 .setPositiveButton(R.string.request_ok, null)
                 .setNegativeButton(R.string.request_cancel,null)
                 .create();
