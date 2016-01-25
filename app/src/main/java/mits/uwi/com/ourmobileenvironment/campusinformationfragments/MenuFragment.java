@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,6 +23,8 @@ public class MenuFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        getDialog().setCanceledOnTouchOutside(true);
         Eateries_list E;
         View v =inflater.inflate(R.layout.menu_dialog, container, false);
         TextView name = (TextView)v.findViewById(R.id.eateries_name);
@@ -43,6 +46,27 @@ public class MenuFragment extends DialogFragment {
         return  v;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // safety check
+        if (getDialog() == null) {
+            return;
+        }
+
+        int dialogWidth = 700; // specify a value here
+        int dialogHeight = 700; // specify a value here
+
+        getDialog().getWindow().setLayout(dialogWidth, dialogHeight);
+
+        // ... other stuff you want to do in your onStart() method
+    }
+
+    public void onClick(View v) {
+
+    }
+
     public void initializeData(){
         Eateries_list A;
         A = MenuDataPasser.getInstance().getResName();
@@ -59,6 +83,7 @@ public class MenuFragment extends DialogFragment {
         return menu;
     }
 
+
     public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MenuViewHolder> {
 
         public class MenuViewHolder extends RecyclerView.ViewHolder {
@@ -68,6 +93,7 @@ public class MenuFragment extends DialogFragment {
             TextView menuMealName;
             TextView menuComponent;
             TextView menuPrice;
+            ImageView closeIcon;
 
             MenuViewHolder(View itemView) {
                 super(itemView);
@@ -75,6 +101,15 @@ public class MenuFragment extends DialogFragment {
                 menuMealName = (TextView)itemView.findViewById(R.id.meal_mealname);
                 menuComponent = (TextView)itemView.findViewById(R.id.meal_component);
                 menuPrice = (TextView)itemView.findViewById(R.id.meal_price);
+                closeIcon = (ImageView)itemView.findViewById(R.id.clear_icon);
+
+                closeIcon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View itemView) {
+                        // item clicked
+                        getDialog().dismiss();
+                    }
+                });
             }
         }
 

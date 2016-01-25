@@ -16,6 +16,7 @@ import com.alamkanak.weekview.WeekViewEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import android.util.TypedValue;
@@ -38,6 +39,7 @@ public class StudentTimeTableWeekFragment extends Fragment implements WeekView.M
     private int mWeekViewType = TYPE_THREE_DAY_VIEW;
     private WeekView mWeekView;
     private static final String NEW_EVENT = "new Event";
+    private CustomTimeTableDbHelper mEventLoader;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -122,8 +124,13 @@ public class StudentTimeTableWeekFragment extends Fragment implements WeekView.M
                 return true;
             case R.id.add_new:
                 FragmentManager fm = getActivity().getSupportFragmentManager();
-                TimeTableEventDialog dialog = new TimeTableEventDialog();
-                dialog.show(fm, NEW_EVENT);
+               /* TimeTableEventDialog dialog = new TimeTableEventDialog();
+                dialog.show(fm, NEW_EVENT);*/
+                TimeTableEventFragment fragment = new TimeTableEventFragment();
+                fm.beginTransaction()
+                        .replace(R.id.sas_fragmentContainer, fragment)
+                        .addToBackStack(null)
+                        .commit();
                 return true;
 
         }
@@ -162,23 +169,51 @@ public class StudentTimeTableWeekFragment extends Fragment implements WeekView.M
     @Override
     public List<WeekViewEvent> onMonthChange(int newYear, int newMonth) {
 
-        // Populate the week view with some events.
+        //List<WeekViewEvent> array_list = new  ArrayList<WeekViewEvent>();
+        //CustomTimeTableDbHelper.EventCursor events = queryruns();
+       // events.moveToFirst();
+       // while(events.isAfterLast() == false){
+            /*Calendar startTime = Calendar.getInstance();
+            Calendar time = Calendar.getInstance();
+            Date dt1 = events.getTimeTableEvent().getStartTime();
+            time.setTime(dt1);
+            startTime.set(Calendar.HOUR_OF_DAY, time.get(Calendar.HOUR_OF_DAY) );
+            startTime.set(Calendar.DAY_OF_WEEK, time.get(Calendar.DAY_OF_WEEK));
+            startTime.set(Calendar.MONTH, newMonth - 1);
+            startTime.set(Calendar.YEAR, newYear);
+            Calendar endTime = (Calendar) startTime.clone();
+            Date dt2 = events.getTimeTableEvent().getEndTime();
+            time.setTime(dt2);
+            endTime.add(Calendar.HOUR, time.get(Calendar.HOUR_OF_DAY));
+            endTime.set(Calendar.MONTH, newMonth - 1);
+
+            WeekViewEvent event = new WeekViewEvent(1, getEventTitle(startTime), startTime, endTime);
+            event.setColor(getResources().getColor(R.color.event_color_01));
+            array_list.add(event);*/
+          //  Toast.makeText(getActivity().getApplicationContext(),
+        //            events.getString(events.getColumnIndex(events.getColumnName(6))), Toast.LENGTH_SHORT);
+       //             events.moveToNext();
+       // }
+       // return array_list;
+        //Populate the week view with some events.
         List<WeekViewEvent> events = new ArrayList<WeekViewEvent>();
 
         Calendar startTime = Calendar.getInstance();
         startTime.set(Calendar.HOUR_OF_DAY, 3);
+        startTime.set(Calendar.DAY_OF_WEEK, 1);
         startTime.set(Calendar.MINUTE, 0);
-        startTime.set(Calendar.MONTH, newMonth-1);
+        startTime.set(Calendar.MONTH, newMonth - 1);
         startTime.set(Calendar.YEAR, newYear);
         Calendar endTime = (Calendar) startTime.clone();
         endTime.add(Calendar.HOUR, 1);
-        endTime.set(Calendar.MONTH, newMonth-1);
+        endTime.set(Calendar.MONTH, newMonth - 1);
         WeekViewEvent event = new WeekViewEvent(1, getEventTitle(startTime), startTime, endTime);
         event.setColor(getResources().getColor(R.color.event_color_01));
         events.add(event);
 
         startTime = Calendar.getInstance();
         startTime.set(Calendar.HOUR_OF_DAY, 3);
+        startTime.set(Calendar.DAY_OF_WEEK, 2);
         startTime.set(Calendar.MINUTE, 30);
         startTime.set(Calendar.MONTH, newMonth-1);
         startTime.set(Calendar.YEAR, newYear);
@@ -192,6 +227,7 @@ public class StudentTimeTableWeekFragment extends Fragment implements WeekView.M
 
         startTime = Calendar.getInstance();
         startTime.set(Calendar.HOUR_OF_DAY, 4);
+        startTime.set(Calendar.DAY_OF_WEEK, 3);
         startTime.set(Calendar.MINUTE, 20);
         startTime.set(Calendar.MONTH, newMonth-1);
         startTime.set(Calendar.YEAR, newYear);
@@ -204,18 +240,20 @@ public class StudentTimeTableWeekFragment extends Fragment implements WeekView.M
 
         startTime = Calendar.getInstance();
         startTime.set(Calendar.HOUR_OF_DAY, 5);
+        startTime.set(Calendar.DAY_OF_WEEK, 4);
         startTime.set(Calendar.MINUTE, 30);
         startTime.set(Calendar.MONTH, newMonth-1);
         startTime.set(Calendar.YEAR, newYear);
         endTime = (Calendar) startTime.clone();
         endTime.add(Calendar.HOUR_OF_DAY, 2);
-        endTime.set(Calendar.MONTH, newMonth-1);
+        endTime.set(Calendar.MONTH, newMonth - 1);
         event = new WeekViewEvent(2, getEventTitle(startTime), startTime, endTime);
         event.setColor(getResources().getColor(R.color.event_color_02));
         events.add(event);
 
         startTime = Calendar.getInstance();
         startTime.set(Calendar.HOUR_OF_DAY, 5);
+        startTime.set(Calendar.DAY_OF_WEEK, 5);
         startTime.set(Calendar.MINUTE, 0);
         startTime.set(Calendar.MONTH, newMonth-1);
         startTime.set(Calendar.YEAR, newYear);
@@ -229,6 +267,7 @@ public class StudentTimeTableWeekFragment extends Fragment implements WeekView.M
 
         startTime = Calendar.getInstance();
         startTime.set(Calendar.DAY_OF_MONTH, 15);
+        startTime.set(Calendar.DAY_OF_WEEK, 6);
         startTime.set(Calendar.HOUR_OF_DAY, 3);
         startTime.set(Calendar.MINUTE, 0);
         startTime.set(Calendar.MONTH, newMonth-1);
@@ -241,6 +280,7 @@ public class StudentTimeTableWeekFragment extends Fragment implements WeekView.M
 
         startTime = Calendar.getInstance();
         startTime.set(Calendar.DAY_OF_MONTH, 1);
+        startTime.set(Calendar.DAY_OF_WEEK, 7);
         startTime.set(Calendar.HOUR_OF_DAY, 3);
         startTime.set(Calendar.MINUTE, 0);
         startTime.set(Calendar.MONTH, newMonth-1);
@@ -277,6 +317,10 @@ public class StudentTimeTableWeekFragment extends Fragment implements WeekView.M
     @Override
     public void onEventLongPress(WeekViewEvent event, RectF eventRect) {
         Toast.makeText(getActivity(), "Long pressed event: " + event.getName(), Toast.LENGTH_SHORT).show();
+    }
+
+    public CustomTimeTableDbHelper.EventCursor queryruns(){
+        return mEventLoader.queryTimetable();
     }
 }
 
