@@ -33,11 +33,11 @@ public class CampusInfoListFragment extends ListFragment {
                         mCampusInfosList);
         setListAdapter(adapter);
 
-        DocumentView campus_info_heading= (DocumentView)getActivity().findViewById(R.id.campus_info_heading_fragment);
-        if(campus_info_heading.getVisibility() == DocumentView.VISIBLE)
-        {
-            campus_info_heading.setVisibility(DocumentView.GONE);
-        }
+//        DocumentView campus_info_heading = (DocumentView)getActivity().findViewById(R.id.campus_info_heading_fragment);
+//        if(campus_info_heading.getVisibility() == DocumentView.VISIBLE)
+//        {
+//            campus_info_heading.setVisibility(DocumentView.GONE);
+//        }
     }
 
     @Override

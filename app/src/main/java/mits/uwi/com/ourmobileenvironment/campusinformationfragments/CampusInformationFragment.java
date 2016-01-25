@@ -60,9 +60,9 @@ public class CampusInformationFragment extends Fragment {
 
         DocumentView campusHeading = (DocumentView)parent.
                 findViewById(R.id.campus_info_heading_fragment);
-        if (campusHeading.getVisibility() == DocumentView.GONE) {
-            campusHeading.setVisibility(DocumentView.VISIBLE);
-        }
+//        if (campusHeading.getVisibility() == DocumentView.GONE) {
+//            campusHeading.setVisibility(DocumentView.VISIBLE);
+//        }
 
         FragmentManager fm = this.getActivity().getSupportFragmentManager();
 

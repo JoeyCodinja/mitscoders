@@ -1,5 +1,8 @@
 package mits.uwi.com.ourmobileenvironment.campusinformationfragments;
 
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -10,6 +13,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -95,6 +100,45 @@ public class EateriesFragment extends Fragment implements View.OnClickListener{
 
     }
 
+    public static int calculateInSampleSize(
+            BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+
+            final int halfHeight = height / 2;
+            final int halfWidth = width / 2;
+
+            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+            // height and width larger than the requested height and width.
+            while ((halfHeight / inSampleSize) > reqHeight
+                    && (halfWidth / inSampleSize) > reqWidth) {
+                inSampleSize *= 2;
+            }
+        }
+
+        return inSampleSize;
+    }
+
+    public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
+                                                        int reqWidth, int reqHeight) {
+
+        // First decode with inJustDecodeBounds=true to check dimensions
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeResource(res, resId, options);
+
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeResource(res, resId, options);
+    }
+
     public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EateriesViewHolder> {
 
         public class EateriesViewHolder extends RecyclerView.ViewHolder {
@@ -106,9 +150,9 @@ public class EateriesFragment extends Fragment implements View.OnClickListener{
             TextView eateriesLocation;
             TextView eateriesHours;
             ImageView eateriesPhoto;
-            ImageView favoriteIcon;
+            CheckBox favoriteIcon;
             ImageView locationIcon;
-            ImageView clickedIcon;
+            //ImageView clickedIcon;
 
             EateriesViewHolder(View itemView) {
                 super(itemView);
@@ -117,10 +161,12 @@ public class EateriesFragment extends Fragment implements View.OnClickListener{
                 eateriesLocation = (TextView)itemView.findViewById(R.id.eateries_location);
                 eateriesHours = (TextView)itemView.findViewById(R.id.eateries_hours);
                 eateriesPhoto = (ImageView)itemView.findViewById(R.id.eateries_photo);
-                favoriteIcon = (ImageView)itemView.findViewById(R.id.favorite_icon);
+//                eateriesPhoto.setImageBitmap(
+//                        decodeSampledBitmapFromResource(getResources(), R.id.eateries_photo, 100, 100));
+                favoriteIcon = (CheckBox)itemView.findViewById(R.id.favorite_icon);
                 locationIcon = (ImageView)itemView.findViewById(R.id.location_icon);
 
-                favoriteIcon.setColorFilter(R.color.grey, PorterDuff.Mode.DST_OUT);
+                //favoriteIcon.setColorFilter(R.color.grey, PorterDuff.Mode.DST_OUT);
                 locationIcon.setColorFilter(R.color.grey, PorterDuff.Mode.DST_OUT);
                 cv.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -131,30 +177,33 @@ public class EateriesFragment extends Fragment implements View.OnClickListener{
                        //id = getResources().getIdentifier(String.valueOf((ImageView)itemView.findViewById(R.id.eateries_photo)), "id", null);
                         input = eateriesName.getText().toString();
                         //MenuDataPasser.getInstance().setResName(input);
-                        for (int i =0 ; i <5; i++){
+                        for (int i =0 ; i <eateries.size(); i++){
                             if(input.equals(eateries.get(i).name))
                                 MenuDataPasser.getInstance().setResName(eateries.get(i));
                         }
-                        showDialog();
+                        //showDialog();
                     }
                 });
-                favoriteIcon.setOnClickListener(new View.OnClickListener() {
+
+                favoriteIcon.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
-                    public void onClick(View itemView) {
-                        // item clicked
-                        int id = getResources().getIdentifier("ic_favorite_clicked", "drawable", null);
-                        favoriteIcon.setImageResource(id);
-                        favoriteIcon.setColorFilter(R.color.red, PorterDuff.Mode.DST_OUT);
-                        //favoriteIcon.setBackgroundResource(0);
+                    public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                        input = eateriesName.getText().toString();
+                        //MenuDataPasser.getInstance().setResName(input);
+                        for (int i =0 ; i <eateries.size(); i++){
+                            if(input.equals(eateries.get(i).name))
+                                eateries.get(i).setFav();
+                        }
                     }
                 });
+
                 locationIcon.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View itemView) {
-                        // item clicked
-                        //locationIcon.setBackgroundResource(R.color.red);
-                        //locationIcon.setBackgroundResource(0);
-                    }
+                        @Override
+                        public void onClick(View itemView) {
+                            // item clicked
+                            //locationIcon.setBackgroundResource(R.color.red);
+                            //locationIcon.setBackgroundResource(0);
+                        }
                 });
             }
 
@@ -183,9 +232,9 @@ public class EateriesFragment extends Fragment implements View.OnClickListener{
             eateriesViewHolder.eateriesName.setText(eateries.get(i).name);
             eateriesViewHolder.eateriesLocation.setText(eateries.get(i).location);
             eateriesViewHolder.eateriesHours.setText(eateries.get(i).hours);
-            eateriesViewHolder.eateriesPhoto.setImageResource(eateries.get(i).photoId);
-           // MenuDataPasser.getInstance().setResName(eateries.get(i));
-           //MenuDataPasser.getInstance().setResPhoto(eateries.get(i).photoId);
+//            eateriesViewHolder.eateriesPhoto.setImageResource(eateries.get(i).photoId);
+            eateriesViewHolder.eateriesPhoto.setImageBitmap(
+                        decodeSampledBitmapFromResource(getResources(), eateries.get(i).photoId, 100, 100));
         }
 
         @Override
