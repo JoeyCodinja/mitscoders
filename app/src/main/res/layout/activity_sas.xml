@@ -36,16 +36,20 @@
     </LinearLayout>
 
     <ListView
-        android:layout_width="200dp"
+        android:layout_width="300dp"
         android:layout_height="match_parent"
         android:layout_gravity="left|start"
         android:background="@android:color/white"
         android:id="@+id/navList" />
     </android.support.v4.widget.DrawerLayout>
-    <!--android.support.design.widget.FloatingActionButton
+    <android.support.design.widget.FloatingActionButton
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_margin="@dimen/activity_horizontal_margin"
+        android:id="@+id/fab"
+        android:clickable="true"
+        android:onClick="onClick"
         android:src="@drawable/ic_setting_dark"
-        android:layout_gravity = "bottom|right|end"/-->
+        android:layout_gravity = "bottom|right|end"
+        app:elevation="0dp" />
 </android.support.design.widget.CoordinatorLayout>

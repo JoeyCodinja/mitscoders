@@ -1,6 +1,7 @@
 package mits.uwi.com.ourmobileenvironment.sasfragments.coursefragments;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -14,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import mits.uwi.com.ourmobileenvironment.R;
 import mits.uwi.com.ourmobileenvironment.ToprightBar;
@@ -32,6 +34,7 @@ public class CourseInfoActivity extends AppCompatActivity {
     private ArrayAdapter<TextView> sAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
     Toolbar toolbar;
+    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +51,18 @@ public class CourseInfoActivity extends AppCompatActivity {
                     .commit();
         }
         ToprightBar.setTopOverflow(this);
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setImageResource(R.drawable.abc_ic_commit_search_api_mtrl_alpha);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Will Delete Course", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
