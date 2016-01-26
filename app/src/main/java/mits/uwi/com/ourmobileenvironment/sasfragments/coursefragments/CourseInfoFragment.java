@@ -47,6 +47,7 @@ public class CourseInfoFragment extends Fragment {
         mCourse = CourseList.get(getActivity()).getCourse(courseId);
         getActivity().setTitle(mCourse.getTitle());
         ((CourseInfoActivity )getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setRetainInstance(true);
 
     }
 
