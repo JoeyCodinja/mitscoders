@@ -41,7 +41,6 @@ public class JUTCRouteFragment extends TransportFragment<JUTCRoute> {
     @Override
     public void refreshView() {
         jutcRouteAdapter.notifyDataSetChanged();
-        Log.d("class", this.getClass().getName());
     }
     public JUTCRouteAdapter getJutcRouteAdapter() {
         return jutcRouteAdapter;

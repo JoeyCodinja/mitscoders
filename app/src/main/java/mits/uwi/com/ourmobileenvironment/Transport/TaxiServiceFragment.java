@@ -119,7 +119,6 @@ public class TaxiServiceFragment extends TransportFragment<TaxiService> {
     @Override
     public void refreshView(){
         taxiadap.notifyDataSetChanged();
-        Log.d("class",this.getClass().getName());
 
     }
 

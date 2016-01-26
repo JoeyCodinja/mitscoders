@@ -2,6 +2,7 @@ package mits.uwi.com.ourmobileenvironment.HTTP_RequestHandlers;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -10,9 +11,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
+import mits.uwi.com.ourmobileenvironment.R;
 import mits.uwi.com.ourmobileenvironment.Transport.Transport;
 import mits.uwi.com.ourmobileenvironment.Transport.TransportFragment;
-
 /**
  * Created by rox on 1/10/16.
  */
@@ -54,7 +55,10 @@ public class TransportListener<T extends Transport> implements Response.Listener
                     currentrecord.save();
                 }
             }
+            Log.d("class", transportSubclass.getName());
             transportFragment.refreshView();
+            transportFragment.getActivity().findViewById(R.id.progress_bar).setVisibility(View.GONE);
+
         }
         catch (JSONException e){
             internalError.show();

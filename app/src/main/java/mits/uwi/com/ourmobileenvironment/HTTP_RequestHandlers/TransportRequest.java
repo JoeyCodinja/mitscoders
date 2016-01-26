@@ -24,7 +24,6 @@ import mits.uwi.com.ourmobileenvironment.R;
  * Created by rox on 1/10/16.
  */
 public class TransportRequest extends JsonObjectRequest {
-    private String lastMod;
     private Context context;
     public TransportRequest(String url,Response.Listener<JSONObject>Listener,Response.ErrorListener errorListener,Context context){
         super( url,Listener, errorListener);

@@ -42,7 +42,7 @@ public class CampusInformationActivity extends AppCompatActivity {
             }
 
             @Override
-            public int getCount() { return 3; }
+            public int getCount() { return mFragList.size(); }
 
             @Override
             public CharSequence getPageTitle(int position) {
