@@ -5,16 +5,16 @@ package mits.uwi.com.ourmobileenvironment.campusinformationfragments;
  */
 public class Menu_Item {
     String restaurant;
+    String mealgroup;
     String meal;
-    String name;
     String components;
     String price;
 
 
-    Menu_Item(String restaurant, String meal, String name, String components, String price) {
+    Menu_Item(String restaurant, String mealgroup, String meal, String components, String price) {
         this.restaurant = restaurant;
+        this.mealgroup = mealgroup;
         this.meal = meal;
-        this.name = name;
         this.components = components;
         this.price = price;
     }

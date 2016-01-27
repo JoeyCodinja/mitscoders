@@ -1,5 +1,8 @@
 package mits.uwi.com.ourmobileenvironment.campusinformationfragments;
 
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -10,6 +13,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,9 +33,11 @@ public class EateriesFragment extends Fragment implements View.OnClickListener{
         // Required empty public constructor
     }
     static List<Eateries_list> eateries;
-    public static Eateries_list s_eateries;
-    public static int photoid;
-    private RecyclerView rv;
+    static List<Menu_Item> menu;
+    static List<Menu_Item> j_menu;
+    static List<Menu_Item> y_menu;
+    static List<Menu_Item> b_menu;
+    static List<Menu_Item> n_menu;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
@@ -49,14 +56,38 @@ public class EateriesFragment extends Fragment implements View.OnClickListener{
     }
 
 
-
-    public void initializeData(){
-        eateries = new ArrayList<>();
-        eateries.add(new Eateries_list("Kentucky Fried Chicken", "Ring Rd, Chancellor Hall", "Opens 9am-12am", R.drawable.kfc));
-        eateries.add(new Eateries_list("Juici Patties", "Faculty of Science and Technology", "Opens 6am-7pm", R.drawable.juici));
-        eateries.add(new Eateries_list("Yao Chinese Restaurant", "Students Union", "Opens 9am-10pm", R.drawable.yao));
-        eateries.add(new Eateries_list("BeeHive", "Ring Rd, Humanities and Education", "Opens 7am-6pm", R.drawable.beehive));
-        eateries.add(new Eateries_list("Nardo's Snack Shop", "Humanities and Education", "Opens 6am-3am", R.drawable.nardo));
+        public void initializeData(){
+            menu = new ArrayList<>();
+            menu.add(new Menu_Item("Kentucky Fried Chicken", "Classic Combo", "Meal Deal", "2pc Chicken 1 Reg fries 1 500ml Soda", "$ 100 JMD"));
+            menu.add(new Menu_Item("Kentucky Fried Chicken", "Classic Combo", "Meal Deal", "2pc Chicken 1 Reg fries 1 500ml Soda", "$ 100 JMD"));
+            menu.add(new Menu_Item("Kentucky Fried Chicken", "Classic Combo", "Meal Deal", "2pc Chicken 1 Reg fries 1 500ml Soda", "$ 100 JMD"));
+            menu.add(new Menu_Item("Kentucky Fried Chicken", "Classic Combo", "Meal Deal", "2pc Chicken 1 Reg fries 1 500ml Soda", "$ 100 JMD"));
+            j_menu = new ArrayList<>();
+            j_menu.add(new Menu_Item("Juici Patties", "Classic Combo", "Patties", "2pc Patty 1 500ml Soda", "$ 150 JMD"));
+            j_menu.add(new Menu_Item("Juici Patties", "Classic Combo", "Patties", "2pc Patty 1 500ml Soda", "$ 150 JMD"));
+            j_menu.add(new Menu_Item("Juici Patties", "Classic Combo", "Patties", "2pc Patty 1 500ml Soda", "$ 150 JMD"));
+            j_menu.add(new Menu_Item("Juici Patties", "Classic Combo", "Patties", "2pc Patty 1 500ml Soda", "$ 150 JMD"));
+            y_menu = new ArrayList<>();
+            y_menu.add(new Menu_Item("y", "Classic Combo", "Chinese", "2pc Chinese 1 500ml Soda", "$ 150 JMD"));
+            y_menu.add(new Menu_Item("y", "Classic Combo", "Chinese", "2pc Chinese 1 500ml Soda", "$ 150 JMD"));
+            y_menu.add(new Menu_Item("y", "Classic Combo", "Chinese", "2pc Chinese 1 500ml Soda", "$ 150 JMD"));
+            y_menu.add(new Menu_Item("y", "Classic Combo", "Chinese", "2pc Chinese 1 500ml Soda", "$ 150 JMD"));
+            b_menu = new ArrayList<>();
+            b_menu.add(new Menu_Item("y", "Classic Combo", "Sweet and Sour", "2pc Sweet and Sour 1 500ml Soda", "$ 150 JMD"));
+            b_menu.add(new Menu_Item("y", "Classic Combo", "Sweet and Sour", "2pc Sweet and Sour 1 500ml Soda", "$ 150 JMD"));
+            b_menu.add(new Menu_Item("y", "Classic Combo", "Sweet and Sour", "2pc Sweet and Sour 1 500ml Soda", "$ 150 JMD"));
+            b_menu.add(new Menu_Item("y", "Classic Combo", "Sweet and Sour", "2pc Sweet and Sour 1 500ml Soda", "$ 150 JMD"));
+            n_menu = new ArrayList<>();
+            n_menu.add(new Menu_Item("y", "Classic Combo", "Corndog", "2pc Corndog 1 500ml Soda", "$ 150 JMD"));
+            n_menu.add(new Menu_Item("y", "Classic Combo", "Corndog", "2pc Corndog 1 500ml Soda", "$ 150 JMD"));
+            n_menu.add(new Menu_Item("y", "Classic Combo", "Corndog", "2pc Corndog 1 500ml Soda", "$ 150 JMD"));
+            n_menu.add(new Menu_Item("y", "Classic Combo", "Corndog", "2pc Corndog 1 500ml Soda", "$ 150 JMD"));
+            eateries = new ArrayList<>();
+            eateries.add(new Eateries_list("Kentucky Fried Chicken", "Ring Rd, Chancellor Hall", "Opens 9am-12am", R.drawable.kfc, (ArrayList<Menu_Item>) menu));
+            eateries.add(new Eateries_list("Juici Patties", "Faculty of Science and Technology", "Opens 6am-7pm", R.drawable.juici,(ArrayList<Menu_Item>) j_menu));
+            eateries.add(new Eateries_list("Yao Chinese Restaurant", "Students Union", "Opens 9am-10pm", R.drawable.yao, (ArrayList<Menu_Item>) y_menu));
+            eateries.add(new Eateries_list("BeeHive", "Ring Rd, Humanities and Education", "Opens 7am-6pm", R.drawable.beehive, (ArrayList<Menu_Item>) b_menu));
+            eateries.add(new Eateries_list("Nardo's Snack Shop", "Humanities and Education", "Opens 6am-3am", R.drawable.nardo, (ArrayList<Menu_Item>) n_menu));
     }
 
     public static List<Eateries_list> getEatList() {
@@ -69,85 +100,113 @@ public class EateriesFragment extends Fragment implements View.OnClickListener{
 
     }
 
+    public static int calculateInSampleSize(
+            BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+
+            final int halfHeight = height / 2;
+            final int halfWidth = width / 2;
+
+            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+            // height and width larger than the requested height and width.
+            while ((halfHeight / inSampleSize) > reqHeight
+                    && (halfWidth / inSampleSize) > reqWidth) {
+                inSampleSize *= 2;
+            }
+        }
+
+        return inSampleSize;
+    }
+
+    public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
+                                                        int reqWidth, int reqHeight) {
+
+        // First decode with inJustDecodeBounds=true to check dimensions
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeResource(res, resId, options);
+
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeResource(res, resId, options);
+    }
+
     public class RVAdapter extends RecyclerView.Adapter<RVAdapter.EateriesViewHolder> {
 
         public class EateriesViewHolder extends RecyclerView.ViewHolder {
 
-            private ImageView Ephoto;
-            private TextView Ename;
             public View view;
             String input;
-            int id;
             CardView cv;
             TextView eateriesName;
             TextView eateriesLocation;
             TextView eateriesHours;
             ImageView eateriesPhoto;
-            ImageView favoriteIcon;
+            CheckBox favoriteIcon;
             ImageView locationIcon;
+            //ImageView clickedIcon;
 
             EateriesViewHolder(View itemView) {
                 super(itemView);
-                cv = (CardView)itemView.findViewById(R.id.cv);
+                cv = (CardView)itemView.findViewById(R.id.taxi_service);
                 eateriesName = (TextView)itemView.findViewById(R.id.eateries_name);
                 eateriesLocation = (TextView)itemView.findViewById(R.id.eateries_location);
                 eateriesHours = (TextView)itemView.findViewById(R.id.eateries_hours);
                 eateriesPhoto = (ImageView)itemView.findViewById(R.id.eateries_photo);
-                favoriteIcon = (ImageView)itemView.findViewById(R.id.favorite_icon);
+//                eateriesPhoto.setImageBitmap(
+//                        decodeSampledBitmapFromResource(getResources(), R.id.eateries_photo, 100, 100));
+                favoriteIcon = (CheckBox)itemView.findViewById(R.id.favorite_icon);
                 locationIcon = (ImageView)itemView.findViewById(R.id.location_icon);
 
-                favoriteIcon.setColorFilter(R.color.grey, PorterDuff.Mode.DST_OUT);
+                //favoriteIcon.setColorFilter(R.color.grey, PorterDuff.Mode.DST_OUT);
                 locationIcon.setColorFilter(R.color.grey, PorterDuff.Mode.DST_OUT);
-
-                input = eateriesName.getText().toString();
-                id = getResources().getIdentifier(String.valueOf(eateriesPhoto), "drawable", null);
-                photoid = id;
-                //s_eateries.setName(input);
-                //s_eateries.setPhoto(id);
                 cv.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View itemView) {
                         // item clicked
-                        cv.setCardBackgroundColor(255);
-                        showDialog();
-                        setRName(eateriesName);
-                        setRPhoto(eateriesPhoto);
+                        //cv.setCardBackgroundColor(255);
+                        //id = getResources().getIdentifier(String.valueOf(eateriesPhoto), "id", null);
+                       //id = getResources().getIdentifier(String.valueOf((ImageView)itemView.findViewById(R.id.eateries_photo)), "id", null);
+                        input = eateriesName.getText().toString();
+                        //MenuDataPasser.getInstance().setResName(input);
+                        for (int i =0 ; i <eateries.size(); i++){
+                            if(input.equals(eateries.get(i).name))
+                                MenuDataPasser.getInstance().setResName(eateries.get(i));
+                        }
+                        //showDialog();
+                    }
+                });
 
-                    }
-                });
-                favoriteIcon.setOnClickListener(new View.OnClickListener() {
+                favoriteIcon.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
-                    public void onClick(View itemView) {
-                        // item clicked
-                        favoriteIcon.setBackgroundResource(R.color.red);
-                        //favoriteIcon.setBackgroundResource(0);
+                    public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                        input = eateriesName.getText().toString();
+                        //MenuDataPasser.getInstance().setResName(input);
+                        for (int i =0 ; i <eateries.size(); i++){
+                            if(input.equals(eateries.get(i).name))
+                                eateries.get(i).setFav();
+                        }
                     }
                 });
+
                 locationIcon.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View itemView) {
-                        // item clicked
-                        locationIcon.setBackgroundResource(R.color.red);
-                        //locationIcon.setBackgroundResource(0);
-                    }
+                        @Override
+                        public void onClick(View itemView) {
+                            // item clicked
+                            //locationIcon.setBackgroundResource(R.color.red);
+                            //locationIcon.setBackgroundResource(0);
+                        }
                 });
             }
 
-            public void setRPhoto(ImageView photo){
-                this.Ephoto = photo;
-            }
-
-            public void setRName(TextView name){
-                this.Ename = name;
-            }
-
-            public ImageView getPhoto(){
-                return this.Ephoto;
-            }
-
-            public TextView getRName(){
-                return this.Ename;
-            }
         }
 
         List<Eateries_list> eateries;
@@ -173,7 +232,9 @@ public class EateriesFragment extends Fragment implements View.OnClickListener{
             eateriesViewHolder.eateriesName.setText(eateries.get(i).name);
             eateriesViewHolder.eateriesLocation.setText(eateries.get(i).location);
             eateriesViewHolder.eateriesHours.setText(eateries.get(i).hours);
-            eateriesViewHolder.eateriesPhoto.setImageResource(eateries.get(i).photoId);
+//            eateriesViewHolder.eateriesPhoto.setImageResource(eateries.get(i).photoId);
+            eateriesViewHolder.eateriesPhoto.setImageBitmap(
+                        decodeSampledBitmapFromResource(getResources(), eateries.get(i).photoId, 100, 100));
         }
 
         @Override

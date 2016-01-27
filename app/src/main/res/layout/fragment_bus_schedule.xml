@@ -2,12 +2,15 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/cv"
+        android:id="@+id/bus_schedule"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:clickable="true"
         android:layout_marginBottom="15dp"
         android:background="@color/white"
 
         >
     <LinearLayout
+        android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -24,7 +27,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/departure"
+                android:id="@+id/operationTimes"
                 />
         <TextView
             android:id="@+id/frequency"
@@ -32,11 +35,6 @@
             android:layout_height="wrap_content"
             />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/ndparture"
-            />
         </LinearLayout>
 
     </android.support.v7.widget.CardView>

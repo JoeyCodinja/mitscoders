@@ -6,7 +6,7 @@
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
     android:clickable="true"
-    android:id="@+id/cv">
+    android:id="@+id/taxi_service">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -34,13 +34,13 @@
             android:textSize="13sp"
             />
 
-        <ImageView
+        <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/favorite_icon"
             android:layout_alignParentRight="true"
             android:clickable="true"
-            android:src="@drawable/ic_favorite_border"
+            android:button="@drawable/fav_ic_selector"
             />
 
         <TextView

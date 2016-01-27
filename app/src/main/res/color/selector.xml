@@ -2,4 +2,9 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_selected="true" android:color="@color/white" />
     <item android:color="@color/grey"/>
+    <selector xmlns:android="http://schemas.android.com/apk/res/android">
+        <item android:state_checked="true" android:drawable ="@drawable/ic_favorite_clicked" />
+        <item android:state_checked ="false" android:drawable ="@drawable/ic_favorite_border" />
+        <item android:drawable ="@drawable/ic_favorite_border" />
+    </selector>
 </selector>

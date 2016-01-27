@@ -1,7 +1,24 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:id="@+id/campusinfo_fragmentContainer">
+    android:orientation="vertical"
+    >
 
+    <com.bluejamesbond.text.DocumentView
+        xmlns:ext="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ext:documentView_antialias="true"
+        ext:documentView_insetPadding="20dp"
+        ext:documentView_text="@string/campus_info_snippet_body1"
+        android:layout_gravity="center_horizontal"
+        ext:documentView_textAlignment="justified"
+        android:id="@+id/campus_info_heading_fragment"
+        />
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:id="@+id/campusinfo_fragmentContainer"
+        />
 
-</FrameLayout>
+</LinearLayout>
