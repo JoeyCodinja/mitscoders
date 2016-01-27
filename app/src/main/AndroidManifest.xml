@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="mits.uwi.com.ourmobileenvironment">
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -19,6 +20,7 @@
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true"/>
+
     <application
         android:name="com.orm.SugarApp"
         android:allowBackup="true"
@@ -191,6 +193,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mits.uwi.com.ourmobileenvironment.SASActivity"/>
         </activity>
+
     <meta-data
         android:name="com.google.android.geo.API_KEY"
         android:value="AIzaSyBqb4v1V6KAa2UQSbrduEs98fC1WwplnxY"/>

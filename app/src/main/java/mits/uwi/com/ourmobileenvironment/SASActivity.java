@@ -2,6 +2,7 @@ package mits.uwi.com.ourmobileenvironment;
 
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import mits.uwi.com.ourmobileenvironment.sasfragments.Course;
 import mits.uwi.com.ourmobileenvironment.sasfragments.classmapfragments.ClassMapActivity;
@@ -36,6 +38,7 @@ public class SASActivity extends AppCompatActivity {
     private ArrayAdapter<TextView> sAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
     Toolbar toolbar;
+    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +62,15 @@ public class SASActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Fab Pressed", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout,
                 toolbar,
@@ -122,7 +134,10 @@ public class SASActivity extends AppCompatActivity {
                         Intent i = new Intent(getApplicationContext(), ClassMapActivity.class);
                         //ClassMapActivity.class
                         // i.putExtra(CourseInfoFragment.EXTRA_COURSE_ID, c.getCRN());
+                        fab.setVisibility(view.INVISIBLE);
+
                         startActivity(i);
+
                     } else {
                         fm.beginTransaction()
                                 .replace(R.id.sas_fragmentContainer, fragment)
@@ -130,8 +145,9 @@ public class SASActivity extends AppCompatActivity {
                                 .addToBackStack(null)
                                 .commit();
                     }
-                    mDrawerLayout.closeDrawer(mNavList);
+
                 }
+                mDrawerLayout.closeDrawer(mNavList);
             }
             else{
 
@@ -162,6 +178,7 @@ public class SASActivity extends AppCompatActivity {
         sAdapter = new ArrayAdapter<TextView>(this,android.R.layout.simple_list_item_1,list2);*/
         String [] list = {"Home","Add/Drop","Timetable","Class Map","Transcript","Overrides","Holds","Exit"};
         mAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,list);
+
         mNavList.setAdapter(mAdapter);
     };
 
