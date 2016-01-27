@@ -22,6 +22,8 @@ import mits.uwi.com.ourmobileenvironment.R;
  */
 public abstract class  TransportFragment<T extends Transport> extends Fragment implements SearchView.OnQueryTextListener{
     protected TransportAdapter adapter;
+
+
     protected RecyclerView recList;
     protected ArrayList<T> transportModels=new ArrayList<>();
     public TransportFragment(){
@@ -31,6 +33,11 @@ public abstract class  TransportFragment<T extends Transport> extends Fragment i
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
+        getActivity().findViewById(R.id.progress_bar).setVisibility(View.VISIBLE);
+    }
+
+    public RecyclerView getRecList() {
+        return recList;
     }
 
 

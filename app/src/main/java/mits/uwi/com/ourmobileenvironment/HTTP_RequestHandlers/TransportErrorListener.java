@@ -1,6 +1,7 @@
 package mits.uwi.com.ourmobileenvironment.HTTP_RequestHandlers;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.Response;
@@ -11,6 +12,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import mits.uwi.com.ourmobileenvironment.R;
 import mits.uwi.com.ourmobileenvironment.Transport.Transport;
 import mits.uwi.com.ourmobileenvironment.Transport.TransportFragment;
 
@@ -22,7 +24,6 @@ public class TransportErrorListener <T extends Transport>implements Response.Err
     private Toast internetConnection;
     private ArrayList<T>Tlist;
     private TransportFragment transportFragment;
-    private Transport currentRecord;
 
     public TransportErrorListener(Class<T> transport,Context mCtx,TransportFragment transportFragment,ArrayList<T>Tlist){
         this.transport=transport;
@@ -50,6 +51,8 @@ public class TransportErrorListener <T extends Transport>implements Response.Err
                   adapter.Add(transport);
               }
               transportFragment.refreshView();
+              transportFragment.getActivity().findViewById(R.id.progress_bar).setVisibility(View.GONE);
+
 
           }
     }

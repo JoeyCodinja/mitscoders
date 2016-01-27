@@ -95,7 +95,7 @@ public class GlobalRequestHandler {
     }
 
     public void getShuttleRoutes(ArrayList<BusRoute> BusRouteList,BusScheduleFragment busScheduleFragment )  {
-        String url="http://192.168.1.104:5000/service/shuttle_routes";
+        String url="http://rox116.pythonanywhere.com/service/shuttle_routes";
         TransportListener transportListener=new TransportListener("Shuttlelist",BusRouteList,busScheduleFragment,mCtx,BusRoute.class);
         TransportErrorListener transportErrorListener= new TransportErrorListener(BusRoute.class,mCtx,busScheduleFragment,BusRouteList);
         TransportRequest transportRequest= new TransportRequest(url,transportListener,transportErrorListener,mCtx);
@@ -103,7 +103,7 @@ public class GlobalRequestHandler {
     }
 
     public void getTaxiServices( ArrayList<TaxiService> taxiServiceList,TaxiServiceFragment taxiServiceFragment){
-        String url="http://192.168.1.104:5000/service/taxi_services";
+        String url="http://rox116.pythonanywhere.com/service/taxi_services";
         TransportListener transportListener=new TransportListener("TaxiList",taxiServiceList,taxiServiceFragment,mCtx,TaxiService.class);
         TransportErrorListener transportErrorListener=new TransportErrorListener(TaxiService.class,mCtx,taxiServiceFragment,taxiServiceList);
         TransportRequest transportRequest=new TransportRequest(url,transportListener,transportErrorListener,mCtx);
@@ -112,7 +112,7 @@ public class GlobalRequestHandler {
     }
 
     public void getJUTCRoutes(ArrayList<JUTCRoute> jutcRoutes,JUTCRouteFragment jutcRouteFragment){
-        String url="http://192.168.1.104:5000/service/jutc_routes";
+        String url="http://rox116.pythonanywhere.com/service/jutc_routes";
         TransportListener transportListener=new TransportListener("JUTCList",jutcRoutes,jutcRouteFragment,mCtx,JUTCRoute.class);
         TransportErrorListener transportErrorListener=new TransportErrorListener(JUTCRoute.class,mCtx,jutcRouteFragment,jutcRoutes);
         TransportRequest transportRequest=new TransportRequest(url,transportListener,transportErrorListener,mCtx);

@@ -3,6 +3,7 @@ package mits.uwi.com.ourmobileenvironment.sasfragments.coursefragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
@@ -28,11 +29,12 @@ public class CourseInfoFragment extends Fragment {
     public static final String EXTRA_COURSE_ID="Course CRN";
     private Course mCourse;
     private int courseId;
+    private FloatingActionButton fab;
 
+    // or attachToRecyclerView
     public static CourseInfoFragment newInstance(int CRN){
         Bundle args = new Bundle();
         args.putSerializable(EXTRA_COURSE_ID, CRN);
-
         CourseInfoFragment fragment = new CourseInfoFragment();
         fragment.setArguments(args);
         return fragment;
@@ -45,6 +47,7 @@ public class CourseInfoFragment extends Fragment {
         mCourse = CourseList.get(getActivity()).getCourse(courseId);
         getActivity().setTitle(mCourse.getTitle());
         ((CourseInfoActivity )getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setRetainInstance(true);
 
     }
 
@@ -57,6 +60,7 @@ public class CourseInfoFragment extends Fragment {
         mRequestOverride.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 Fragment fragment = new RequestOverrideFragment();
 
