@@ -61,7 +61,7 @@
         <!-- Transcript Fragment -->
         <string name="transcriptFragment_title">Transcript</string>
 
-        <!--Course Infromation fragment -->
+        <!--Course Information fragment -->
         <string name="CourseInfoFragment">Course Information</string>
         <string name="RequestOverride">Request Override</string>
 
@@ -72,6 +72,7 @@
         <string name="request_ok">OK</string>
         <string name="request_submit">SUBMIT</string>
         <string name="request_cancel">CANCEL</string>
+        <string name="request_hint">Enter a message that will be sent to the lecturer, upon submitting this override.</string>
 
     <!-- testing drop down -->
     <string-array name="semester_test">

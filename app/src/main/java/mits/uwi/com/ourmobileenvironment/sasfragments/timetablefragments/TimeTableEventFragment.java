@@ -121,6 +121,8 @@ public class TimeTableEventFragment extends Fragment {
                 Location = location.getText().toString();
                 mEvent = new TimeTable(start_time,end_time,mSemStart,mSemEnd, Description,Location,day);
                 mEvent.save();
+                Toast.makeText(getActivity().getApplicationContext(), "Saved", Toast.LENGTH_LONG).show();
+                getActivity().getSupportFragmentManager().popBackStack();
             }
         });
         //Mon = (RadioButton)v.findViewById(R.id.mon);*/

@@ -3,6 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -12,6 +13,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginBottom="70dp"
         android:layout_marginTop="10dp">
+
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
@@ -23,6 +25,7 @@
         android:ems="10"
         android:scrollbars="vertical"
         android:id="@+id/request"
+        android:hint="@string/request_hint"
         android:background="@android:color/transparent"/>
 
     </LinearLayout>
