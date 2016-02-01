@@ -14,8 +14,8 @@
     <item android:id="@+id/action_fast"
         android:title="@string/action_fast"
         android:showAsAction="never" />
-    <item android:id="@+id/action_cooked"
-        android:title="@string/action_cooked"
+    <item android:id="@+id/action_res"
+        android:title="@string/action_res"
         android:showAsAction="never" />
     <item android:id="@+id/action_fav"
         android:title="@string/action_fav"

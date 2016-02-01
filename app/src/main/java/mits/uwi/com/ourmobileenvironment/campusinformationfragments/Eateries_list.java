@@ -12,14 +12,16 @@ class Eateries_list {
     int photoId;
     boolean fav;
     float coord[];
+    String catergory;
    ArrayList<Menu_Item> menu = new ArrayList<>();
 
-    Eateries_list(String name, String location, String hours, int photoId, ArrayList<Menu_Item> m /*, float x, float y*/) {
+    Eateries_list(String name, String location, String hours, int photoId, ArrayList<Menu_Item> m, String cat /*, float x, float y*/) {
         this.name = name;
         this.location = location;
         this.hours = hours;
         this.photoId = photoId;
         this.menu = m;
+        this.catergory= cat;
 //        this.coord[0]=x;
 //        this.coord[1]=y;
         this.fav = false;

@@ -101,7 +101,7 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mits.uwi.com.ourmobileenvironment.HomeActivity" />
-                />
+            />
             <meta-data android:name="android.app.searchable"
                 android:resource="@xml/searchable"/>
             <intent-filter>
@@ -194,9 +194,9 @@
                 android:value="mits.uwi.com.ourmobileenvironment.SASActivity"/>
         </activity>
 
-    <meta-data
-        android:name="com.google.android.geo.API_KEY"
-        android:value="AIzaSyBqb4v1V6KAa2UQSbrduEs98fC1WwplnxY"/>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBqb4v1V6KAa2UQSbrduEs98fC1WwplnxY"/>
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version"
