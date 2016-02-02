@@ -27,19 +27,6 @@ public class ClassMapFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_classmap, container, false);
 
-        /*mToTimeTableFragmentButton = (Button)v.findViewById(R.id.to_timetable_fragment_classmap);
-        mToTimeTableFragmentButton.setOnClickListener(new View.OnClickListener() {
-            @CourseOverride
-            public void onClick(View v) {
-                FragmentManager fm = getActivity().getSupportFragmentManager();
-                Fragment fragment = new TimeTableFragment();
-
-                fm.beginTransaction()
-                        .replace(R.id.sas_fragmentContainer, fragment)
-                        .commit();
-            }
-        });*/
-
         return v;
     }
 }

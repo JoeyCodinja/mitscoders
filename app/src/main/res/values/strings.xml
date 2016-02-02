@@ -71,9 +71,11 @@
         <string name="request_ok">OK</string>
         <string name="request_submit">SUBMIT</string>
         <string name="request_cancel">CANCEL</string>
-
+        <string name="noOverrides">The are currently no override requests in the system.</string>
         <string name="request_hint">Enter a message that will be sent to the lecturer, upon submitting this override.</string>
-
+    <!-- Holds Strings -->
+        <string name="admin_hold"> Administrative Holds</string>
+        <string name="noHolds" >There are currenlty no administrative holds on your account </string>
     <!-- testing drop down -->
     <string-array name="semester_test">
         <item>  Semester 1 2014/2015</item>

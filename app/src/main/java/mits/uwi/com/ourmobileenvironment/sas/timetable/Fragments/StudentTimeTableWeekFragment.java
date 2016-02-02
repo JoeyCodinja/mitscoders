@@ -326,7 +326,12 @@ public class StudentTimeTableWeekFragment extends Fragment implements WeekView.M
     }
     @Override
     public void onEventLongPress(WeekViewEvent event, RectF eventRect) {
-        Toast.makeText(getActivity(), "Long pressed event: " + event.getName(), Toast.LENGTH_SHORT).show();
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        event.getId();
+        TimeTableDeleteDialog dialog = new TimeTableDeleteDialog();
+        //dialog.setTargetFragment(TimeTableEventFragment.this, REQUEST_START);
+        dialog.show(fm, NEW_EVENT);
+        //Toast.makeText(getActivity(), "Long pressed event: " + event.getName(), Toast.LENGTH_SHORT).show();
     }
 
 }

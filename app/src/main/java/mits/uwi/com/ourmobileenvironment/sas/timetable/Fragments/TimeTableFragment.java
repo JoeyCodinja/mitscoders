@@ -13,6 +13,7 @@ import android.widget.Button;
 
 import mits.uwi.com.ourmobileenvironment.R;
 import mits.uwi.com.ourmobileenvironment.sas.classmap.activity.ClassMapActivity;
+import mits.uwi.com.ourmobileenvironment.sas.timetable.services.TimeTableService;
 
 /**
  * Created by Danuel on 16/06/2015.
@@ -25,7 +26,9 @@ public class TimeTableFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().setTitle(R.string.timetableFragment_title);
-
+        //Move to SAS fragment or home
+        Intent i = new Intent(getActivity(), TimeTableService.class);
+        getActivity().startService(i);
     }
 
     @Override

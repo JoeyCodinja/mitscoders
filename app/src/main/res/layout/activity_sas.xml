@@ -19,16 +19,21 @@
         <include
             android:id="@+id/toolbar"
             layout="@layout/toolbar" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:elevation="4dp"
+            android:background="@drawable/toolbar_dropshadow"/>
             <FrameLayout
                 android:id="@+id/sas_fragmentContainer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 >
-                <View
+                <!--View
                     android:layout_width="match_parent"
                     android:layout_height="5dp"
                     android:elevation="4dp"
-                    android:background="@drawable/toolbar_dropshadow"/>
+                    android:background="@drawable/toolbar_dropshadow"/-->
 
             </FrameLayout>
 
