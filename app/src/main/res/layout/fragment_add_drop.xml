@@ -45,9 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="102dp"
         android:weightSum="1"
-        android:gravity="right">
-
-
+        android:gravity="left|bottom">
 
         <TextView
             android:layout_width="62dp"
@@ -71,5 +69,6 @@
             android:layout_marginRight="20dp" />
 
     </LinearLayout>
+
 
 </LinearLayout>

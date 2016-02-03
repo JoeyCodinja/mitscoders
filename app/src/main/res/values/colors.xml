@@ -6,7 +6,7 @@
     <color name="tabstrip">#E35216</color>
     <color name="actionbar_background_eateries">#B79F1C</color>
     <color name="blue_background">#476EDE</color>
-    <color name="ColorPrimary">#e62117</color>
+    <color name="ColorPrimary">#b79f1c</color>
     <color name="ColorPrimaryDark">#c31c13</color>
     <color name="tabScrollColor">#8a140e</color>
     <color name="transparent" >#00FFFFFF</color>
@@ -20,6 +20,7 @@
     <color name="toolbar">#efefef</color>
     <color name="toolbar_text">#8f000000</color>
     <color name="accent">#2789e4</color>
+    <color name="accent_1">#28e</color>
     <!-- END -->
 
     <color name="yellow">#FFFF00</color>

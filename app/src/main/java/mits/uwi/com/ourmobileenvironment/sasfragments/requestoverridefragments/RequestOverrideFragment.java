@@ -16,7 +16,7 @@ import mits.uwi.com.ourmobileenvironment.R;
  */
 public class RequestOverrideFragment extends Fragment {
     TextView mSubmit, mCancel;
-    private static final String OVER_RIDE = "Request Override";
+    private static final String OVER_RIDE = "Request CourseOverride";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

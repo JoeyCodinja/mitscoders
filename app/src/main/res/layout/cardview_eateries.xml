@@ -6,7 +6,7 @@
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
     android:clickable="true"
-    android:id="@+id/cv">
+    android:id="@+id/taxi_service">
 
     <RelativeLayout
         android:layout_width="match_parent"

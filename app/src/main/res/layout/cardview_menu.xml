@@ -7,7 +7,7 @@
     android:layout_marginBottom="-10dp"
     android:layout_marginLeft="10dp"
     android:layout_marginRight="10dp"
-    android:id="@+id/cv">
+    android:id="@+id/taxi_service">
 
     <RelativeLayout
         android:layout_width="wrap_content"

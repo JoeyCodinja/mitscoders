@@ -28,32 +28,26 @@ public class CampusInformationActivity extends AppCompatActivity {
         setContentView(R.layout.buspager);
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment1 = new EateriesFragment();
-        Fragment fragment2 = new CampusListingsFragment();
-        Fragment fragment3 = new CampusInformationFragment();
+        Fragment fragment2 = new CampusInformationFragment();
         mFragList.add(0, fragment1);
         mFragList.add(1, fragment2);
-        mFragList.add(2, fragment3);
         ePage=(ViewPager)findViewById(R.id.buspager);
         ePage.setAdapter(new FragmentStatePagerAdapter(fm) {
             @Override
             public Fragment getItem(int position) {
-
                 return mFragList.get(position);
             }
 
             @Override
-            public int getCount() { return 3; }
+            public int getCount() { return mFragList.size(); }
 
             @Override
             public CharSequence getPageTitle(int position) {
                 ArrayList<String> title=new ArrayList<String>();
                 title.add("Eateries");
-                title.add("Listings");
                 title.add("Info");
                 return title.get(position);
-
             }
-
         });
 
         mSlidingTabLayout=(SlidingTabLayout) findViewById(R.id.sltab);
@@ -64,7 +58,7 @@ public class CampusInformationActivity extends AppCompatActivity {
         mSlidingTabLayout.setTabsBackgroundColor(getResources().getColor(R.color.actionbar_background_eateries));
 
         //Calls to this function reposition the overflow
-        ToprightBar.setTopOverflow(this);
+        //ToprightBar.setTopOverflow(this);
         }
 
     @Override

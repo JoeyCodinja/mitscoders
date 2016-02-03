@@ -64,7 +64,7 @@
         <string name="CourseInfoFragment">Course Information</string>
         <string name="RequestOverride">Request Override</string>
 
-        <!-- Request Override Dialog -->
+        <!-- Request CourseOverride Dialog -->
         <string name="requestOverride_title">Request Override</string>
         <string name="override_needed"> Needs Over-ride Approval</string>
         <string name="override_submitted"> Over-ride request submitted</string>
@@ -171,7 +171,7 @@
     <string name="title_activity_home">Home</string>
     <string-array name="navigation_menu_titles">
         <item>E-mail</item>
-        <item>Notificaitons</item>
+        <item>Notifications</item>
         <item>Directory</item>
         <item>Wi-Fi Finder</item>
         <item>Emergency Services</item>

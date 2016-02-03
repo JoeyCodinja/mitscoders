@@ -1,6 +1,8 @@
 package mits.uwi.com.ourmobileenvironment;
 
 
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,8 +17,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import mits.uwi.com.ourmobileenvironment.sasfragments.Course;
+import mits.uwi.com.ourmobileenvironment.sasfragments.classmapfragments.ClassMapActivity;
 import mits.uwi.com.ourmobileenvironment.sasfragments.coursefragments.AddDropCourseFragment;
+import mits.uwi.com.ourmobileenvironment.sasfragments.coursefragments.CourseInfoActivity;
 import mits.uwi.com.ourmobileenvironment.sasfragments.coursefragments.CourseInfoFragment;
 import mits.uwi.com.ourmobileenvironment.sasfragments.coursefragments.CourseListFragment;
 import mits.uwi.com.ourmobileenvironment.sasfragments.holdfragments.HoldsFragment;
@@ -32,7 +38,7 @@ public class SASActivity extends AppCompatActivity {
     private ArrayAdapter<TextView> sAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
     Toolbar toolbar;
-
+    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +52,7 @@ public class SASActivity extends AppCompatActivity {
             fm.beginTransaction()
                     .add(R.id.sas_fragmentContainer, fragment)
                     .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                    .addToBackStack(null)
+                    //.addToBackStack(null)
                     .commit();
         }
         ToprightBar.setTopOverflow(this);
@@ -56,6 +62,15 @@ public class SASActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Fab Pressed", Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
         mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout,
                 toolbar,
@@ -96,25 +111,42 @@ public class SASActivity extends AppCompatActivity {
                 case 2:
                     fragment = new TimeTableFragment();
                     break;
-                case 3:
-
+                case 4:
                     fragment = new TranscriptFragment();
                     break;
-                case 4:
-
+                case 5:
                     fragment = new RequestOverrideListFragment();
                     break;
-                case 5:
+                case 6:
                     fragment = new HoldsFragment();
                     break;
 
             }
-            if (position !=6) {
-                fm.beginTransaction()
-                        .replace(R.id.sas_fragmentContainer, fragment)
-                        .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                        .addToBackStack(null)
-                        .commit();
+            if (position !=7) {
+                if (position==0) {
+                    fm.beginTransaction()
+                            .replace(R.id.sas_fragmentContainer, fragment)
+                            .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                            .commit();
+                }
+                else {
+                    if (position == 3) {
+                        Intent i = new Intent(getApplicationContext(), ClassMapActivity.class);
+                        //ClassMapActivity.class
+                        // i.putExtra(CourseInfoFragment.EXTRA_COURSE_ID, c.getCRN());
+                        fab.setVisibility(view.INVISIBLE);
+
+                        startActivity(i);
+
+                    } else {
+                        fm.beginTransaction()
+                                .replace(R.id.sas_fragmentContainer, fragment)
+                                .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                                .addToBackStack(null)
+                                .commit();
+                    }
+
+                }
                 mDrawerLayout.closeDrawer(mNavList);
             }
             else{
@@ -144,8 +176,9 @@ public class SASActivity extends AppCompatActivity {
 
 
         sAdapter = new ArrayAdapter<TextView>(this,android.R.layout.simple_list_item_1,list2);*/
-        String [] list = {"Home","Add/Drop","Timetable","Transcript","Overrides","Holds","Exit"};
+        String [] list = {"Home","Add/Drop","Timetable","Class Map","Transcript","Overrides","Holds","Exit"};
         mAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,list);
+
         mNavList.setAdapter(mAdapter);
     };
 
@@ -167,7 +200,7 @@ public class SASActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-        if (id==R.id.action_courseinfo){
+      /*  if (id==R.id.action_courseinfo){
             FragmentManager fm = getSupportFragmentManager();
             Fragment fragment = new CourseInfoFragment();
 
@@ -176,6 +209,13 @@ public class SASActivity extends AppCompatActivity {
                     .addToBackStack(null)
                     .commit();
         }
+        if (id==R.id.classmap){
+            Intent i = new Intent(this,ClassMapActivity.class );
+                     //ClassMapActivity.class
+           // i.putExtra(CourseInfoFragment.EXTRA_COURSE_ID, c.getCRN());
+            startActivity(i);
+
+        }*/
 
 
 

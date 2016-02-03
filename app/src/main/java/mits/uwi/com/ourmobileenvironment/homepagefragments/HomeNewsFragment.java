@@ -95,7 +95,7 @@ public class HomeNewsFragment extends Fragment {
         protected Home_News doInBackground(Context... params) {
             try {
                 mNewsItems = new Home_News(params[0]);
-                if (!mNewsItems.didConnect){
+                if (!mNewsItems.didConnect || mNewsItems.loaded){
                     for(Element element: mNewsItems.getCachedNewsItems()){
                         newsItemTitles.add(mNewsItems.getNewsItemTitle(element));
                         newsItemImages.add(mNewsItems.getNewsItemImage(element));
@@ -110,6 +110,7 @@ public class HomeNewsFragment extends Fragment {
                         newsItemURLs.add(mNewsItems.getNewsItemURL(element));
                     }
                     mNewsItems.cacheNewsItems(newsItemElements);
+                    mNewsItems.loaded = true;
                 }
                 return mNewsItems;
             }
@@ -121,8 +122,6 @@ public class HomeNewsFragment extends Fragment {
             }
 
         }
-
-
 
         @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
         private void makeNewsItemViews(View contextView) {
