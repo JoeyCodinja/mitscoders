@@ -9,20 +9,20 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-
 import android.widget.ListView;
 
 import com.bluejamesbond.text.DocumentView;
 
+import mits.uwi.com.ourmobileenvironment.Directory.DirectoryActivity;
 import mits.uwi.com.ourmobileenvironment.adapters.HomePageArrayAdapter;
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.CampusInformationFragment;
 import mits.uwi.com.ourmobileenvironment.homepagefragments.HomeActivityFragment;
 
+import mits.uwi.com.ourmobileenvironment.sas.SAS_Splash;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -170,6 +170,9 @@ public class HomeActivity extends AppCompatActivity {
         }
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent i = new Intent(this, SAS_Splash.class);
+            startActivity(i);
+
             return true;
         }
 

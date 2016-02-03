@@ -19,6 +19,7 @@
         app:headerRowBackgroundColor="#fff"
         app:dayBackgroundColor="#05000000"
         app:todayBackgroundColor="#1848adff"
-        app:headerColumnBackground="#fff" />
+        app:headerColumnBackground="#fff"
+        />
 
 </LinearLayout>
