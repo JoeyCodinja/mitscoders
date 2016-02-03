@@ -3,24 +3,22 @@ package mits.uwi.com.ourmobileenvironment.homepagefragments;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 
 import android.view.ViewGroup;
-import android.view.animation.Animation;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +27,6 @@ import mits.uwi.com.ourmobileenvironment.BusScheduleActivity;
 import mits.uwi.com.ourmobileenvironment.CampusInformationActivity;
 import mits.uwi.com.ourmobileenvironment.OurVLEActivity;
 import mits.uwi.com.ourmobileenvironment.R;
-import mits.uwi.com.ourmobileenvironment.SASActivity;
 import mits.uwi.com.ourmobileenvironment.adapters.HomePageViewPagerAdapter;
 import mits.uwi.com.ourmobileenvironment.sasfragments.SAS_Splash;
 
@@ -41,11 +38,8 @@ import static java.lang.Math.pow;
  */
 public class HomeActivityFragment extends Fragment {
 
-    private ImageView mFloatingActionButton, mFloatingActionButton2, mFloatingActionButton3,
-            mFloatingActionButton4, mFloatingActionButton5, mFloatingActionButton6;
-    private ArrayList<ImageView> mFABs = new ArrayList<ImageView>();
+    private ArrayList<FrameLayout> mFABs = new ArrayList<>();
     private Animator.AnimatorListener mFABAnimatorListener;
-    private View.OnClickListener FABClickListener;
     public static Boolean mMenuExpanded = false;
 
     int[] fabIDs = {R.id.landing_pageFAB,
@@ -55,26 +49,21 @@ public class HomeActivityFragment extends Fragment {
             R.id.landing_pageFAB4,
             R.id.landing_pageFAB5};
 
+    float[][] fabCoords = new float[fabIDs.length][2];
+
     private ViewPager mHome_ViewPager;
-    private Drawable[] mViewPagerTabIcons;
-    private HomePageViewPagerAdapter adapter;
-    private TabLayout tabs;
+    HomePageViewPagerAdapter adapter;
+    TabLayout tabs;
 
     private static final String TAG = "LandingFragment";
 
-    public Boolean getmMenuExpanded() {
-        return mMenuExpanded;
-    }
-
     public static HomeActivityFragment newInstance() {
         HomeActivityFragment fragment = new HomeActivityFragment();
-
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
     }
 
@@ -84,7 +73,7 @@ public class HomeActivityFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_landing, container, false);
 
         for (int fab = 0; fab <= fabIDs.length - 1; fab++) {
-            mFABs.add((ImageView) v.findViewById(fabIDs[fab]));
+            mFABs.add((FrameLayout) v.findViewById(fabIDs[fab]));
             if (fab > 0) {
                 mFABs.get(fab).setVisibility(View.INVISIBLE);
                 mFABs.get(fab).setOnClickListener(new View.OnClickListener() {
@@ -116,31 +105,34 @@ public class HomeActivityFragment extends Fragment {
                         }
                     }
                 });
-
+                fabCoords[fab][0] = mFABs.get(fab).getX();
+                fabCoords[fab][1] = mFABs.get(fab).getY();
             }
         }
 
         mFABAnimatorListener = new Animator.AnimatorListener() {
-            List<ImageView> buttons = mFABs.subList(1, mFABs.size());
+            List<FrameLayout> buttons = mFABs.subList(1, mFABs.size());
 
             @Override
             public void onAnimationStart(Animator animation) {
+                Log.d(TAG, "Animation Started");
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
+                Log.d(TAG, "Animation Ended");
             }
 
             @Override
             public void onAnimationCancel(Animator animation) {
-
+                Log.d(TAG,"Animation cancelled");
             }
 
             @Override
             public void onAnimationRepeat(Animator animation) {
+                Log.d(TAG, "Animation Repeated");
             }
         };
-
 
         mFABs.get(0).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,68 +140,21 @@ public class HomeActivityFragment extends Fragment {
                 if (!mMenuExpanded) {
                     for (int fab = 1; fab <= mFABs.size() - 1; fab++) {
                         mFABs.get(fab).setVisibility(View.VISIBLE);
-//                        mFABs.get(fab).animate()
-//                                .setDuration(400)
-//                                .translationXBy((float) -((-35 * pow(fab, 2)) + (210 * fab) - 75))
-//                                .translationYBy((float) -((150.83 * pow(fab, 1.1533f))))
-//                                .setListener(mFABAnimatorListener);
-
-                        ObjectAnimator fanOutX = ObjectAnimator.ofFloat(mFABs.get(fab),
-                                "x",
-                                mFABs.get(fab).getX(),
-                                (float) (mFABs.get(fab).getX() -
-                                        (-30 * (pow(fab, 2)) + (160 * fab) - 45)));
-                        fanOutX.setDuration(400);
-
-                        ObjectAnimator fanOutY = ObjectAnimator.ofFloat(mFABs.get(fab),
-                                "y",
-                                mFABs.get(fab).getY(),
-                                (float) (mFABs.get(fab).getY() -
-                                        (195 * fab)));
-                        fanOutY.setDuration(400);
-
-                        AnimatorSet fanOut = new AnimatorSet();
-                        fanOut.play(fanOutX).with(fanOutY);
-                        fanOut.addListener(mFABAnimatorListener);
-                        fanOut.start();
-
+                        mFABs.get(fab).animate()
+                                .setDuration(400)
+                                .translationXBy( (float) -( ( -35 * pow(fab, 2)) + (210 * fab) - 75 ) )
+//                                .translationYBy((float) -( (150.83 * pow(fab, 1.1533f))) )
+                                .setListener(mFABAnimatorListener);
                     }
                     mMenuExpanded = true;
                 } else {
                     for (int fab = 1; fab <= mFABs.size() - 1; fab++) {
-//                        mFABs.get(fab).animate()
-//                                .setDuration(3500 - (500 * (fab - 1)))
-//                                .translationXBy((float) (-35 * (pow(fab, 2))) + (210 * fab) - 75)
-//                                .translationYBy((float) (150.83 * (pow(fab, 1.1533f))))
-//                                .alpha(0)
-//                                .setListener(mFABAnimatorListener);
-
-                        ObjectAnimator fanInX = ObjectAnimator.ofFloat(mFABs.get(fab),
-                                "x",
-                                mFABs.get(fab).getX(),
-                                (float) (mFABs.get(fab).getX() +
-                                        (-30 * (pow(fab, 2)) + (160 * fab) - 45)));
-                        fanInX.setDuration(3500 - (500 * (fab - 1)));
-
-                        ObjectAnimator fanInY = ObjectAnimator.ofFloat(mFABs.get(fab),
-                                "y",
-                                mFABs.get(fab).getY(),
-                                (float) (mFABs.get(fab).getY() +
-                                        (195 * fab)));
-                        fanInY.setDuration(3500 - (500 * (fab - 1)));
-
-                        ObjectAnimator fanInAlpha = ObjectAnimator.ofFloat(mFABs.get(fab),
-                                "alpha",
-                                mFABs.get(fab).getAlpha(),
-                                0);
-                        fanInAlpha.setDuration(3500 - (500 * (fab-1)));
-
-                        AnimatorSet fanIn = new AnimatorSet();
-                        fanIn.play(fanInX).with(fanInY);
-                        fanIn.addListener(mFABAnimatorListener);
-                        fanIn.start();
-
-
+                        mFABs.get(fab).animate()
+                                .setDuration(3500 - (500 * (fab - 1)))
+                                .translationXBy( (float) (-35 * (pow(fab, 2))) + (210 * fab) -75 )
+//                                .translationYBy( (float) (150.83 * (pow(fab, 1.1533f))) )
+                                .alpha(0)
+                                .setListener(mFABAnimatorListener);
                     }
                     mMenuExpanded = false;
                 }

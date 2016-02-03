@@ -3,21 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="mits.uwi.com.ourmobileenvironment">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <users-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        tools:replace="android:icon"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/HomeActionBar" >
         <activity android:name=".HomeActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="andriod.intent.action.MAIN" />
-
+                <action android:name="android.intent.action.INTRO"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>

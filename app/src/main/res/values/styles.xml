@@ -4,8 +4,13 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
 
-
     </style>
+
+    <style name="HomeActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">#ffe20502</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
 
     <style name="actionbartheme"
         parent="Theme.AppCompat.Light.DarkActionBar">
@@ -29,6 +34,7 @@
         <item name="android:shadowDy">0</item>
         <item name="android:shadowRadius">1.5</item>
     </style>
+
     <style name="campusinfotheme"
         parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:actionBarStyle">@style/eateries_bar</item>
@@ -36,6 +42,7 @@
         <item name="android:windowContentOverlay">@null</item>
 
     </style>
+
     <style name="eateries_bar"
         parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
         <item name="android:colorBackground">@color/actionbar_background_eateries</item>
@@ -102,10 +109,6 @@
     </style>
 
 
-    <style name="HomeActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">#ffe20502</item>
-        <item name="android:windowContentOverlay">@null</item>
-    </style>
 
     <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
         <item name="tabMaxWidth">@dimen/tab_max_width</item>
@@ -128,8 +131,8 @@
         <item name="android:layout_width">25dp</item>
         <item name="android:layout_height">25dp</item>
         <item name="android:layout_gravity">bottom|end</item>
-        <item name="android:layout_marginBottom">30dp</item>
-        <item name="android:layout_marginRight">28dp</item>
+        <item name="android:layout_marginBottom">14dp</item>
+        <item name="android:layout_marginRight">12dp</item>
     </style>
 
 </resources>

@@ -2,8 +2,6 @@ package mits.uwi.com.ourmobileenvironment;
 
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
@@ -16,8 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
+
 import android.widget.ListView;
 
 import com.bluejamesbond.text.DocumentView;
@@ -26,7 +23,6 @@ import mits.uwi.com.ourmobileenvironment.adapters.HomePageArrayAdapter;
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.CampusInformationFragment;
 import mits.uwi.com.ourmobileenvironment.homepagefragments.HomeActivityFragment;
 
-import static mits.uwi.com.ourmobileenvironment.R.drawable.uwi_coat_of_arms;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -71,6 +67,7 @@ public class HomeActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setTitle(R.string.title_activity_home);
+
 
         mDrawerList = (ListView) findViewById(R.id.home_drawer_menu);
 
