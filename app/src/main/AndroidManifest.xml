@@ -57,7 +57,7 @@
                 android:value="mits.uwi.com.ourmobileenvironment.HomeActivity" />
 
         </activity>
-        <activity android:name=".sasfragments.coursefragments.CourseInfoActivity"
+        <activity android:name=".sas.course.CourseInfoActivity"
             android:label="@string/course_info"
             android:parentActivityName=".SASActivity"
             android:theme="@style/sas_bartheme">
@@ -65,7 +65,25 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mits.uwi.com.ourmobileenvironment.SASActivity"/>
         </activity>
-        <activity android:name=".sasfragments.SAS_Splash"
+        <activity android:name=".sas.timetable.Activity.TimeTableActivity"
+            android:label="@string/course_info"
+            android:parentActivityName=".SASActivity"
+            android:theme="@style/sas_bartheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="mits.uwi.com.ourmobileenvironment.SASActivity"/>
+        </activity>
+        <activity
+            android:name=".sas.classmap.activity.ClassMapActivity"
+            android:label="@string/classmapFragment_title"
+            android:parentActivityName=".SASActivity"
+            android:theme="@style/sas_bartheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="mits.uwi.com.ourmobileenvironment.SASActivity"/>
+        </activity>
+
+        <activity android:name=".sas.SAS_Splash"
             android:theme="@style/Theme.Transparent">
         </activity>
         <activity
@@ -76,6 +94,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mits.uwi.com.ourmobileenvironment.HomeActivity" />
         </activity>
+        <service android:name=".sas.timetable.services.TimeTableService"/>
         <activity
             android:name=".Transport.TransportActivity"
             android:label="@string/title_activity_bus_schedule"
@@ -183,15 +202,6 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ourvle.activities.OurVLEActivity" />
-        </activity>
-        <activity
-            android:name=".sasfragments.classmapfragments.ClassMapActivity"
-            android:label="@string/classmapFragment_title"
-            android:parentActivityName=".SASActivity"
-            android:theme="@style/sas_bartheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="mits.uwi.com.ourmobileenvironment.SASActivity"/>
         </activity>
 
         <meta-data

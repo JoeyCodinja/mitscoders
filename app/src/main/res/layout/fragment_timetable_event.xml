@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:elevation="0dp">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -29,15 +30,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
-                        android:layout_margin="20dp">
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="20dp">
 
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/description"
                             android:hint="Descrption"
-                            android:layout_margin="20dp"
-                            android:padding="10dp"
+                            android:layout_margin="5dp"
+                            android:padding="5dp"
                             android:background="@android:color/transparent" />
                     </LinearLayout>
 
@@ -46,15 +49,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
-                        android:layout_margin="10dp">
+                        android:layout_margin="20dp">
 
                         <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/location"
                             android:hint="Location"
-                            android:padding="10dp"
-                            android:layout_margin="20dp"
+                            android:padding="5dp"
+                            android:layout_margin="5dp"
                             android:background="#fff" />
                     </LinearLayout>
 

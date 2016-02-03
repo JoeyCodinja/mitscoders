@@ -3,19 +3,16 @@ package mits.uwi.com.ourmobileenvironment.homepagefragments;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
@@ -27,7 +24,7 @@ import mits.uwi.com.ourmobileenvironment.CampusInformationActivity;
 import mits.uwi.com.ourmobileenvironment.R;
 import mits.uwi.com.ourmobileenvironment.adapters.HomePageViewPagerAdapter;
 import mits.uwi.com.ourmobileenvironment.ourvle.activities.OurVLELoginActivity;
-import mits.uwi.com.ourmobileenvironment.sasfragments.SAS_Splash;
+import mits.uwi.com.ourmobileenvironment.sas.SAS_Splash;
 
 import static java.lang.Math.pow;
 

@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ProjectModuleManager">
+<<<<<<< HEAD
     <modules />
+=======
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mitscoders.iml" filepath="$PROJECT_DIR$/mitscoders.iml" />
+    </modules>
+>>>>>>> 57fb99befd42ab361b1589e6f009d87a3254e9b2
   </component>
 </project>

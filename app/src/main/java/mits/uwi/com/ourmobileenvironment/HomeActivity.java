@@ -21,6 +21,7 @@ import mits.uwi.com.ourmobileenvironment.Directory.DirectoryActivity;
 import mits.uwi.com.ourmobileenvironment.adapters.HomePageArrayAdapter;
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.CampusInformationFragment;
 import mits.uwi.com.ourmobileenvironment.homepagefragments.HomeActivityFragment;
+import mits.uwi.com.ourmobileenvironment.sas.SAS_Splash;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -167,6 +168,9 @@ public class HomeActivity extends AppCompatActivity {
         }
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent i = new Intent(this, SAS_Splash.class);
+            startActivity(i);
+
             return true;
         }
 

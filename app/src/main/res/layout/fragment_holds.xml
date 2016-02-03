@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:elevation="0dp"
     >
     <ScrollView
         android:layout_width="match_parent"
@@ -10,18 +11,25 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <TableLayout
                 android:id="@+id/Administrative_Holds"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_gravity="center"
-                android:layout_margin="10dp"
+                android:layout_margin="16dp"
                 android:background="@color/white"
-                android:padding="10dp"
                 android:gravity="center">
 
+                <View
+                    android:layout_height="12dp"
+                    android:id="@+id/holdsnotify"
+                    android:layout_width="match_parent"
+                    android:background="#cc0000"/>
+
             </TableLayout>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -31,11 +39,12 @@
                 android:text="Back"
                 android:layout_gravity="left|bottom"
                 android:hint="Back to Main Screen"
-                android:layout_marginLeft="10dp"
-                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginBottom="8dp"
                 android:textSize="15dp"
                 android:textIsSelectable="false"
-                android:padding="10dp" />
+                android:padding="24dp" />
         </LinearLayout>
     </ScrollView>
+
 </LinearLayout>
