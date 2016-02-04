@@ -21,6 +21,7 @@ import mits.uwi.com.ourmobileenvironment.Directory.DirectoryActivity;
 import mits.uwi.com.ourmobileenvironment.adapters.HomePageArrayAdapter;
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.CampusInformationFragment;
 import mits.uwi.com.ourmobileenvironment.homepagefragments.HomeActivityFragment;
+
 import mits.uwi.com.ourmobileenvironment.sas.SAS_Splash;
 
 
@@ -66,6 +67,7 @@ public class HomeActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setTitle(R.string.title_activity_home);
+
 
         mDrawerList = (ListView) findViewById(R.id.home_drawer_menu);
 
