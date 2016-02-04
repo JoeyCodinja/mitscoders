@@ -64,6 +64,7 @@ public class TransportActivity extends AppCompatActivity  {
         });
         bPage.setOffscreenPageLimit(2);
         mSlidingTabLayout=(SlidingTabLayout) findViewById(R.id.sltab);
+        mSlidingTabLayout.setTabNum(3);
         mSlidingTabLayout.setCustomTabView(R.layout.tabview, R.id.tabtitle);
         mSlidingTabLayout.setViewPager(bPage);
         mSlidingTabLayout.setSelectedIndicatorColors(getResources().getColor(R.color.white));

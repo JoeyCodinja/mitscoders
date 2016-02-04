@@ -17,7 +17,6 @@
 package mits.uwi.com.ourmobileenvironment;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.os.Build;
@@ -77,6 +76,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
 
     private int mTabViewLayoutId;
     private int mTabViewTextViewId;
+    private int tabNum;
 
     private ViewPager mViewPager;
     private ViewPager.OnPageChangeListener mViewPagerPageChangeListener;
@@ -199,18 +199,26 @@ public class SlidingTabLayout extends HorizontalScrollView {
         return textView;
     }
 
-    // Sets the Width of the tab Bar
+    /**
+     * Sets the Width of the Action bar based on How many Tabs will be used
+     * @param tabNum
+     * @param tabTitleView
+     */
 
-    private  void setActionBarWidth(int width,TextView tabTitleView){
+    private  void setActionBarWidth(int tabNum,TextView tabTitleView){
         WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        tabTitleView.setWidth(size.x / width);
+        tabTitleView.setWidth(size.x / tabNum);
         if(getResources().getConfiguration().orientation==getResources().getConfiguration().ORIENTATION_LANDSCAPE){
             tabTitleView.setWidth((int)Math.ceil(size.x * 0.34));
         }
 
+    }
+
+    public void setTabNum(int tabNum) {
+        this.tabNum =tabNum;
     }
 
     public void populateTabStrip() {
@@ -228,9 +236,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
                 tabTitleView = (TextView) tabView.findViewById(mTabViewTextViewId);
                 tabTitleView.setTextColor(getResources().getColorStateList(R.color.selector));
                 //setCustomStyle(tabTitleView);
-                setActionBarWidth(3, tabTitleView);
-                if (getResources().getConfiguration().orientation==getResources().getConfiguration().ORIENTATION_LANDSCAPE)
-                    setActionBarWidth(2,tabTitleView);
+                setActionBarWidth(tabNum, tabTitleView);
                 if (i==mViewPager.getCurrentItem())
                 tabView.setSelected(true);
 
