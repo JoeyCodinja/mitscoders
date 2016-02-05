@@ -188,7 +188,10 @@
     <!-- Eateries Strings-->
     <string name="action_all">All</string>
     <string name="action_fast">Fast Food</string>
-    <string name="action_cooked">Cooked Food</string>
+    <string name="action_caf">Cafeterias</string>
+    <string name="action_stall">Stalls</string>
+    <string name="action_res">Restaurants</string>
+    <string name="action_deli">Delis</string>
     <string name="action_fav">Favourites</string>
     <string name="title_activity_bus_search">BusSearchActivity</string>
 
