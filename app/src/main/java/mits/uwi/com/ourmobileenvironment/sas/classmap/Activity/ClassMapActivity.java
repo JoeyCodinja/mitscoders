@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -12,6 +13,7 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import mits.uwi.com.ourmobileenvironment.R;
@@ -27,7 +29,7 @@ import mits.uwi.com.ourmobileenvironment.ToprightBar;
  * Labs are yellow
  * Exams Blue
  */
-public class ClassMapActivity extends FragmentActivity implements OnMapReadyCallback {
+public class ClassMapActivity extends FragmentActivity implements OnMapReadyCallback , GoogleMap.InfoWindowAdapter {
 
     MapFragment mMapFragment;
 
@@ -52,6 +54,8 @@ public class ClassMapActivity extends FragmentActivity implements OnMapReadyCall
         MarkerOptions marker = (new MarkerOptions()
                 .position(new LatLng(18.005941, -76.746896))
                 .title("Marker"));
+        marker.isVisible();
+
         marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
         map.addMarker(marker);
         map.getUiSettings().setZoomControlsEnabled(true);
@@ -75,5 +79,14 @@ public class ClassMapActivity extends FragmentActivity implements OnMapReadyCall
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public View getInfoWindow(Marker marker) {
+        return null;
+    }
+
+    @Override
+    public View getInfoContents(Marker marker) {
+        return null;
+    }
 }
 

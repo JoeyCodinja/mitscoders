@@ -83,4 +83,16 @@ public class TimeTable extends SugarRecord{
         this.day = day;
     }
 
+    @Override
+    public String toString() {
+        return "TimeTable{" +
+                "startTime=" + startTime +
+                ", endTime=" + endTime +
+                ", SemesterBegin=" + SemesterBegin +
+                ", SemesterEnd=" + SemesterEnd +
+                ", description='" + description + '\'' +
+                ", location='" + location + '\'' +
+                ", day=" + day +
+                '}';
+    }
 }
