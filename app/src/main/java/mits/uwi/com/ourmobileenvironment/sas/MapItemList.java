@@ -15,11 +15,11 @@ public class MapItemList {
     private MapItemList (Context appContext) {
         mAppContext = appContext;
         mItems = new ArrayList<MapItem>();
-        mItems.add(new MapItem('C',"Seminar Room 5 (SR5)",-76.74722103,18.00708286 ));
-        mItems.add(new MapItem('C',"Class Location",-76.74717661,18.00713045));
-        mItems.add(new MapItem('C',"Seminar Room 8 (SR)",-76.74713378,18.00716852));
-        mItems.add(new MapItem('C',"Pathology Seminar Room",-76.74432483,18.01193775));
-        mItems.add(new MapItem('C',"Law Seminar Room 2",-76.74854837,18.00802592));
+        mItems.add(new MapItem('C',"Seminar Room 5 (SR5)",18.00708286,-76.74722103 ));
+        mItems.add(new MapItem('C',"Seminar Room 6 (SR6)",18.00713045,-76.74717661));
+        mItems.add(new MapItem('C',"Seminar Room 8 (SR)",18.00716852,-76.74713378));
+        mItems.add(new MapItem('C',"Pathology Seminar Room",18.01193775,-76.74432483));
+        mItems.add(new MapItem('C',"Law Seminar Room 2",18.00802592,-76.74854837));
     }
 
     public static MapItemList get (Context c){

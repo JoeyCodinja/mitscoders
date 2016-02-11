@@ -27,8 +27,8 @@ public class TimeTableFragment extends Fragment {
         super.onCreate(savedInstanceState);
         getActivity().setTitle(R.string.timetableFragment_title);
         //Move to SAS fragment or home
-       // Intent i = new Intent(getActivity(), TimeTableService.class);
-       // getActivity().startService(i);
+       Intent i = new Intent(getActivity(), TimeTableService.class);
+       getActivity().startService(i);
     }
 
     @Override

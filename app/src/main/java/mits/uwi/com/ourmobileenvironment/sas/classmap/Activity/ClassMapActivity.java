@@ -49,7 +49,7 @@ import mits.uwi.com.ourmobileenvironment.sas.MapItemList;
  */
 public class ClassMapActivity extends FragmentActivity implements OnMapReadyCallback  {
     List <MapItem> mMaps ;
-    private ArrayList<Marker> markers = new ArrayList<Marker>();
+    private ArrayList<MarkerOptions> markers = new ArrayList<MarkerOptions>();
     MapFragment mMapFragment;
 
    @Override
@@ -77,41 +77,30 @@ public class ClassMapActivity extends FragmentActivity implements OnMapReadyCall
                 .title("Welcome")
                 .snippet("The University of the West Indies"));
         marker.isVisible();
-
-        map.addMarker(marker);
+        //map.addMarker(marker);
         marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-
+        markers.add(marker);
         for (MapItem items: mMaps){
-            /*Marker mark = map.addMarker(new MarkerOptions()
+            MarkerOptions mark = (new MarkerOptions()
                     .position(new LatLng(items.getLatitude(), items.getLongtitude()))
                     .title(items.getTitle())
-                    .snippet(items.getDescription()));*/
-            //mark.isVisible();
-            //marker.showInfoWindow();
+                    .snippet(items.getDescription()));
             if (items.getType()=='C') {
-                map.addMarker(new MarkerOptions()
-                        .position(new LatLng(items.getLatitude(), items.getLongtitude()))
-                        .title(items.getTitle())
-                        .snippet(items.getDescription())
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+                mark.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
             } else if (items.getType()=='A') {
-                map.addMarker(new MarkerOptions()
-                        .position(new LatLng(items.getLatitude(), items.getLongtitude()))
-                        .title(items.getTitle())
-                        .snippet(items.getDescription())
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+               mark.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
             }else{
-                map.addMarker(new MarkerOptions()
-                        .position(new LatLng(items.getLatitude(), items.getLongtitude()))
-                        .title(items.getTitle())
-                        .snippet(items.getDescription())
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)));
+                mark.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
             }
+            Toast.makeText(this,items.toString(),Toast.LENGTH_SHORT).show();
+            markers.add(mark);
         }
-        //map.addMarker(marker);
+        for(MarkerOptions op: markers){
+            map.addMarker(op);
+        }
         map.getUiSettings().setZoomControlsEnabled(true);
         map.getUiSettings().setZoomGesturesEnabled(true);
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(18.005941, -76.746896), 16.0f));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(18.005941, -76.746896), 17.0f));
     }
 
     @Override
