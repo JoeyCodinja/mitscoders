@@ -17,6 +17,10 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true"/>
@@ -86,6 +90,11 @@
         <activity android:name=".sas.SAS_Splash"
             android:theme="@style/Theme.Transparent">
         </activity>
+        <service android:name=".sas.timetable.services.TimeTableService"
+            android:exported="false"/>
+        <receiver android:name=".sas.timetable.receiver.TimeTableReceiver"
+            android:process=":remote"/>
+
         <activity
             android:name=".BOSSActivity"
             android:label="@string/title_activity_boss"
@@ -94,7 +103,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mits.uwi.com.ourmobileenvironment.HomeActivity" />
         </activity>
-        <service android:name=".sas.timetable.services.TimeTableService"/>
+
         <activity
             android:name=".Transport.TransportActivity"
             android:label="@string/title_activity_bus_schedule"
