@@ -5,17 +5,19 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
+
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
+import android.widget.LinearLayout.LayoutParams;
 import android.util.Log;
-import android.view.Gravity;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -81,7 +83,7 @@ public class HomeNewsFragment extends Fragment {
 //                .setDuration(1000);
 //        loadingText.animate()
 //                .alpha(1)
-//                .setDuration(500).start();
+//                .setDuration(1000).start();
 
 
         new RetrieveRSSFeedTask().execute(getActivity());
@@ -147,7 +149,6 @@ public class HomeNewsFragment extends Fragment {
 //
 //
 //            for (LinearLayout column: columns){
-//                column.removeAllViewsInLayout();
 //                column.setVisibility(View.VISIBLE);
 //            }
 
@@ -200,13 +201,9 @@ public class HomeNewsFragment extends Fragment {
                     newsCardTitle.setText(newsItemTitles.get(i).substring(0,
                                           (int)Math.floor(newsItemTitles.get(i).length() * 0.5)) + "...");
 
-//
-//              newsCardTitle.setBackground(contextView.getResources().getDrawable(R.drawable.text_shadow));
-
                 newsCard.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Uri articleURI = Uri.parse(newsItemURLs.get(finalI));
 
                         Intent viewArticleIntent = new Intent(getActivity(), NewsViewActivity.class);
 
@@ -222,28 +219,20 @@ public class HomeNewsFragment extends Fragment {
                         viewArticleIntent.putExtra("news_images", imageInBytes);
 
                         startActivity(viewArticleIntent);
-
-//                        //Ensure that there are apps to service our intent
-//                        PackageManager packageManager = finalContext.getPackageManager();
-//                        List<ResolveInfo> activities = packageManager.queryIntentActivities(viewArticleIntent, 0);
-//
-//                        Intent viewArticleChooser = Intent.createChooser(viewArticleIntent,
-//                                getResources().getString(R.string.view_article_string));
-//
-//                        boolean intentSafe = activities.size() > 0;
-//
-//                        // If intent is serviceable then go ahead and start the activity
-//                        if (intentSafe){
-//                            startActivity(viewArticleIntent);
-//                        }
                     }
                 });
+
 
                 if (i == 0)
                     newsHeader.addView(newsCard);
                 else
                     columns[i % 2].addView(newsCard);
 
+                ViewGroup.LayoutParams layoutparams = newsCard.getLayoutParams();
+                LayoutParams params = (LayoutParams) layoutparams;
+
+                params.setMargins(5,0,5,10);
+                newsCard.setLayoutParams(params);
             }
         }
 

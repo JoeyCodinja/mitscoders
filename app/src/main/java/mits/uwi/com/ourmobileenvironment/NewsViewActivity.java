@@ -34,7 +34,6 @@ public class NewsViewActivity extends AppCompatActivity {
         newsBodyView.setText(newsDescription);
         newsTitleView.setText(newsTitle);
 
-        newsImageView.setScaleType(ImageView.ScaleType.FIT_XY);
         newsImageView.setImageBitmap(newsImage);
     }
     @Override

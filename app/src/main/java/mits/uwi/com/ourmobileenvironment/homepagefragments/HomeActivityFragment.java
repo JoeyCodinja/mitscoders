@@ -193,7 +193,7 @@ public class HomeActivityFragment extends Fragment {
 //                                .translationYBy( (float) ( 150.83 * (pow(fab, 1.1533f))) )
                                 .alpha(0)
                                 .setListener(mFABAnimatorListener);
-//                        mFABs.get(fab).setVisibility(View.GONE);
+                        mFABs.get(fab).setVisibility(View.GONE);
                     }
                     shade.setVisibility(View.GONE);
                     mFABs.get(0).setClickable(true);
