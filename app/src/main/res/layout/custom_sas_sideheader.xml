@@ -2,21 +2,33 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="178dp"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:background="@drawable/vanilla_background_blue">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:orientation="vertical">
+        android:layout_height="96dp"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
+            android:layout_marginTop="2dp"
             android:textColor="#ffffff"
             android:textSize="14sp"
             android:textStyle="bold"
             android:text="Student Administrative Services"
-            android:textIsSelectable="true" />
+            android:textIsSelectable="true"
+            />
 
     </LinearLayout>
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="65dp"
+        android:background="@drawable/sas_splash3_white"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="18dp"/>
 </RelativeLayout>

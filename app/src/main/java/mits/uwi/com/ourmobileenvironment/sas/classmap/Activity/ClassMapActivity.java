@@ -88,10 +88,11 @@ public class ClassMapActivity extends FragmentActivity implements OnMapReadyCall
             if (items.getType()=='C') {
                 mark.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
             } else if (items.getType()=='A') {
-               mark.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-            }else{
+                mark.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+            }else if (items.getType()=='E'){
+                mark.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+            }else
                 mark.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
-            }
             Toast.makeText(this,items.toString(),Toast.LENGTH_SHORT).show();
             markers.add(mark);
         }
