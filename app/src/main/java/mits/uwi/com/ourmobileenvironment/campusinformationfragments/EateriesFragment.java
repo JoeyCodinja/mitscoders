@@ -44,7 +44,10 @@ public class EateriesFragment extends Fragment implements View.OnClickListener{
     static List<Menu_Item> y_menu;
     static List<Menu_Item> b_menu;
     static List<Menu_Item> n_menu;
-    String add;
+    String add = "all";
+    LayoutInflater l;
+    ViewGroup g;
+    Bundle b;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
@@ -59,15 +62,58 @@ public class EateriesFragment extends Fragment implements View.OnClickListener{
         RVAdapter eateriesadp =new RVAdapter(EateriesFragment.getEatList());
         recList.setAdapter(eateriesadp);
 
+        setRetainInstance(true);
+
         return  v;
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu,MenuInflater menuInflater){
         menuInflater.inflate(R.menu.menu_eateries, menu);
-
+        menu.clear();
         final MenuItem item = menu.findItem(R.id.action_search);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_res:
+                add = "res";
+                initializeData();
+                return true;
+            case R.id.action_fast:
+                // Do Fragment menu item stuff here
+                add = "fast";
+                initializeData();
+                return true;
+            case R.id.action_caf:
+                // Do Fragment menu item stuff here
+                add = "caf";
+                initializeData();
+                return true;
+            case R.id.action_deli:
+                // Do Fragment menu item stuff here
+                add = "deli";
+                initializeData();
+                return true;
+            case R.id.action_stall:
+                // Do Fragment menu item stuff here
+                add = "stall";
+                initializeData();
+                return true;
+            case R.id.action_all:
+                add = "all";
+                initializeData();
+                return true;
+        }
+        return false;
+    }
+
+
+//    @Override
+//    public void onResume(){
+//
+//    }
 
 
 
@@ -105,31 +151,28 @@ public class EateriesFragment extends Fragment implements View.OnClickListener{
         eateries_filtered.add(new Eateries_list("BeeHive", "Ring Rd, Humanities and Education", "Opens 7am-6pm", R.drawable.beehive, (ArrayList<Menu_Item>) b_menu, "Stall"));
         eateries_filtered.add(new Eateries_list("Nardo's Snack Shop", "Humanities and Education", "Opens 6am-3am", R.drawable.nardo, (ArrayList<Menu_Item>) n_menu, "Restaurant"));
 
-        add = "stall";
-
         for (int i = 0; i < eateries_filtered.size(); i++) {
-            if (add == "fast") {
-                if (eateries_filtered.get(i).catergory.equals("Fast Food")) {
+            switch(add){
+                case "fast":
+                    if (eateries_filtered.get(i).catergory.equals("Fast Food"))
+                        eateries.add(eateries_filtered.get(i));
+                    break;
+                case "res":
+                    if(eateries_filtered.get(i).catergory.equals("Restaurant"))
+                        eateries.add(eateries_filtered.get(i));
+                    break;
+                case "caf":
+                    if(eateries_filtered.get(i).catergory.equals("Cafeteria"))
+                        eateries.add(eateries_filtered.get(i));
+                    break;
+                case "stall":
+                    if(eateries_filtered.get(i).catergory.equals("Stall"))
+                        eateries.add(eateries_filtered.get(i));
+                    break;
+                case "all":
                     eateries.add(eateries_filtered.get(i));
-                }
             }
-           else if(add == "res"){
-               if(eateries_filtered.get(i).catergory.equals("Restaurant")){
-                   eateries.add(eateries_filtered.get(i));
-               }
-           }
-            else if(add == "caf"){
-                if(eateries_filtered.get(i).catergory.equals("Cafeteria")){
-                    eateries.add(eateries_filtered.get(i));
-                }
-            }
-            else if(add == "stall"){
-                if(eateries_filtered.get(i).catergory.equals("Stall")){
-                    eateries.add(eateries_filtered.get(i));
-                }
-            }
-            else
-               eateries.add(eateries_filtered.get(i));
+
         }
     }
 
@@ -208,6 +251,7 @@ public class EateriesFragment extends Fragment implements View.OnClickListener{
                 favoriteIcon = (CheckBox)itemView.findViewById(R.id.favorite_icon);
                 locationIcon = (ImageView)itemView.findViewById(R.id.location_icon);
 
+                
 
                 locationIcon.setColorFilter(R.color.grey, PorterDuff.Mode.DST_OUT);
                 cv.setOnClickListener(new View.OnClickListener() {
