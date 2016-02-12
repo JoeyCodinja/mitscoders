@@ -3,10 +3,10 @@
     android:layout_height="match_parent"
     tools:context="mits.uwi.com.ourmobileenvironment.homepagefragments.HomeVideosFragment">
 
-    <VideoListFragment
-        andriod:id="@+/UWITvList_fragment"
-        android:layout_width="match_parent"
-        andriod:layout_height="match_parent"/>
+    <!--<VideoListFragment-->
+        <!--andriod:id="@+/UWITvList_fragment"-->
+        <!--android:layout_width="match_parent"-->
+        <!--andriod:layout_height="match_parent"/>-->
 
 
 </FrameLayout>
