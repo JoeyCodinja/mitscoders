@@ -13,6 +13,10 @@
     <string name='ourvle_fab'>OurVLE</string>
     <string name='boss_fab'>BOSS</string>
     <string name='sas_fab'>SAS</string>
+
+        <!-- Video Tab Strings -->
+        <string name="player_error">There seems to be something wrong here</string>
+
     <!-- OurVLE strings -->
     <string name="title_activity_our_vle">OurVLE</string>
         <!--Navigation Buttons :: OURVle -->
@@ -178,11 +182,18 @@
     </string>
     <string name="title_activity_home">Home</string>
     <string-array name="navigation_menu_titles">
-        <item>E-mail</item>
-        <item>Notifications</item>
+        <!--<item>E-mail</item>-->
+        <!--<item>Notifications</item>-->
         <item>Directory</item>
-        <item>Wi-Fi Finder</item>
-        <item>Emergency Services</item>
+        <!--<item>Wi-Fi Finder</item>-->
+        <!--<item>Emergency Services</item>-->
+    </string-array>
+    <string-array name="FAB_menu_strings">
+        <item>Student Administration System</item>
+        <!--<item>BOSS</item>-->
+        <item>OurVLE</item>
+        <item>Transportation</item>
+        <item>Campus Information</item>
     </string-array>
 
     <!-- Campus Directory Strings -->
@@ -304,5 +315,9 @@
     <string name="title_activity_message_list">MessageListActivity</string>
     <string name="no_messages">No Messages</string>
     <string name="forum_title" formatted ="false">%s - %s</string>
+
+    <string name="title_activity_news_view">News</string>
+
+
 
 </resources>

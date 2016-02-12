@@ -5,6 +5,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -14,6 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
@@ -38,16 +41,18 @@ import static java.lang.Math.pow;
  */
 public class HomeActivityFragment extends Fragment {
 
-    private ArrayList<FrameLayout> mFABs = new ArrayList<>();
+    private ArrayList<FloatingActionButton> mFABs = new ArrayList<>();
     private Animator.AnimatorListener mFABAnimatorListener;
     public static Boolean mMenuExpanded = false;
+    private Animation fadeIn, fadeOut;
+    private float screenHeight, screenWidth;
 
-    int[] fabIDs = {R.id.landing_pageFAB,
-            R.id.landing_pageFAB1,
-            R.id.landing_pageFAB2,
-            R.id.landing_pageFAB3,
-            R.id.landing_pageFAB4,
-            R.id.landing_pageFAB5};
+    int[] fabIDs = {R.id.mainFab,
+            R.id.campus_info_fab,
+            R.id.transport_fab,
+            R.id.ourvle_fab,
+            R.id.boss_fab,
+            R.id.sas_fab};
 
     float[][] fabCoords = new float[fabIDs.length][2];
 
@@ -65,40 +70,43 @@ public class HomeActivityFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View v = inflater.inflate(R.layout.fragment_landing, container, false);
 
         for (int fab = 0; fab <= fabIDs.length - 1; fab++) {
-            mFABs.add((FrameLayout) v.findViewById(fabIDs[fab]));
+            mFABs.add((FloatingActionButton) v.findViewById(fabIDs[fab]));
             if (fab > 0) {
-                mFABs.get(fab).setVisibility(View.INVISIBLE);
+                mFABs.get(fab).setVisibility(View.GONE);
                 mFABs.get(fab).setOnClickListener(new View.OnClickListener() {
                     Intent i;
 
                     @Override
                     public void onClick(View v) {
                         switch (v.getId()) {
-                            case R.id.landing_pageFAB1:
+                            case R.id.campus_info_fab:
                                 i = new Intent(getActivity(), CampusInformationActivity.class);
                                 startActivity(i);
                                 break;
-                            case R.id.landing_pageFAB2:
+                            case R.id.transport_fab:
                                 i = new Intent(getActivity(), TransportActivity.class);
                                 startActivity(i);
                                 break;
-                            case R.id.landing_pageFAB3:
+                            case R.id.ourvle_fab:
                                 i = new Intent(getActivity(), OurVLELoginActivity.class);
                                 startActivity(i);
                                 break;
-                            case R.id.landing_pageFAB4:
-                                i = new Intent(getActivity(), BOSSActivity.class);
-                                startActivity(i);
-                                break;
-                            case R.id.landing_pageFAB5:
+//                            case R.id.boss_fab:
+//                                i = new Intent(getActivity(), BOSSActivity.class);
+//                                startActivity(i);
+//                                break;
+                            case R.id.sas_fab:
                                 i = new Intent(getActivity(), SAS_Splash.class);
                                 startActivity(i);
                                 break;
@@ -111,7 +119,7 @@ public class HomeActivityFragment extends Fragment {
         }
 
         mFABAnimatorListener = new Animator.AnimatorListener() {
-            List<FrameLayout> buttons = mFABs.subList(1, mFABs.size());
+            List<FloatingActionButton> buttons = mFABs.subList(1, mFABs.size());
 
             @Override
             public void onAnimationStart(Animator animation) {
@@ -135,25 +143,40 @@ public class HomeActivityFragment extends Fragment {
         mFABs.get(0).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mFABs.get(0).setClickable(false);
                 if (!mMenuExpanded) {
                     for (int fab = 1; fab <= mFABs.size() - 1; fab++) {
-                        mFABs.get(fab).setVisibility(View.VISIBLE);
-                        mFABs.get(fab).animate()
-                                .setDuration(400)
-                                .translationXBy( (float) -( ( -35 * pow(fab, 2)) + (210 * fab) - 75 ) )
-//                                .translationYBy((float) -( (150.83 * pow(fab, 1.1533f))) )
-                                .setListener(mFABAnimatorListener);
+                        if (mFABs.get(fab).getAlpha() == 0){
+//                            mFABs.get(fab).setVisibility(View.VISIBLE);
+                            mFABs.get(fab).animate()
+                                    .setDuration(400)
+                                    .alpha(1)
+                                    .translationYBy( (float) -( ( 150.83 * pow(fab, 1.1533f) ) ))
+                                    .setListener(mFABAnimatorListener);
+                        }
+                        else {
+                            mFABs.get(fab).setVisibility(View.VISIBLE);
+                            mFABs.get(fab).animate()
+                                    .setDuration(400)
+                                    .alpha(1)
+                                    .translationXBy( (float) -( ( -35 * pow(fab, 2)) + (210 * fab) - 75 ) )
+                                    .translationYBy((float) -((150.83 * pow(fab, 1.1533f))))
+                                    .setListener(mFABAnimatorListener);
+                        }
                     }
+                    mFABs.get(0).setClickable(true);
                     mMenuExpanded = true;
                 } else {
                     for (int fab = 1; fab <= mFABs.size() - 1; fab++) {
                         mFABs.get(fab).animate()
-                                .setDuration(3500 - (500 * (fab - 1)))
+                                .setDuration(2500 - (500 * (fab - 1)))
                                 .translationXBy( (float) (-35 * (pow(fab, 2))) + (210 * fab) -75 )
-//                                .translationYBy( (float) (150.83 * (pow(fab, 1.1533f))) )
+                                .translationYBy( (float) ( 150.83 * (pow(fab, 1.1533f))) )
                                 .alpha(0)
                                 .setListener(mFABAnimatorListener);
+//                        mFABs.get(fab).setVisibility(View.GONE);
                     }
+                    mFABs.get(0).setClickable(true);
                     mMenuExpanded = false;
                 }
 
@@ -168,6 +191,8 @@ public class HomeActivityFragment extends Fragment {
 
         mHome_ViewPager = (ViewPager) v.findViewById(R.id.landing_viewpager);
         mHome_ViewPager.setAdapter(adapter);
+        mHome_ViewPager.setScrollBarSize(10);
+
 
         tabs = (TabLayout) v.findViewById(R.id.landing_tabs);
         tabs.setupWithViewPager(mHome_ViewPager);
