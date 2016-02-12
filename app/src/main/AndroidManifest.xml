@@ -92,8 +92,12 @@
         </activity>
         <service android:name=".sas.timetable.services.TimeTableService"
             android:exported="false"/>
-        <receiver android:name=".sas.timetable.receiver.TimeTableReceiver"
-            android:process=":remote"/>
+        <receiver android:name=".sas.timetable.receiver.TimeTableReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <!--android:process=":remote"/-->
 
         <activity
             android:name=".BOSSActivity"
