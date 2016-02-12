@@ -273,7 +273,6 @@
     <string name="title_activity_course_content_resource">CourseContentResourceActivity</string>
     <string name="nav">Navigation</string>
     <string name="course"> My Courses</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="course_menu_option">My Courses</string>
     <string name="profile_menu_option">My Profile</string>
     <string name="message_menu_option">Administrator Messages</string>

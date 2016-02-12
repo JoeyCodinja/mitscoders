@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 
 import java.lang.reflect.Array;
@@ -51,7 +53,7 @@ public class HomeActivityFragment extends Fragment {
             R.id.campus_info_fab,
             R.id.transport_fab,
             R.id.ourvle_fab,
-            R.id.boss_fab,
+//            R.id.boss_fab,
             R.id.sas_fab};
 
     float[][] fabCoords = new float[fabIDs.length][2];
@@ -83,6 +85,7 @@ public class HomeActivityFragment extends Fragment {
         for (int fab = 0; fab <= fabIDs.length - 1; fab++) {
             mFABs.add((FloatingActionButton) v.findViewById(fabIDs[fab]));
             if (fab > 0) {
+                mFABs.get(fab).setAlpha((float) 0);
                 mFABs.get(fab).setVisibility(View.GONE);
                 mFABs.get(fab).setOnClickListener(new View.OnClickListener() {
                     Intent i;
@@ -144,14 +147,29 @@ public class HomeActivityFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 mFABs.get(0).setClickable(false);
+
+                FrameLayout shade = (FrameLayout)((FrameLayout)v.getParent().getParent()).getChildAt(1);
+                shade.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        return true;
+                    }
+                });
+
+                int height = ((FrameLayout)v.getParent().getParent()).getHeight();
+                int width = ((FrameLayout)v.getParent().getParent()).getWidth();
+
                 if (!mMenuExpanded) {
+                    shade.setVisibility(View.VISIBLE);
+                    shade.animate().alpha(1).setDuration(150);
                     for (int fab = 1; fab <= mFABs.size() - 1; fab++) {
                         if (mFABs.get(fab).getAlpha() == 0){
-//                            mFABs.get(fab).setVisibility(View.VISIBLE);
+                            mFABs.get(fab).setVisibility(View.VISIBLE);
                             mFABs.get(fab).animate()
                                     .setDuration(400)
                                     .alpha(1)
-                                    .translationYBy( (float) -( ( 150.83 * pow(fab, 1.1533f) ) ))
+//                                    .translationXBy( (float) -( (-35 * pow(fab,2))+(210*fab)-75))
+//                                    .translationYBy( (float) -( ( 150.83 * pow(fab, 1.1533f) ) ))
                                     .setListener(mFABAnimatorListener);
                         }
                         else {
@@ -159,23 +177,25 @@ public class HomeActivityFragment extends Fragment {
                             mFABs.get(fab).animate()
                                     .setDuration(400)
                                     .alpha(1)
-                                    .translationXBy( (float) -( ( -35 * pow(fab, 2)) + (210 * fab) - 75 ) )
-                                    .translationYBy((float) -((150.83 * pow(fab, 1.1533f))))
+//                                    .translationXBy( (float) -( (-35 * pow(fab, 2))+(210 * fab)-75))
+//                                    .translationYBy( (float) -((150.83 * pow(fab, 1.1533f))))
                                     .setListener(mFABAnimatorListener);
                         }
                     }
                     mFABs.get(0).setClickable(true);
                     mMenuExpanded = true;
                 } else {
+                    shade.animate().alpha(0).setDuration(150);
                     for (int fab = 1; fab <= mFABs.size() - 1; fab++) {
                         mFABs.get(fab).animate()
                                 .setDuration(2500 - (500 * (fab - 1)))
-                                .translationXBy( (float) (-35 * (pow(fab, 2))) + (210 * fab) -75 )
-                                .translationYBy( (float) ( 150.83 * (pow(fab, 1.1533f))) )
+//                                .translationXBy( (float) (-35 * (pow(fab, 2))) + (210 * fab) -75 )
+//                                .translationYBy( (float) ( 150.83 * (pow(fab, 1.1533f))) )
                                 .alpha(0)
                                 .setListener(mFABAnimatorListener);
 //                        mFABs.get(fab).setVisibility(View.GONE);
                     }
+                    shade.setVisibility(View.GONE);
                     mFABs.get(0).setClickable(true);
                     mMenuExpanded = false;
                 }

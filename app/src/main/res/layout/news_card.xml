@@ -9,8 +9,7 @@
     >
     <FrameLayout
         android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:background="@drawable/text_shadow">
+        android:layout_width="match_parent">
 
 
         <ImageView
@@ -26,7 +25,8 @@
             android:layout_gravity="bottom"
             android:textColor="#ffd7dadb"
             android:paddingLeft="16dp"
-            android:paddingRight="16dp"/>
+            android:paddingRight="16dp"
+            android:background="@drawable/text_shadow"/>
     </FrameLayout>
 
 </android.support.v7.widget.CardView>
