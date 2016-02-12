@@ -78,7 +78,7 @@
     </style>
     <style name="bluebar"
         parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
-        >
+
         <item name="android:colorBackground">@color/blue_background</item>
         <item name="background">@color/blue_background</item>
         <item name="elevation">10dp</item>

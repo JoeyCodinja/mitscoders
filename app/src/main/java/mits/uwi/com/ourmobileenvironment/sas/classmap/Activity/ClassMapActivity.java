@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -12,10 +13,29 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import mits.uwi.com.ourmobileenvironment.R;
 import mits.uwi.com.ourmobileenvironment.ToprightBar;
+import mits.uwi.com.ourmobileenvironment.sas.MapItem;
+import mits.uwi.com.ourmobileenvironment.sas.MapItemList;
 
 
 /**
@@ -27,8 +47,9 @@ import mits.uwi.com.ourmobileenvironment.ToprightBar;
  * Labs are yellow
  * Exams Blue
  */
-public class ClassMapActivity extends FragmentActivity implements OnMapReadyCallback {
-
+public class ClassMapActivity extends FragmentActivity implements OnMapReadyCallback  {
+    List <MapItem> mMaps ;
+    private ArrayList<MarkerOptions> markers = new ArrayList<MarkerOptions>();
     MapFragment mMapFragment;
 
    @Override
@@ -40,6 +61,8 @@ public class ClassMapActivity extends FragmentActivity implements OnMapReadyCall
                 .findFragmentById(R.id.map);
         mMapFragment.getMapAsync(this);
             ToprightBar.setTopOverflow(this);
+
+            mMaps = MapItemList.get(getApplicationContext()).getmMapItems();
         }catch (Exception e){
             Toast.makeText(getApplicationContext(),
                     "Unfortunately the Map is down at this time :(", Toast.LENGTH_SHORT)
@@ -51,12 +74,34 @@ public class ClassMapActivity extends FragmentActivity implements OnMapReadyCall
     public void onMapReady(GoogleMap map) {
         MarkerOptions marker = (new MarkerOptions()
                 .position(new LatLng(18.005941, -76.746896))
-                .title("Marker"));
+                .title("Welcome")
+                .snippet("The University of the West Indies"));
+        marker.isVisible();
+        //map.addMarker(marker);
         marker.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-        map.addMarker(marker);
+        markers.add(marker);
+        for (MapItem items: mMaps){
+            MarkerOptions mark = (new MarkerOptions()
+                    .position(new LatLng(items.getLatitude(), items.getLongtitude()))
+                    .title(items.getTitle())
+                    .snippet(items.getDescription()));
+            if (items.getType()=='C') {
+                mark.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+            } else if (items.getType()=='A') {
+                mark.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+            }else if (items.getType()=='E'){
+                mark.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+            }else
+                mark.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
+            //Toast.makeText(this,items.toString(),Toast.LENGTH_SHORT).show();
+            markers.add(mark);
+        }
+        for(MarkerOptions op: markers){
+            map.addMarker(op);
+        }
         map.getUiSettings().setZoomControlsEnabled(true);
         map.getUiSettings().setZoomGesturesEnabled(true);
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(18.005941, -76.746896),15.0f));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(18.005941, -76.746896), 17.0f));
     }
 
     @Override
@@ -74,6 +119,7 @@ public class ClassMapActivity extends FragmentActivity implements OnMapReadyCall
         int id = item.getItemId();
         return super.onOptionsItemSelected(item);
     }
+
 
 }
 

@@ -1,5 +1,9 @@
 package mits.uwi.com.ourmobileenvironment.sas.timetable.Activity;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -20,6 +24,7 @@ import mits.uwi.com.ourmobileenvironment.R;
 import mits.uwi.com.ourmobileenvironment.ToprightBar;
 import mits.uwi.com.ourmobileenvironment.sas.course.CourseInfoFragment;
 import mits.uwi.com.ourmobileenvironment.sas.timetable.Fragments.TimeTableFragment;
+import mits.uwi.com.ourmobileenvironment.sas.timetable.receiver.TimeTableReceiver;
 
 /**
  * Created by User on 1/28/2016.
@@ -62,6 +67,8 @@ private FloatingActionButton fab;
                 Toast.makeText(getApplicationContext(), "Will filter timetable search", Toast.LENGTH_SHORT).show();
             }
         });
+
+        scheduleAlarm();
     }
 
     @Override
@@ -84,5 +91,29 @@ private FloatingActionButton fab;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    // Setup a recurring alarm every half hour
+    public void scheduleAlarm() {
+        // Construct an intent that will execute the AlarmReceiver
+        Intent intent = new Intent(getApplicationContext(), TimeTableReceiver.class);
+        // Create a PendingIntent to be triggered when the alarm goes off
+        final PendingIntent pIntent = PendingIntent.getBroadcast(this, TimeTableReceiver.REQUEST_CODE,
+                intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        // Setup periodic alarm every 5 seconds
+        long firstMillis = System.currentTimeMillis(); // alarm is set right away
+        AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        // First parameter is the type: ELAPSED_REALTIME, ELAPSED_REALTIME_WAKEUP, RTC_WAKEUP
+        // Interval can be INTERVAL_FIFTEEN_MINUTES, INTERVAL_HALF_HOUR, INTERVAL_HOUR, INTERVAL_DAY
+        alarm.setInexactRepeating(AlarmManager.ELAPSED_REALTIME, firstMillis,
+                AlarmManager.INTERVAL_FIFTEEN_MINUTES, pIntent);
+    }
+
+    public void cancelAlarm() {
+        Intent intent = new Intent(getApplicationContext(), TimeTableReceiver.class);
+        final PendingIntent pIntent = PendingIntent.getBroadcast(this, TimeTableReceiver.REQUEST_CODE,
+                intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        alarm.cancel(pIntent);
     }
 }

@@ -16,14 +16,13 @@
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
-        <include
+        <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
-            layout="@layout/toolbar" />
-        <View
             android:layout_width="match_parent"
-            android:layout_height="5dp"
-            android:elevation="4dp"
-            android:background="@drawable/toolbar_dropshadow"/>
+            android:elevation="8dp"
+            style="@style/Base.ThemeOverlay.AppCompat.ActionBar"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white"/>
             <FrameLayout
                 android:id="@+id/sas_fragmentContainer"
                 android:layout_width="match_parent"
@@ -34,18 +33,23 @@
                     android:layout_height="5dp"
                     android:elevation="4dp"
                     android:background="@drawable/toolbar_dropshadow"/-->
-
             </FrameLayout>
 
 
     </LinearLayout>
-
-    <ListView
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/RecyclerView"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="left"
+        android:background="#ffffff"
+        android:scrollbars="vertical"/>
+    <!--ListView
         android:layout_width="300dp"
         android:layout_height="match_parent"
         android:layout_gravity="left|start"
         android:background="@android:color/white"
-        android:id="@+id/navList" />
+        android:id="@+id/navList" /-->
     </android.support.v4.widget.DrawerLayout>
     <android.support.design.widget.FloatingActionButton
         android:layout_height="wrap_content"
