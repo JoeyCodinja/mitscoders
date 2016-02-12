@@ -93,7 +93,7 @@ public class ClassMapActivity extends FragmentActivity implements OnMapReadyCall
                 mark.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
             }else
                 mark.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
-            Toast.makeText(this,items.toString(),Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this,items.toString(),Toast.LENGTH_SHORT).show();
             markers.add(mark);
         }
         for(MarkerOptions op: markers){
