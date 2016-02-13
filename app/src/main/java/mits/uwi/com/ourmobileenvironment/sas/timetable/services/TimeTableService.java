@@ -47,7 +47,7 @@ public class TimeTableService extends IntentService {
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         Notification notification = new Notification.Builder(this)
                 .setTicker(getResources().getText(R.string.to_sas_home))
-                .setSmallIcon(android.R.drawable.ic_menu_report_image)
+                .setSmallIcon(R.drawable.ic_event_black_24dp)
                 .setContentTitle("Checking Timetable")
                 .setContentText("Service started")
                 .setContentIntent(pi)

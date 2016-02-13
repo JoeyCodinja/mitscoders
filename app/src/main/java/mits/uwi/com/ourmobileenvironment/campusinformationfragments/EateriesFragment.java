@@ -1,5 +1,6 @@
 package mits.uwi.com.ourmobileenvironment.campusinformationfragments;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,6 +18,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,11 +85,16 @@ public class EateriesFragment extends Fragment implements View.OnClickListener{
             n_menu.add(new Menu_Item("y", "Classic Combo", "Corndog", "2pc Corndog 1 500ml Soda", "$ 150 JMD"));
             n_menu.add(new Menu_Item("y", "Classic Combo", "Corndog", "2pc Corndog 1 500ml Soda", "$ 150 JMD"));
             eateries = new ArrayList<>();
-            eateries.add(new Eateries_list("Kentucky Fried Chicken", "Ring Rd, Chancellor Hall", "Opens 9am-12am", R.drawable.kfc, (ArrayList<Menu_Item>) menu));
-            eateries.add(new Eateries_list("Juici Patties", "Faculty of Science and Technology", "Opens 6am-7pm", R.drawable.juici,(ArrayList<Menu_Item>) j_menu));
-            eateries.add(new Eateries_list("Yao Chinese Restaurant", "Students Union", "Opens 9am-10pm", R.drawable.yao, (ArrayList<Menu_Item>) y_menu));
-            eateries.add(new Eateries_list("BeeHive", "Ring Rd, Humanities and Education", "Opens 7am-6pm", R.drawable.beehive, (ArrayList<Menu_Item>) b_menu));
-            eateries.add(new Eateries_list("Nardo's Snack Shop", "Humanities and Education", "Opens 6am-3am", R.drawable.nardo, (ArrayList<Menu_Item>) n_menu));
+            eateries.add(new Eateries_list("Kentucky Fried Chicken", "Ring Rd, Chancellor Hall",
+                    "Opens 9am-12am", R.drawable.kfc, (ArrayList<Menu_Item>) menu,18.006170, -76.744724));
+            eateries.add(new Eateries_list("Juici Patties", "Faculty of Science and Technology",
+                    "Opens 6am-7pm", R.drawable.juici,(ArrayList<Menu_Item>) j_menu,18.005052, -76.748482));
+            eateries.add(new Eateries_list("Yao Chinese Restaurant", "Students Union",
+                    "Opens 9am-10pm", R.drawable.yao, (ArrayList<Menu_Item>) y_menu,18.000850, -76.743325));
+            eateries.add(new Eateries_list("BeeHive", "Ring Rd, Humanities and Education",
+                    "Opens 7am-6pm", R.drawable.beehive, (ArrayList<Menu_Item>) b_menu,18.004532, -76.746367));
+            eateries.add(new Eateries_list("Nardo's Snack Shop", "Humanities and Education",
+                    "Opens 6am-3am", R.drawable.nardo, (ArrayList<Menu_Item>) n_menu,18.004991, -76.745777));
     }
 
     public static List<Eateries_list> getEatList() {
@@ -200,6 +207,24 @@ public class EateriesFragment extends Fragment implements View.OnClickListener{
                 locationIcon.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View itemView) {
+                            input = eateriesName.getText().toString();
+                            double x,y;
+
+                            //MenuDataPasser.getInstance().setResName(input);
+                            for (int i =0 ; i <eateries.size(); i++){
+                                if(input.equals(eateries.get(i).name)) {
+                                    x = eateries.get(i).getCoordx();
+                                    y = eateries.get(i).getCoordy();
+                                    Toast.makeText(getActivity().getApplicationContext(),""+x+","+y,Toast.LENGTH_SHORT).show();
+                                    Intent mapIntent = new Intent(getActivity().getApplicationContext(), EateriesMapActivity.class);
+                                    mapIntent.putExtra("ICON",eateries.get(i).getPhoto());
+                                    mapIntent.putExtra("NAME",eateries.get(i).getName());
+                                    mapIntent.putExtra("LATITUDE", x);
+                                    mapIntent.putExtra("LONGTITUDE", y);
+                                    mapIntent.putExtra("HOURS",eateries.get(i).getHours());
+                                    startActivity(mapIntent);
+                                }
+                            }
                             // item clicked
                             //locationIcon.setBackgroundResource(R.color.red);
                             //locationIcon.setBackgroundResource(0);

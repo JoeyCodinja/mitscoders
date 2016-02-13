@@ -140,6 +140,14 @@
                 <action android:name="android.intent.action.SEARCH"/>
             </intent-filter>
         </activity>
+        <activity android:name=".campusinformationfragments.EateriesMapActivity"
+            android:label="@string/title_activity_campus_information"
+            android:parentActivityName=".CampusInformationActivity"
+            android:theme="@style/campusinfotheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".CampusInformationActivity"/>
+        </activity>
         <activity
             android:name=".CampusDirectoryActivity"
             android:label="@string/title_activity_campus_directory"
