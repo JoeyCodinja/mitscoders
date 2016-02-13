@@ -63,7 +63,7 @@ public class HomeActivity extends AppCompatActivity {
         mNavigationDrawerLayout.setDrawerListener(mNavigationDrawerToggle);
 
         //Sets the UWI Coat of Arms as the Home Icon in the Action Bar
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.uwi_coat_of_arms_48);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_menu_light);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setTitle(R.string.title_activity_home);

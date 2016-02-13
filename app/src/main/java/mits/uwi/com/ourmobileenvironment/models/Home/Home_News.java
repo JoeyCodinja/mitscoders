@@ -77,6 +77,8 @@ public class Home_News {
         return newsItemURL.get(0).text();
     }
 
+
+
     public Bitmap getNewsItemImage(Element newsItem){
         Bitmap image = null;
         Document newsItemXMLData;

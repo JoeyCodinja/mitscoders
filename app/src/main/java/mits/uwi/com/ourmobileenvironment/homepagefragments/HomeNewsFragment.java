@@ -4,36 +4,32 @@ package mits.uwi.com.ourmobileenvironment.homepagefragments;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.Uri;
+
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
+import android.widget.LinearLayout.LayoutParams;
 import android.util.Log;
-import android.view.Gravity;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import org.apache.http.conn.ConnectTimeoutException;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
-import java.util.List;
+import java.lang.Math;
 
+import mits.uwi.com.ourmobileenvironment.NewsViewActivity;
 import mits.uwi.com.ourmobileenvironment.R;
 import mits.uwi.com.ourmobileenvironment.models.Home.Home_News;
 
@@ -41,7 +37,6 @@ public class HomeNewsFragment extends Fragment {
 
     private ArrayList<CardView> mNewsCards = new ArrayList<>();
     private Home_News mNewsItems;
-    private ArrayList<String> newsTitleStrings = new ArrayList<>();
     private String[] newsDescriptionStrings = new String[50];
 
     public static HomeNewsFragment newInstance() {
@@ -58,9 +53,7 @@ public class HomeNewsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
 
-        }
     }
 
     @Override
@@ -71,17 +64,27 @@ public class HomeNewsFragment extends Fragment {
 
         LinearLayout[] columns = {(LinearLayout) v.findViewById(R.id.newsColumn1),
                                   (LinearLayout) v.findViewById(R.id.newsColumn2)};
+//
+//        for (LinearLayout column: columns){
+//            column.setVisibility(View.GONE);
+//        }
+//
+//        LinearLayout columnParent = (LinearLayout) columns[0].getParent();
+//
+//        TextView loadingText = new TextView(columnParent.getContext());
+//        loadingText.setText("Loading the Lastest News Stories");
+//        loadingText.setGravity(Gravity.CENTER);
+//        loadingText.setId(R.id.loadingTextView);
+//
+//        columnParent.addView(loadingText);
+//
+//        loadingText.animate()
+//                .alpha(0)
+//                .setDuration(1000);
+//        loadingText.animate()
+//                .alpha(1)
+//                .setDuration(1000).start();
 
-        for (int object=0; object <= 10; object++){
-
-            CardView newsCard = (CardView)inflater.inflate(R.layout.news_card, null);
-
-            ProgressBar indeterminateProgress  = new ProgressBar(container.getContext());
-            indeterminateProgress.setIndeterminate(true);
-            newsCard.addView(indeterminateProgress);
-
-            columns[object%2].addView(newsCard);
-        }
 
         new RetrieveRSSFeedTask().execute(getActivity());
         return v;
@@ -91,6 +94,7 @@ public class HomeNewsFragment extends Fragment {
         ArrayList<Bitmap> newsItemImages = new ArrayList<>();
         ArrayList<String> newsItemTitles = new ArrayList<>();
         ArrayList<String> newsItemURLs = new ArrayList<>();
+        ArrayList<String> newsItemDescriptions = new ArrayList<>();
         @Override
         protected Home_News doInBackground(Context... params) {
             try {
@@ -100,6 +104,7 @@ public class HomeNewsFragment extends Fragment {
                         newsItemTitles.add(mNewsItems.getNewsItemTitle(element));
                         newsItemImages.add(mNewsItems.getNewsItemImage(element));
                         newsItemURLs.add(mNewsItems.getNewsItemURL(element));
+                        newsItemDescriptions.add(mNewsItems.getNewsItemDescription(element));
                     }
                 }
                 else{
@@ -108,6 +113,7 @@ public class HomeNewsFragment extends Fragment {
                         newsItemTitles.add(mNewsItems.getNewsItemTitle(element));
                         newsItemImages.add(mNewsItems.getNewsItemImage(element));
                         newsItemURLs.add(mNewsItems.getNewsItemURL(element));
+                        newsItemDescriptions.add(mNewsItems.getNewsItemDescription(element));
                     }
                     mNewsItems.cacheNewsItems(newsItemElements);
                     mNewsItems.loaded = true;
@@ -128,55 +134,105 @@ public class HomeNewsFragment extends Fragment {
 
             LinearLayout[] columns = {(LinearLayout) contextView.findViewById(R.id.newsColumn1),
                     (LinearLayout) contextView.findViewById(R.id.newsColumn2)};
+
+
+            LinearLayout newsHeader = (LinearLayout) contextView.findViewById(R.id.newsHeader);
+
             LayoutInflater layoutInflater = (LayoutInflater) getActivity()
                                                             .getBaseContext()
                                                             .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            for (LinearLayout column: columns){
-                column.removeAllViewsInLayout();
-            }
+//
+            // Removes the Loading screen
+//            LinearLayout loadingTextViewParent = (LinearLayout)columns[0].getParent();
+//
+//            loadingTextViewParent.removeView((loadingTextViewParent.findViewById(R.id.loadingTextView));
+//
+//
+//            for (LinearLayout column: columns){
+//                column.setVisibility(View.VISIBLE);
+//            }
 
             for (int i = 0; i < newsItemTitles.size(); i++) {
                 // Remove dummy views from both columns
 
                 final int finalI = i;
                 final Context finalContext = contextView.getContext();
+
+
                 View newsCard = layoutInflater.inflate(R.layout.news_card, null);
                 ImageView newsCardImage = (ImageView)newsCard.findViewById(R.id.news_card_image);
                 TextView newsCardTitle = (TextView)newsCard.findViewById(R.id.news_card_title);
 
-                newsCard.setLayoutParams(new CardView.
-                        LayoutParams(columns[i % 2].getWidth(),
-                        320));
+
+                float imageWidth = newsItemImages.get(i).getWidth();
+                float imageHeight = newsItemImages.get(i).getHeight();
+
+                if (i == 0){
+                    newsCard.setLayoutParams(new CardView.LayoutParams(newsHeader.getWidth(),
+                                                                       400));
+                    newsCardImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                }
+
+                else if (imageWidth/imageHeight <= 1.8 &&
+                         imageWidth/imageHeight >= 1){
+                    // 4:3 image
+                    newsCard.setLayoutParams(new CardView.LayoutParams(columns[i % 2].getWidth(),
+                                             320));
+                    newsCardImage.setScaleType(ImageView.ScaleType.FIT_XY);
+                }
+
+                else if (newsItemImages.get(i).getWidth() < newsItemImages.get(i).getHeight()){
+                    // Vertical Rectangle
+                    if (imageHeight <= 100 || imageWidth <=100) {
+                        newsCard.setLayoutParams(new CardView.LayoutParams(columns[i % 2].getWidth(),
+                                columns[i % 2].getWidth()));
+                        newsCardImage.setScaleType(ImageView.ScaleType.FIT_XY);
+                    }
+                    else
+                        newsCard.setLayoutParams(new CardView.LayoutParams(columns[i % 2].getWidth(),
+                                             newsItemImages.get(i).getHeight()));
+                }
 
                 newsCardImage.setImageBitmap(newsItemImages.get(i));
 
-                newsCardTitle.setText(newsItemTitles.get(i));
-                newsCardTitle.setBackground(contextView.getResources().getDrawable(R.drawable.text_shadow));
+                if (newsItemTitles.get(i).length() <=25)
+                    newsCardTitle.setText(newsItemTitles.get(i));
+                else
+                    newsCardTitle.setText(newsItemTitles.get(i).substring(0,
+                                          (int)Math.floor(newsItemTitles.get(i).length() * 0.5)) + "...");
 
                 newsCard.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Uri articleURI = Uri.parse(newsItemURLs.get(finalI));
 
-                        Intent viewArticleIntent = new Intent(Intent.ACTION_VIEW, articleURI);
+                        Intent viewArticleIntent = new Intent(getActivity(), NewsViewActivity.class);
 
-                        //Ensure that there are apps to service our intent
-                        PackageManager packageManager = finalContext.getPackageManager();
-                        List<ResolveInfo> activities = packageManager.queryIntentActivities(viewArticleIntent, 0);
+                        viewArticleIntent.putExtra("news_body", newsItemDescriptions.get(finalI));
+                        viewArticleIntent.putExtra("news_title", newsItemTitles.get(finalI));
 
-                        Intent viewArticleChooser = Intent.createChooser(viewArticleIntent,
-                                getResources().getString(R.string.view_article_string));
+                        ByteArrayOutputStream transferrableBitmap = new ByteArrayOutputStream();
+                        newsItemImages.get(finalI).compress(Bitmap.CompressFormat.PNG,
+                                100,
+                                transferrableBitmap);
+                        byte[] imageInBytes = transferrableBitmap.toByteArray();
 
-                        boolean intentSafe = activities.size() > 0;
+                        viewArticleIntent.putExtra("news_images", imageInBytes);
 
-                        // If intent is serviceable then go ahead and start the activity
-                        if (intentSafe){
-                            startActivity(viewArticleIntent);
-                        }
+                        startActivity(viewArticleIntent);
                     }
                 });
-                columns[i % 2].addView(newsCard);
 
+
+                if (i == 0)
+                    newsHeader.addView(newsCard);
+                else
+                    columns[i % 2].addView(newsCard);
+
+                ViewGroup.LayoutParams layoutparams = newsCard.getLayoutParams();
+                LayoutParams params = (LayoutParams) layoutparams;
+
+                params.setMargins(5,0,5,10);
+                newsCard.setLayoutParams(params);
             }
         }
 

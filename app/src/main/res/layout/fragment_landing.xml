@@ -1,7 +1,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:weightSum="10">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,6 +15,7 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:background="#ffe20502"
+             app:tabIndicatorColor="@color/blue"
              />
 
          <android.support.v4.view.ViewPager
@@ -23,96 +25,79 @@
 
     </LinearLayout>
 
-    <FrameLayout
-        android:id='@+id/landing_pageFAB1'
-        android:background="@drawable/campusinfo_fab"
-        style="@style/FABButtons">
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/campusinfo"
-            android:layout_gravity='center'/>
-        <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:text='@string/campusinfo_fab'/>-->
-    </FrameLayout>
 
     <FrameLayout
-        android:id='@+id/landing_pageFAB2'
-        android:background="@drawable/transportation_fab"
-        style="@style/FABButtons"
-        >
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/transportation"
-            android:layout_gravity='center'/>
-        <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:text='@string/transportation_fab'/>-->
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#a7000000"
+        android:alpha="0"
+        android:visibility="gone"
+        android:layout_gravity="bottom">
+
     </FrameLayout>
 
-    <FrameLayout
-        android:id='@+id/landing_pageFAB3'
-        android:background="@drawable/ourvle_fab"
-        style="@style/FABButtons"
+    <RelativeLayout
+        android:id="@+id/FABHolder"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:orientation="vertical"
         >
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/sas_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src='@drawable/sas'
+            app:backgroundTint="#EAFFF501" />
+
+        <!--<android.support.design.widget.FloatingActionButton-->
+            <!--android:id="@+id/boss_fab"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@id/sas_fab"-->
+            <!--android:src="@drawable/boss"-->
+            <!--app:backgroundTint="#EA28B206" />-->
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/ourvle_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/sas_fab"
             android:src="@drawable/ourvle"
-            android:layout_gravity='center'/>
-        <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:text="@string/ourvle_fab"/>-->
-    </FrameLayout>
+            app:backgroundTint="#FFE6110E"/>
 
-    <FrameLayout
-        android:id='@+id/landing_pageFAB4'
-        android:background="@drawable/boss_fab"
-        style="@style/FABButtons"
-        >
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/boss"
-            android:layout_gravity="center"/>
-        <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:text='@string/boss_fab'/>-->
-    </FrameLayout>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/transport_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ourvle_fab"
+            android:src="@drawable/transportation"
+            app:elevation="4dp"
+            app:backgroundTint="#FFFF7D00" />
 
-    <FrameLayout
-        android:id='@+id/landing_pageFAB5'
-        android:background="@drawable/sas_fab"
-        style="@style/FABButtons"
-        >
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/campus_info_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/transport_fab"
+            android:layout_gravity="bottom|right"
             android:src="@drawable/sas"
-            android:layout_gravity="center" />
-        <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:text="@string/sas_fab"/>-->
-    </FrameLayout>
+            app:elevation="4dp"
+            app:backgroundTint="#DEBDA900"
+            />
 
-    <FrameLayout
-        android:elevation="4dp"
-        android:id="@+id/landing_pageFAB"
-        android:background='@drawable/main_fab'
-        style="@style/FABButtons"
-        >
+        <android.support.design.widget.FloatingActionButton
+            android:id='@+id/mainFab'
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_below="@id/campus_info_fab"
+            android:src="@drawable/pelican_white"
+            app:elevation="4dp"
+            app:backgroundTint="#EA0010E2"
+            />
+    </RelativeLayout>
 
-        <ImageView
-            style="@style/MainFabImage"
-            android:src="@drawable/pelican_white" />
-
-    </FrameLayout>
 
 </FrameLayout>
