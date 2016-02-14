@@ -4,8 +4,11 @@ import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Vibrator;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.orm.SugarRecord;
 
@@ -47,16 +50,22 @@ public class TimeTableService extends IntentService {
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         Notification notification = new Notification.Builder(this)
                 .setTicker(getResources().getText(R.string.to_sas_home))
-                .setSmallIcon(R.drawable.ic_event_black_24dp)
+                .setSmallIcon(R.drawable.ic_event_white_24dp)
                 .setContentTitle("Checking Timetable")
                 .setContentText("Service started")
                 .setContentIntent(pi)
                 .setAutoCancel(true)
                 .build();
         notificationManager.notify(NOTIFICATION, notification);
-        /*mtimetable = SugarRecord.listAll(TimeTable.class);
+        Vibrator vibrator = (Vibrator) getApplicationContext()
+                .getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.vibrate(2000);
+        mtimetable = SugarRecord.listAll(TimeTable.class);
         calendar.getInstance();
-        mDt1 = calendar.getTime();
+        if (mtimetable.isEmpty()){
+            Toast.makeText(getApplicationContext(),"No Events to Report", Toast.LENGTH_SHORT).show();
+        }
+        /* mDt1 = calendar.getTime();
         for(TimeTable event: mtimetable){
         mDt2 =event.getStartTime();
             mTime =  mDt1.getTime() - mDt2.getTime();
@@ -67,4 +76,5 @@ public class TimeTableService extends IntentService {
         String resultId;
         */
     }
+
 }

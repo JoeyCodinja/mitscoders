@@ -54,7 +54,7 @@ public class SASActivity extends AppCompatActivity {
     RecyclerView mRecyclerView;                           // Declaring RecyclerView
     RecyclerView.Adapter mRadapter;                        // Declaring Adapter For Recycler View
     RecyclerView.LayoutManager mLayoutManager;
-    //TabLayout tabLayout;
+    TabLayout tabLayout;
 
 
 
@@ -86,10 +86,10 @@ public class SASActivity extends AppCompatActivity {
         }
         ToprightBar.setTopOverflow(this);
         mDrawerLayout = (DrawerLayout)findViewById(R.id.sas_drawer_layout);
-        /*tabLayout = (TabLayout)findViewById(R.id.tabLayout);
+        tabLayout = (TabLayout)findViewById(R.id.tabLayout);
         tabLayout.setTabTextColors(Color.BLACK, R.color.accent);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.to_sas_home));*/
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.to_sas_home));
 
         mRecyclerView =(RecyclerView)findViewById(R.id.RecyclerView);
         mRecyclerView.setHasFixedSize(true);
