@@ -30,6 +30,7 @@
     <string name="title_activity_sas">SAS</string>
 
         <!--Navigation Button Strings :: SAS -->
+        <string name="sas">Student Administrative Services</string>
         <string name="to_sas_home"> Registered Courses</string>
         <string name="to_courseFragment_button">Courses</string>
         <string name="to_addDropFragment_button">Add/Drop Courses</string>

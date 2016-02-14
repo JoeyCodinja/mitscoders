@@ -7,21 +7,17 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,16 +34,11 @@ public class EateriesFragment extends Fragment implements View.OnClickListener{
         // Required empty public constructor
     }
     static List<Eateries_list> eateries;
-    static List<Eateries_list> eateries_filtered;
     static List<Menu_Item> menu;
     static List<Menu_Item> j_menu;
     static List<Menu_Item> y_menu;
     static List<Menu_Item> b_menu;
     static List<Menu_Item> n_menu;
-    String add = "all";
-    LayoutInflater l;
-    ViewGroup g;
-    Bundle b;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
@@ -62,121 +53,43 @@ public class EateriesFragment extends Fragment implements View.OnClickListener{
         RVAdapter eateriesadp =new RVAdapter(EateriesFragment.getEatList());
         recList.setAdapter(eateriesadp);
 
-        setRetainInstance(true);
-
         return  v;
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu,MenuInflater menuInflater){
-        menuInflater.inflate(R.menu.menu_eateries, menu);
-        menu.clear();
-        final MenuItem item = menu.findItem(R.id.action_search);
+
+        public void initializeData(){
+            menu = new ArrayList<>();
+            menu.add(new Menu_Item("Kentucky Fried Chicken", "Classic Combo", "Meal Deal", "2pc Chicken 1 Reg fries 1 500ml Soda", "$ 100 JMD"));
+            menu.add(new Menu_Item("Kentucky Fried Chicken", "Classic Combo", "Meal Deal", "2pc Chicken 1 Reg fries 1 500ml Soda", "$ 100 JMD"));
+            menu.add(new Menu_Item("Kentucky Fried Chicken", "Classic Combo", "Meal Deal", "2pc Chicken 1 Reg fries 1 500ml Soda", "$ 100 JMD"));
+            menu.add(new Menu_Item("Kentucky Fried Chicken", "Classic Combo", "Meal Deal", "2pc Chicken 1 Reg fries 1 500ml Soda", "$ 100 JMD"));
+            j_menu = new ArrayList<>();
+            j_menu.add(new Menu_Item("Juici Patties", "Classic Combo", "Patties", "2pc Patty 1 500ml Soda", "$ 150 JMD"));
+            j_menu.add(new Menu_Item("Juici Patties", "Classic Combo", "Patties", "2pc Patty 1 500ml Soda", "$ 150 JMD"));
+            j_menu.add(new Menu_Item("Juici Patties", "Classic Combo", "Patties", "2pc Patty 1 500ml Soda", "$ 150 JMD"));
+            j_menu.add(new Menu_Item("Juici Patties", "Classic Combo", "Patties", "2pc Patty 1 500ml Soda", "$ 150 JMD"));
+            y_menu = new ArrayList<>();
+            y_menu.add(new Menu_Item("y", "Classic Combo", "Chinese", "2pc Chinese 1 500ml Soda", "$ 150 JMD"));
+            y_menu.add(new Menu_Item("y", "Classic Combo", "Chinese", "2pc Chinese 1 500ml Soda", "$ 150 JMD"));
+            y_menu.add(new Menu_Item("y", "Classic Combo", "Chinese", "2pc Chinese 1 500ml Soda", "$ 150 JMD"));
+            y_menu.add(new Menu_Item("y", "Classic Combo", "Chinese", "2pc Chinese 1 500ml Soda", "$ 150 JMD"));
+            b_menu = new ArrayList<>();
+            b_menu.add(new Menu_Item("y", "Classic Combo", "Sweet and Sour", "2pc Sweet and Sour 1 500ml Soda", "$ 150 JMD"));
+            b_menu.add(new Menu_Item("y", "Classic Combo", "Sweet and Sour", "2pc Sweet and Sour 1 500ml Soda", "$ 150 JMD"));
+            b_menu.add(new Menu_Item("y", "Classic Combo", "Sweet and Sour", "2pc Sweet and Sour 1 500ml Soda", "$ 150 JMD"));
+            b_menu.add(new Menu_Item("y", "Classic Combo", "Sweet and Sour", "2pc Sweet and Sour 1 500ml Soda", "$ 150 JMD"));
+            n_menu = new ArrayList<>();
+            n_menu.add(new Menu_Item("y", "Classic Combo", "Corndog", "2pc Corndog 1 500ml Soda", "$ 150 JMD"));
+            n_menu.add(new Menu_Item("y", "Classic Combo", "Corndog", "2pc Corndog 1 500ml Soda", "$ 150 JMD"));
+            n_menu.add(new Menu_Item("y", "Classic Combo", "Corndog", "2pc Corndog 1 500ml Soda", "$ 150 JMD"));
+            n_menu.add(new Menu_Item("y", "Classic Combo", "Corndog", "2pc Corndog 1 500ml Soda", "$ 150 JMD"));
+            eateries = new ArrayList<>();
+            eateries.add(new Eateries_list("Kentucky Fried Chicken", "Ring Rd, Chancellor Hall", "Opens 9am-12am", R.drawable.kfc, (ArrayList<Menu_Item>) menu));
+            eateries.add(new Eateries_list("Juici Patties", "Faculty of Science and Technology", "Opens 6am-7pm", R.drawable.juici,(ArrayList<Menu_Item>) j_menu));
+            eateries.add(new Eateries_list("Yao Chinese Restaurant", "Students Union", "Opens 9am-10pm", R.drawable.yao, (ArrayList<Menu_Item>) y_menu));
+            eateries.add(new Eateries_list("BeeHive", "Ring Rd, Humanities and Education", "Opens 7am-6pm", R.drawable.beehive, (ArrayList<Menu_Item>) b_menu));
+            eateries.add(new Eateries_list("Nardo's Snack Shop", "Humanities and Education", "Opens 6am-3am", R.drawable.nardo, (ArrayList<Menu_Item>) n_menu));
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_res:
-                add = "res";
-                initializeData();
-                return true;
-            case R.id.action_fast:
-                // Do Fragment menu item stuff here
-                add = "fast";
-                initializeData();
-                return true;
-            case R.id.action_caf:
-                // Do Fragment menu item stuff here
-                add = "caf";
-                initializeData();
-                return true;
-            case R.id.action_deli:
-                // Do Fragment menu item stuff here
-                add = "deli";
-                initializeData();
-                return true;
-            case R.id.action_stall:
-                // Do Fragment menu item stuff here
-                add = "stall";
-                initializeData();
-                return true;
-            case R.id.action_all:
-                add = "all";
-                initializeData();
-                return true;
-        }
-        return false;
-    }
-
-
-//    @Override
-//    public void onResume(){
-//
-//    }
-
-
-
-    public void initializeData() {
-        menu = new ArrayList<>();
-        menu.add(new Menu_Item("Kentucky Fried Chicken", "Classic Combo", "Meal Deal", "2pc Chicken 1 Reg fries 1 500ml Soda", "$ 100 JMD"));
-        menu.add(new Menu_Item("Kentucky Fried Chicken", "Classic Combo", "Meal Deal", "2pc Chicken 1 Reg fries 1 500ml Soda", "$ 100 JMD"));
-        menu.add(new Menu_Item("Kentucky Fried Chicken", "Classic Combo", "Meal Deal", "2pc Chicken 1 Reg fries 1 500ml Soda", "$ 100 JMD"));
-        menu.add(new Menu_Item("Kentucky Fried Chicken", "Classic Combo", "Meal Deal", "2pc Chicken 1 Reg fries 1 500ml Soda", "$ 100 JMD"));
-        j_menu = new ArrayList<>();
-        j_menu.add(new Menu_Item("Juici Patties", "Classic Combo", "Patties", "2pc Patty 1 500ml Soda", "$ 150 JMD"));
-        j_menu.add(new Menu_Item("Juici Patties", "Classic Combo", "Patties", "2pc Patty 1 500ml Soda", "$ 150 JMD"));
-        j_menu.add(new Menu_Item("Juici Patties", "Classic Combo", "Patties", "2pc Patty 1 500ml Soda", "$ 150 JMD"));
-        j_menu.add(new Menu_Item("Juici Patties", "Classic Combo", "Patties", "2pc Patty 1 500ml Soda", "$ 150 JMD"));
-        y_menu = new ArrayList<>();
-        y_menu.add(new Menu_Item("y", "Classic Combo", "Chinese", "2pc Chinese 1 500ml Soda", "$ 150 JMD"));
-        y_menu.add(new Menu_Item("y", "Classic Combo", "Chinese", "2pc Chinese 1 500ml Soda", "$ 150 JMD"));
-        y_menu.add(new Menu_Item("y", "Classic Combo", "Chinese", "2pc Chinese 1 500ml Soda", "$ 150 JMD"));
-        y_menu.add(new Menu_Item("y", "Classic Combo", "Chinese", "2pc Chinese 1 500ml Soda", "$ 150 JMD"));
-        b_menu = new ArrayList<>();
-        b_menu.add(new Menu_Item("y", "Classic Combo", "Sweet and Sour", "2pc Sweet and Sour 1 500ml Soda", "$ 150 JMD"));
-        b_menu.add(new Menu_Item("y", "Classic Combo", "Sweet and Sour", "2pc Sweet and Sour 1 500ml Soda", "$ 150 JMD"));
-        b_menu.add(new Menu_Item("y", "Classic Combo", "Sweet and Sour", "2pc Sweet and Sour 1 500ml Soda", "$ 150 JMD"));
-        b_menu.add(new Menu_Item("y", "Classic Combo", "Sweet and Sour", "2pc Sweet and Sour 1 500ml Soda", "$ 150 JMD"));
-        n_menu = new ArrayList<>();
-        n_menu.add(new Menu_Item("y", "Classic Combo", "Corndog", "2pc Corndog 1 500ml Soda", "$ 150 JMD"));
-        n_menu.add(new Menu_Item("y", "Classic Combo", "Corndog", "2pc Corndog 1 500ml Soda", "$ 150 JMD"));
-        n_menu.add(new Menu_Item("y", "Classic Combo", "Corndog", "2pc Corndog 1 500ml Soda", "$ 150 JMD"));
-        n_menu.add(new Menu_Item("y", "Classic Combo", "Corndog", "2pc Corndog 1 500ml Soda", "$ 150 JMD"));
-        eateries_filtered = new ArrayList<>();
-        eateries = new ArrayList<>();
-        eateries_filtered.add(new Eateries_list("Kentucky Fried Chicken", "Ring Rd, Chancellor Hall", "Opens 9am-12am", R.drawable.kfc, (ArrayList<Menu_Item>) menu, "Fast Food"));
-        eateries_filtered.add(new Eateries_list("Juici Patties", "Faculty of Science and Technology", "Opens 6am-7pm", R.drawable.juici, (ArrayList<Menu_Item>) j_menu, "Fast Food"));
-        eateries_filtered.add(new Eateries_list("Yao Chinese Restaurant", "Students Union", "Opens 9am-10pm", R.drawable.yao, (ArrayList<Menu_Item>) y_menu, "Restaurant"));
-        eateries_filtered.add(new Eateries_list("BeeHive", "Ring Rd, Humanities and Education", "Opens 7am-6pm", R.drawable.beehive, (ArrayList<Menu_Item>) b_menu, "Stall"));
-        eateries_filtered.add(new Eateries_list("Nardo's Snack Shop", "Humanities and Education", "Opens 6am-3am", R.drawable.nardo, (ArrayList<Menu_Item>) n_menu, "Restaurant"));
-
-        for (int i = 0; i < eateries_filtered.size(); i++) {
-            switch(add){
-                case "fast":
-                    if (eateries_filtered.get(i).catergory.equals("Fast Food"))
-                        eateries.add(eateries_filtered.get(i));
-                    break;
-                case "res":
-                    if(eateries_filtered.get(i).catergory.equals("Restaurant"))
-                        eateries.add(eateries_filtered.get(i));
-                    break;
-                case "caf":
-                    if(eateries_filtered.get(i).catergory.equals("Cafeteria"))
-                        eateries.add(eateries_filtered.get(i));
-                    break;
-                case "stall":
-                    if(eateries_filtered.get(i).catergory.equals("Stall"))
-                        eateries.add(eateries_filtered.get(i));
-                    break;
-                case "all":
-                    eateries.add(eateries_filtered.get(i));
-            }
-
-        }
-    }
-
-
 
     public static List<Eateries_list> getEatList() {
         return eateries;
@@ -240,6 +153,7 @@ public class EateriesFragment extends Fragment implements View.OnClickListener{
             ImageView eateriesPhoto;
             CheckBox favoriteIcon;
             ImageView locationIcon;
+            //ImageView clickedIcon;
 
             EateriesViewHolder(View itemView) {
                 super(itemView);
@@ -248,16 +162,22 @@ public class EateriesFragment extends Fragment implements View.OnClickListener{
                 eateriesLocation = (TextView)itemView.findViewById(R.id.eateries_location);
                 eateriesHours = (TextView)itemView.findViewById(R.id.eateries_hours);
                 eateriesPhoto = (ImageView)itemView.findViewById(R.id.eateries_photo);
+//                eateriesPhoto.setImageBitmap(
+//                        decodeSampledBitmapFromResource(getResources(), R.id.eateries_photo, 100, 100));
                 favoriteIcon = (CheckBox)itemView.findViewById(R.id.favorite_icon);
                 locationIcon = (ImageView)itemView.findViewById(R.id.location_icon);
 
-                
-
+                //favoriteIcon.setColorFilter(R.color.grey, PorterDuff.Mode.DST_OUT);
                 locationIcon.setColorFilter(R.color.grey, PorterDuff.Mode.DST_OUT);
                 cv.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View itemView) {
+                        // item clicked
+                        //cv.setCardBackgroundColor(255);
+                        //id = getResources().getIdentifier(String.valueOf(eateriesPhoto), "id", null);
+                       //id = getResources().getIdentifier(String.valueOf((ImageView)itemView.findViewById(R.id.eateries_photo)), "id", null);
                         input = eateriesName.getText().toString();
+                        //MenuDataPasser.getInstance().setResName(input);
                         for (int i =0 ; i <eateries.size(); i++){
                             if(input.equals(eateries.get(i).name))
                                 MenuDataPasser.getInstance().setResName(eateries.get(i));
@@ -270,7 +190,7 @@ public class EateriesFragment extends Fragment implements View.OnClickListener{
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
                         input = eateriesName.getText().toString();
-
+                        //MenuDataPasser.getInstance().setResName(input);
                         for (int i =0 ; i <eateries.size(); i++){
                             if(input.equals(eateries.get(i).name))
                                 eateries.get(i).setFav();
@@ -281,6 +201,24 @@ public class EateriesFragment extends Fragment implements View.OnClickListener{
                 locationIcon.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View itemView) {
+                            input = eateriesName.getText().toString();
+                            double x,y;
+
+                            //MenuDataPasser.getInstance().setResName(input);
+                            for (int i =0 ; i <eateries.size(); i++){
+                                if(input.equals(eateries.get(i).name)) {
+                                    x = eateries.get(i).getCoordx();
+                                    y = eateries.get(i).getCoordy();
+                                    Toast.makeText(getActivity().getApplicationContext(),""+x+","+y,Toast.LENGTH_SHORT).show();
+                                    Intent mapIntent = new Intent(getActivity().getApplicationContext(), EateriesMapActivity.class);
+                                    mapIntent.putExtra("ICON",eateries.get(i).getPhoto());
+                                    mapIntent.putExtra("NAME",eateries.get(i).getName());
+                                    mapIntent.putExtra("LATITUDE", x);
+                                    mapIntent.putExtra("LONGTITUDE", y);
+                                    mapIntent.putExtra("HOURS",eateries.get(i).getHours());
+                                    startActivity(mapIntent);
+                                }
+                            }
                             // item clicked
                             //locationIcon.setBackgroundResource(R.color.red);
                             //locationIcon.setBackgroundResource(0);

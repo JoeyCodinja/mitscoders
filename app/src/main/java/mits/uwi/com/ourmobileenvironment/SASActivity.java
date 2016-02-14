@@ -4,7 +4,13 @@ package mits.uwi.com.ourmobileenvironment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -48,6 +54,9 @@ public class SASActivity extends AppCompatActivity {
     RecyclerView mRecyclerView;                           // Declaring RecyclerView
     RecyclerView.Adapter mRadapter;                        // Declaring Adapter For Recycler View
     RecyclerView.LayoutManager mLayoutManager;
+    //TabLayout tabLayout;
+
+
 
     String [] list = {"Home","Add/Drop","Timetable","Class Map","Transcript","Overrides","Holds","Exit"};
     int icons[] = {R.drawable.ic_home_black_24dp,
@@ -58,6 +67,7 @@ public class SASActivity extends AppCompatActivity {
             R.drawable.ic_class_black_24dp,
             R.drawable.ic_lock_black_24dp,
             R.drawable.ic_exit_to_app_black_24dp};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,9 +86,14 @@ public class SASActivity extends AppCompatActivity {
         }
         ToprightBar.setTopOverflow(this);
         mDrawerLayout = (DrawerLayout)findViewById(R.id.sas_drawer_layout);
+        /*tabLayout = (TabLayout)findViewById(R.id.tabLayout);
+        tabLayout.setTabTextColors(Color.BLACK, R.color.accent);
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.to_sas_home));*/
+
         mRecyclerView =(RecyclerView)findViewById(R.id.RecyclerView);
         mRecyclerView.setHasFixedSize(true);
-        mRadapter = new SasAdapter(list,icons,"SAS");
+        mRadapter = new SasAdapter(list,icons,"SAS",R.drawable.sas_splash3_white);
         mRecyclerView.setAdapter(mRadapter);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -243,7 +258,13 @@ public class SASActivity extends AppCompatActivity {
 
         private String name;        //String Resource for header View Name
         View mView;
+        Bitmap bMap = BitmapFactory.decodeResource(getResources(), R.drawable.sas_splash3_white);
+        Bitmap bMapScaled = Bitmap.createScaledBitmap(bMap, 120,125, true);
 
+        Bitmap LMap = BitmapFactory.decodeResource(getResources(), R.drawable.vanilla_background_blue);
+        Bitmap LMapScaled = Bitmap.createScaledBitmap(LMap, 192, 600, true);
+        Drawable bkgrnd = new BitmapDrawable(getResources(),LMapScaled);
+        private int Logo;
         // Creating a ViewHolder which extends the RecyclerView View Holder
         // ViewHolder are used to to store the inflated views in order to recycle them
 
@@ -254,6 +275,7 @@ public class SASActivity extends AppCompatActivity {
             int Holderid;
             TextView textView;
             ImageView imageView;
+            ImageView logo;
 
 
             public ViewHolder(View itemView, int ViewType) {                 // Creating ViewHolder Constructor with View and viewType As a parameter
@@ -268,31 +290,29 @@ public class SASActivity extends AppCompatActivity {
                     imageView = (ImageView) itemView.findViewById(R.id.nav_icon);// Creating ImageView object with the id of ImageView from item_row.xml
                     Holderid = 1;                                               // setting holder id as 1 as the object being populated are of type item row
                 } else {
+                    logo = (ImageView) itemView.findViewById(R.id.logo);
 /*                    Name = (TextView) itemView.findViewById(R.id.name);         // Creating Text View object from header.xml for name
                     email = (TextView) itemView.findViewById(R.id.email);       // Creating Text View object from header.xml for email
                     profile = (ImageView) itemView.findViewById(R.id.circleView);// Creating Image view object from header.xml for profile pic
-                    Holderid = 0;                                                // Setting holder id = 0 as the object being populated are of type header view
-                */}
+                    */Holderid = 0;
+                      // Setting holder id = 0 as the object being populated are of type header view
+                }
             }
-
-           /* @Override
-            public void onClick(View view) {
-                Toast.makeText(context, "The Item Clicked is: " + getPosition(), Toast.LENGTH_SHORT).show();
-            }*/
         }
 
 
-        SasAdapter(String Titles[],int Icons[],String Name){ // MyAdapter Constructor with titles and icons parameter
+        SasAdapter(String Titles[],int Icons[],String Name, int logo){ // MyAdapter Constructor with titles and icons parameter
             // titles, icons, name, email, profile pic are passed from the main activity as we
             mNavTitles = Titles;                //have seen earlier
             mIcons = Icons;
             name = Name;
+            Logo = logo;
            // email = Email;
             //profile = Profile;                     //here we assign those passed values to the values we declared here
             //in adapter
         }
 
-        //Below first we ovverride the method onCreateViewHolder which is called when the ViewHolder is
+        //Below first we override the method onCreateViewHolder which is called when the ViewHolder is
         //Created, In this method we inflate the item_row.xml layout if the viewType is Type_ITEM or else we inflate header.xml
         // if the viewType is TYPE_HEADER
         // and pass it to the view holder
@@ -361,6 +381,7 @@ public class SASActivity extends AppCompatActivity {
 
             } else if (viewType == TYPE_HEADER) {
                 View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_sas_sideheader,parent,false); //Inflating the layout
+                v.findViewById(R.id.headerlayout).setBackground(bkgrnd);
                 ViewHolder vhHeader = new ViewHolder(v,viewType); //Creating ViewHolder and passing the object of type view
                 return vhHeader; //returning the object created
             }
@@ -380,11 +401,12 @@ public class SASActivity extends AppCompatActivity {
 
             }
             else{
-/*
-                holder.profile.setImageResource(profile);           // Similarly we set the resources for header view
-                holder.Name.setText(name);
-                holder.email.setText(email);*/
+                holder.logo.setImageBitmap(bMapScaled);
+                //holder.profile.setImageResource(profile);           // Similarly we set the resources for header view
+               // holder.Name.setText(name);
+               // holder.email.setText(email);*/
             }
+
         }
 
         // This method returns the number of items present in the list

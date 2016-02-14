@@ -109,8 +109,12 @@
         </activity>
         <service android:name=".sas.timetable.services.TimeTableService"
             android:exported="false"/>
-        <receiver android:name=".sas.timetable.receiver.TimeTableReceiver"
-            android:process=":remote"/>
+        <receiver android:name=".sas.timetable.receiver.TimeTableReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <!--android:process=":remote"/-->
 
         <activity
             android:name=".BOSSActivity"
@@ -153,6 +157,14 @@
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
+        </activity>
+        <activity android:name=".campusinformationfragments.EateriesMapActivity"
+            android:label="@string/title_activity_campus_information"
+            android:parentActivityName=".CampusInformationActivity"
+            android:theme="@style/campusinfotheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".CampusInformationActivity"/>
         </activity>
         <activity
             android:name=".CampusDirectoryActivity"
