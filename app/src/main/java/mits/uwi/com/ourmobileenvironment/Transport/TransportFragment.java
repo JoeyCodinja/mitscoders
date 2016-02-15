@@ -36,10 +36,6 @@ public abstract class  TransportFragment<T extends Transport> extends Fragment i
         getActivity().findViewById(R.id.progress_bar).setVisibility(View.VISIBLE);
     }
 
-    public RecyclerView getRecList() {
-        return recList;
-    }
-
 
     @Override
     public void onCreateOptionsMenu(Menu menu,MenuInflater menuInflater){

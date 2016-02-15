@@ -27,7 +27,7 @@ import mits.uwi.com.ourmobileenvironment.sas.MapItemList;
  * Created by peoplesoft on 2/12/2016.
  */
 public class EateriesMapActivity  extends FragmentActivity implements OnMapReadyCallback {
-    List<Eateries_list> mEateries;
+    List<Restaurant> mEateries;
     private ArrayList<MarkerOptions> markers = new ArrayList<MarkerOptions>();
     MapFragment mMapFragment;
     Double mEateriesLat, mEateriesLong;
@@ -48,7 +48,7 @@ public class EateriesMapActivity  extends FragmentActivity implements OnMapReady
             mMapFragment.getMapAsync(this);
             ToprightBar.setTopOverflow(this);
 
-            mEateries = EateriesFragment.getEatList();
+            mEateries =Restaurant.listAll(Restaurant.class);
             if(mEateries == null){
                 Toast.makeText(getApplicationContext(),
                         "No Eateries", Toast.LENGTH_SHORT)
