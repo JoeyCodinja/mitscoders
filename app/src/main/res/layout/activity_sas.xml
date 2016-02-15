@@ -32,15 +32,18 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:elevation="4dp"
+            android:minHeight="?attr/actionBarSize"
             style="@style/Base.ThemeOverlay.AppCompat.ActionBar"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="96dp"
             android:background="@color/white"/>
+            <!--android:layout_height="?attr/actionBarSize"-->
+
         <android.support.design.widget.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="4dp"
             android:layout_below="@+id/toolbar"
-            android:background="@color/white"
+            android:background="@color/accent"
             android:elevation="4dp"
             style="@style/SasTabLayout"
             app:layout_scrollFlags="scroll|enterAlways"
@@ -53,9 +56,7 @@
             <FrameLayout
                 android:id="@+id/sas_fragmentContainer"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="1dp"
-                >
+                android:layout_height="match_parent">
                 <!--View
                     android:layout_width="match_parent"
                     android:layout_height="5dp"

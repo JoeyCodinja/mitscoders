@@ -102,7 +102,7 @@ private FloatingActionButton fab;
         if(alarmRunning == false) {
             PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, alarm, 0);
             AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-            alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), 180000, pendingIntent);
+            alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), 1800000, pendingIntent);
         }/*
         // Construct an intent that will execute the AlarmReceiver
         Intent intent = new Intent(getApplicationContext(), TimeTableReceiver.class);

@@ -49,17 +49,8 @@ public class TimeTableFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity().getApplicationContext(), ClassMapActivity.class);
-                //ClassMapActivity.class
-                // i.putExtra(CourseInfoFragment.EXTRA_COURSE_ID, c.getCRN());
                 startActivity(i);
-                //Starts ClassMapFragment
-                /*FragmentManager fm = getActivity().getSupportFragmentManager();
-                Fragment fragment = new StudentTimeTableWeekFragment();//new ClassMapFragment();
 
-                fm.beginTransaction()
-                        .replace(R.id.sas_fragmentContainer, fragment)
-                        .addToBackStack(null)
-                        .commit();*/
             }
         });
 

@@ -51,15 +51,15 @@ public class TimeTableService extends IntentService {
         Notification notification = new Notification.Builder(this)
                 .setTicker(getResources().getText(R.string.sas))
                 .setSmallIcon(R.drawable.ic_event_white_24dp)
-                .setContentTitle("Checking Timetable")
-                .setContentText("I think you have a class right about...now?")
+                .setContentTitle("Upcoming Class")
+                .setContentText("You have a class right about...now?")
                 .setContentIntent(pi)
                 .setAutoCancel(true)
                 .build();
         notificationManager.notify(NOTIFICATION, notification);
         Vibrator vibrator = (Vibrator) getApplicationContext()
                 .getSystemService(Context.VIBRATOR_SERVICE);
-        vibrator.vibrate(2000);
+        vibrator.vibrate(1000);
         mtimetable = SugarRecord.listAll(TimeTable.class);
         calendar.getInstance();
         if (mtimetable.isEmpty()){
