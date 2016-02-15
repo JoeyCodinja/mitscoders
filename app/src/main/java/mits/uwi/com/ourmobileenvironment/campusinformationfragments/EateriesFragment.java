@@ -295,7 +295,6 @@ public class EateriesFragment extends Fragment implements View.OnClickListener{
                                 if(input.equals(eateries.get(i).name)) {
                                     x = eateries.get(i).getCoordx();
                                     y = eateries.get(i).getCoordy();
-                                    Toast.makeText(getActivity().getApplicationContext(),""+x+","+y,Toast.LENGTH_SHORT).show();
                                     Intent mapIntent = new Intent(getActivity().getApplicationContext(), EateriesMapActivity.class);
                                     mapIntent.putExtra("ICON",eateries.get(i).getPhoto());
                                     mapIntent.putExtra("NAME",eateries.get(i).getName());

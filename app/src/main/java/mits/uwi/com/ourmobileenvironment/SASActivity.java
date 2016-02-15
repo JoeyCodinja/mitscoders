@@ -197,15 +197,6 @@ public class SASActivity extends AppCompatActivity {
         }
     }
     private void addDrawerItems(){
-        /*String [] list = {"Home","Add/Drop","Timetable","Class Map","Transcript","Overrides","Holds","Exit"};
-        int icons[] = {R.drawable.ic_home_black_24dp,
-        R.drawable.ic_swap_vert_black_24dp,
-        R.drawable.ic_event_black_24dp,
-        R.drawable.ic_location,
-        R.drawable.ic_receipt_black_24dp,
-        R.drawable.ic_class_black_24dp,
-        R.drawable.ic_lock_black_24dp,
-        R.drawable.ic_exit_to_app_black_24dp};*/
         mAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,list);
         mNavList.setAdapter(mAdapter);
     };
@@ -307,8 +298,7 @@ public class SASActivity extends AppCompatActivity {
             mIcons = Icons;
             name = Name;
             Logo = logo;
-           // email = Email;
-            //profile = Profile;                     //here we assign those passed values to the values we declared here
+            //here we assign those passed values to the values we declared here
             //in adapter
         }
 
@@ -403,10 +393,7 @@ public class SASActivity extends AppCompatActivity {
             else{
                 holder.logo.setImageBitmap(bMapScaled);
                 //holder.profile.setImageResource(profile);           // Similarly we set the resources for header view
-               // holder.Name.setText(name);
-               // holder.email.setText(email);*/
             }
-
         }
 
         // This method returns the number of items present in the list
@@ -414,7 +401,6 @@ public class SASActivity extends AppCompatActivity {
         public int getItemCount() {
             return mNavTitles.length+1; // the number of items in the list will be +1 the titles including the header view.
         }
-
 
         // Witht the following method we check what type of view is being passed
         @Override
@@ -424,7 +410,6 @@ public class SASActivity extends AppCompatActivity {
 
             return TYPE_ITEM;
         }
-
         private boolean isPositionHeader(int position) {
             return position == 0;
         }
