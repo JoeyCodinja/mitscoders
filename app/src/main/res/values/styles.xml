@@ -4,8 +4,13 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
 
-
     </style>
+
+    <style name="HomeActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">#ffe20502</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
 
     <style name="actionbartheme"
         parent="Theme.AppCompat.Light.DarkActionBar">
@@ -29,6 +34,7 @@
         <item name="android:shadowDy">0</item>
         <item name="android:shadowRadius">1.5</item>
     </style>
+
     <style name="campusinfotheme"
         parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:actionBarStyle">@style/eateries_bar</item>
@@ -36,6 +42,7 @@
         <item name="android:windowContentOverlay">@null</item>
 
     </style>
+
     <style name="eateries_bar"
         parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
         <item name="android:colorBackground">@color/actionbar_background_eateries</item>
@@ -87,7 +94,7 @@
     </style>
     <style name="bluebar"
         parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
-        >
+
         <item name="android:colorBackground">@color/blue_background</item>
         <item name="background">@color/blue_background</item>
         <item name="elevation">10dp</item>
@@ -118,14 +125,11 @@
     </style>
 
 
-    <style name="HomeActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">#ffe20502</item>
-        <item name="android:windowContentOverlay">@null</item>
-    </style>
 
     <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
         <item name="tabMaxWidth">@dimen/tab_max_width</item>
         <item name="tabTextAppearance">@style/MyCustomTabTextAppearance</item>
+        <item name="colorAccent">@color/blue</item>
     </style>
 
 
@@ -133,6 +137,8 @@
         <item name="textAllCaps">false</item>
     </style>
 
+
+    <!-- TODO: Remove the Faux-FAB related styles, replace with new FAB colors -->
     <style name="FABButtons">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -140,13 +146,30 @@
         <item name="android:layout_gravity">bottom|end</item>
     </style>
 
-    <style name="MainFabImage">
-        <item name="android:layout_width">25dp</item>
-        <item name="android:layout_height">25dp</item>
-        <item name="android:layout_gravity">bottom|end</item>
-        <item name="android:layout_marginBottom">30dp</item>
-        <item name="android:layout_marginRight">28dp</item>
-    </style>
+    <!--<style name="FAB_Main_Menu" parent="Widget.Design.FloatingActionButton">-->
+        <!--<item name="app:backgroundTint">#EA0010E2</item>-->
+    <!--</style>-->
+
+    <!--<style name="FAB_Campus_Information" parent="Widget.Design.FloatingActionButton">-->
+        <!--<item name="app:backgroundTint">#DEBDA900</item>-->
+    <!--</style>-->
+
+    <!--<style name="FAB_Transportation" parent="Widget.Design.FloatingActionButton">-->
+        <!--<item name="app:backgroundTint">#FFFF7D00</item>-->
+    <!--</style>-->
+
+    <!--<style name="FAB_OurVLE">-->
+        <!--<item name="app:backgroundTint">#FFE6110E</item>-->
+    <!--</style>-->
+
+    <!--<style name="FAB_Boss">-->
+        <!--<item name="app:backgroundTint">#EA2BD206</item>-->
+    <!--</style>-->
+
+    <!--<style name="FAB_SAS">-->
+        <!--<item name="app:backgroundTint">#EAFFF501</item>-->
+    <!--</style>-->
+
 
     <style name="toolbarStyle" parent="Widget.AppCompat.ActionBar">
         <item name="android:background">@color/toolbar_background</item>

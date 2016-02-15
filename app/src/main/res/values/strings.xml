@@ -8,6 +8,14 @@
     <string name="navigation_drawer_close">Close</string>
         <!-- View Article Chooser Strings -->
         <string name="view_article_string">View this news article with</string>
+    <string name='campusinfo_fab'>Campus Information</string>
+    <string name='transportation_fab'>Transportation</string>
+    <string name='ourvle_fab'>OurVLE</string>
+    <string name='boss_fab'>BOSS</string>
+    <string name='sas_fab'>SAS</string>
+
+        <!-- Video Tab Strings -->
+        <string name="player_error">There seems to be something wrong here</string>
 
     <!-- OurVLE strings -->
     <string name="title_activity_our_vle">OurVLE</string>
@@ -117,7 +125,7 @@
     <string name="title_activity_frag">Frag</string>
 
 
-    <!-- Transportation Strings -->
+    <!-- transportation_svg Strings -->
     <string name="title_activity_bus_schedule">Transport</string>
     <string name="bus_search_hint">Search route</string>
 
@@ -175,11 +183,18 @@
     </string>
     <string name="title_activity_home">Home</string>
     <string-array name="navigation_menu_titles">
-        <item>E-mail</item>
-        <item>Notifications</item>
+        <!--<item>E-mail</item>-->
+        <!--<item>Notifications</item>-->
         <item>Directory</item>
-        <item>Wi-Fi Finder</item>
-        <item>Emergency Services</item>
+        <!--<item>Wi-Fi Finder</item>-->
+        <!--<item>Emergency Services</item>-->
+    </string-array>
+    <string-array name="FAB_menu_strings">
+        <item>Student Administration System</item>
+        <!--<item>BOSS</item>-->
+        <item>OurVLE</item>
+        <item>Transportation</item>
+        <item>Campus Information</item>
     </string-array>
 
     <!-- Campus Directory Strings -->
@@ -193,7 +208,10 @@
     <!-- Eateries Strings-->
     <string name="action_all">All</string>
     <string name="action_fast">Fast Food</string>
-    <string name="action_cooked">Cooked Food</string>
+    <string name="action_caf">Cafeterias</string>
+    <string name="action_stall">Stalls</string>
+    <string name="action_res">Restaurants</string>
+    <string name="action_deli">Delis</string>
     <string name="action_fav">Favourites</string>
     <string name="title_activity_bus_search">BusSearchActivity</string>
 
@@ -256,7 +274,6 @@
     <string name="title_activity_course_content_resource">CourseContentResourceActivity</string>
     <string name="nav">Navigation</string>
     <string name="course"> My Courses</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="course_menu_option">My Courses</string>
     <string name="profile_menu_option">My Profile</string>
     <string name="message_menu_option">Administrator Messages</string>
@@ -298,5 +315,9 @@
     <string name="title_activity_message_list">MessageListActivity</string>
     <string name="no_messages">No Messages</string>
     <string name="forum_title" formatted ="false">%s - %s</string>
+
+    <string name="title_activity_news_view">News</string>
+
+
 
 </resources>

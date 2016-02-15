@@ -12,9 +12,10 @@ class Eateries_list {
     int photoId;
     boolean fav;
     double coordx,coordy;
-   ArrayList<Menu_Item> menu = new ArrayList<>();
+    String catergory;
+    ArrayList<Menu_Item> menu = new ArrayList<>();
 
-    Eateries_list(String name, String location, String hours, int photoId, ArrayList<Menu_Item> m , double x, double y) {
+    Eateries_list(String name, String location, String hours, int photoId, ArrayList<Menu_Item> m , String cat ,double x, double y) {
         this.name = name;
         this.location = location;
         this.hours = hours;
@@ -22,6 +23,7 @@ class Eateries_list {
         this.menu = m;
         this.coordx =x;
         this.coordy =y;
+        this.catergory= cat;
         this.fav = false;
     }
     public void setPhoto(int photoId){
@@ -77,6 +79,14 @@ class Eateries_list {
 
     public void setHours(String hours) {
         this.hours = hours;
+    }
+
+    public String getCatergory() {
+        return catergory;
+    }
+
+    public void setCatergory(String catergory) {
+        this.catergory = catergory;
     }
 }
 

@@ -51,6 +51,7 @@ public class CampusInformationActivity extends AppCompatActivity {
         });
 
         mSlidingTabLayout=(SlidingTabLayout) findViewById(R.id.sltab);
+        mSlidingTabLayout.setTabNum(2);
         mSlidingTabLayout.setCustomTabView(R.layout.tabview, R.id.tabtitle);
         mSlidingTabLayout.setViewPager(ePage);
         mSlidingTabLayout.setSelectedIndicatorColors(getResources().getColor(R.color.white));

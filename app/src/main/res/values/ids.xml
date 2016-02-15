@@ -3,4 +3,6 @@
     <item type="id" name="campusinfo_view_pager"/>
 
     <item type="id" name="generic_image"/>
+
+    <item type="id" name="loadingTextView"/>
 </resources>
