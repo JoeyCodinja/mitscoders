@@ -70,7 +70,7 @@ public class StudentDetailTableFragment extends Fragment {
                 mRequestOverride.setHeight(2);
                 mRequestOverride.setBackgroundColor(getResources().getColor(R.color.accent));
                 mRequestOverride.setText("");
-                mRequestOverride.setLayoutParams(new LinearLayout.LayoutParams(10,100));
+                mRequestOverride.setLayoutParams(new LinearLayout.LayoutParams(0,100));
                 mRequestOverride.setCompoundDrawablesWithIntrinsicBounds(0,0,0,0);
                 //mRequestOverride.setVisibility(View.GONE);
                 mTitle = (TextView)mlistitem.findViewById(R.id.course_title);
