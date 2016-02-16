@@ -115,8 +115,15 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <!--android:process=":remote"/-->
-
+        <!--android:process=":remote"-->
+        <activity android:name=".sas.settings.SasSettingsActivity"
+            android:theme="@style/sas_bartheme"
+            android:label="@string/action_settings"
+            android:parentActivityName=".SASActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVTY"
+                android:value="mits.uwi.com.ourmobileenivronment.SASActivity"/>
+        </activity>
         <activity
             android:name=".BOSSActivity"
             android:label="@string/title_activity_boss"

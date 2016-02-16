@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
@@ -39,7 +40,9 @@ private ArrayAdapter<TextView> sAdapter;
 private ActionBarDrawerToggle mDrawerToggle;
 Toolbar toolbar;
 private FloatingActionButton fab;
+    Boolean malarm, mvibrate;
 
+    SharedPreferences prefs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,10 +102,14 @@ private FloatingActionButton fab;
 
         Intent alarm = new Intent(getApplicationContext(), TimeTableReceiver.class);
         boolean alarmRunning = (PendingIntent.getBroadcast(getApplicationContext(), 0, alarm, PendingIntent.FLAG_NO_CREATE) != null);
+        prefs = getSharedPreferences("mits.uwi.com.ourmobileenvironment", Context.MODE_PRIVATE);
+        malarm = prefs.getBoolean("timetable_notification", true);
+        mvibrate = prefs.getBoolean("vibrate_notification",true);
+        Toast.makeText(this,"Alarm "+malarm+"\nVibrate"+mvibrate,Toast.LENGTH_SHORT).show();
         if(alarmRunning == false) {
             PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, alarm, 0);
             AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-            alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), 1800000, pendingIntent);
+            alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), 60000, pendingIntent);
         }/*
         // Construct an intent that will execute the AlarmReceiver
         Intent intent = new Intent(getApplicationContext(), TimeTableReceiver.class);

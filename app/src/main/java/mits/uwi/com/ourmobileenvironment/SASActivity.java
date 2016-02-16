@@ -1,12 +1,9 @@
 package mits.uwi.com.ourmobileenvironment;
 
 
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.FloatingActionButton;
@@ -32,14 +29,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import mits.uwi.com.ourmobileenvironment.campusinformationfragments.EateriesFragment;
 import mits.uwi.com.ourmobileenvironment.sas.classmap.activity.ClassMapActivity;
 import mits.uwi.com.ourmobileenvironment.sas.course.AddDropCourseFragment;
 import mits.uwi.com.ourmobileenvironment.sas.course.CourseListFragment;
 import mits.uwi.com.ourmobileenvironment.sas.holds.HoldsFragment;
 import mits.uwi.com.ourmobileenvironment.sas.requestoverride.RequestOverrideListFragment;
+import mits.uwi.com.ourmobileenvironment.sas.settings.SasSettingsActivity;
 import mits.uwi.com.ourmobileenvironment.sas.timetable.Activity.TimeTableActivity;
-import mits.uwi.com.ourmobileenvironment.sas.timetable.Fragments.TimeTableFragment;
 import mits.uwi.com.ourmobileenvironment.sas.transcriptfragments.TranscriptFragment;
 
 
@@ -217,6 +213,10 @@ public class SASActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent i = new Intent(this, SasSettingsActivity.class );
+            //ClassMapActivity.class
+            // i.putExtra(CourseInfoFragment.EXTRA_COURSE_ID, c.getCRN());
+            startActivity(i);
             return true;
         }
       /*  if (id==R.id.action_courseinfo){
@@ -416,4 +416,10 @@ public class SASActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        if (mDrawerLayout.isDrawerOpen(mRecyclerView)){
+            mDrawerLayout.closeDrawers();
+        }
+    }
 }

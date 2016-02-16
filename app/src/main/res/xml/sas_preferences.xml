@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="TimeTable ">
+        <CheckBoxPreference
+            android:key="timetable_notification"
+            android:title="Notifications"
+            android:summary="Turn on/off Calendar Notifications"
+            android:defaultValue="true"/>
+        <SwitchPreference
+            android:key="vibrate_notification"
+            android:title="Vibrate"
+            android:summary="Turn on/off Vibration"
+            android:defaultValue="true"/>
+    </PreferenceCategory>
+
+
+</PreferenceScreen>
