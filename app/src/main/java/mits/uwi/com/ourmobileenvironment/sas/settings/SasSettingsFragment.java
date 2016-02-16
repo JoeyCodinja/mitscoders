@@ -3,6 +3,7 @@ package mits.uwi.com.ourmobileenvironment.sas.settings;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import mits.uwi.com.ourmobileenvironment.R;
 public class SasSettingsFragment extends PreferenceFragment {
     Switch mvibrate;
     CheckBox mnotify;
+    SharedPreferences settings;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

@@ -48,7 +48,7 @@ public class TimeTableService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         Log.i(TAG, "Received intent:"+intent);
-        prefs = getSharedPreferences("mits.uwi.com.ourmobileenvironment", Context.MODE_PRIVATE);
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
         malarm = prefs.getBoolean("timetable_notification",true);
         mvibrate = prefs.getBoolean("vibrate_notification",true);
         PendingIntent pi = PendingIntent
@@ -63,15 +63,15 @@ public class TimeTableService extends IntentService {
                 .setContentIntent(pi)
                 .setAutoCancel(true)
                 .build();
-        Toast.makeText(this,"Alarm "+malarm+"\nVibrate"+mvibrate,Toast.LENGTH_SHORT).show();
-       // if (malarm == true) {
+        //Toast.makeText(this,"Alarm "+malarm+"\nVibrate"+mvibrate,Toast.LENGTH_SHORT).show();
+       if (malarm == true) {
             notificationManager.notify(NOTIFICATION, notification);
-           // if (mvibrate==true) {
+           if (mvibrate==true) {
                 Vibrator vibrator = (Vibrator) getApplicationContext()
                         .getSystemService(Context.VIBRATOR_SERVICE);
                 vibrator.vibrate(1000);
-            //}
-       // }
+            }
+       }
         mtimetable = SugarRecord.listAll(TimeTable.class);
         calendar.getInstance();
         if (mtimetable.isEmpty()){

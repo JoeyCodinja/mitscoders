@@ -6,12 +6,12 @@
             android:key="timetable_notification"
             android:title="Notifications"
             android:summary="Turn on/off Calendar Notifications"
-            android:defaultValue="true"/>
+            android:defaultValue="true" />
         <SwitchPreference
             android:key="vibrate_notification"
             android:title="Vibrate"
             android:summary="Turn on/off Vibration"
-            android:defaultValue="true"/>
+            android:defaultValue="true" />
     </PreferenceCategory>
 
 

@@ -41,9 +41,9 @@ public class SasSettingsActivity extends PreferenceActivity {
 
         super.onCreate(savedInstanceState);
 
-        settings = getSharedPreferences("mits.uwi.com.ourmobileenvironment", Context.MODE_PRIVATE);
-        settings.edit().putBoolean("timetable_notification",true).commit();
-        settings.edit().putBoolean("vibrate_notification",true).commit();
+        settings = PreferenceManager.getDefaultSharedPreferences(this);
+//        settings.edit().putBoolean("timetable_notification",true).commit();
+//        settings.edit().putBoolean("vibrate_notification",true).commit();
 //        setContentView(R.layout.fragment_sas_setting);
 //        ToprightBar.setTopOverflow(this);
 //       /* ViewGroup root = (ViewGroup) findViewById(android.R.id.content);
@@ -82,6 +82,6 @@ public class SasSettingsActivity extends PreferenceActivity {
             }
         });*/
         }
-
+    
 
 }

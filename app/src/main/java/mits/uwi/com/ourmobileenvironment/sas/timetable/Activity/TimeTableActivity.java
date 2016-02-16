@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -102,10 +103,6 @@ private FloatingActionButton fab;
 
         Intent alarm = new Intent(getApplicationContext(), TimeTableReceiver.class);
         boolean alarmRunning = (PendingIntent.getBroadcast(getApplicationContext(), 0, alarm, PendingIntent.FLAG_NO_CREATE) != null);
-        prefs = getSharedPreferences("mits.uwi.com.ourmobileenvironment", Context.MODE_PRIVATE);
-        malarm = prefs.getBoolean("timetable_notification", true);
-        mvibrate = prefs.getBoolean("vibrate_notification",true);
-        Toast.makeText(this,"Alarm "+malarm+"\nVibrate"+mvibrate,Toast.LENGTH_SHORT).show();
         if(alarmRunning == false) {
             PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, alarm, 0);
             AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
