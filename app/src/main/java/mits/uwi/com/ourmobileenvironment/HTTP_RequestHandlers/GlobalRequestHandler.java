@@ -3,42 +3,22 @@ package mits.uwi.com.ourmobileenvironment.HTTP_RequestHandlers;
 /**
  * Created by rox on 12/21/15.
  */
-
-import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkResponse;
-import com.android.volley.ParseError;
 import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.ImageLoader;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v4.util.LruCache;
-import android.util.Log;
-import android.widget.Toast;
-
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 import mits.uwi.com.ourmobileenvironment.Transport.BusRoute;
 import mits.uwi.com.ourmobileenvironment.Transport.BusScheduleFragment;
 import mits.uwi.com.ourmobileenvironment.Transport.JUTCRoute;
 import mits.uwi.com.ourmobileenvironment.Transport.JUTCRouteFragment;
 import mits.uwi.com.ourmobileenvironment.Transport.TaxiService;
 import mits.uwi.com.ourmobileenvironment.Transport.TaxiServiceFragment;
-import mits.uwi.com.ourmobileenvironment.Transport.Transport;
+import mits.uwi.com.ourmobileenvironment.campusinformationfragments.EateriesFragment;
+import mits.uwi.com.ourmobileenvironment.campusinformationfragments.Restaurant;
 
 
 public class GlobalRequestHandler {
@@ -117,5 +97,14 @@ public class GlobalRequestHandler {
         TransportErrorListener transportErrorListener=new TransportErrorListener(JUTCRoute.class,mCtx,jutcRouteFragment,jutcRoutes);
         TransportRequest transportRequest=new TransportRequest(url,transportListener,transportErrorListener,mCtx);
         mRequestQueue.add(transportRequest);
+    }
+
+    public void getRestaurantList(ArrayList<Restaurant> RList, EateriesFragment eateriesFragment){
+        String url="http://rox116.pythonanywhere.com/service/eateries";
+        RestaurantListener restaurantListener=new RestaurantListener("RestaurantList",RList,eateriesFragment,mCtx,Restaurant.class);
+        RestaurantErrorListener restaurantErrorListener=new RestaurantErrorListener(Restaurant.class,mCtx,eateriesFragment,RList);
+        TransportRequest transportRequest=new TransportRequest(url,restaurantListener,restaurantErrorListener,mCtx);
+        mRequestQueue.add(transportRequest);
+
     }
 }
