@@ -82,6 +82,6 @@ public class SasSettingsActivity extends PreferenceActivity {
             }
         });*/
         }
-    
+
 
 }

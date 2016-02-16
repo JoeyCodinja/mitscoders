@@ -15,7 +15,7 @@ import mits.uwi.com.ourmobileenvironment.R;
 /**
  * Created by peoplesoft on 2/16/2016.
  */
-public class SasSettingsFragment extends PreferenceFragment {
+public class SasSettingsFragment extends PreferenceFragment  {
     Switch mvibrate;
     CheckBox mnotify;
     SharedPreferences settings;
