@@ -16,30 +16,47 @@
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
+        <!--<android.support.design.widget.AppBarLayout-->
+            <!--android:id="@+id/appbar"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">-->
+
+        <!--<android.support.design.widget.CollapsingToolbarLayout-->
+            <!--android:id="@+id/collapsing_toolbar"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--app:layout_scrollFlags="scroll|exitUntilCollapsed">-->
+
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:elevation="8dp"
+            android:elevation="4dp"
+            android:minHeight="?attr/actionBarSize"
             style="@style/Base.ThemeOverlay.AppCompat.ActionBar"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="96dp"
             android:background="@color/white"/>
-        <!--android.support.design.widget.TabLayout
+            <!--android:layout_height="?attr/actionBarSize"-->
+
+        <android.support.design.widget.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="4dp"
             android:layout_below="@+id/toolbar"
-            android:background="@color/white"
+            android:background="@color/accent"
             android:elevation="4dp"
             style="@style/SasTabLayout"
-            app:layout_scrollFlags="scroll|enterAlways">
-        </android.support.design.widget.TabLayout-->
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:tabGravity="fill">
+        </android.support.design.widget.TabLayout>
+        <!--</android.support.design.widget.CollapsingToolbarLayout>-->
+        <!--</android.support.design.widget.AppBarLayout>-->
         <!--android:scrollbars="horizontal"-->
 
             <FrameLayout
                 android:id="@+id/sas_fragmentContainer"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                >
+                android:layout_height="match_parent">
                 <!--View
                     android:layout_width="match_parent"
                     android:layout_height="5dp"
@@ -49,6 +66,7 @@
 
 
     </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/RecyclerView"
         android:layout_width="300dp"
@@ -70,7 +88,9 @@
         android:id="@+id/fab"
         android:clickable="true"
         android:onClick="onClick"
-        android:src="@drawable/ic_setting_dark"
+        android:tint="@color/white"
+        android:src="@drawable/ic_action_search"
         android:layout_gravity = "bottom|right|end"
-        app:elevation="4dp" />
+        app:elevation="4dp"
+        app:backgroundTint="@color/accent"/>
 </android.support.design.widget.CoordinatorLayout>

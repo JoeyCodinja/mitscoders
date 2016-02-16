@@ -41,7 +41,6 @@ public class RestaurantListener implements Response.Listener<JSONObject> {
         this.internalError=Toast.makeText(resctx, "Internal error occured please restart application", Toast.LENGTH_SHORT);
         this.resList=resList;
         this.restaurantClass=restaurantClass;
-        this.imageLoader=imageLoader;
     }
 
     @Override
@@ -52,9 +51,9 @@ public class RestaurantListener implements Response.Listener<JSONObject> {
         try {
             restuarantList=response.getJSONArray(listname);
             status=response.getString("Status");
-//            if (status.equals("200")){
-//                Deleteall();
-//            }
+            if (status.equals("200")){
+                Deleteall();
+            }
             for (int i=0; i<restuarantList.length();i++){
                 currentRes =gson.fromJson(restuarantList.getJSONObject(i).toString(),restaurantClass );
                 adapter.Add(currentRes);

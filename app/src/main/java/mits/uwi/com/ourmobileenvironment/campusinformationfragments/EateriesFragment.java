@@ -152,8 +152,7 @@ public class EateriesFragment extends Fragment {
     public class EateriesAdapter extends RecyclerView.Adapter<EateriesAdapter.EateriesViewHolder> {
 
         private ArrayList<Restaurant> eateries;
-        private EateriesViewHolder pvh;
-
+        EateriesViewHolder pvh;
 
         EateriesAdapter(ArrayList<Restaurant> eateries){
             this.eateries = new ArrayList<>(eateries);
@@ -180,11 +179,11 @@ public class EateriesFragment extends Fragment {
             eateriesViewHolder.eateriesName.setText(eateries.get(i).name);
             eateriesViewHolder.eateriesLocation.setText(eateries.get(i).location);
             eateriesViewHolder.eateriesHours.setText(eateries.get(i).businessHours);
-            ImageLoader mImageLoader = GlobalRequestHandler.getInstance(getActivity()).getImageLoader();
             Restaurant restaurant=eateries.get(i);
-            String url=restaurant.getImgurl();
+            ImageLoader mImageLoader = GlobalRequestHandler.getInstance(getActivity()).getImageLoader();
+            String url = restaurant.getImgurl();
             mImageLoader.get(url, ImageLoader.getImageListener(eateriesViewHolder.eateriesPhoto,
-                    R.drawable.dropbox, android.R.drawable
+                    R.drawable.fork48, android.R.drawable
                             .ic_dialog_alert));
             eateriesViewHolder.eateriesPhoto.setImageUrl(url, mImageLoader);
 

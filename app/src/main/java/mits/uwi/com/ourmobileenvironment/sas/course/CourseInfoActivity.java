@@ -52,13 +52,13 @@ public class CourseInfoActivity extends AppCompatActivity {
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setImageResource(R.drawable.abc_ic_commit_search_api_mtrl_alpha);
-        //fab.setVisibility(View.GONE);
-        fab.setOnClickListener(new View.OnClickListener() {
+        fab.setVisibility(View.GONE);
+        /*fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Will Delete Course", Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
     }
 
     @Override
