@@ -63,6 +63,7 @@
         <string name="new_event"> New Calendar Event</string>
         <string name="new_class">New</string>
 
+
         <!-- ClassMapFragment Strings -->
         <string name="classmapFragment_title">Class Map</string>
 
@@ -110,7 +111,20 @@
         <item>  Foundation Courses</item>
         <item>  Geography</item>
     </string-array>
-
+<string-array name="timetable_color_pref">
+    <item name="1">@color/event_color_01</item>
+    <item name="2">@color/event_color_02</item>
+    <item name="3">@color/event_color_03</item>
+    <item name="4">@color/event_color_04</item>
+    <item name="5">@color/MediumPurple</item>
+</string-array>
+    <string-array name="timetable_colors">
+        <item name="1">Cool</item>
+        <item name="2">Steam</item>
+        <item name="3">Ever green</item>
+        <item name="4">Radiant </item>
+        <item name="5">Mellow</item>
+    </string-array>
 
 
 

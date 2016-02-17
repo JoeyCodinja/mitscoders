@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
-        android:title="TimeTable ">
+        android:title="Notifications ">
         <CheckBoxPreference
             android:key="timetable_notification"
-            android:title="Notifications"
+            android:title="Events"
             android:summary="Turn on/off Calendar Notifications"
             android:defaultValue="true" />
         <SwitchPreference
@@ -12,6 +12,16 @@
             android:title="Vibrate"
             android:summary="Turn on/off Vibration"
             android:defaultValue="true" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="Colors ">
+        <!--ListPreference
+            android:key="timetable_color"
+            android:entries="@array/timetable_colors"
+            android:summary="Select the color for timetable events"
+            android:entryValues="@array/timetable_color_pref"
+            android:title="Choose TimeTabel Color"
+            android:defaultValue="1"/-->
     </PreferenceCategory>
 
 

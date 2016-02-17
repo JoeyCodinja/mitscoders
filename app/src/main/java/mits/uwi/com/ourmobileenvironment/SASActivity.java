@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,6 +29,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.List;
 
 import mits.uwi.com.ourmobileenvironment.sas.classmap.activity.ClassMapActivity;
 import mits.uwi.com.ourmobileenvironment.sas.course.AddDropCourseFragment;
@@ -51,8 +54,6 @@ public class SASActivity extends AppCompatActivity {
     RecyclerView.Adapter mRadapter;                        // Declaring Adapter For Recycler View
     RecyclerView.LayoutManager mLayoutManager;
     TabLayout tabLayout;
-
-
 
     String [] list = {"Home","Add/Drop","Timetable","Class Map","Transcript","Overrides","Holds","Exit"};
     int icons[] = {R.drawable.ic_home_black_24dp,
@@ -104,10 +105,9 @@ public class SASActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Fab Pressed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Not Available at this time", Toast.LENGTH_SHORT).show();
             }
         });
-
 
         mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout,
                 toolbar,
@@ -127,9 +127,7 @@ public class SASActivity extends AppCompatActivity {
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
-
         //mNavList.setOnItemClickListener(new DrawerItemClickListener());
-        
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener{
@@ -139,7 +137,6 @@ public class SASActivity extends AppCompatActivity {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            //Toast.makeText(SASActivity.this,((TextView)view).getText(),Toast.LENGTH_LONG).show();
             switch(position) {
                 case 0:
                     fragment = new CourseListFragment();//CourseFragment();
@@ -156,7 +153,6 @@ public class SASActivity extends AppCompatActivity {
                 case 6:
                     fragment = new HoldsFragment();
                     break;
-
             }
             if (position !=7) {
                 if (position==0) {
@@ -182,12 +178,10 @@ public class SASActivity extends AppCompatActivity {
                                 .addToBackStack(null)
                                 .commit();
                     }
-
                 }
                 mDrawerLayout.closeDrawer(mNavList);
             }
             else{
-
                 finish();
             }
         }
@@ -210,31 +204,12 @@ public class SASActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             Intent i = new Intent(this, SasSettingsActivity.class );
-            //ClassMapActivity.class
-            // i.putExtra(CourseInfoFragment.EXTRA_COURSE_ID, c.getCRN());
             startActivity(i);
             return true;
         }
-      /*  if (id==R.id.action_courseinfo){
-            FragmentManager fm = getSupportFragmentManager();
-            Fragment fragment = new CourseInfoFragment();
-
-            fm.beginTransaction()
-                    .replace(R.id.sas_fragmentContainer, fragment)
-                    .addToBackStack(null)
-                    .commit();
-        }
-        if (id==R.id.classmap){
-            Intent i = new Intent(this,ClassMapActivity.class );
-                     //ClassMapActivity.class
-           // i.putExtra(CourseInfoFragment.EXTRA_COURSE_ID, c.getCRN());
-            startActivity(i);
-
-        }*/
 
         return super.onOptionsItemSelected(item);
     }
@@ -243,31 +218,30 @@ public class SASActivity extends AppCompatActivity {
         private static final int TYPE_HEADER = 0;  // Declaring Variable to Understand which View is being worked on
         // IF the view under inflation and population is header or Item
         private static final int TYPE_ITEM = 1;
-
         private String mNavTitles[]; // String Array to store the passed titles Value from MainActivity.java
         private int mIcons[];       // Int Array to store the passed icons resource value from MainActivity.java
-
+        //int pos;
         private String name;        //String Resource for header View Name
         View mView;
         Bitmap bMap = BitmapFactory.decodeResource(getResources(), R.drawable.sas_splash3_white);
-        Bitmap bMapScaled = Bitmap.createScaledBitmap(bMap, 120,125, true);
+        Bitmap bMapScaled = Bitmap.createScaledBitmap(bMap, 120, 125, true);
 
         Bitmap LMap = BitmapFactory.decodeResource(getResources(), R.drawable.vanilla_background_blue);
         Bitmap LMapScaled = Bitmap.createScaledBitmap(LMap, 192, 600, true);
         Drawable bkgrnd = new BitmapDrawable(getResources(),LMapScaled);
         private int Logo;
+        private SparseBooleanArray selectedItems;
         // Creating a ViewHolder which extends the RecyclerView View Holder
         // ViewHolder are used to to store the inflated views in order to recycle them
 
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.sas_fragmentContainer);
 
-        public class ViewHolder extends RecyclerView.ViewHolder {
+        public class ViewHolder extends RecyclerView.ViewHolder{
             int Holderid;
             TextView textView;
             ImageView imageView;
             ImageView logo;
-
 
             public ViewHolder(View itemView, int ViewType) {                 // Creating ViewHolder Constructor with View and viewType As a parameter
                 super(itemView);
@@ -275,7 +249,6 @@ public class SASActivity extends AppCompatActivity {
                 /*itemView.setClickable(true);
                 itemView.setOnClickListener(this);*/
                 // Here we set the appropriate view in accordance with the the view type as passed when the holder object is created
-
                 if (ViewType == TYPE_ITEM) {
                     textView = (TextView) itemView.findViewById(R.id.nav_item); // Creating TextView object with the id of textView from item_row.xml
                     imageView = (ImageView) itemView.findViewById(R.id.nav_icon);// Creating ImageView object with the id of ImageView from item_row.xml
@@ -289,8 +262,20 @@ public class SASActivity extends AppCompatActivity {
                       // Setting holder id = 0 as the object being populated are of type header view
                 }
             }
-        }
 
+           /* @Override
+            public void onClick(View v) {
+                // Save the selected positions to the SparseBooleanArray
+                if (selectedItems.get(getAdapterPosition(), false)) {
+                    selectedItems.delete(pos);
+                    itemView.setSelected(false);
+                }
+                else {
+                    selectedItems.put(getAdapterPosition(), true);
+                    itemView.setSelected(true);
+                }
+            }*/
+        }
 
         SasAdapter(String Titles[],int Icons[],String Name, int logo){ // MyAdapter Constructor with titles and icons parameter
             // titles, icons, name, email, profile pic are passed from the main activity as we
@@ -348,7 +333,6 @@ public class SASActivity extends AppCompatActivity {
                                 } else if (position == 3) {
                                     Intent i = new Intent(getApplicationContext(), ClassMapActivity.class);
                                     startActivity(i);
-
                                 } else {
                                     fm.beginTransaction()
                                             .replace(R.id.sas_fragmentContainer, fragment)
@@ -359,7 +343,6 @@ public class SASActivity extends AppCompatActivity {
                             }
                             mDrawerLayout.closeDrawers();//(mRecyclerView);
                         } else {
-
                             finish();
                            // Toast.makeText(getApplicationContext(), ""+position, Toast.LENGTH_LONG).show();
                         }
@@ -376,9 +359,7 @@ public class SASActivity extends AppCompatActivity {
                 return vhHeader; //returning the object created
             }
             return null;
-
         }
-
         //Next we override a method which is called when the item in a row is needed to be displayed, here the int position
         // Tells us item at which position is being constructed to be displayed and the holder id of the holder object tell us
         // which view type is being created 1 for item row
@@ -388,7 +369,7 @@ public class SASActivity extends AppCompatActivity {
                 // position by 1 and pass it to the holder while setting the text and image
                 holder.textView.setText(mNavTitles[position - 1]); // Setting the Text with the array of our Titles
                 holder.imageView.setImageResource(mIcons[position - 1]);// Settimg the image with array of our icons
-
+               // holder.itemView.setSelected(selectedItems.get(position, false));
             }
             else{
                 holder.logo.setImageBitmap(bMapScaled);
@@ -407,19 +388,22 @@ public class SASActivity extends AppCompatActivity {
         public int getItemViewType(int position) {
             if (isPositionHeader(position))
                 return TYPE_HEADER;
-
             return TYPE_ITEM;
         }
         private boolean isPositionHeader(int position) {
             return position == 0;
         }
-
     }
 
     @Override
     public void onBackPressed() {
         if (mDrawerLayout.isDrawerOpen(mRecyclerView)){
             mDrawerLayout.closeDrawers();
+        }
+        else{
+            getSupportFragmentManager().popBackStack();
+            // based on the current position you can then cast the page to the correct
+            // class and call the method:
         }
     }
 }

@@ -203,9 +203,9 @@ public class StudentTimeTableWeekFragment extends Fragment implements WeekView.M
             endTime.set(Calendar.YEAR, newYear);
 
             WeekViewEvent event = new WeekViewEvent(mtimeTable.indexOf(mevent), mevent.getDescription() +
-                    "\n" + String.format("%02d", startTime.get(Calendar.HOUR), startTime.get(Calendar.MINUTE))
-                    +"to " +
-                    String.format("%02d", endTime.get(Calendar.HOUR), endTime.get(Calendar.MINUTE)),
+                    "\n" + String.format("%d", startTime.get(Calendar.HOUR), startTime.get(Calendar.MINUTE))
+                    +"- " +
+                    String.format("%d", endTime.get(Calendar.HOUR), endTime.get(Calendar.MINUTE)),
                     startTime, endTime);
             event.setColor(getResources().getColor(R.color.event_color_01));
             events.add(event);

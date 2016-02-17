@@ -35,7 +35,7 @@ public class TimeTableService extends IntentService {
     Long mTime;
     Date mDt1,mDt2;
     Boolean malarm, mvibrate;
-
+    int mday,mhour,mmins;
     SharedPreferences prefs;
     public TimeTableService (){
         super(TAG);
@@ -55,38 +55,48 @@ public class TimeTableService extends IntentService {
                 .getActivity(this, 0, new Intent(this, StudentTimeTableWeekFragment.class), 0);
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        Notification notification = new Notification.Builder(this)
-                .setTicker(getResources().getText(R.string.sas))
-                .setSmallIcon(R.drawable.ic_event_white_24dp)
-                .setContentTitle("Upcoming Class")
-                .setContentText("You have a class right about...now?")
-                .setContentIntent(pi)
-                .setAutoCancel(true)
-                .build();
+//        Notification notification = new Notification.Builder(this)
+//                .setTicker(getResources().getText(R.string.sas))
+//                .setSmallIcon(R.drawable.ic_event_white_24dp)
+//                .setContentTitle("Upcoming Class")
+//                .setContentText("You have a class right about...now?")
+//                .setContentIntent(pi)
+//                .setAutoCancel(true)
+//                .build();
         //Toast.makeText(this,"Alarm "+malarm+"\nVibrate"+mvibrate,Toast.LENGTH_SHORT).show();
        if (malarm == true) {
-            notificationManager.notify(NOTIFICATION, notification);
+//            notificationManager.notify(NOTIFICATION, notification);
            if (mvibrate==true) {
                 Vibrator vibrator = (Vibrator) getApplicationContext()
                         .getSystemService(Context.VIBRATOR_SERVICE);
-                vibrator.vibrate(1000);
-            }
-       }
-        mtimetable = SugarRecord.listAll(TimeTable.class);
-        calendar.getInstance();
-        if (mtimetable.isEmpty()){
-            Toast.makeText(getApplicationContext(),"No Events to Report", Toast.LENGTH_SHORT).show();
-        }
-        /* mDt1 = calendar.getTime();
-        for(TimeTable event: mtimetable){
-        mDt2 =event.getStartTime();
-            mTime =  mDt1.getTime() - mDt2.getTime();
-            if (mTime == CLASS_INTERVAL){
-                notificationManager.notify(NOTIFICATION, notification);
-            }
-        }
-        String resultId;
-        */
-    }
 
+            mtimetable = SugarRecord.listAll(TimeTable.class);
+            calendar.getInstance();
+            mday = calendar.get(Calendar.DAY_OF_WEEK);
+            mhour = calendar.get(Calendar.HOUR_OF_DAY);
+            mmins = calendar.get(Calendar.MINUTE);
+               if (mtimetable.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "No Events to Report", Toast.LENGTH_SHORT).show();
+               }
+               for(TimeTable event: mtimetable){
+                calendar2.setTime(event.getStartTime());
+                    if(event.getDay() == mday && (calendar2.get(Calendar.HOUR_OF_DAY) -1 == mhour)){
+                        if (calendar2.get(Calendar.MINUTE) <=CLASS_INTERVAL ) {
+                            Notification notification = new Notification.Builder(this)
+                                    .setTicker(getResources().getText(R.string.sas))
+                                    .setSmallIcon(R.drawable.ic_event_white_24dp)
+                                    .setContentTitle("Upcoming Class")
+                                    .setContentText(event.getDescription())
+                                    .setContentIntent(pi)
+                                    .setAutoCancel(true)
+                                    .build();
+                            notificationManager.notify(NOTIFICATION, notification);
+                            vibrator.vibrate(1000);
+                        }
+                    }
+                }
+
+           }
+       }
+    }
 }

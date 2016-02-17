@@ -26,6 +26,7 @@ import android.widget.Toast;
 import mits.uwi.com.ourmobileenvironment.R;
 import mits.uwi.com.ourmobileenvironment.ToprightBar;
 import mits.uwi.com.ourmobileenvironment.sas.course.CourseInfoFragment;
+import mits.uwi.com.ourmobileenvironment.sas.settings.SasSettingsActivity;
 import mits.uwi.com.ourmobileenvironment.sas.timetable.Fragments.TimeTableFragment;
 import mits.uwi.com.ourmobileenvironment.sas.timetable.receiver.TimeTableReceiver;
 
@@ -92,6 +93,8 @@ private FloatingActionButton fab;
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent i = new Intent(this, SasSettingsActivity.class );
+            startActivity(i);
             return true;
         }
 
@@ -106,7 +109,7 @@ private FloatingActionButton fab;
         if(alarmRunning == false) {
             PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, alarm, 0);
             AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-            alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), 60000, pendingIntent);
+            alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), 180000, pendingIntent);
         }/*
         // Construct an intent that will execute the AlarmReceiver
         Intent intent = new Intent(getApplicationContext(), TimeTableReceiver.class);
