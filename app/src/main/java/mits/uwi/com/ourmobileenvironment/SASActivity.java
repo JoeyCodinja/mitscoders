@@ -349,6 +349,7 @@ public class SASActivity extends AppCompatActivity {
                     }
                 });
 
+
                 return vhItem; // Returning the created object
                 //inflate your layout and pass it to view holder
 

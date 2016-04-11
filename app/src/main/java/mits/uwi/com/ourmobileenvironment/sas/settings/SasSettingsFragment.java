@@ -20,6 +20,7 @@ public class SasSettingsFragment extends PreferenceFragment  {
     CheckBox mnotify;
     SharedPreferences settings;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
