@@ -121,6 +121,14 @@
                 android:value="mits.uwi.com.ourmobileenivronment.SASActivity"/>
         </activity>
         <activity
+            android:name=".additional_systems.Evaluations.activities.TeachingEvalsActivity"
+            android:label="@string/activity_evals"
+            android:parentActivityName=".HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="mits.uwi.com.ourmobileenvironment.HomeActivity" />
+        </activity>
+        <activity
             android:name=".BOSSActivity"
             android:label="@string/title_activity_boss"
             android:parentActivityName=".HomeActivity" >

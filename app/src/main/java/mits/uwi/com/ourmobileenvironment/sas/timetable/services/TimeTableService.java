@@ -31,7 +31,7 @@ public class TimeTableService extends IntentService {
     private static final int NOTIFICATION = R.string.cast_notification_connected_message;
     public static final int CLASS_INTERVAL = 1000 * 60 * 30;
     List<TimeTable> mtimetable;
-    Calendar calendar,calendar2;
+    Calendar calendar1,calendar2;
     Long mTime;
     Date mDt1,mDt2;
     Boolean malarm, mvibrate;
@@ -55,14 +55,6 @@ public class TimeTableService extends IntentService {
                 .getActivity(this, 0, new Intent(this, StudentTimeTableWeekFragment.class), 0);
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-//        Notification notification = new Notification.Builder(this)
-//                .setTicker(getResources().getText(R.string.sas))
-//                .setSmallIcon(R.drawable.ic_event_white_24dp)
-//                .setContentTitle("Upcoming Class")
-//                .setContentText("You have a class right about...now?")
-//                .setContentIntent(pi)
-//                .setAutoCancel(true)
-//                .build();
         //Toast.makeText(this,"Alarm "+malarm+"\nVibrate"+mvibrate,Toast.LENGTH_SHORT).show();
        if (malarm == true) {
 //            notificationManager.notify(NOTIFICATION, notification);
@@ -71,10 +63,10 @@ public class TimeTableService extends IntentService {
                         .getSystemService(Context.VIBRATOR_SERVICE);
 
             mtimetable = SugarRecord.listAll(TimeTable.class);
-            calendar.getInstance();
-            mday = calendar.get(Calendar.DAY_OF_WEEK);
-            mhour = calendar.get(Calendar.HOUR_OF_DAY);
-            mmins = calendar.get(Calendar.MINUTE);
+            calendar1 = Calendar.getInstance();
+            mday = calendar1.get(Calendar.DAY_OF_WEEK);
+            mhour = calendar1.get(Calendar.HOUR_OF_DAY);
+            mmins = calendar1.get(Calendar.MINUTE);
                if (mtimetable.isEmpty()) {
             Toast.makeText(getApplicationContext(), "No Events to Report", Toast.LENGTH_SHORT).show();
                }

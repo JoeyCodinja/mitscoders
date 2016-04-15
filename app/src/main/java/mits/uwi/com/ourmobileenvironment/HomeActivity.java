@@ -100,10 +100,13 @@ public class HomeActivity extends AppCompatActivity {
     private void selectItem(int position) {
         //E-mail
         if (position == 0){
-
+            Intent i = new Intent(this, DirectoryActivity.class);
+            startActivity(i);
         }
         //Notifications
         else if (position == 1){
+            Intent i = new Intent(this, DirectoryActivity.class);
+            startActivity(i);
 
         }
         //Directory

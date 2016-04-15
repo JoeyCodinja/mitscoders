@@ -127,10 +127,11 @@
     </string-array>
 
 
+    <!-- Additional Systems -->
+    <string name="activity_evals">Teaching Evaluations</string>
 
 
-
-    <!-- BOSS Strings -->
+        <!-- BOSS Strings -->
     <string name="title_activity_boss">BOSS</string>
 
 
