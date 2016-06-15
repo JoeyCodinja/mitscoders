@@ -123,6 +123,7 @@
         <activity
             android:name=".additional_systems.Evaluations.activities.TeachingEvalsActivity"
             android:label="@string/activity_evals"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
             android:parentActivityName=".HomeActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
