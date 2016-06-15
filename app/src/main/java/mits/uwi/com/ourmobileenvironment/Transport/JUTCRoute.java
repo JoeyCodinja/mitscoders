@@ -1,7 +1,6 @@
 package mits.uwi.com.ourmobileenvironment.Transport;
 
 import com.orm.dsl.Ignore;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
