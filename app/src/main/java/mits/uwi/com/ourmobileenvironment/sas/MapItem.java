@@ -13,7 +13,7 @@ public class MapItem {
     {
 
     }
-    public MapItem( char type, String description, double latitude, double longtitude) {
+    public MapItem( char type, String description, double longtitude, double latitude) {
         this.type = type;
         this.latitude = latitude;
         this.longtitude = longtitude;

@@ -35,7 +35,7 @@
     <application
         android:name="com.orm.SugarApp"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher_2"
+        android:icon="@mipmap/ic_launcher_3"
         android:label="@string/app_name"
         android:theme="@style/HomeActionBar"
         tools:replace="android:icon" >
@@ -111,8 +111,24 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <!--android:process=":remote"/-->
-
+        <!--android:process=":remote"-->
+        <activity android:name=".sas.settings.SasSettingsActivity"
+            android:theme="@style/sas_bartheme"
+            android:label="@string/action_settings"
+            android:parentActivityName=".SASActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVTY"
+                android:value="mits.uwi.com.ourmobileenivronment.SASActivity"/>
+        </activity>
+        <activity
+            android:name=".additional_systems.Evaluations.activities.TeachingEvalsActivity"
+            android:label="@string/activity_evals"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:parentActivityName=".HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="mits.uwi.com.ourmobileenvironment.HomeActivity" />
+        </activity>
         <activity
             android:name=".BOSSActivity"
             android:label="@string/title_activity_boss"

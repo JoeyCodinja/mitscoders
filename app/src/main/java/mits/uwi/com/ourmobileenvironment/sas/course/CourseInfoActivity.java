@@ -1,5 +1,6 @@
 package mits.uwi.com.ourmobileenvironment.sas.course;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import mits.uwi.com.ourmobileenvironment.R;
 import mits.uwi.com.ourmobileenvironment.ToprightBar;
+import mits.uwi.com.ourmobileenvironment.sas.settings.SasSettingsActivity;
 
 /**
  * Created by User on 11/16/2015.
@@ -77,6 +79,8 @@ public class CourseInfoActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent i = new Intent(this, SasSettingsActivity.class );
+            startActivity(i);
             return true;
         }
 

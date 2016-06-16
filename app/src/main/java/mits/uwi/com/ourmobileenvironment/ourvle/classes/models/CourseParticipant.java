@@ -119,7 +119,7 @@ public class CourseParticipant extends SugarRecord{
     @SerializedName("enrolledcourses")
     List<UserCourse> enrolledcourses;
 
-    // No support for custom fields and preferences yet.
+    // No support for custom fields and sas_preferences yet.
 
     // Relational fields
     int courseid;
