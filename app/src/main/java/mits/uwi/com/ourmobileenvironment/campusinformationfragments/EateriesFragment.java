@@ -154,6 +154,7 @@ public class EateriesFragment extends Fragment {
         private ArrayList<Restaurant> eateries;
         EateriesViewHolder pvh;
 
+
         EateriesAdapter(ArrayList<Restaurant> eateries){
             this.eateries = new ArrayList<>(eateries);
         }
@@ -186,7 +187,6 @@ public class EateriesFragment extends Fragment {
                     R.drawable.fork48, android.R.drawable
                             .ic_dialog_alert));
             eateriesViewHolder.eateriesPhoto.setImageUrl(url, mImageLoader);
-
         }
 
         @Override
