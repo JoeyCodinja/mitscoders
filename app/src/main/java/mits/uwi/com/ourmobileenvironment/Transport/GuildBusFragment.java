@@ -152,9 +152,47 @@ public class GuildBusFragment extends TransportFragment<GuildBus> {
             recList.setAdapter(guildBusDescAdapter);
             return v;
         }
+        private  class GuildBusDescViewHolder extends RecyclerView.ViewHolder
+
+        {
+            private TextView route;
+
+            public GuildBusDescViewHolder(View v) {
+                super(v);
+                route = (TextView) v.findViewById(R.id.landmark);
 
 
-        private class GuildBusDescAdapter extends RecyclerView.Adapter<GuildBusDescViewHolder>
+            }
+
+        }
+
+
+        private class GuildBusDescAdapter extends RecyclerView.Adapter<GuildBusDescViewHolder>{
+            private ArrayList<String > glist;
+
+            public GuildBusDescAdapter(ArrayList<String> glist){
+                this.glist=glist;
+            }
+
+            @Override
+            public  GuildBusDescViewHolder onCreateViewHolder(ViewGroup parent,int pos){
+                View view=LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_guild_bus_dialogue,parent,false);
+                return new GuildBusDescViewHolder(view);
+
+            }
+
+            @Override
+            public  int getItemCount(){
+                return glist.size();
+            }
+
+            @Override
+            public  void onBindViewHolder(GuildBusDescViewHolder guildBusDescViewHolder,int i){
+                ArrayList<String> glist=this.glist;
+                guildBusDescViewHolder.route.setText(glist.get(i));
+
+            }
+        }
 
 
 

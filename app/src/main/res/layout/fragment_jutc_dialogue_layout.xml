@@ -24,7 +24,7 @@
         android:linksClickable="true"
         android:paddingLeft="30dp"
         android:textColor="#888888"
-        android:id="@+id/landmark"/>
+        android:id="@+id/contact"/>
 
 
 

@@ -13,6 +13,8 @@ import com.android.volley.toolbox.Volley;
 import java.util.ArrayList;
 import mits.uwi.com.ourmobileenvironment.Transport.BusRoute;
 import mits.uwi.com.ourmobileenvironment.Transport.BusScheduleFragment;
+import mits.uwi.com.ourmobileenvironment.Transport.GuildBus;
+import mits.uwi.com.ourmobileenvironment.Transport.GuildBusFragment;
 import mits.uwi.com.ourmobileenvironment.Transport.JUTCRoute;
 import mits.uwi.com.ourmobileenvironment.Transport.JUTCRouteFragment;
 import mits.uwi.com.ourmobileenvironment.Transport.TaxiService;
@@ -106,5 +108,13 @@ public class GlobalRequestHandler {
         TransportRequest transportRequest=new TransportRequest(url,restaurantListener,restaurantErrorListener,mCtx);
         mRequestQueue.add(transportRequest);
 
+    }
+
+    public  void getGuildBusRoutes(ArrayList<GuildBus> GList,GuildBusFragment guildBusFragment){
+        String url="";
+        TransportListener transportListener= new TransportListener("GuildBusList",GList,guildBusFragment,mCtx,GuildBus.class);
+        TransportErrorListener transportErrorListener=new TransportErrorListener(GuildBus.class,mCtx,GuildBusFragment,GList);
+        TransportRequest transportRequest=new TransportRequest(url,transportListener,transportErrorListener,mCtx);
+        mRequestQueue.add(transportRequest);
     }
 }
