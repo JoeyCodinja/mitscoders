@@ -31,8 +31,8 @@ public class GuildBusFragment extends TransportFragment<GuildBus> {
 
     private void showDialog(int Index) {
         FragmentManager fm = getActivity().getSupportFragmentManager();
-        GuildBusRoute Landmark = new GuildBusRoute();
-        Landmark.setContactlist(transportModels.get(Index).getNumbers());
+        GuildBusRouteDialog Landmark = new GuildBusRouteDialog();
+        Landmark.setRoutelist(transportModels.get(Index).getRouteList());
         Landmark.show(fm, "fragment_guild_bus");
     }
 

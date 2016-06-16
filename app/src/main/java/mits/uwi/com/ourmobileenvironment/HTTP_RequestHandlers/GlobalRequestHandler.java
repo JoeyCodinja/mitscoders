@@ -113,7 +113,7 @@ public class GlobalRequestHandler {
     public  void getGuildBusRoutes(ArrayList<GuildBus> GList,GuildBusFragment guildBusFragment){
         String url="";
         TransportListener transportListener= new TransportListener("GuildBusList",GList,guildBusFragment,mCtx,GuildBus.class);
-        TransportErrorListener transportErrorListener=new TransportErrorListener(GuildBus.class,mCtx,GuildBusFragment,GList);
+        TransportErrorListener transportErrorListener=new TransportErrorListener(GuildBus.class,mCtx,guildBusFragment,GList);
         TransportRequest transportRequest=new TransportRequest(url,transportListener,transportErrorListener,mCtx);
         mRequestQueue.add(transportRequest);
     }

@@ -8,6 +8,7 @@ import java.util.Arrays;
  * Created by rox on 6/14/2016.
  */
 public class GuildBus extends  Transport {
+
     @Ignore
     private ArrayList<String> RouteList;
     private String cost;
@@ -25,7 +26,9 @@ public class GuildBus extends  Transport {
         this.route_name = route_name;
     }
 
-
+    public ArrayList<String> getRouteList() {
+        return RouteList;
+    }
 
 
     public String getRoute() {
