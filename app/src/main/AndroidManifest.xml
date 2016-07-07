@@ -20,8 +20,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
-
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
@@ -107,10 +105,14 @@
             android:name=".sas.SAS_Splash"
             android:theme="@style/Theme.Transparent" >
         </activity>
-        <service android:name=".sas.timetable.services.TimeTableService"
-            android:exported="false"/>
-        <receiver android:name=".sas.timetable.receiver.TimeTableReceiver"
-            android:process=":remote"/>
+
+        <service
+            android:name=".sas.timetable.services.TimeTableService"
+            android:exported="false" />
+
+        <receiver
+            android:name=".sas.timetable.receiver.TimeTableReceiver"
+            android:process=":remote" />
 
         <activity
             android:name=".BOSSActivity"
@@ -120,7 +122,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mits.uwi.com.ourmobileenvironment.HomeActivity" />
         </activity>
-
         <activity
             android:name=".Transport.TransportActivity"
             android:configChanges="orientation"
@@ -252,6 +253,14 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mits.uwi.com.ourmobileenvironment.HomeActivity" />
+        </activity>
+        <activity
+            android:name=".CampusInformationSubActivity"
+            android:label="@string/title_activity_campus_information_sub"
+            android:parentActivityName=".CampusInformationActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="mits.uwi.com.ourmobileenvironment.CampusInformationActivity" />
         </activity>
     </application>
 

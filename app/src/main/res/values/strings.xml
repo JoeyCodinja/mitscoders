@@ -16,6 +16,7 @@
 
         <!-- Video Tab Strings -->
         <string name="player_error">There seems to be something wrong here</string>
+        <string name='seek_to'>Jump To</string>
 
     <!-- OurVLE strings -->
     <string name="title_activity_our_vle">OurVLE</string>
@@ -135,7 +136,15 @@
     <string name="action_names">Names</string>
 
     <!--Campus Information Strings-->
-    <string name="title_activity_campus_information">CampusInformationActivity</string>
+    <string name="to_campus_life">Campus Life</string>
+    <string name="to_faculties">Our Faculties</string>
+    <string name="to_history">Our History</string>
+    <string name="to_campus_housing">Campus Housing &amp; Accommodation</string>
+    <string name="to_something_wdk_yet">Something We Don\'t Know Yet</string>
+    <string name="to_campus_facilities">Campus Facilites</string>
+
+
+    <string name="title_activity_campus_information">Campus Information</string>
     <string name="campus_info_snippet_title1">We are fully Accredited</string>
     <string name="campus_info_snippet_title2">We are the home of the Pelicans</string>
     <string name="campus_info_snippet_title3">We are a green, progressive campus</string>
@@ -316,6 +325,12 @@
     <string name="forum_title" formatted ="false">%s - %s</string>
 
     <string name="title_activity_news_view">News</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_campus_information_sub">CampusInformationSubActivity</string>
+
+    <string name="hello_world">Hello world!</string>
 
 
 

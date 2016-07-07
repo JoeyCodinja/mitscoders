@@ -15,7 +15,6 @@ public class CampusInfoViewPagerAdapter extends FragmentStatePagerAdapter {
     private String[] mGroups;
     private String[] mChildren;
     private int mNumOfTabs;
-    private String[] mTabTitles = {"ACCREDITED", "PELICANS", "'GREEN' CAMPUS", "WHO WE SERVE", "MISSION", "VISION"};
 
     public CampusInfoViewPagerAdapter(FragmentManager fm, String titles[], String children[], int numOfTabs) {
         super(fm);
@@ -36,10 +35,7 @@ public class CampusInfoViewPagerAdapter extends FragmentStatePagerAdapter {
         return mGroups.length;
     }
 
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return mTabTitles[position];
-    }
+
 
 
 }

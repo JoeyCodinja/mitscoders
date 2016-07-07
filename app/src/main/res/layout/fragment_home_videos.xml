@@ -5,4 +5,14 @@
 
 
 
+    <fragment
+        android:name="com.google.android.youtube.player.YouTubePlayerFragment"
+        android:id="@+id/uwitv_youtube_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <!-- A list should be placed here to hold videos from the UWI TV page -->
+    <!-- UWI TV video list END-->
+
+
 </FrameLayout>

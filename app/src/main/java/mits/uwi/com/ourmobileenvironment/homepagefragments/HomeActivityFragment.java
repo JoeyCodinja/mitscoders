@@ -72,8 +72,6 @@ public class HomeActivityFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
@@ -81,6 +79,27 @@ public class HomeActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_landing, container, false);
+        final FrameLayout shade = (FrameLayout) v.findViewById(R.id.shade);
+
+        shade.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                /* OnTouch-ing the shade remove the shade and remove
+                   the FAB Buttons
+                         */
+                v.animate().alpha(0).setDuration(300);
+                v.setVisibility(View.GONE);
+                for (int fab = 1; fab < mFABs.size(); fab++){
+                    mFABs.get(fab).animate()
+                            .setDuration(2500 - (500 * (fab - 1)))
+                            .alpha(0)
+                            .setListener(mFABAnimatorListener);
+                    mFABs.get(fab).setVisibility(View.GONE);
+                }
+                mMenuExpanded = false;
+                return true;
+            }
+        });
 
         for (int fab = 0; fab <= fabIDs.length - 1; fab++) {
             mFABs.add((FloatingActionButton) v.findViewById(fabIDs[fab]));
@@ -135,7 +154,9 @@ public class HomeActivityFragment extends Fragment {
             }
 
             @Override
-            public void onAnimationCancel(Animator animation) { Log.d(TAG, "Animation cancelled"); }
+            public void onAnimationCancel(Animator animation) {
+                Log.d(TAG, "Animation cancelled");
+            }
 
             @Override
             public void onAnimationRepeat(Animator animation) {
@@ -146,16 +167,7 @@ public class HomeActivityFragment extends Fragment {
         mFABs.get(0).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mFABs.get(0).setClickable(false);
-
-                FrameLayout shade = (FrameLayout)((FrameLayout)v.getParent().getParent()).getChildAt(1);
-                shade.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event) {
-                        return true;
-                    }
-                });
-
+                v.setClickable(false);
                 int height = ((FrameLayout)v.getParent().getParent()).getHeight();
                 int width = ((FrameLayout)v.getParent().getParent()).getWidth();
 
@@ -168,8 +180,6 @@ public class HomeActivityFragment extends Fragment {
                             mFABs.get(fab).animate()
                                     .setDuration(400)
                                     .alpha(1)
-//                                    .translationXBy( (float) -( (-35 * pow(fab,2))+(210*fab)-75))
-//                                    .translationYBy( (float) -( ( 150.83 * pow(fab, 1.1533f) ) ))
                                     .setListener(mFABAnimatorListener);
                         }
                         else {
@@ -177,26 +187,22 @@ public class HomeActivityFragment extends Fragment {
                             mFABs.get(fab).animate()
                                     .setDuration(400)
                                     .alpha(1)
-//                                    .translationXBy( (float) -( (-35 * pow(fab, 2))+(210 * fab)-75))
-//                                    .translationYBy( (float) -((150.83 * pow(fab, 1.1533f))))
                                     .setListener(mFABAnimatorListener);
                         }
                     }
-                    mFABs.get(0).setClickable(true);
+                    v.setClickable(true);
                     mMenuExpanded = true;
                 } else {
                     shade.animate().alpha(0).setDuration(150);
                     for (int fab = 1; fab <= mFABs.size() - 1; fab++) {
                         mFABs.get(fab).animate()
                                 .setDuration(2500 - (500 * (fab - 1)))
-//                                .translationXBy( (float) (-35 * (pow(fab, 2))) + (210 * fab) -75 )
-//                                .translationYBy( (float) ( 150.83 * (pow(fab, 1.1533f))) )
                                 .alpha(0)
                                 .setListener(mFABAnimatorListener);
                         mFABs.get(fab).setVisibility(View.GONE);
                     }
                     shade.setVisibility(View.GONE);
-                    mFABs.get(0).setClickable(true);
+                    v.setClickable(true);
                     mMenuExpanded = false;
                 }
 
@@ -211,14 +217,12 @@ public class HomeActivityFragment extends Fragment {
 
         mHome_ViewPager = (ViewPager) v.findViewById(R.id.landing_viewpager);
         mHome_ViewPager.setAdapter(adapter);
-        mHome_ViewPager.setScrollBarSize(10);
 
 
         tabs = (TabLayout) v.findViewById(R.id.landing_tabs);
         tabs.setupWithViewPager(mHome_ViewPager);
         tabs.getTabAt(0).setIcon(R.drawable.ic_home_white_24dp);
         tabs.getTabAt(1).setIcon(R.drawable.filmstrip_selected);
-
 
         tabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

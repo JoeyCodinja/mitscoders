@@ -13,7 +13,7 @@ import android.view.MenuItem;
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.EateriesFragment;
 import java.util.ArrayList;
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.CampusInformationFragment;
-import mits.uwi.com.ourmobileenvironment.campusinformationfragments.CampusListingsFragment;
+
 
 public class CampusInformationActivity extends AppCompatActivity {
 
@@ -32,6 +32,7 @@ public class CampusInformationActivity extends AppCompatActivity {
         mFragList.add(0, fragment1);
         mFragList.add(1, fragment2);
         ePage=(ViewPager)findViewById(R.id.buspager);
+
         ePage.setAdapter(new FragmentStatePagerAdapter(fm) {
             @Override
             public Fragment getItem(int position) {
@@ -45,7 +46,7 @@ public class CampusInformationActivity extends AppCompatActivity {
             public CharSequence getPageTitle(int position) {
                 ArrayList<String> title=new ArrayList<String>();
                 title.add("Eateries");
-                title.add("Info");
+                title.add("Campus Information");
                 return title.get(position);
             }
         });
@@ -57,10 +58,7 @@ public class CampusInformationActivity extends AppCompatActivity {
         mSlidingTabLayout.setSelectedIndicatorColors(getResources().getColor(R.color.white));
         mSlidingTabLayout.setDividerColors(getResources().getColor(R.color.actionbar_background_eateries));
         mSlidingTabLayout.setTabsBackgroundColor(getResources().getColor(R.color.actionbar_background_eateries));
-
-        //Calls to this function reposition the overflow
-        //ToprightBar.setTopOverflow(this);
-        }
+    }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {

@@ -16,6 +16,7 @@
              android:layout_height="wrap_content"
              android:background="#ffe20502"
              app:tabIndicatorColor="@color/blue"
+             app:tabIndicatorHeight="5dp"
              />
 
          <android.support.v4.view.ViewPager
@@ -27,13 +28,13 @@
 
 
     <FrameLayout
+        android:id="@+id/shade"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#a7000000"
         android:alpha="0"
         android:visibility="gone"
         android:layout_gravity="bottom">
-
     </FrameLayout>
 
     <RelativeLayout

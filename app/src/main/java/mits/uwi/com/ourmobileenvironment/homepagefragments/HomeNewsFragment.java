@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
+import android.view.Gravity;
 import android.widget.LinearLayout.LayoutParams;
 import android.util.Log;
 
@@ -64,26 +65,25 @@ public class HomeNewsFragment extends Fragment {
 
         LinearLayout[] columns = {(LinearLayout) v.findViewById(R.id.newsColumn1),
                                   (LinearLayout) v.findViewById(R.id.newsColumn2)};
-//
-//        for (LinearLayout column: columns){
-//            column.setVisibility(View.GONE);
-//        }
-//
-//        LinearLayout columnParent = (LinearLayout) columns[0].getParent();
-//
-//        TextView loadingText = new TextView(columnParent.getContext());
-//        loadingText.setText("Loading the Lastest News Stories");
-//        loadingText.setGravity(Gravity.CENTER);
-//        loadingText.setId(R.id.loadingTextView);
-//
-//        columnParent.addView(loadingText);
-//
-//        loadingText.animate()
-//                .alpha(0)
-//                .setDuration(1000);
-//        loadingText.animate()
-//                .alpha(1)
-//                .setDuration(1000).start();
+        for (LinearLayout column: columns){
+            column.setVisibility(View.GONE);
+        }
+
+        LinearLayout columnParent = (LinearLayout) columns[0].getParent();
+
+        TextView loadingText = new TextView(columnParent.getContext());
+        loadingText.setText("Loading the Lastest News Stories");
+        loadingText.setGravity(Gravity.CENTER);
+        loadingText.setId(R.id.loadingTextView);
+
+        columnParent.addView(loadingText);
+
+        loadingText.animate()
+                .alpha(0)
+                .setDuration(1000);
+        loadingText.animate()
+                .alpha(1)
+                .setDuration(1000).start();
 
 
         new RetrieveRSSFeedTask().execute(getActivity());
@@ -143,14 +143,14 @@ public class HomeNewsFragment extends Fragment {
                                                             .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 //
             // Removes the Loading screen
-//            LinearLayout loadingTextViewParent = (LinearLayout)columns[0].getParent();
-//
-//            loadingTextViewParent.removeView((loadingTextViewParent.findViewById(R.id.loadingTextView));
-//
-//
-//            for (LinearLayout column: columns){
-//                column.setVisibility(View.VISIBLE);
-//            }
+            LinearLayout loadingTextViewParent = (LinearLayout)columns[0].getParent();
+
+            loadingTextViewParent.removeView(loadingTextViewParent.findViewById(R.id.loadingTextView));
+
+
+            for (LinearLayout column: columns){
+                column.setVisibility(View.VISIBLE);
+            }
 
             for (int i = 0; i < newsItemTitles.size(); i++) {
                 // Remove dummy views from both columns
@@ -176,21 +176,21 @@ public class HomeNewsFragment extends Fragment {
                 else if (imageWidth/imageHeight <= 1.8 &&
                          imageWidth/imageHeight >= 1){
                     // 4:3 image
-                    newsCard.setLayoutParams(new CardView.LayoutParams(columns[i % 2].getWidth(),
-                                             320));
+//                    newsCard.setLayoutParams(new CardView.LayoutParams(columns[i % 2].getWidth(),
+//                                             320));
                     newsCardImage.setScaleType(ImageView.ScaleType.FIT_XY);
                 }
 
                 else if (newsItemImages.get(i).getWidth() < newsItemImages.get(i).getHeight()){
                     // Vertical Rectangle
                     if (imageHeight <= 100 || imageWidth <=100) {
-                        newsCard.setLayoutParams(new CardView.LayoutParams(columns[i % 2].getWidth(),
-                                columns[i % 2].getWidth()));
+//                        newsCard.setLayoutParams(new CardView.LayoutParams(columns[i % 2].getWidth(),
+//                                columns[i % 2].getWidth()));
                         newsCardImage.setScaleType(ImageView.ScaleType.FIT_XY);
                     }
-                    else
-                        newsCard.setLayoutParams(new CardView.LayoutParams(columns[i % 2].getWidth(),
-                                             newsItemImages.get(i).getHeight()));
+//                    else
+//                        newsCard.setLayoutParams(new CardView.LayoutParams(columns[i % 2].getWidth(),
+//                                             newsItemImages.get(i).getHeight()));
                 }
 
                 newsCardImage.setImageBitmap(newsItemImages.get(i));

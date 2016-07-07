@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 
 import com.bluejamesbond.text.DocumentView;
@@ -143,6 +144,12 @@ public class HomeActivity extends AppCompatActivity {
         if (fragment.equals( new CampusInformationFragment() )) {
             DocumentView campus_info_heading = (DocumentView) findViewById(R.id.campus_info_heading_fragment);
             campus_info_heading.setVisibility(DocumentView.GONE);
+        }
+        if (fragment.equals( new HomeActivityFragment() )){
+            // Removes shade on back press
+            FrameLayout parentView = (FrameLayout)findViewById(R.id.shade).getParent();
+            FrameLayout shade = (FrameLayout) parentView.getChildAt(1);
+            parentView.removeView(shade);
         }
         super.onBackPressed();
     }
