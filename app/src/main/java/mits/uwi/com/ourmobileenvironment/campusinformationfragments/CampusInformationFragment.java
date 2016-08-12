@@ -2,6 +2,7 @@ package mits.uwi.com.ourmobileenvironment.campusinformationfragments;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -9,15 +10,23 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.support.design.widget.TabLayout;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.bluejamesbond.text.DocumentView;
+import com.pkmmte.view.CircularImageView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 
 import mits.uwi.com.ourmobileenvironment.CampusInformationSubActivity;
@@ -31,7 +40,8 @@ import mits.uwi.com.ourmobileenvironment.campusinformationfragments.UWIInformati
  */
 public class CampusInformationFragment extends Fragment {
 
-    public final static String TO_WHERE_INT = "com.ourmobileenvironment.campusinformationfragments.TO_WHERE";
+    public final static String TO_WHERE_INT =
+            "com.ourmobileenvironment.campusinformationfragments.TO_WHERE";
 
     ExpandableListView mCampusInfo_ExpandableList;
     ViewPager  mCampusInfo_ViewPager;
@@ -47,13 +57,17 @@ public class CampusInformationFragment extends Fragment {
                             R.id.to_campus_life,
                             R.id.to_shrugs};
 
-    Button toCampusLife, toFaculties, toHistory, toCampusHousing, toCampusFacilites, toUnknown;
+    ArrayList<Object> indicators = new ArrayList<Object>();
+
+    final int active = Color.argb(255,81,81,77);
+    final int inactive = Color.argb(255,203,202,200);
+
+    Button toCampusLife, toFaculties, toHistory,
+            toCampusHousing, toCampusFacilites, toUnknown;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-
     }
 
     @Nullable
@@ -87,7 +101,10 @@ public class CampusInformationFragment extends Fragment {
                 groups, children, groups.length);
 
         mCampusInfo_ViewPager = (ViewPager)v.findViewById(R.id.campus_info_viewpager);
+
         mCampusInfo_ViewPager.setAdapter(adapter);
+
+        mCampusInfo_ViewPager.addView(createViewPagerIndicator(groups.length));
 
         // Allows the View Pager to swipe automatically
         viewPagerSwipeHandler = new Handler();
@@ -97,6 +114,8 @@ public class CampusInformationFragment extends Fragment {
                 mCampusInfo_ViewPager
                         .setCurrentItem((mCampusInfo_ViewPager.getCurrentItem() + 1) %
                                 groups.length );
+                indicate(mCampusInfo_ViewPager.getCurrentItem() + 1 ,
+                        mCampusInfo_ViewPager.getParent());
                 viewPagerSwipeHandler.postDelayed(this, 10000);
             }
         };
@@ -109,9 +128,11 @@ public class CampusInformationFragment extends Fragment {
             buttonInQuestion.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent toSubCampusInfo = new Intent(getActivity(),
-                                                        CampusInformationSubActivity.class);
-                    toSubCampusInfo.putExtra(CampusInformationFragment.TO_WHERE_INT, buttonInQuestion.getId());
+                    Intent toSubCampusInfo =
+                            new Intent(getActivity(),
+                                       CampusInformationSubActivity.class);
+                    toSubCampusInfo.putExtra(CampusInformationFragment.TO_WHERE_INT,
+                            buttonInQuestion.getId());
                     startActivity(toSubCampusInfo);
                 }
             });
@@ -121,4 +142,52 @@ public class CampusInformationFragment extends Fragment {
     }
 
 
+    public void indicate(int index, ViewParent viewParent){
+        FrameLayout frame = (FrameLayout)viewParent;
+        View view = frame.getChildAt(index);
+        view.setBackgroundColor(active);
+
+        for(int other_views=0;
+            other_views < frame.getChildCount()-1;
+            other_views ++){
+            if (other_views == index)
+                continue;
+            else{
+                view = frame.getChildAt(other_views);
+                if (view.getSolidColor() == active)
+                    view.setBackgroundColor(inactive);
+
+            }
+        }
+
+    }
+
+    public View createViewPagerIndicator(int magnitude){
+        LinearLayout indicatorGroup = new LinearLayout(this.getActivity());
+        indicatorGroup.setId(R.id.indicatorGroup);
+        indicatorGroup.setOrientation(LinearLayout.HORIZONTAL);
+        LinearLayout.LayoutParams indicatorGroupLayoutParams =
+                new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT);
+        indicatorGroupLayoutParams.gravity =
+                Gravity.BOTTOM | Gravity.CENTER_VERTICAL;
+
+        indicatorGroup.setLayoutParams(indicatorGroupLayoutParams);
+
+        for (int view=0; view < magnitude; view++){
+            CircularImageView indicator = new CircularImageView(indicatorGroup.getContext());
+            if (view == 0){
+                indicator.setBackgroundColor(active);
+            }
+            else indicator.setBackgroundColor(inactive);
+            indicator.setMaxHeight(20);
+            indicator.setMaxWidth(20);
+            indicator.addShadow();
+            indicators.add(indicator.getId());
+            indicatorGroup.addView(indicatorGroup);
+        };
+
+        return indicatorGroup;
+    }
 }

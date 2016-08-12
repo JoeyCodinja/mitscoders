@@ -168,9 +168,6 @@ public class HomeActivityFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 v.setClickable(false);
-                int height = ((FrameLayout)v.getParent().getParent()).getHeight();
-                int width = ((FrameLayout)v.getParent().getParent()).getWidth();
-
                 if (!mMenuExpanded) {
                     shade.setVisibility(View.VISIBLE);
                     shade.animate().alpha(1).setDuration(150);
@@ -179,15 +176,14 @@ public class HomeActivityFragment extends Fragment {
                             mFABs.get(fab).setVisibility(View.VISIBLE);
                             mFABs.get(fab).animate()
                                     .setDuration(400)
-                                    .alpha(1)
-                                    .setListener(mFABAnimatorListener);
+                                    .alpha(1);
+
                         }
                         else {
                             mFABs.get(fab).setVisibility(View.VISIBLE);
                             mFABs.get(fab).animate()
                                     .setDuration(400)
-                                    .alpha(1)
-                                    .setListener(mFABAnimatorListener);
+                                    .alpha(1);
                         }
                     }
                     v.setClickable(true);
@@ -209,7 +205,6 @@ public class HomeActivityFragment extends Fragment {
 
             }
         });
-
 
         adapter = new HomePageViewPagerAdapter(getActivity().getSupportFragmentManager(),
                 new Fragment[]{new HomeNewsFragment(), new HomeVideosFragment()}

@@ -39,64 +39,49 @@
 
     <RelativeLayout
         android:id="@+id/FABHolder"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_width="wrap_content"
-        android:layout_gravity="bottom|right"
+        android:layout_gravity="bottom|end"
         android:orientation="vertical"
         >
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/sas_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/FABButtons"
+            android:layout_alignParentTop="true"
             android:src='@drawable/sas'
             app:backgroundTint="#EAFFF501" />
 
-        <!--<android.support.design.widget.FloatingActionButton-->
-            <!--android:id="@+id/boss_fab"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_below="@id/sas_fab"-->
-            <!--android:src="@drawable/boss"-->
-            <!--app:backgroundTint="#EA28B206" />-->
-
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/ourvle_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/FABButtons"
             android:layout_below="@id/sas_fab"
             android:src="@drawable/ourvle"
             app:backgroundTint="#FFE6110E"/>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/transport_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/FABButtons"
             android:layout_below="@id/ourvle_fab"
             android:src="@drawable/transportation"
-            app:elevation="4dp"
             app:backgroundTint="#FFFF7D00" />
 
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/campus_info_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/FABButtons"
             android:layout_below="@id/transport_fab"
-            android:layout_gravity="bottom|right"
             android:src="@drawable/sas"
-            app:elevation="4dp"
             app:backgroundTint="#DEBDA900"
             />
 
         <android.support.design.widget.FloatingActionButton
             android:id='@+id/mainFab'
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:layout_below="@id/campus_info_fab"
+            style="@style/FABButtons"
+            android:gravity="bottom|end"
+            android:layout_alignParentBottom="true"
             android:src="@drawable/pelican_white"
-            app:elevation="4dp"
             app:backgroundTint="#EA0010E2"
+
             />
     </RelativeLayout>
 

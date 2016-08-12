@@ -1,24 +1,28 @@
 package mits.uwi.com.ourmobileenvironment.homepagefragments;
 
 
+import android.animation.ObjectAnimator;
+import android.animation.TimeInterpolator;
+import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.view.Gravity;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.LinearLayout.LayoutParams;
 import android.util.Log;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -58,6 +62,11 @@ public class HomeNewsFragment extends Fragment {
     }
 
     @Override
+    public void onDestroy(){
+        super.onDestroy();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -65,6 +74,7 @@ public class HomeNewsFragment extends Fragment {
 
         LinearLayout[] columns = {(LinearLayout) v.findViewById(R.id.newsColumn1),
                                   (LinearLayout) v.findViewById(R.id.newsColumn2)};
+
         for (LinearLayout column: columns){
             column.setVisibility(View.GONE);
         }
@@ -72,21 +82,29 @@ public class HomeNewsFragment extends Fragment {
         LinearLayout columnParent = (LinearLayout) columns[0].getParent();
 
         TextView loadingText = new TextView(columnParent.getContext());
-        loadingText.setText("Loading the Lastest News Stories");
-        loadingText.setGravity(Gravity.CENTER);
+        loadingText.setText("Loading the Latest News Stories");
+        loadingText.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
+        LinearLayout.LayoutParams lt_params = new LinearLayout.LayoutParams(
+                                                  LinearLayout.LayoutParams.MATCH_PARENT,
+                                                  LinearLayout.LayoutParams.MATCH_PARENT);
+        lt_params.gravity = Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL;
+
+        loadingText.setLayoutParams(lt_params);
         loadingText.setId(R.id.loadingTextView);
 
         columnParent.addView(loadingText);
 
-        loadingText.animate()
-                .alpha(0)
-                .setDuration(1000);
-        loadingText.animate()
-                .alpha(1)
-                .setDuration(1000).start();
+        ObjectAnimator anim = ObjectAnimator.ofFloat(loadingText, "alpha", 0f, 1f);
+        anim.setDuration(7500);
+        anim.setInterpolator(new AccelerateDecelerateInterpolator());
+        anim.setRepeatMode(ObjectAnimator.REVERSE);
+        anim.setRepeatCount(ObjectAnimator.INFINITE);
+        anim.start();
 
+        new RetrieveRSSFeedTask().executeOnExecutor(
+                AsyncTask.THREAD_POOL_EXECUTOR,
+                getActivity());
 
-        new RetrieveRSSFeedTask().execute(getActivity());
         return v;
     }
 
@@ -132,16 +150,17 @@ public class HomeNewsFragment extends Fragment {
         @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
         private void makeNewsItemViews(View contextView) {
 
-            LinearLayout[] columns = {(LinearLayout) contextView.findViewById(R.id.newsColumn1),
-                    (LinearLayout) contextView.findViewById(R.id.newsColumn2)};
-
+            LinearLayout[] columns =
+                    {(LinearLayout) contextView.findViewById(R.id.newsColumn1),
+                     (LinearLayout) contextView.findViewById(R.id.newsColumn2)};
 
             LinearLayout newsHeader = (LinearLayout) contextView.findViewById(R.id.newsHeader);
 
-            LayoutInflater layoutInflater = (LayoutInflater) getActivity()
-                                                            .getBaseContext()
-                                                            .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//
+            LayoutInflater layoutInflater =
+                    (LayoutInflater) getActivity()
+                                     .getBaseContext()
+                                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
             // Removes the Loading screen
             LinearLayout loadingTextViewParent = (LinearLayout)columns[0].getParent();
 
@@ -246,4 +265,6 @@ public class HomeNewsFragment extends Fragment {
             makeNewsItemViews(parentView);
         }
     }
+
+    
 }

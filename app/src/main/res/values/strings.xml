@@ -16,7 +16,11 @@
 
         <!-- Video Tab Strings -->
         <string name="player_error">There seems to be something wrong here</string>
+        <string name="initialization_player_error">
+            There was an error Initializing the Youtube Player (%1$s)
+        </string>
         <string name='seek_to'>Jump To</string>
+
 
     <!-- OurVLE strings -->
     <string name="title_activity_our_vle">OurVLE</string>
@@ -132,7 +136,7 @@
     <string name="activity_evals">Teaching Evaluations</string>
 
 
-        <!-- BOSS Strings -->
+    <!-- BOSS Strings -->
     <string name="title_activity_boss">BOSS</string>
 
 

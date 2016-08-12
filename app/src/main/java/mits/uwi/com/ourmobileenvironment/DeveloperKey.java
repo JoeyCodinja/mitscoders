@@ -5,5 +5,5 @@ package mits.uwi.com.ourmobileenvironment;
  */
 public class DeveloperKey {
 
-    final static String YOUTUBE_APIKEY = "AIzaSyACbaYTwu7uTaXXj9LGvRHW3iEFRr9RKHc";
+    public final static String YOUTUBE_APIKEY = "AIzaSyACbaYTwu7uTaXXj9LGvRHW3iEFRr9RKHc";
 }
