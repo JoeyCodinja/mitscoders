@@ -13,13 +13,14 @@ import mits.uwi.com.ourmobileenvironment.R;
 import mits.uwi.com.ourmobileenvironment.ToprightBar;
 import mits.uwi.com.ourmobileenvironment.additional_systems.Evaluations.fragments.TeachingEvalsWebView;
 import mits.uwi.com.ourmobileenvironment.sas.settings.SasSettingsActivity;
-import mits.uwi.com.ourmobileenvironment.sas.timetable.Fragments.TimeTableFragment;
+
 
 /**
  * Created by peoplesoft on 4/15/2016.
  */
 public class TeachingEvalsActivity extends AppCompatActivity {
     Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

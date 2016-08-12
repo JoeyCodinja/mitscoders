@@ -3,6 +3,7 @@ package mits.uwi.com.ourmobileenvironment.sas.transcriptfragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,17 @@ public class TranscriptRequestFragment extends Fragment {
 
         mTranscript.setWebViewClient(new WebViewClient());
         mTranscript.loadUrl(url);
+        mTranscript.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if ((i == KeyEvent.KEYCODE_BACK) && mTranscript.canGoBack()) {
+                    mTranscript.goBack();
+                    return true;
+                }
+                return false;
+
+            }
+        });
 
         return v;
     }
