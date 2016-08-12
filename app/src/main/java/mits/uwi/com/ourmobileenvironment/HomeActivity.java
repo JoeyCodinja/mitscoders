@@ -20,6 +20,7 @@ import com.bluejamesbond.text.DocumentView;
 
 import mits.uwi.com.ourmobileenvironment.Directory.DirectoryActivity;
 import mits.uwi.com.ourmobileenvironment.adapters.HomePageArrayAdapter;
+import mits.uwi.com.ourmobileenvironment.additional_systems.Evaluations.activities.TeachingEvalsActivity;
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.CampusInformationFragment;
 import mits.uwi.com.ourmobileenvironment.homepagefragments.HomeActivityFragment;
 
@@ -101,10 +102,13 @@ public class HomeActivity extends AppCompatActivity {
     private void selectItem(int position) {
         //E-mail
         if (position == 0){
-
+            Intent i = new Intent(this, TeachingEvalsActivity.class);
+            startActivity(i);
         }
         //Notifications
         else if (position == 1){
+            Intent i = new Intent(this, DirectoryActivity.class);
+            startActivity(i);
 
         }
         //Directory
@@ -177,9 +181,6 @@ public class HomeActivity extends AppCompatActivity {
         }
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent i = new Intent(this, SAS_Splash.class);
-            startActivity(i);
-
             return true;
         }
 

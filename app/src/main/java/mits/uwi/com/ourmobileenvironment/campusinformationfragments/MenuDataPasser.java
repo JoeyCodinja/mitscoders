@@ -17,13 +17,13 @@ public class MenuDataPasser {
             dataObject = new DataHolderClass();
         return dataObject;
     }*/
-    private Eateries_list resName;
+    private Restaurant resName;
 
-    public Eateries_list getResName() {
+    public Restaurant getResName() {
         return resName;
     }
 
-    public void setResName(Eateries_list name) {
+    public void setResName(Restaurant name) {
         this.resName = name;
     }
 

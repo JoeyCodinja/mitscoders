@@ -4,13 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ListFragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.amulyakhare.textdrawable.TextDrawable;
@@ -36,6 +39,7 @@ public class CourseListFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().setTitle(R.string.to_sas_home);
+       // ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(R.string.to_sas_home);
         mCourses = CourseList.get(getActivity()).getmCourses(); //Course.getmCourses();
         adapter = new CourseAdapter(mCourses);
         setListAdapter(adapter);
@@ -47,15 +51,6 @@ public class CourseListFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = super.onCreateView(inflater, container, savedInstanceState);//;getActivity().getLayoutInflater()
                 //.inflate(R.layout.custom_sas_courses,container,false,);
-        fab = (FloatingActionButton)v.findViewById(R.id.fab);
-        //fab.setVisibility(getView().GONE);
-        /*fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity().getApplicationContext(), "Fab Pressed", Toast.LENGTH_SHORT);
-            }
-        });*/
-
         return v;
     }
 
@@ -63,6 +58,7 @@ public class CourseListFragment extends ListFragment {
     public void onResume() {
         super.onResume();
         getActivity().setTitle(R.string.to_sas_home);
+        //((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(R.string.to_sas_home);
         ((CourseAdapter)getListAdapter()).notifyDataSetChanged();
     }
 
@@ -72,6 +68,13 @@ public class CourseListFragment extends ListFragment {
         // remove the dividers from the ListView of the ListFragment
         getListView().setDivider(null);
         setEmptyText("" + R.string.noCourses);
+        getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(getActivity().getApplicationContext(), "Position : " + i, Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
 
     }
 
@@ -83,6 +86,7 @@ public class CourseListFragment extends ListFragment {
         i.putExtra(CourseInfoFragment.EXTRA_COURSE_ID, c.getCRN());
         startActivity(i);
     }
+
 
     private class CourseAdapter extends ArrayAdapter<Course> {
 

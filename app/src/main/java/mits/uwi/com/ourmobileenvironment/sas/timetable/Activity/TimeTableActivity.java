@@ -4,7 +4,10 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -23,6 +26,7 @@ import android.widget.Toast;
 import mits.uwi.com.ourmobileenvironment.R;
 import mits.uwi.com.ourmobileenvironment.ToprightBar;
 import mits.uwi.com.ourmobileenvironment.sas.course.CourseInfoFragment;
+import mits.uwi.com.ourmobileenvironment.sas.settings.SasSettingsActivity;
 import mits.uwi.com.ourmobileenvironment.sas.timetable.Fragments.TimeTableFragment;
 import mits.uwi.com.ourmobileenvironment.sas.timetable.receiver.TimeTableReceiver;
 
@@ -38,7 +42,9 @@ private ArrayAdapter<TextView> sAdapter;
 private ActionBarDrawerToggle mDrawerToggle;
 Toolbar toolbar;
 private FloatingActionButton fab;
+    Boolean malarm, mvibrate;
 
+    SharedPreferences prefs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +93,8 @@ private FloatingActionButton fab;
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent i = new Intent(this, SasSettingsActivity.class );
+            startActivity(i);
             return true;
         }
 
@@ -95,6 +103,14 @@ private FloatingActionButton fab;
 
     // Setup a recurring alarm every half hour
     public void scheduleAlarm() {
+
+        Intent alarm = new Intent(getApplicationContext(), TimeTableReceiver.class);
+        boolean alarmRunning = (PendingIntent.getBroadcast(getApplicationContext(), 0, alarm, PendingIntent.FLAG_NO_CREATE) != null);
+        if(alarmRunning == false) {
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, alarm, 0);
+            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+            alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent);
+        }/*
         // Construct an intent that will execute the AlarmReceiver
         Intent intent = new Intent(getApplicationContext(), TimeTableReceiver.class);
         // Create a PendingIntent to be triggered when the alarm goes off
@@ -106,7 +122,7 @@ private FloatingActionButton fab;
         // First parameter is the type: ELAPSED_REALTIME, ELAPSED_REALTIME_WAKEUP, RTC_WAKEUP
         // Interval can be INTERVAL_FIFTEEN_MINUTES, INTERVAL_HALF_HOUR, INTERVAL_HOUR, INTERVAL_DAY
         alarm.setInexactRepeating(AlarmManager.ELAPSED_REALTIME, firstMillis,
-                AlarmManager.INTERVAL_FIFTEEN_MINUTES, pIntent);
+                AlarmManager.INTERVAL_FIFTEEN_MINUTES, pIntent);*/
     }
 
     public void cancelAlarm() {

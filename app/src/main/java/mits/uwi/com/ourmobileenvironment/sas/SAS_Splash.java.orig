@@ -5,10 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 
-<<<<<<< HEAD
-import mits.uwi.com.ourmobileenvironment.HomeActivity;
-=======
->>>>>>> 4055734c4c77edc629cd11729536e6b9c33bfd57
+
 import mits.uwi.com.ourmobileenvironment.R;
 import mits.uwi.com.ourmobileenvironment.SASActivity;
 

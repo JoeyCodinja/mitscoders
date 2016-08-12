@@ -28,4 +28,4 @@
             android:layout_height="wrap_content"
             android:indeterminate="true" />
     </RelativeLayout>
-    </LinearLayout>
+</LinearLayout>

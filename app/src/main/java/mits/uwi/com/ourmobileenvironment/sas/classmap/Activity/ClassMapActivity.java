@@ -99,6 +99,8 @@ public class ClassMapActivity extends FragmentActivity implements OnMapReadyCall
         for(MarkerOptions op: markers){
             map.addMarker(op);
         }
+
+
         map.getUiSettings().setZoomControlsEnabled(true);
         map.getUiSettings().setZoomGesturesEnabled(true);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(18.005941, -76.746896), 17.0f));

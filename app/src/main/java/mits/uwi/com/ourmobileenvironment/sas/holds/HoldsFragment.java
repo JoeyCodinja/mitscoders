@@ -33,7 +33,7 @@ public class HoldsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().setTitle(R.string.admin_hold);
-        //mRows = Holds.getmHolds();
+        mRows = Holds.getmHolds();
         setRetainInstance(true);
     }
 

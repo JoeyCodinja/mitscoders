@@ -20,6 +20,7 @@ import java.util.Date;
 
 import mits.uwi.com.ourmobileenvironment.R;
 import mits.uwi.com.ourmobileenvironment.sas.sas_database.TimeTable;
+import mits.uwi.com.ourmobileenvironment.sas.timetable.Activity.TimeTableActivity;
 
 /**
  * Created by User on 1/16/2016.
