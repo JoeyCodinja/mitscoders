@@ -41,13 +41,15 @@
         tools:replace="android:icon" >
         <meta-data
             android:name="UWIMOBILEDATABASE"
-            android:value="app.db" />
+            android:value="ourme.db" />
         <meta-data
             android:name="VERSION"
             android:value="1" />
         <meta-data
             android:name="QUERY_LOG"
             android:value="true" />
+        <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="mits.uwi.com.ourmobileenvironment" />
+
 
         <activity
             android:name=".HomeActivity"
@@ -196,13 +198,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mits.uwi.com.ourmobileenvironment.HomeActivity" />
         </activity>
-
-        <meta-data
-            android:name="DATABASE"
-            android:value="ourme.db" />
-        <meta-data
-            android:name="DOMAIN_PACKAGE_NAME"
-            android:value="mits.uwi.com.ourmobileenvironment" />
 
         <activity
             android:name=".ourvle.activities.OurVLELoginActivity"
