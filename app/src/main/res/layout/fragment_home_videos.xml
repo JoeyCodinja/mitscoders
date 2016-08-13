@@ -1,15 +1,15 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="mits.uwi.com.ourmobileenvironment.homepagefragments.HomeVideosFragment">
-
 
 
     <fragment
         class="mits.uwi.com.ourmobileenvironment.homepagefragments.HomeVideosFragment$VideoFragment"
         android:id="@+id/uwitv_youtube_fragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"/>
 
     <!-- UWI TV video list START -->
 
@@ -17,9 +17,10 @@
         android:id="@+id/uwitv_videos_list"
         android:scrollbars="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@id/uwitv_youtube_fragment"/>
 
     <!-- UWI TV video list END-->
 
 
-</FrameLayout>
+</RelativeLayout>

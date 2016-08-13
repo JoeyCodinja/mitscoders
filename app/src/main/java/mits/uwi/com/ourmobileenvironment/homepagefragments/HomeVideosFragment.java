@@ -1,25 +1,23 @@
 package mits.uwi.com.ourmobileenvironment.homepagefragments;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 
 import com.google.api.client.http.GenericUrl;
-import com.google.api.client.http.HttpHeaders;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestInitializer;
 import com.google.api.client.http.HttpResponse;
@@ -31,14 +29,10 @@ import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.SearchListResponse;
 import com.google.api.services.youtube.model.SearchResult;
 import com.google.api.services.youtube.model.SearchResultSnippet;
-import com.google.api.services.youtube.model.Thumbnail;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import mits.uwi.com.ourmobileenvironment.adapters.VideoListRecyclerAdapter;
 import mits.uwi.com.ourmobileenvironment.DeveloperKey;
@@ -53,7 +47,9 @@ import mits.uwi.com.ourmobileenvironment.R;
 public class HomeVideosFragment
         extends Fragment {
 
-    VideoFragment uwitv_fragment;
+    VideoListRecyclerAdapter adapter;
+    RecyclerView videosListRecyclerView;
+    VideoFragment playerFragment;
 
     public static HomeVideosFragment newInstance() {
         HomeVideosFragment fragment = new HomeVideosFragment();
@@ -76,12 +72,12 @@ public class HomeVideosFragment
             LayoutInflater inflater,
             ViewGroup container,
             Bundle savedInstanceState) {
-        RecyclerView videosListRecyclerView;
         RecyclerView.LayoutManager videoListLayoutManager;
-        VideoListRecyclerAdapter adapter;
 
         // Inflate the layout for this fragment
         View fragment_view = inflater.inflate(R.layout.fragment_home_videos, container, false);
+
+        playerFragment = (VideoFragment)getChildFragmentManager().getFragments().get(0);
 
         videosListRecyclerView = (RecyclerView) fragment_view.findViewById(R.id.uwitv_videos_list);
         videosListRecyclerView.setHasFixedSize(true);
@@ -90,17 +86,12 @@ public class HomeVideosFragment
 
         videosListRecyclerView.setLayoutManager(videoListLayoutManager);
 
-        adapter = new VideoListRecyclerAdapter(uwiTVChannelRequest());
-        videosListRecyclerView.setAdapter(adapter);
+        new AsyncYouTubeQueryRunner().executeOnExecutor
+                (AsyncTask.THREAD_POOL_EXECUTOR,
+                getActivity());
 
         return fragment_view;
 
-    }
-
-    public ArrayList<String> getVideosfromUWITVChannel(){
-        ArrayList<String> videoIds = new ArrayList<>();
-
-        return videoIds;
     }
 
     public YouTubeQueryResult[] uwiTVChannelRequest(){
@@ -170,11 +161,51 @@ public class HomeVideosFragment
                 }
             }
         }
-
-
         return results;
     }
 
+
+    public class AsyncYouTubeQueryRunner extends AsyncTask<Context, Void, YouTubeQueryResult[]> {
+        @Override
+        protected YouTubeQueryResult[] doInBackground(Context... params){
+            return uwiTVChannelRequest();
+        }
+
+        @Override
+        protected void onPostExecute(YouTubeQueryResult[] results){
+            // Initializes the adapter with the results we got before
+            adapter = new VideoListRecyclerAdapter(results);
+
+            videosListRecyclerView.setAdapter(adapter);
+
+            // Set onClick Listeners to
+            // cue vide based on
+            // the video that was
+            // clicked
+            for (int item=0; item < videosListRecyclerView.getChildCount(); item++){
+                View holder = videosListRecyclerView.getChildAt(item);
+                // Sets an onClickListener to
+                // cue the video that
+                // clicked from the list
+                holder.setOnClickListener(new CueVideoClickListener());
+            }
+
+            for(int result=0; result < results.length; result++){
+                try {
+                    if (results[result].title.equals("error") &&
+                            results[result].description.equals("error") &&
+                            results[result].videoId.equals("error")) {
+
+                    }
+                }
+                catch (NullPointerException e){
+                    Log.d("AsyncYouTubeQueryRunner", e.toString());
+                    continue;
+                }
+
+            }
+        }
+    }
 
     public static final class VideoFragment
             extends YouTubePlayerSupportFragment
@@ -236,6 +267,19 @@ public class HomeVideosFragment
     }
 
 
+    class CueVideoClickListener implements View.OnClickListener{
+
+        @Override
+        public void onClick(View v){
+            RecyclerView recyclerView = (RecyclerView) v.getParent();
+            int viewIndex = recyclerView.getChildLayoutPosition(v);
+            String requestedVideoId = adapter.getItemVideoId(viewIndex);
+            playerFragment.pause();
+            playerFragment.player.cueVideo(requestedVideoId);
+        }
+
+    }
+
     public class YouTubeQueryResult {
         public String videoId;
         public String title;
@@ -265,6 +309,8 @@ public class HomeVideosFragment
         }
 
     }
+
+
 }
 
 

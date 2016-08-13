@@ -39,10 +39,11 @@
 
     <RelativeLayout
         android:id="@+id/FABHolder"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:layout_gravity="bottom|end"
         android:orientation="vertical"
+        android:background="#8b70ca6f"
         >
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/sas_fab"

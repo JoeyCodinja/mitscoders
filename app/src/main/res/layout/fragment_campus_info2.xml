@@ -17,7 +17,7 @@
         />
     <FrameLayout
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_below="@id/campus_information_heading"
         android:id="@+id/viewPagerFrame"
         android:background="#9828c235">

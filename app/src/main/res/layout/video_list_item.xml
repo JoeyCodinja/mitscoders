@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
 
-    <android.studio.v7.widget.CardView
+    <android.support.v7.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/video_item_card"
         android:layout_gravity="center"
@@ -20,12 +20,12 @@
             android:id="@+id/video_item_title"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:gravity="bottom|end"/>
+            android:layout_gravity="bottom|end"/>
 
         <TextView
             android:id="@+id/video_item_description"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"/>
 
-    </android.studio.v7.widget.CardView>
+    </android.support.v7.widget.CardView>
 </FrameLayout>

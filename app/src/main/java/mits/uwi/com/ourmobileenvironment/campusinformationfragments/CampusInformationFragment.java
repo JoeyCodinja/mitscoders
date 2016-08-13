@@ -185,7 +185,7 @@ public class CampusInformationFragment extends Fragment {
             indicator.setMaxWidth(20);
             indicator.addShadow();
             indicators.add(indicator.getId());
-            indicatorGroup.addView(indicatorGroup);
+            indicatorGroup.addView(indicator);
         };
 
         return indicatorGroup;

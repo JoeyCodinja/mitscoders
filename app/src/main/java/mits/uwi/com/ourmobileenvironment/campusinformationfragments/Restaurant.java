@@ -18,9 +18,6 @@ public class Restaurant extends SugarRecord {
     private String imgurl;
 
 
-
-
-
     public Restaurant(){}
 
 
