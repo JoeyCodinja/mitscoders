@@ -70,23 +70,25 @@ public class TimeTableService extends IntentService {
                if (mtimetable.isEmpty()) {
             Toast.makeText(getApplicationContext(), "No Events to Report", Toast.LENGTH_SHORT).show();
                }
-               for(TimeTable event: mtimetable){
-                calendar2.setTime(event.getStartTime());
-                    if(event.getDay() == mday && (calendar2.get(Calendar.HOUR_OF_DAY) -1 == mhour)){
-                        if (calendar2.get(Calendar.MINUTE) <=CLASS_INTERVAL ) {
-                            Notification notification = new Notification.Builder(this)
-                                    .setTicker(getResources().getText(R.string.sas))
-                                    .setSmallIcon(R.drawable.ic_event_white_24dp)
-                                    .setContentTitle("Upcoming Class")
-                                    .setContentText(event.getDescription())
-                                    .setContentIntent(pi)
-                                    .setAutoCancel(true)
-                                    .build();
-                            notificationManager.notify(NOTIFICATION, notification);
-                            vibrator.vibrate(1000);
-                        }
-                    }
-                }
+               for(TimeTable event: mtimetable) {
+                   calendar2 = Calendar.getInstance();
+                   calendar2.setTime(event.getStartTime());
+                   if (event.getDay() == mday && (calendar2.get(Calendar.HOUR_OF_DAY) - 1 == mhour)) {
+                       if (calendar2.get(Calendar.MINUTE) <= CLASS_INTERVAL) {
+                           Notification notification = new Notification.Builder(this)
+                                   .setTicker(getResources().getText(R.string.sas))
+                                   .setSmallIcon(R.drawable.ic_event_white_24dp)
+                                   .setContentTitle("Upcoming Class")
+                                   .setContentText(event.getDescription())
+                                   .setContentIntent(pi)
+                                   .setAutoCancel(true)
+                                   .build();
+                           notificationManager.notify(NOTIFICATION, notification);
+                           vibrator.vibrate(1000);
+                       }
+                   }
+
+               }
 
            }
        }
