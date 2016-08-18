@@ -1,14 +1,15 @@
 package mits.uwi.com.ourmobileenvironment.campusinformationfragments;
 
 
+import android.annotation.TargetApi;
 import android.content.Intent;
-import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+
 import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -16,23 +17,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.Button;
-import android.widget.ExpandableListView;
-import android.support.design.widget.TabLayout;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.bluejamesbond.text.DocumentView;
 import com.pkmmte.view.CircularImageView;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
+import java.util.jar.Attributes;
 
 import mits.uwi.com.ourmobileenvironment.CampusInformationSubActivity;
 import mits.uwi.com.ourmobileenvironment.R;
 import mits.uwi.com.ourmobileenvironment.adapters.CampusInfoViewPagerAdapter;
-import mits.uwi.com.ourmobileenvironment.campusinformationfragments.UWIInformationFragments.*;
 
 
 /**
@@ -43,80 +38,92 @@ public class CampusInformationFragment extends Fragment {
     public final static String TO_WHERE_INT =
             "com.ourmobileenvironment.campusinformationfragments.TO_WHERE";
 
-    ExpandableListView mCampusInfo_ExpandableList;
     ViewPager  mCampusInfo_ViewPager;
     private Handler viewPagerSwipeHandler;
-    private Runnable viewPagerSwipeRunnable;
     CampusInfoViewPagerAdapter adapter;
-    LayoutInflater inflater;
-    TabLayout tabs;
     int [] campusInfoSub = {R.id.to_campus_facilities,
                             R.id.to_campus_housing,
                             R.id.to_faculties,
                             R.id.to_history,
-                            R.id.to_campus_life,
-                            R.id.to_shrugs};
+                            R.id.to_campus_life,};
 
-    ArrayList<Object> indicators = new ArrayList<Object>();
+    String[] groups, children;
 
-    final int active = Color.argb(255,81,81,77);
-    final int inactive = Color.argb(255,203,202,200);
+    Attributes indicators;
 
-    Button toCampusLife, toFaculties, toHistory,
-            toCampusHousing, toCampusFacilites, toUnknown;
+    Drawable indicatorSelected, indicatorUnselected;
 
     @Override
+    @TargetApi(21)
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        final String[] groups = {getResources().getString(R.string.campus_info_snippet_title1),
+        super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= 16 && Build.VERSION.SDK_INT < 21){
+            indicatorSelected = getResources().getDrawable(R.drawable.indicators_selected);
+            indicatorUnselected = getResources().getDrawable(R.drawable.indicators);
+        } else{
+            indicatorSelected = getResources().getDrawable(R.drawable.indicators_selected, null);
+            indicatorUnselected = getResources().getDrawable(R.drawable.indicators, null);
+        }
+
+        groups = new String[]{getResources().getString(R.string.campus_info_snippet_title1),
                 getResources().getString(R.string.campus_info_snippet_title2),
                 getResources().getString(R.string.campus_info_snippet_title3),
                 getResources().getString(R.string.campus_info_snippet_title4),
                 getResources().getString(R.string.campus_info_snippet_title5),
                 getResources().getString(R.string.campus_info_snippet_title6)
         };
-        String[] children = {getResources().getString(R.string.campus_info_snippet_body1),
+
+        children = new String[]{getResources().getString(R.string.campus_info_snippet_body1),
                 getResources().getString(R.string.campus_info_snippet_body2),
                 getResources().getString(R.string.campus_info_snippet_body3),
                 getResources().getString(R.string.campus_info_snippet_body4),
                 getResources().getString(R.string.campus_info_snippet_body5),
                 getResources().getString(R.string.campus_info_snippet_body6)};
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_campus_info2, container, false);
-
         View parent = (View) container.getParent();
 
-        DocumentView campusHeading = (DocumentView)parent.
-                findViewById(R.id.campus_info_heading_fragment);
-//
-        FragmentManager fm = this.getActivity().getSupportFragmentManager();
+        // ViewPager Adapter setup
 
-        adapter = new CampusInfoViewPagerAdapter(getActivity().getSupportFragmentManager(),
-                groups, children, groups.length);
+        adapter = new CampusInfoViewPagerAdapter(
+                getActivity().getSupportFragmentManager(),
+                groups,
+                children,
+                groups.length);
 
         mCampusInfo_ViewPager = (ViewPager)v.findViewById(R.id.campus_info_viewpager);
 
         mCampusInfo_ViewPager.setAdapter(adapter);
 
-        mCampusInfo_ViewPager.addView(createViewPagerIndicator(groups.length));
+        indicators = new Attributes(adapter.getCount());
+
+        mCampusInfo_ViewPager.addOnPageChangeListener(new CampusInfoViewPagerPageChangeListener());
+
+        FrameLayout viewPagerParent = (FrameLayout)mCampusInfo_ViewPager.getParent();
+        viewPagerParent.addView(createViewPagerIndicator(groups.length));
 
         // Allows the View Pager to swipe automatically
         viewPagerSwipeHandler = new Handler();
-        viewPagerSwipeRunnable = new Runnable() {
+        Runnable viewPagerSwipeRunnable = new Runnable() {
             @Override
             public void run() {
+                if (mCampusInfo_ViewPager.getChildCount() == 0){
+                    viewPagerSwipeHandler.removeCallbacks(this);
+                    return;
+                }
                 mCampusInfo_ViewPager
-                        .setCurrentItem((mCampusInfo_ViewPager.getCurrentItem() + 1) %
-                                groups.length );
-                indicate(mCampusInfo_ViewPager.getCurrentItem() + 1 ,
-                        mCampusInfo_ViewPager.getParent());
+                        .setCurrentItem(
+                                (mCampusInfo_ViewPager.getCurrentItem() + 1) %
+                                        mCampusInfo_ViewPager.getChildCount());
                 viewPagerSwipeHandler.postDelayed(this, 10000);
+
             }
         };
 
@@ -128,8 +135,9 @@ public class CampusInformationFragment extends Fragment {
             buttonInQuestion.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     Intent toSubCampusInfo =
-                            new Intent(getActivity(),
+                            new Intent(getActivity().getApplicationContext(),
                                        CampusInformationSubActivity.class);
                     toSubCampusInfo.putExtra(CampusInformationFragment.TO_WHERE_INT,
                             buttonInQuestion.getId());
@@ -141,53 +149,115 @@ public class CampusInformationFragment extends Fragment {
         return v;
     }
 
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        mCampusInfo_ViewPager.clearOnPageChangeListeners();
+        viewPagerSwipeHandler.removeCallbacks(null);
+    }
 
+    public void indicate(int index){
+        ViewParent viewParent;
+
+        viewParent = mCampusInfo_ViewPager.getParent();
+
+        indicate(index, viewParent);
+    }
+
+    @TargetApi(21)
     public void indicate(int index, ViewParent viewParent){
         FrameLayout frame = (FrameLayout)viewParent;
-        View view = frame.getChildAt(index);
-        view.setBackgroundColor(active);
+        LinearLayout indicatorLayout = (LinearLayout)frame.getChildAt(1);
+        View view =  indicatorLayout.getChildAt(index);
+        view.setBackground(indicatorSelected);
+        indicators.putValue(String.valueOf(view.getId()),
+                            String.valueOf(true));
 
         for(int other_views=0;
             other_views < frame.getChildCount()-1;
             other_views ++){
-            if (other_views == index)
-                continue;
-            else{
-                view = frame.getChildAt(other_views);
-                if (view.getSolidColor() == active)
-                    view.setBackgroundColor(inactive);
-
+            if (other_views != index){
+                view = indicatorLayout.getChildAt(other_views);
+                if (Boolean.valueOf(indicators.getValue(String.valueOf(view.getId())))){
+                    view.setBackground(indicatorUnselected);
+                    indicators.putValue(String.valueOf(view.getId()),
+                                        String.valueOf(false));
+                    break;
+                }
             }
         }
-
     }
 
+    @TargetApi(21)
     public View createViewPagerIndicator(int magnitude){
         LinearLayout indicatorGroup = new LinearLayout(this.getActivity());
-        indicatorGroup.setId(R.id.indicatorGroup);
+        ImageView[] indicatorSet = new ImageView[magnitude];
+
         indicatorGroup.setOrientation(LinearLayout.HORIZONTAL);
-        LinearLayout.LayoutParams indicatorGroupLayoutParams =
-                new LinearLayout.LayoutParams(
+        FrameLayout.LayoutParams indicatorGroupLayoutParams =
+                new FrameLayout.LayoutParams(
                         LinearLayout.LayoutParams.WRAP_CONTENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT);
-        indicatorGroupLayoutParams.gravity =
-                Gravity.BOTTOM | Gravity.CENTER_VERTICAL;
-
         indicatorGroup.setLayoutParams(indicatorGroupLayoutParams);
+        indicatorGroupLayoutParams.gravity = Gravity.CENTER_VERTICAL | Gravity.BOTTOM;
 
         for (int view=0; view < magnitude; view++){
-            CircularImageView indicator = new CircularImageView(indicatorGroup.getContext());
+            LinearLayout.LayoutParams indicatorLayoutParams =
+                    new LinearLayout.LayoutParams(
+                            (int) getResources().getDimension(R.dimen.indicator_height),
+                            (int) getResources().getDimension(R.dimen.indicator_width));
+            indicatorLayoutParams.gravity= Gravity.CENTER;
+
+            indicatorSet[view] = new CircularImageView(indicatorGroup.getContext());
+            Drawable indicatorImage;
+
+            int indicatorShapeID;
+
             if (view == 0){
-                indicator.setBackgroundColor(active);
+                indicatorShapeID = R.drawable.indicators_selected;
+                indicators.putValue(String.valueOf(indicatorSet[view].getId()),
+                               String.valueOf(true));
             }
-            else indicator.setBackgroundColor(inactive);
-            indicator.setMaxHeight(20);
-            indicator.setMaxWidth(20);
-            indicator.addShadow();
-            indicators.add(indicator.getId());
-            indicatorGroup.addView(indicator);
+            else {
+                indicatorShapeID = R.drawable.indicators;
+                indicators.putValue(String.valueOf(indicatorSet[view].getId()),
+                               String.valueOf(false));
+            }
+
+            if (Build.VERSION.SDK_INT >= 16 && Build.VERSION.SDK_INT < 21)
+                // Deprecated;
+                indicatorImage = getResources().getDrawable(indicatorShapeID);
+            else
+                indicatorImage = getResources().getDrawable(indicatorShapeID, null);
+
+            indicatorSet[view].setBackground(indicatorImage);
+            indicatorSet[view].setLayoutParams(indicatorLayoutParams);
+            indicatorSet[view].setPadding(2, 0, 2, 0);
+            indicatorGroup.addView(indicatorSet[view]);
         };
 
         return indicatorGroup;
+    }
+
+
+
+
+    public class CampusInfoViewPagerPageChangeListener implements ViewPager.OnPageChangeListener{
+
+        @Override
+        public void onPageScrollStateChanged(int state){
+        }
+
+        @Override
+        public void onPageScrolled(int position,
+                                   float positionOffset,
+                                   int positionOffsetPixels){
+        }
+
+        @Override
+        public void onPageSelected(int position){
+            indicate(position);
+        }
+
     }
 }

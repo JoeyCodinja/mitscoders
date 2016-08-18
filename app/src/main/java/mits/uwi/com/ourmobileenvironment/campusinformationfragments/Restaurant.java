@@ -21,6 +21,7 @@ public class Restaurant extends SugarRecord {
     public Restaurant(){}
 
 
+
     Restaurant(String name, String location, String businessHours, int photoId, float coordx,float coordy,String imgurl) {
         this.name = name;
         this.location = location;

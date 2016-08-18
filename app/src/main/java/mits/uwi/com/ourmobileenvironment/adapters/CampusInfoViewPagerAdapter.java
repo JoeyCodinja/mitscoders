@@ -16,7 +16,10 @@ public class CampusInfoViewPagerAdapter extends FragmentStatePagerAdapter {
     private String[] mChildren;
     private int mNumOfTabs;
 
-    public CampusInfoViewPagerAdapter(FragmentManager fm, String titles[], String children[], int numOfTabs) {
+    public CampusInfoViewPagerAdapter(FragmentManager fm,
+                                      String titles[],
+                                      String children[],
+                                      int numOfTabs) {
         super(fm);
         this.mGroups = titles;
         this.mNumOfTabs = numOfTabs;

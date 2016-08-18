@@ -1,9 +1,9 @@
 package mits.uwi.com.ourmobileenvironment;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,7 +11,7 @@ import android.view.MenuItem;
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.CampusInformationFragment;
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.UWIInformationFragments.*;
 
-public class CampusInformationSubActivity extends AppCompatActivity {
+public class CampusInformationSubActivity extends Activity {
 
     FragmentManager fm;
     Fragment fragment;
@@ -26,28 +26,25 @@ public class CampusInformationSubActivity extends AppCompatActivity {
         Integer toWhichCampusInformationSub = fromCampusActivityMain
                 .getIntExtra(CampusInformationFragment.TO_WHERE_INT, 0);
 
-        fm = getSupportFragmentManager();
+        fm = getFragmentManager();
         fragment = fm.findFragmentById(R.id.campus_sub_fragment);
 
         if (fragment == null){
             switch(toWhichCampusInformationSub){
                 case R.id.to_campus_life:
-                    fragment = new CampusLife();
+                    fragment = CampusLife.newInstance();
                     break;
                 case R.id.to_campus_housing:
-                    fragment = new HousingAccomodation();
+                    fragment = HousingAccomodation.newInstance();
                     break;
                 case R.id.to_campus_facilities:
-                    fragment = new Facilities();
+                    fragment = Facilities.newInstance();
                     break;
                 case R.id.to_faculties:
-                    fragment = new Faculties();
+                    fragment = Faculties.newInstance();
                     break;
                 case R.id.to_history:
-                    fragment = new History();
-                    break;
-                case R.id.to_shrugs:
-                    fragment = new Shrugs();
+                    fragment = History.newInstance();
                     break;
             }
 

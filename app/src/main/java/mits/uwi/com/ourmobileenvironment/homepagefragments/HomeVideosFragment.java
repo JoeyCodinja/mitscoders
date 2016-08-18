@@ -13,9 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
+
+import com.google.api.client.auth.oauth2.TokenResponse;
 
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpRequest;
@@ -29,9 +32,12 @@ import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.SearchListResponse;
 import com.google.api.services.youtube.model.SearchResult;
 import com.google.api.services.youtube.model.SearchResultSnippet;
+import com.google.api.client.auth.oauth2.TokenRequest;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import mits.uwi.com.ourmobileenvironment.adapters.VideoListRecyclerAdapter;
@@ -118,8 +124,8 @@ public class HomeVideosFragment
                     .setOrder("date")
                     .setType("video")
                     .setMaxResults(Long.valueOf("20"))
+                    .setKey(DeveloperKey.YOUTUBE_APIKEY)
                     .execute();
-
 
             List videos = uwiTvChannelVideos.getItems();
             for (int video=0; video < uwiTvChannelVideos.getItems().size(); video++){
@@ -279,6 +285,7 @@ public class HomeVideosFragment
         }
 
     }
+
 
     public class YouTubeQueryResult {
         public String videoId;

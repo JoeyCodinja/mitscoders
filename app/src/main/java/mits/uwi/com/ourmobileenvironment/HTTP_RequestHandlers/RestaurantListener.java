@@ -59,6 +59,8 @@ public class RestaurantListener implements Response.Listener<JSONObject> {
                 adapter.Add(currentRes);
                 if (status.equals("200")){
                     currentRes.save();
+                }
+                else{
                     Log.d("table not found",currentRes.find(restaurantClass,"name = ?",currentRes.getName()).toString());
                 }
             }
@@ -74,7 +76,7 @@ public class RestaurantListener implements Response.Listener<JSONObject> {
 
     }
 
-    public  void Deleteall(){
+    public void Deleteall(){
 
         try {
             Restaurant.deleteAll(restaurantClass);

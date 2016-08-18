@@ -48,7 +48,6 @@
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/sas_fab"
             style="@style/FABButtons"
-            android:layout_alignParentTop="true"
             android:src='@drawable/sas'
             app:backgroundTint="#EAFFF501" />
 
@@ -76,13 +75,17 @@
             />
 
         <android.support.design.widget.FloatingActionButton
+            android:id="@+id/eateries_fab"
+            style="@style/FABButtons"
+            android:layout_below="@id/campus_info_fab"
+            app:backgroundTint="#fe030303"/>
+
+        <android.support.design.widget.FloatingActionButton
             android:id='@+id/mainFab'
             style="@style/FABButtons"
-            android:gravity="bottom|end"
             android:layout_alignParentBottom="true"
             android:src="@drawable/pelican_white"
             app:backgroundTint="#EA0010E2"
-
             />
     </RelativeLayout>
 

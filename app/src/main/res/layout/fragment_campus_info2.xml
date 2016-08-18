@@ -16,19 +16,19 @@
         ext:documentView_insetPadding="10dip"
         />
     <FrameLayout
-        android:layout_height="wrap_content"
+        android:layout_height="200dip"
         android:layout_width="match_parent"
         android:layout_below="@id/campus_information_heading"
         android:id="@+id/viewPagerFrame"
         android:background="#9828c235">
         <android.support.v4.view.ViewPager
-            android:layout_height="50dip"
+            android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:id="@+id/campus_info_viewpager"
             android:background="#498AAA"/>
     </FrameLayout>
 
-    <RelativeLayout
+    <GridLayout
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_below="@id/viewPagerFrame"
@@ -41,41 +41,23 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/to_campus_life"
-            android:layout_toEndOf="@id/to_campus_life"
             android:id="@+id/to_faculties"
             android:text="@string/to_faculties"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/to_faculties"
-            android:layout_toEndOf="@id/to_faculties"
             android:id="@+id/to_history"
             android:text="@string/to_history"/>
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/to_campus_life"
-            android:layout_alignLeft="@id/to_campus_life"
-            android:layout_alignStart="@id/to_campus_life"
             android:id="@+id/to_campus_housing"
             android:text="@string/to_campus_housing"/>
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/to_faculties"
-            android:layout_alignLeft="@id/to_faculties"
-            android:layout_alignStart="@id/to_faculties"
             android:id="@+id/to_campus_facilities"
             android:text="@string/to_campus_facilities"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/to_history"
-            android:layout_alignLeft="@id/to_history"
-            android:layout_alignStart="@id/to_history"
-            android:id="@+id/to_shrugs"
-            android:text="@string/to_something_wdk_yet"/>
-    </RelativeLayout>
+    </GridLayout>
 
 </RelativeLayout>

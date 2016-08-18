@@ -21,6 +21,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 
 import java.lang.reflect.Array;
@@ -44,19 +45,15 @@ import static java.lang.Math.pow;
 public class HomeActivityFragment extends Fragment {
 
     private ArrayList<FloatingActionButton> mFABs = new ArrayList<>();
-    private Animator.AnimatorListener mFABAnimatorListener;
     public static Boolean mMenuExpanded = false;
-    private Animation fadeIn, fadeOut;
-    private float screenHeight, screenWidth;
 
     int[] fabIDs = {R.id.mainFab,
             R.id.campus_info_fab,
             R.id.transport_fab,
             R.id.ourvle_fab,
+            R.id.eateries_fab,
 //            R.id.boss_fab,
             R.id.sas_fab};
-
-    float[][] fabCoords = new float[fabIDs.length][2];
 
     private ViewPager mHome_ViewPager;
     HomePageViewPagerAdapter adapter;
@@ -80,6 +77,7 @@ public class HomeActivityFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_landing, container, false);
         final FrameLayout shade = (FrameLayout) v.findViewById(R.id.shade);
+        RelativeLayout fabHolder = (RelativeLayout) v.findViewById(fabIDs[0]).getParent();
 
         shade.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -92,8 +90,7 @@ public class HomeActivityFragment extends Fragment {
                 for (int fab = 1; fab < mFABs.size(); fab++){
                     mFABs.get(fab).animate()
                             .setDuration(2500 - (500 * (fab - 1)))
-                            .alpha(0)
-                            .setListener(mFABAnimatorListener);
+                            .alpha(0);
                     mFABs.get(fab).setVisibility(View.GONE);
                 }
                 mMenuExpanded = false;
@@ -103,6 +100,7 @@ public class HomeActivityFragment extends Fragment {
 
         for (int fab = 0; fab <= fabIDs.length - 1; fab++) {
             mFABs.add((FloatingActionButton) v.findViewById(fabIDs[fab]));
+
             if (fab > 0) {
                 mFABs.get(fab).setAlpha((float) 0);
                 mFABs.get(fab).setVisibility(View.GONE);
@@ -135,34 +133,9 @@ public class HomeActivityFragment extends Fragment {
                         }
                     }
                 });
-                fabCoords[fab][0] = mFABs.get(fab).getX();
-                fabCoords[fab][1] = mFABs.get(fab).getY();
+
             }
         }
-
-        mFABAnimatorListener = new Animator.AnimatorListener() {
-            List<FloatingActionButton> buttons = mFABs.subList(1, mFABs.size());
-
-            @Override
-            public void onAnimationStart(Animator animation) {
-                Log.d(TAG, "Animation Started");
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                Log.d(TAG, "Animation Ended");
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-                Log.d(TAG, "Animation cancelled");
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-                Log.d(TAG, "Animation Repeated");
-            }
-        };
 
         mFABs.get(0).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -193,8 +166,7 @@ public class HomeActivityFragment extends Fragment {
                     for (int fab = 1; fab <= mFABs.size() - 1; fab++) {
                         mFABs.get(fab).animate()
                                 .setDuration(2500 - (500 * (fab - 1)))
-                                .alpha(0)
-                                .setListener(mFABAnimatorListener);
+                                .alpha(0);
                         mFABs.get(fab).setVisibility(View.GONE);
                     }
                     shade.setVisibility(View.GONE);

@@ -139,13 +139,17 @@
 
 
     <!-- TODO: Remove the Faux-FAB related styles, replace with new FAB colors -->
-    <style name="FABButtons">
+    <style name="FABButtons" parent="Widget.Design.FloatingActionButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">5dip</item>
-        <item name="android:layout_gravity">bottom|end</item>
-        <item name="android:gravity">bottom|end</item>
         <item name="android:elevation">4dp</item>
+        <item name="fabSize">normal</item>
+        <item name="elevation">4dp</item>
+
+    </style>
+
+    <style name="secondaryFABButtons" parent="FABButtons">
+        <item name="fabSize">mini</item>
     </style>
 
     <!--<style name="FAB_Main_Menu" parent="Widget.Design.FloatingActionButton">-->
