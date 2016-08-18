@@ -8,8 +8,10 @@ import com.android.volley.VolleyError;
 import java.util.ArrayList;
 import java.util.List;
 
+import mits.uwi.com.ourmobileenvironment.EateriesActivity;
 import mits.uwi.com.ourmobileenvironment.R;
 import mits.uwi.com.ourmobileenvironment.Transport.TransportFragment;
+import mits.uwi.com.ourmobileenvironment.adapters.EateriesAdapter;
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.EateriesFragment;
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.Restaurant;
 
@@ -23,6 +25,7 @@ public class RestaurantErrorListener implements Response.ErrorListener {
     private Toast internetConnection;
     private ArrayList<Restaurant> restaurants;
     private EateriesFragment eateriesFragment;
+    private EateriesActivity eateriesActivity;
 
 
     public RestaurantErrorListener(Class<Restaurant> restaurantClass,Context mCtx,EateriesFragment eateriesFragment,ArrayList<Restaurant>restaurants){
@@ -30,26 +33,56 @@ public class RestaurantErrorListener implements Response.ErrorListener {
         this.eateriesFragment=eateriesFragment;
         internetConnection=Toast.makeText(mCtx,"Please Check Internet Connection",Toast.LENGTH_SHORT);
         this.restaurants=restaurants;
-
     }
+
+    public RestaurantErrorListener(Class<Restaurant> restaurantClass, Context mCtx,
+                                   EateriesActivity eateriesActivity,
+                                   ArrayList<Restaurant> restaurants){
+        this.restaurantClass = restaurantClass;
+        this.eateriesActivity = eateriesActivity;
+        internetConnection = Toast.makeText(mCtx, "Please Check Internet Connection",
+                                            Toast.LENGTH_SHORT);
+        this.restaurants = restaurants;
+    }
+
     @Override
     public void onErrorResponse(VolleyError error){
-        List<Restaurant> objlist=Restaurant.listAll(restaurantClass);
-        EateriesFragment.EateriesAdapter adapter=eateriesFragment.getAdap();
+        EateriesFragment.EateriesAdapter adapter;
+        EateriesAdapter newAdapter = null;
+
+        List<Restaurant> objlist = Restaurant.listAll(restaurantClass);
+
+        try{
+            adapter = eateriesFragment.getAdap();
+        } catch (NullPointerException e) {
+            adapter = null;
+            newAdapter = eateriesActivity.getAdapter();
+        }
+
+
         if (objlist.isEmpty()){
             internetConnection.show();
-
         }
         else {
             restaurants.clear();
             for (Restaurant transport:objlist){
                 restaurants.add(transport);
-                adapter.Add(transport);
+                if (adapter != null){
+                    adapter.Add(transport);
+                }
+                else if (newAdapter != null){
+                    newAdapter.Add(transport);
+                }
             }
-            eateriesFragment.refreshView();
-            eateriesFragment.getActivity().findViewById(R.id.progress_bar).setVisibility(View.GONE);
 
-
+            if (adapter != null){
+                eateriesFragment.refreshView();
+                eateriesFragment.getActivity().findViewById(R.id.progress_bar).setVisibility(View.GONE);
+            }
+            else if (newAdapter != null){
+                eateriesActivity.refreshView();
+                eateriesActivity.findViewById(R.id.progress_bar).setVisibility(View.GONE);
+            }
         }
     }
 }

@@ -6,91 +6,91 @@
     <!-- Landing strings -->
     <string name="navigation_drawer_open">Open</string>
     <string name="navigation_drawer_close">Close</string>
-        <!-- View Article Chooser Strings -->
-        <string name="view_article_string">View this news article with</string>
+    <!-- View Article Chooser Strings -->
+    <string name="view_article_string">View this news article with</string>
     <string name='campusinfo_fab'>Campus Information</string>
     <string name='transportation_fab'>Transportation</string>
     <string name='ourvle_fab'>OurVLE</string>
     <string name='boss_fab'>BOSS</string>
     <string name='sas_fab'>SAS</string>
 
-        <!-- Video Tab Strings -->
-        <string name="player_error">There seems to be something wrong here</string>
+    <!-- Video Tab Strings -->
+    <string name="player_error">There seems to be something wrong here</string>
         <string name="initialization_player_error">
             There was an error Initializing the Youtube Player (%1$s)
         </string>
-        <string name='seek_to'>Jump To</string>
+    <string name='seek_to'>Jump To</string>
 
 
     <!-- OurVLE strings -->
     <string name="title_activity_our_vle">OurVLE</string>
-        <!--Navigation Buttons :: OURVle -->
+    <!--Navigation Buttons :: OURVle -->
 
-        <!-- Course List Fragments Strings-->
+    <!-- Course List Fragments Strings-->
 
-        <!-- Course Fragment -->
+    <!-- Course Fragment -->
 
 
     <!-- SAS strings -->
     <string name="title_activity_sas">SAS</string>
 
-        <!--Navigation Button Strings :: SAS -->
-        <string name="sas">Student Administrative Services</string>
-        <string name="to_sas_home"> Registered Courses</string>
-        <string name="to_courseFragment_button">Courses</string>
-        <string name="to_addDropFragment_button">Add/Drop Courses</string>
-        <string name="to_timetableFragment_button">Timetable</string>
-        <string name="to_classmapFragment_button">Class Map</string>
-        <string name="to_transcriptFragment_button">Transcript</string>
+    <!--Navigation Button Strings :: SAS -->
+    <string name="sas">Student Administrative Services</string>
+    <string name="to_sas_home"> Registered Courses</string>
+    <string name="to_courseFragment_button">Courses</string>
+    <string name="to_addDropFragment_button">Add/Drop Courses</string>
+    <string name="to_timetableFragment_button">Timetable</string>
+    <string name="to_classmapFragment_button">Class Map</string>
+    <string name="to_transcriptFragment_button">Transcript</string>
 
-        <!-- Add/Drop Fragment Strings -->
-        <string name="adddropFragment_title">Add/Drop</string>
-        <string name="semester">Select a Semester</string>
-        <string name="add_course"> Add Course</string>
-        <string name="search_course">Search Courses</string>
-        <string name="Cancel">CANCEL</string>
-        <string name="Done">DONE</string>
+    <!-- Add/Drop Fragment Strings -->
+    <string name="adddropFragment_title">Add/Drop</string>
+    <string name="semester">Select a Semester</string>
+    <string name="add_course"> Add Course</string>
+    <string name="search_course">Search Courses</string>
+    <string name="Cancel">CANCEL</string>
+    <string name="Done">DONE</string>
 
-        <!-- Course Fragment Strings -->
-        <string name="courseFragment_title">Courses</string>
-        <string name="course_info">Course Information</string>
-        <string name="noCourses">No Registered Courses</string>
-        <string name="course_exist"> Registered Courses</string>
-
-
-        <!-- TimeTableFragment Strings -->
-        <string name="timetableFragment_title">Timetable</string>
-        <string name="daybyday_title">Day By Day Timetable</string>
-        <string name="action_today">Today</string>
-        <string name="action_day_view">Day view</string>
-        <string name="action_three_day_view">3 day view</string>
-        <string name="action_week_view">Week view</string>
-        <string name="new_event"> New Calendar Event</string>
-        <string name="new_class">New</string>
+    <!-- Course Fragment Strings -->
+    <string name="courseFragment_title">Courses</string>
+    <string name="course_info">Course Information</string>
+    <string name="noCourses">No Registered Courses</string>
+    <string name="course_exist"> Registered Courses</string>
 
 
-        <!-- ClassMapFragment Strings -->
-        <string name="classmapFragment_title">Class Map</string>
+    <!-- TimeTableFragment Strings -->
+    <string name="timetableFragment_title">Timetable</string>
+    <string name="daybyday_title">Day By Day Timetable</string>
+    <string name="action_today">Today</string>
+    <string name="action_day_view">Day view</string>
+    <string name="action_three_day_view">3 day view</string>
+    <string name="action_week_view">Week view</string>
+    <string name="new_event"> New Calendar Event</string>
+    <string name="new_class">New</string>
 
-        <!-- Transcript Fragment -->
-        <string name="transcriptFragment_title">Transcript</string>
 
-        <!--Course Information fragment -->
-        <string name="CourseInfoFragment">Course Information</string>
-        <string name="RequestOverride">Request Override</string>
+    <!-- ClassMapFragment Strings -->
+    <string name="classmapFragment_title">Class Map</string>
 
-        <!-- Request CourseOverride Dialog -->
-        <string name="requestOverride_title">Request Override</string>
-        <string name="override_needed"> Needs Over-ride Approval</string>
-        <string name="override_submitted"> Over-ride request submitted</string>
-        <string name="request_ok">OK</string>
-        <string name="request_submit">SUBMIT</string>
-        <string name="request_cancel">CANCEL</string>
-        <string name="noOverrides">The are currently no override requests in the system.</string>
-        <string name="request_hint">Enter a message that will be sent to the lecturer, upon submitting this override.</string>
+    <!-- Transcript Fragment -->
+    <string name="transcriptFragment_title">Transcript</string>
+
+    <!--Course Information fragment -->
+    <string name="CourseInfoFragment">Course Information</string>
+    <string name="RequestOverride">Request Override</string>
+
+    <!-- Request CourseOverride Dialog -->
+    <string name="requestOverride_title">Request Override</string>
+    <string name="override_needed"> Needs Over-ride Approval</string>
+    <string name="override_submitted"> Over-ride request submitted</string>
+    <string name="request_ok">OK</string>
+    <string name="request_submit">SUBMIT</string>
+    <string name="request_cancel">CANCEL</string>
+    <string name="noOverrides">The are currently no override requests in the system.</string>
+    <string name="request_hint">Enter a message that will be sent to the lecturer, upon submitting this override.</string>
     <!-- Holds Strings -->
-        <string name="admin_hold"> Administrative Holds</string>
-        <string name="noHolds" >There are currenlty no administrative holds on your account </string>
+    <string name="admin_hold"> Administrative Holds</string>
+    <string name="noHolds">There are currenlty no administrative holds on your account </string>
     <!-- testing drop down -->
     <string-array name="semester_test">
         <item>  Semester 1 2014/2015</item>
@@ -116,13 +116,13 @@
         <item>  Foundation Courses</item>
         <item>  Geography</item>
     </string-array>
-<string-array name="timetable_color_pref">
-    <item name="1">@color/event_color_01</item>
-    <item name="2">@color/event_color_02</item>
-    <item name="3">@color/event_color_03</item>
-    <item name="4">@color/event_color_04</item>
-    <item name="5">@color/MediumPurple</item>
-</string-array>
+    <string-array name="timetable_color_pref">
+        <item name="1">@color/event_color_01</item>
+        <item name="2">@color/event_color_02</item>
+        <item name="3">@color/event_color_03</item>
+        <item name="4">@color/event_color_04</item>
+        <item name="5">@color/MediumPurple</item>
+    </string-array>
     <string-array name="timetable_colors">
         <item name="1">Cool</item>
         <item name="2">Steam</item>
@@ -136,7 +136,7 @@
     <string name="activity_evals">Teaching Evaluations</string>
 
 
-        <!-- BOSS Strings -->
+    <!-- BOSS Strings -->
     <string name="title_activity_boss">BOSS</string>
 
 
@@ -226,10 +226,6 @@
 
     <!-- Campus Directory Strings -->
     <string name="title_activity_campus_directory">Campus Directory</string>
-
-
-
-
 
 
     <!-- Eateries Strings-->
@@ -341,16 +337,16 @@
     </string-array>
     <string name="title_activity_message_list">MessageListActivity</string>
     <string name="no_messages">No Messages</string>
-    <string name="forum_title" formatted ="false">%s - %s</string>
+    <string name="forum_title" formatted="false">%s - %s</string>
 
     <string name="title_activity_news_view">News</string>
 
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_campus_information_sub">CampusInformationSubActivity</string>
 
     <string name="hello_world">Hello world!</string>
-
+    <string name="title_activity_eateries">EateriesActivity</string>
 
 
 </resources>

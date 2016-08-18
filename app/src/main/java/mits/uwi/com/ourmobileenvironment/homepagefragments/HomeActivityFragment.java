@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mits.uwi.com.ourmobileenvironment.BOSSActivity;
+import mits.uwi.com.ourmobileenvironment.EateriesActivity;
 import mits.uwi.com.ourmobileenvironment.Transport.TransportActivity;
 import mits.uwi.com.ourmobileenvironment.CampusInformationActivity;
 import mits.uwi.com.ourmobileenvironment.R;
@@ -120,6 +121,10 @@ public class HomeActivityFragment extends Fragment {
                                 break;
                             case R.id.ourvle_fab:
                                 i = new Intent(getActivity(), OurVLELoginActivity.class);
+                                startActivity(i);
+                                break;
+                            case R.id.eateries_fab:
+                                i = new Intent(getActivity(), EateriesActivity.class);
                                 startActivity(i);
                                 break;
 //                            case R.id.boss_fab:

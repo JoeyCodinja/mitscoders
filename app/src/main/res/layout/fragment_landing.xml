@@ -78,6 +78,7 @@
             android:id="@+id/eateries_fab"
             style="@style/FABButtons"
             android:layout_below="@id/campus_info_fab"
+            android:src="@drawable/eateries"
             app:backgroundTint="#fe030303"/>
 
         <android.support.design.widget.FloatingActionButton

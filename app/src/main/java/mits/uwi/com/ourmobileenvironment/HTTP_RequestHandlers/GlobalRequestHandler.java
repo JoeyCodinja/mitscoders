@@ -22,6 +22,8 @@ import mits.uwi.com.ourmobileenvironment.Transport.TaxiServiceFragment;
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.EateriesFragment;
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.Restaurant;
 
+import mits.uwi.com.ourmobileenvironment.EateriesActivity;
+
 
 public class GlobalRequestHandler {
     private static GlobalRequestHandler mInstance;
@@ -29,9 +31,6 @@ public class GlobalRequestHandler {
     private ImageLoader mImageLoader;
     private static Context mCtx;
     private Context TransportContext;
-
-
-
 
     private GlobalRequestHandler(Context context) {
         mCtx = context.getApplicationContext();
@@ -53,6 +52,7 @@ public class GlobalRequestHandler {
                     }
                 });
     }
+
 
     public static synchronized GlobalRequestHandler getInstance(Context context) {
         if (mInstance == null) {
@@ -108,6 +108,20 @@ public class GlobalRequestHandler {
         TransportRequest transportRequest=new TransportRequest(url,restaurantListener,restaurantErrorListener,mCtx);
         mRequestQueue.add(transportRequest);
 
+    }
+
+    public void getRestaurantList(ArrayList<Restaurant> RList, EateriesActivity eateriesActivity){
+        String url="https://webservice-rox117.c9users.io/service//eateries";
+        RestaurantListener restaurantListener = new RestaurantListener("RestaurantList", RList,
+                                                                       eateriesActivity, mCtx,
+                                                                       Restaurant.class);
+        RestaurantErrorListener restaurantErrorListener =
+                new RestaurantErrorListener(Restaurant.class, mCtx,
+                                            eateriesActivity, RList);
+
+        TransportRequest transportRequest = new TransportRequest(url, restaurantListener,
+                                                                 restaurantErrorListener, mCtx);
+        mRequestQueue.add(transportRequest);
     }
 
     public  void getGuildBusRoutes(ArrayList<GuildBus> GList,GuildBusFragment guildBusFragment){
