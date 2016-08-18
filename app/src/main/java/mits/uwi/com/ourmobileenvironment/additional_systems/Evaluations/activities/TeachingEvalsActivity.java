@@ -65,5 +65,4 @@ public class TeachingEvalsActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
 }

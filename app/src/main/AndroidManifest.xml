@@ -38,6 +38,10 @@
             android:name="UWIMOBILEDATABASE"
             android:value="app.db" />
         <meta-data
+            android:name="DOMAIN_PACKAGE_NAME"
+            android:value="mits.uwi.com.ourmobileenvironment" />
+
+        <meta-data
             android:name="VERSION"
             android:value="1" />
         <meta-data
@@ -125,6 +129,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mits.uwi.com.ourmobileenvironment.HomeActivity" />
         </activity>
+
 
         <activity
             android:name=".Transport.TransportActivity"

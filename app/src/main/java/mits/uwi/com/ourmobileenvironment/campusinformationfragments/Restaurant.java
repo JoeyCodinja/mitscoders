@@ -18,8 +18,9 @@ public class Restaurant extends SugarRecord {
     private String imgurl;
 
 
-    public Restaurant(){}
 
+
+    public Restaurant(){}
 
 
     Restaurant(String name, String location, String businessHours, int photoId, float coordx,float coordy,String imgurl) {

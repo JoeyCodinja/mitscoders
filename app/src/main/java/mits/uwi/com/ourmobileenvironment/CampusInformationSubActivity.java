@@ -4,14 +4,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.CampusInformationFragment;
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.UWIInformationFragments.*;
 
-public class CampusInformationSubActivity extends Activity {
+public class CampusInformationSubActivity extends Activity implements CampusLife.OnFragmentInteractionListener {
 
     FragmentManager fm;
     Fragment fragment;
@@ -74,5 +76,10 @@ public class CampusInformationSubActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        Log.d("CampusSubInfoFragment", String.valueOf(this.fragment.getId()));
     }
 }

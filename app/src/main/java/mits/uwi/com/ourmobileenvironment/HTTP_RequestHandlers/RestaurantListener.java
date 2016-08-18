@@ -77,7 +77,6 @@ public class RestaurantListener implements Response.Listener<JSONObject> {
     }
 
     public void Deleteall(){
-
         try {
             Restaurant.deleteAll(restaurantClass);
         }

@@ -187,22 +187,29 @@ public class StudentTimeTableWeekFragment extends Fragment implements WeekView.M
         //Populate the week view with some events.
         events = new ArrayList<WeekViewEvent>();
         mtimeTable = SugarRecord.listAll(TimeTable.class);
-
+        int i = 0;
 
         for (TimeTable mevent : mtimeTable) {
-
+            i++;
             Calendar startTime = Calendar.getInstance();
-            startTime.setTime(mevent.getStartTime());
+            Calendar strt = Calendar.getInstance();
+            Calendar end = Calendar.getInstance();
+            strt.setTime(mevent.getStartTime());
+            startTime.set(Calendar.HOUR_OF_DAY, strt.get(Calendar.HOUR_OF_DAY));
+            startTime.set(Calendar.MINUTE, 0);
             startTime.set(Calendar.DAY_OF_WEEK, mevent.getDay());
             startTime.set(Calendar.MONTH, newMonth - 1);
             startTime.set(Calendar.YEAR, newYear);
             Calendar endTime = Calendar.getInstance();
-            endTime.setTime(mevent.getEndTime());
+            end.setTime(mevent.getEndTime());
+            endTime.set(Calendar.HOUR_OF_DAY, end.get(Calendar.HOUR_OF_DAY));
+           endTime.set(Calendar.MINUTE, 0);
             endTime.set(Calendar.DAY_OF_WEEK, mevent.getDay());
             endTime.set(Calendar.MONTH, newMonth - 1);
             endTime.set(Calendar.YEAR, newYear);
 
-            WeekViewEvent event = new WeekViewEvent(mtimeTable.indexOf(mevent), mevent.getDescription() +
+
+            WeekViewEvent event = new WeekViewEvent(i, mevent.getDescription() +
                     "\n" + String.format("%d", startTime.get(Calendar.HOUR), startTime.get(Calendar.MINUTE))
                     +"- " +
                     String.format("%d", endTime.get(Calendar.HOUR), endTime.get(Calendar.MINUTE)),

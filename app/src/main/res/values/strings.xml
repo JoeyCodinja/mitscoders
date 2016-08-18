@@ -136,8 +136,9 @@
     <string name="activity_evals">Teaching Evaluations</string>
 
 
+        <!-- BOSS Strings -->
+    <string name="title_activity_boss">BOSS</string>
 
-<!-- TODO: Remove or change this placeholder text -->
 
     <string name="title_activity_frag">Frag</string>
 
