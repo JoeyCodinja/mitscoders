@@ -16,15 +16,10 @@ import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 
-import com.bluejamesbond.text.DocumentView;
-
 import mits.uwi.com.ourmobileenvironment.Directory.DirectoryActivity;
 import mits.uwi.com.ourmobileenvironment.adapters.HomePageArrayAdapter;
 import mits.uwi.com.ourmobileenvironment.additional_systems.Evaluations.activities.TeachingEvalsActivity;
-import mits.uwi.com.ourmobileenvironment.campusinformationfragments.CampusInformationFragment;
 import mits.uwi.com.ourmobileenvironment.homepagefragments.HomeActivityFragment;
-
-import mits.uwi.com.ourmobileenvironment.sas.SAS_Splash;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -145,17 +140,10 @@ public class HomeActivity extends AppCompatActivity {
     //For use with the CampusInformation Fragment
     @Override
     public void onBackPressed() {
-        if (fragment.equals( new CampusInformationFragment() )) {
-            DocumentView campus_info_heading = (DocumentView) findViewById(R.id.campus_info_heading_fragment);
-            campus_info_heading.setVisibility(DocumentView.GONE);
-        }
-        if (fragment.equals( new HomeActivityFragment() )){
-            // Removes shade on back press
-            FrameLayout parentView = (FrameLayout)findViewById(R.id.shade).getParent();
-            FrameLayout shade = (FrameLayout) parentView.getChildAt(1);
-            parentView.removeView(shade);
-        }
         super.onBackPressed();
+        FrameLayout parentView = (FrameLayout)findViewById(R.id.shade).getParent();
+        FrameLayout shade = (FrameLayout) parentView.getChildAt(1);
+        parentView.removeView(shade);
     }
 
     @Override

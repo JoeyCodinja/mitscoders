@@ -19,7 +19,6 @@ import mits.uwi.com.ourmobileenvironment.Transport.JUTCRoute;
 import mits.uwi.com.ourmobileenvironment.Transport.JUTCRouteFragment;
 import mits.uwi.com.ourmobileenvironment.Transport.TaxiService;
 import mits.uwi.com.ourmobileenvironment.Transport.TaxiServiceFragment;
-import mits.uwi.com.ourmobileenvironment.campusinformationfragments.EateriesFragment;
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.Restaurant;
 
 import mits.uwi.com.ourmobileenvironment.EateriesActivity;
@@ -101,14 +100,6 @@ public class GlobalRequestHandler {
         mRequestQueue.add(transportRequest);
     }
 
-    public void getRestaurantList(ArrayList<Restaurant> RList, EateriesFragment eateriesFragment){
-        String url="https://webservice-rox117.c9users.io/service/eateries";
-        RestaurantListener restaurantListener=new RestaurantListener("RestaurantList",RList,eateriesFragment,mCtx,Restaurant.class);
-        RestaurantErrorListener restaurantErrorListener=new RestaurantErrorListener(Restaurant.class,mCtx,eateriesFragment,RList);
-        TransportRequest transportRequest=new TransportRequest(url,restaurantListener,restaurantErrorListener,mCtx);
-        mRequestQueue.add(transportRequest);
-
-    }
 
     public void getRestaurantList(ArrayList<Restaurant> RList, EateriesActivity eateriesActivity){
         String url="https://webservice-rox117.c9users.io/service//eateries";

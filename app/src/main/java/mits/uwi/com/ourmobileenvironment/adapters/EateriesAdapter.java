@@ -107,8 +107,6 @@ public class EateriesAdapter extends RecyclerView.Adapter<EateriesAdapter.Eateri
             favoriteIcon = (CheckBox)itemView.findViewById(R.id.favorite_icon);
             locationIcon = (ImageView)itemView.findViewById(R.id.location_icon);
 
-
-
             locationIcon.setColorFilter(R.color.grey, PorterDuff.Mode.DST_OUT);
             cv.setOnClickListener(new View.OnClickListener() {
                 @Override

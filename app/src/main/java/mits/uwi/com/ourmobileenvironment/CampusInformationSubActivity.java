@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import mits.uwi.com.ourmobileenvironment.campusinformationfragments.CampusInformationFragment;
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.UWIInformationFragments.*;
 
 public class CampusInformationSubActivity extends Activity implements CampusLife.OnFragmentInteractionListener {
@@ -26,7 +25,7 @@ public class CampusInformationSubActivity extends Activity implements CampusLife
 
         Intent fromCampusActivityMain = getIntent();
         Integer toWhichCampusInformationSub = fromCampusActivityMain
-                .getIntExtra(CampusInformationFragment.TO_WHERE_INT, 0);
+                .getIntExtra(CampusInformationActivity.TO_WHERE_INT, 0);
 
         fm = getFragmentManager();
         fragment = fm.findFragmentById(R.id.campus_sub_fragment);

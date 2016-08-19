@@ -58,6 +58,7 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowActionBar">false</item>
     </style>
+
     <style name="SasTabLayout" parent="Widget.Design.TabLayout">
         <item name="tabMaxWidth">@dimen/navigation_max_width</item>
         <item name="tabIndicatorColor">@color/accent</item>

@@ -269,7 +269,7 @@
             android:name=".EateriesActivity"
             android:label="@string/title_activity_eateries"
             android:parentActivityName=".HomeActivity"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mits.uwi.com.ourmobileenvironment.HomeActivity"/>

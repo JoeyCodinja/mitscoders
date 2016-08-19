@@ -1,12 +1,19 @@
 package mits.uwi.com.ourmobileenvironment;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.os.Bundle;
 import android.app.Activity;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.app.AppCompatCallback;
+import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.Window;
 
 import java.util.ArrayList;
 
@@ -15,7 +22,7 @@ import mits.uwi.com.ourmobileenvironment.adapters.EateriesAdapter;
 
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.Restaurant;
 
-public class EateriesActivity extends Activity {
+public class EateriesActivity extends Activity implements AppCompatCallback {
 
     private ArrayList<Restaurant> restaurants = new ArrayList<>();
     private EateriesAdapter eateriesAdapter;
@@ -24,7 +31,14 @@ public class EateriesActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_eateries);
+        AppCompatDelegate appCompatDelegate = AppCompatDelegate.create(this, this);
+        appCompatDelegate.onCreate(savedInstanceState);
+        appCompatDelegate.setContentView(R.layout.activity_eateries);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.eateries_toolbar);
+        toolbar.setTitle(R.string.title_activity_eateries);
+        appCompatDelegate.setSupportActionBar(toolbar);
+
 
         loadRestaurant();
 
@@ -44,6 +58,22 @@ public class EateriesActivity extends Activity {
         // has been detached
         // --> setRetainInstance(true);
         // TODO: Research; Relevant? Alternative action within activity
+    }
+
+    @Override
+    public void onSupportActionModeStarted(ActionMode mode){
+
+    }
+
+    @Override
+    public void onSupportActionModeFinished(ActionMode mode){
+
+    }
+
+    @Nullable
+    @Override
+    public ActionMode onWindowStartingSupportActionMode(ActionMode.Callback callback) {
+        return null;
     }
 
 
