@@ -28,14 +28,11 @@ public class GlobalRequestHandler {
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
     private static Context mCtx;
-    private Context TransportContext;
-
 
 
 
     private GlobalRequestHandler(Context context) {
         mCtx = context.getApplicationContext();
-        TransportContext=context;
         mRequestQueue = getRequestQueue();
         mImageLoader = new ImageLoader(mRequestQueue,
                 new ImageLoader.ImageCache() {

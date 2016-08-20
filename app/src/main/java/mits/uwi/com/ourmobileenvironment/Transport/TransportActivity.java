@@ -64,7 +64,7 @@ public class TransportActivity extends AppCompatActivity  {
 
 
         });
-        bPage.setOffscreenPageLimit(2);
+        bPage.setOffscreenPageLimit(3);
         mSlidingTabLayout=(SlidingTabLayout) findViewById(R.id.sltab);
         mSlidingTabLayout.setTabNum(4);
         mSlidingTabLayout.setCustomTabView(R.layout.tabview, R.id.tabtitle);

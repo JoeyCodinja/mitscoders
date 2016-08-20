@@ -61,8 +61,8 @@ public class TransportListener<T extends Transport> implements Response.Listener
                     currentrecord.save();
                 }
             }
-            transportFragment.refreshView();
             transportFragment.getActivity().findViewById(R.id.progress_bar).setVisibility(View.GONE);
+            transportFragment.refreshView();
 
         }
         catch (JSONException e){
