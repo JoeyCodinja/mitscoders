@@ -1,6 +1,7 @@
 package mits.uwi.com.ourmobileenvironment.HTTP_RequestHandlers;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteException;
 import android.view.View;
 import android.widget.Toast;
 import com.android.volley.Response;
@@ -33,16 +34,17 @@ public class RestaurantErrorListener implements Response.ErrorListener {
 
     }
     @Override
-    public void onErrorResponse(VolleyError error){
-        List<Restaurant> objlist=Restaurant.listAll(restaurantClass);
-        EateriesFragment.EateriesAdapter adapter=eateriesFragment.getAdap();
-        if (objlist.isEmpty()){
+    public void onErrorResponse(VolleyError error) {
+        try{
+
+        List<Restaurant> objlist = Restaurant.listAll(restaurantClass);
+        EateriesFragment.EateriesAdapter adapter = eateriesFragment.getAdap();
+        if (objlist.isEmpty()) {
             internetConnection.show();
 
-        }
-        else {
+        } else {
             restaurants.clear();
-            for (Restaurant transport:objlist){
+            for (Restaurant transport : objlist) {
                 restaurants.add(transport);
                 adapter.Add(transport);
             }
@@ -50,6 +52,10 @@ public class RestaurantErrorListener implements Response.ErrorListener {
             eateriesFragment.getActivity().findViewById(R.id.progress_bar).setVisibility(View.GONE);
 
 
+        }
+    }
+        catch (SQLiteException e){
+            //no database created
         }
     }
 }

@@ -1,6 +1,7 @@
 package mits.uwi.com.ourmobileenvironment.HTTP_RequestHandlers;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteException;
 import android.view.View;
 import android.widget.Toast;
 
@@ -37,7 +38,10 @@ public class TransportErrorListener <T extends Transport>implements Response.Err
 
     @Override
     public void onErrorResponse(VolleyError error){
+        try{
         List<T> objlist=T.listAll(transport);
+
+
         TransportFragment.TransportAdapter adapter=transportFragment.getAdap();
           if (objlist.isEmpty()){
               internetConnection.show();
@@ -55,6 +59,11 @@ public class TransportErrorListener <T extends Transport>implements Response.Err
 
 
           }
+        }
+
+        catch (SQLiteException e){
+            //table not created yet
+        }
     }
 
 }
