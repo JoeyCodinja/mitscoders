@@ -209,12 +209,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mits.uwi.com.ourmobileenvironment.HomeActivity" />
         </activity>
-        <!--meta-data
+
+        <meta-data
             android:name="DATABASE"
             android:value="ourme.db" />
         <meta-data
             android:name="DOMAIN_PACKAGE_NAME"
-            android:value="mits.uwi.com.ourmobileenvironment" /-->
+            android:value="mits.uwi.com.ourmobileenvironment" />
+
         <activity
             android:name=".ourvle.activities.OurVLELoginActivity"
             android:label="@string/title_activity_login"

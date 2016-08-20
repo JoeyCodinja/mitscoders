@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -208,7 +207,7 @@ public class BusScheduleFragment extends TransportFragment<BusRoute> {
 
             @Override
             public RouteDescViewHolder onCreateViewHolder(ViewGroup parent,int pos){
-                View view=LayoutInflater.from(parent.getContext()).inflate(R.layout.transport_dialogue_layout,parent,false);
+                View view=LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_jutc_dialogue_layout,parent,false);
                 return new RouteDescViewHolder(view);
 
             }
