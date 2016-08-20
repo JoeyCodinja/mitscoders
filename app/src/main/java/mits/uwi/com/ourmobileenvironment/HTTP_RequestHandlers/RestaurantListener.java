@@ -59,7 +59,6 @@ public class RestaurantListener implements Response.Listener<JSONObject> {
                 adapter.Add(currentRes);
                 if (status.equals("200")){
                     currentRes.save();
-                    Log.d("table not found",currentRes.find(restaurantClass,"name = ?",currentRes.getName()).toString());
                 }
             }
             eateriesFragment.refreshView();
