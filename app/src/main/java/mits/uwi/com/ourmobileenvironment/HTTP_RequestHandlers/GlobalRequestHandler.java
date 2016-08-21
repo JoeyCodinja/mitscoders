@@ -19,8 +19,9 @@ import mits.uwi.com.ourmobileenvironment.Transport.JUTCRoute;
 import mits.uwi.com.ourmobileenvironment.Transport.JUTCRouteFragment;
 import mits.uwi.com.ourmobileenvironment.Transport.TaxiService;
 import mits.uwi.com.ourmobileenvironment.Transport.TaxiServiceFragment;
-import mits.uwi.com.ourmobileenvironment.campusinformationfragments.EateriesFragment;
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.Restaurant;
+
+import mits.uwi.com.ourmobileenvironment.EateriesActivity;
 
 
 public class GlobalRequestHandler {
@@ -29,7 +30,7 @@ public class GlobalRequestHandler {
     private ImageLoader mImageLoader;
     private static Context mCtx;
 
-
+    private Context TransportContext;
 
     private GlobalRequestHandler(Context context) {
         mCtx = context.getApplicationContext();
@@ -50,6 +51,7 @@ public class GlobalRequestHandler {
                     }
                 });
     }
+
 
     public static synchronized GlobalRequestHandler getInstance(Context context) {
         if (mInstance == null) {
@@ -98,13 +100,28 @@ public class GlobalRequestHandler {
         mRequestQueue.add(transportRequest);
     }
 
+/*<<<<<<< HEAD
     public void getRestaurantList(ArrayList<Restaurant> RList, EateriesFragment eateriesFragment){
         String url="http://rox116.pythonanywhere.com/service/eateries";
         RestaurantListener restaurantListener=new RestaurantListener("RestaurantList",RList,eateriesFragment,mCtx,Restaurant.class);
         RestaurantErrorListener restaurantErrorListener=new RestaurantErrorListener(Restaurant.class,mCtx,eateriesFragment,RList);
         TransportRequest transportRequest=new TransportRequest(url,restaurantListener,restaurantErrorListener,mCtx);
         mRequestQueue.add(transportRequest);
+=======
+>>>>>>> 9d912e40873a182bb07314beae2c5abca6685a8a*/
 
+    public void getRestaurantList(ArrayList<Restaurant> RList, EateriesActivity eateriesActivity){
+        String url="http://rox116.pythonanywhere.com/service/eateries";
+        RestaurantListener restaurantListener = new RestaurantListener("RestaurantList", RList,
+                                                                       eateriesActivity, mCtx,
+                                                                       Restaurant.class);
+        RestaurantErrorListener restaurantErrorListener =
+                new RestaurantErrorListener(Restaurant.class, mCtx,
+                                            eateriesActivity, RList);
+
+        TransportRequest transportRequest = new TransportRequest(url, restaurantListener,
+                                                                 restaurantErrorListener, mCtx);
+        mRequestQueue.add(transportRequest);
     }
 
     public  void getGuildBusRoutes(ArrayList<GuildBus> GList,GuildBusFragment guildBusFragment){

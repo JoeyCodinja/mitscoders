@@ -9,9 +9,9 @@ import com.android.volley.VolleyError;
 import java.util.ArrayList;
 import java.util.List;
 
+import mits.uwi.com.ourmobileenvironment.EateriesActivity;
 import mits.uwi.com.ourmobileenvironment.R;
-import mits.uwi.com.ourmobileenvironment.Transport.TransportFragment;
-import mits.uwi.com.ourmobileenvironment.campusinformationfragments.EateriesFragment;
+import mits.uwi.com.ourmobileenvironment.adapters.EateriesAdapter;
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.Restaurant;
 
 /**
@@ -23,35 +23,35 @@ public class RestaurantErrorListener implements Response.ErrorListener {
     private Class<Restaurant> restaurantClass;
     private Toast internetConnection;
     private ArrayList<Restaurant> restaurants;
-    private EateriesFragment eateriesFragment;
+    private EateriesActivity eateriesActivity;
 
-
-    public RestaurantErrorListener(Class<Restaurant> restaurantClass,Context mCtx,EateriesFragment eateriesFragment,ArrayList<Restaurant>restaurants){
-        this.restaurantClass=restaurantClass;
-        this.eateriesFragment=eateriesFragment;
-        internetConnection=Toast.makeText(mCtx,"Please Check Internet Connection",Toast.LENGTH_SHORT);
-        this.restaurants=restaurants;
-
+    public RestaurantErrorListener(Class<Restaurant> restaurantClass, Context mCtx,
+                                   EateriesActivity eateriesActivity,
+                                   ArrayList<Restaurant> restaurants){
+        this.restaurantClass = restaurantClass;
+        this.eateriesActivity = eateriesActivity;
+        internetConnection = Toast.makeText(mCtx, "Please Check Internet Connection",
+                                            Toast.LENGTH_SHORT);
+        this.restaurants = restaurants;
     }
+
     @Override
-    public void onErrorResponse(VolleyError error) {
+    public void onErrorResponse(VolleyError error){
         try{
-
+        EateriesAdapter adapter;
         List<Restaurant> objlist = Restaurant.listAll(restaurantClass);
-        EateriesFragment.EateriesAdapter adapter = eateriesFragment.getAdap();
-        if (objlist.isEmpty()) {
+        adapter = eateriesActivity.getAdapter();
+        if (objlist.isEmpty()){
             internetConnection.show();
-
-        } else {
+        }
+        else {
             restaurants.clear();
             for (Restaurant transport : objlist) {
                 restaurants.add(transport);
                 adapter.Add(transport);
             }
-            eateriesFragment.refreshView();
-            eateriesFragment.getActivity().findViewById(R.id.progress_bar).setVisibility(View.GONE);
-
-
+            eateriesActivity.refreshView();
+            eateriesActivity.findViewById(R.id.progress_bar).setVisibility(View.GONE);
         }
     }
         catch (SQLiteException e){

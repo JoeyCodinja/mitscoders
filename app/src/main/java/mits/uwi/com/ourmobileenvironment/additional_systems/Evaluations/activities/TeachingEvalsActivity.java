@@ -14,6 +14,7 @@ import mits.uwi.com.ourmobileenvironment.ToprightBar;
 import mits.uwi.com.ourmobileenvironment.additional_systems.Evaluations.fragments.TeachingEvalsWebView;
 import mits.uwi.com.ourmobileenvironment.sas.settings.SasSettingsActivity;
 
+
 /**
  * Created by peoplesoft on 4/15/2016.
  */
@@ -37,8 +38,9 @@ public class TeachingEvalsActivity extends AppCompatActivity {
         }
         ToprightBar.setTopOverflow(this);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setElevation(0);
     }
 
     @Override
@@ -64,6 +66,4 @@ public class TeachingEvalsActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
 }

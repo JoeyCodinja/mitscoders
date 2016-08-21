@@ -1,7 +1,6 @@
-package mits.uwi.com.ourmobileenvironment.homepagefragments;
+package mits.uwi.com.ourmobileenvironment.campusinformationfragments.UWIInformationFragments;
 
 import android.app.Activity;
-import android.app.ListFragment;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -11,21 +10,15 @@ import android.view.ViewGroup;
 
 import mits.uwi.com.ourmobileenvironment.R;
 
-
-public class UWITVListVideosFragment extends ListFragment {
+public class Facilities extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-
-    // TODO: Rename and change types and number of parameters
-    public static UWITVListVideosFragment newInstance() {
-        UWITVListVideosFragment fragment = new UWITVListVideosFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
+    public static Facilities newInstance() {
+        return new Facilities();
     }
 
-    public UWITVListVideosFragment() {
+    public Facilities() {
         // Required empty public constructor
     }
 
@@ -38,10 +31,9 @@ public class UWITVListVideosFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_uwitvlist_videos, container, false);
+        return inflater.inflate(R.layout.fragment_campus_sub_info, container, false);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
