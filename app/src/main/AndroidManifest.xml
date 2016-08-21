@@ -132,6 +132,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mits.uwi.com.ourmobileenvironment.HomeActivity" />
         </activity>
+
+        <activity android:name=".sas.unavailable.Activity.UnavailableActivity"
+            android:label="Unavailable Acivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:parentActivityName=".HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="mits.uwi.com.ourmobileenvironment.HomeActivity"/>
+        </activity>
+
         <activity
             android:name=".BOSSActivity"
             android:label="@string/title_activity_boss"
