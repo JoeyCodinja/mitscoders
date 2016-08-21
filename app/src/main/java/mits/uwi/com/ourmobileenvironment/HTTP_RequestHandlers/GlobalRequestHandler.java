@@ -74,7 +74,7 @@ public class GlobalRequestHandler {
     }
 
     public void getShuttleRoutes(ArrayList<BusRoute> BusRouteList,BusScheduleFragment busScheduleFragment )  {
-        String url="http://rox116.pythonanywhere.com/service/shuttle_routes";
+        String url="https://rox116.pythonanywhere.com/service/shuttle_routes";
         TransportListener transportListener=new TransportListener("Shuttlelist",BusRouteList,busScheduleFragment,mCtx,BusRoute.class);
         TransportErrorListener transportErrorListener= new TransportErrorListener(BusRoute.class,mCtx,busScheduleFragment,BusRouteList);
         TransportRequest transportRequest= new TransportRequest(url,transportListener,transportErrorListener,mCtx);

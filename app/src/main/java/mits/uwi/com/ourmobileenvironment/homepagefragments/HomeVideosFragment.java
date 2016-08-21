@@ -1,54 +1,65 @@
 package mits.uwi.com.ourmobileenvironment.homepagefragments;
 
-
-import android.content.Intent;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.android.youtube.player.YouTubeApiServiceUtil;
+import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 
+import com.google.api.client.auth.oauth2.TokenResponse;
 
-import org.json.JSONObject;
+import com.google.api.client.http.GenericUrl;
+import com.google.api.client.http.HttpRequest;
+import com.google.api.client.http.HttpRequestInitializer;
+import com.google.api.client.http.HttpResponse;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.apache.ApacheHttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.services.youtube.YouTube;
+import com.google.api.services.youtube.model.SearchListResponse;
+import com.google.api.services.youtube.model.SearchResult;
+import com.google.api.services.youtube.model.SearchResultSnippet;
+import com.google.api.client.auth.oauth2.TokenRequest;
 
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
+import mits.uwi.com.ourmobileenvironment.adapters.VideoListRecyclerAdapter;
+import mits.uwi.com.ourmobileenvironment.DeveloperKey;
 import mits.uwi.com.ourmobileenvironment.R;
 
+/**
+ * A simple {@link Fragment} subclass.
+ *
+ * Use the {@link HomeVideosFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class HomeVideosFragment
+        extends Fragment {
 
+    VideoListRecyclerAdapter adapter;
+    RecyclerView videosListRecyclerView;
+    VideoFragment playerFragment;
 
-public class HomeVideosFragment extends Fragment {
-
-    private static final int RECOVERY_DIALOG_REQUEST = 1;
-
-    private static final String youtube_APIKEY = "AIzaSyACbaYTwu7uTaXXj9LGvRHW3iEFRr9RKHc";
-
-    private static final List<String> playlists = new ArrayList<String>();
-
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment HomeVideosFragment.
-     */
     public static HomeVideosFragment newInstance() {
         HomeVideosFragment fragment = new HomeVideosFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
+
         return fragment;
     }
 
@@ -57,63 +68,257 @@ public class HomeVideosFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(
+            Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(
+            LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {
+        RecyclerView.LayoutManager videoListLayoutManager;
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home_videos, container, false);
+        View fragment_view = inflater.inflate(R.layout.fragment_home_videos, container, false);
+
+        playerFragment = (VideoFragment)getChildFragmentManager().getFragments().get(0);
+
+        videosListRecyclerView = (RecyclerView) fragment_view.findViewById(R.id.uwitv_videos_list);
+        videosListRecyclerView.setHasFixedSize(true);
+
+        videoListLayoutManager = new LinearLayoutManager(this.getActivity());
+
+        videosListRecyclerView.setLayoutManager(videoListLayoutManager);
+
+        new AsyncYouTubeQueryRunner().executeOnExecutor
+                (AsyncTask.THREAD_POOL_EXECUTOR,
+                getActivity());
+
+        return fragment_view;
+
     }
 
-    private void checkYouTubeApi(){
-        YouTubeInitializationResult errorReason =
-                YouTubeApiServiceUtil.isYouTubeApiServiceAvailable(getActivity());
-        if (errorReason.isUserRecoverableError()) {
-            errorReason.getErrorDialog(getActivity(), RECOVERY_DIALOG_REQUEST).show();
-        } else if (errorReason != YouTubeInitializationResult.SUCCESS) {
-            String errorMessage =
-                    String.format(getString(R.string.player_error), errorReason.toString());
-            Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_LONG).show();
+    public YouTubeQueryResult[] uwiTVChannelRequest(){
+
+        YouTube youtube;
+        YouTubeQueryResult[] results = new YouTubeQueryResult[20];
+        final String channelId = "UCN-DinGRVq5fDxa4byT8XwQ";
+
+        HttpTransport httpTransport = new ApacheHttpTransport();
+
+        JsonFactory jsonFactory = new JacksonFactory();
+
+        HttpRequestInitializer httpRequestInitializer = new HttpRequestInitializer() {
+            @Override
+            public void initialize(HttpRequest request) throws IOException {
+            }
+        };
+
+        youtube = new YouTube.Builder(httpTransport, jsonFactory, httpRequestInitializer).build();
+        try{
+            SearchListResponse uwiTvChannelVideos = youtube.search()
+                    .list("snippet")
+                    .setChannelId(channelId)
+                    .setOrder("date")
+                    .setType("video")
+                    .setMaxResults(Long.valueOf("20"))
+                    .setKey(DeveloperKey.YOUTUBE_APIKEY)
+                    .execute();
+
+            List videos = uwiTvChannelVideos.getItems();
+            for (int video=0; video < uwiTvChannelVideos.getItems().size(); video++){
+                SearchResult video_item = (SearchResult)videos.get(video);
+
+                SearchResultSnippet video_item_snippet = (SearchResultSnippet) videos.get(video);
+
+                GenericUrl thumbnailUrl = new GenericUrl(
+                        video_item_snippet.getThumbnails()
+                                .getHigh()
+                                .getUrl());
+
+                HttpResponse thumbnailResponse =
+                        httpTransport.createRequestFactory()
+                                .buildGetRequest(thumbnailUrl)
+                                .execute();
+
+                Bitmap thumbnail = BitmapFactory.decodeStream(thumbnailResponse.getContent());
+
+                results[video] = new YouTubeQueryResult(video_item.getId().getVideoId(),
+                        video_item_snippet.getTitle(),
+                        video_item_snippet.getDescription(),
+                        thumbnail);
+
+            }
+
         }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data){
-        if (requestCode == RECOVERY_DIALOG_REQUEST){
-            //Recreate the activity if user performed a recovery action
-            getActivity().recreate();
+        catch (java.io.IOException exception) {
+            // Return a single YouTubeQueryResult
+            // with error as the
+            // title, description, videoId
+            for(int index=0; index < results.length; index++){
+                if (results[index] == null) {
+                    results[index] = new YouTubeQueryResult(
+                            "error",
+                            "error",
+                            "error");
+                    break;
+                }
+            }
         }
+        return results;
     }
 
-    private void populatePlaylistList(){
 
-        // Instantiate the Request Queue
+    public class AsyncYouTubeQueryRunner extends AsyncTask<Context, Void, YouTubeQueryResult[]> {
+        @Override
+        protected YouTubeQueryResult[] doInBackground(Context... params){
+            return uwiTVChannelRequest();
+        }
 
-    }
+        @Override
+        protected void onPostExecute(YouTubeQueryResult[] results){
+            // Initializes the adapter with the results we got before
+            adapter = new VideoListRecyclerAdapter(results);
 
-    private void requestPlaylist(String url, String nextPageToekn){
+            videosListRecyclerView.setAdapter(adapter);
 
-        final RequestQueue queue = Volley.newRequestQueue(getActivity());
-        String ytGetPlaylistEndPoint = "https://www.googleapis.com/youtube/v3/playlists";
+            // Set onClick Listeners to
+            // cue vide based on
+            // the video that was
+            // clicked
+            for (int item=0; item < videosListRecyclerView.getChildCount(); item++){
+                View holder = videosListRecyclerView.getChildAt(item);
+                // Sets an onClickListener to
+                // cue the video that
+                // clicked from the list
+                holder.setOnClickListener(new CueVideoClickListener());
+            }
 
-        JsonObjectRequest playlistRequest = new JsonObjectRequest(Request.Method.GET,
-                ytGetPlaylistEndPoint,
-                new Response.Listener<JSONObject>(){
-                    @Override
-                    public void onResponse(JSONObject response){
-
+            for(int result=0; result < results.length; result++){
+                try {
+                    if (results[result].title.equals("error") &&
+                            results[result].description.equals("error") &&
+                            results[result].videoId.equals("error")) {
 
                     }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("HomeVideosFragment", "Yer Request Done Goofed!!");
-            }
-        });
+                }
+                catch (NullPointerException e){
+                    Log.d("AsyncYouTubeQueryRunner", e.toString());
+                    continue;
+                }
 
-        queue.add(playlistRequest);
+            }
+        }
     }
+
+    public static final class VideoFragment
+            extends YouTubePlayerSupportFragment
+            implements YouTubePlayer.OnInitializedListener{
+
+        private YouTubePlayer player;
+        private String videoId;
+
+        public static VideoFragment newInstance() { return new VideoFragment(); }
+
+        @Override
+        public void onCreate(Bundle savedInstanceState){
+            super.onCreate(savedInstanceState);
+            // Initializes the new player
+            initialize(DeveloperKey.YOUTUBE_APIKEY, this);
+            this.setVideoId("o-PSrpqu2s0");
+        }
+
+        @Override
+        public void onDestroy(){
+            if (player != null){
+                player.release();
+            }
+            super.onDestroy();
+        }
+
+        public void setVideoId(String videoId){
+            if (videoId != null && !videoId.equals(this.videoId)){
+                this.videoId = videoId;
+                if(player!=null){
+                    player.cueVideo(videoId);
+                }
+            }
+        }
+
+        public void pause(){
+            if (player != null){
+                player.pause();
+            }
+        }
+
+        @Override
+        public void onInitializationSuccess(
+                YouTubePlayer.Provider provider,
+                YouTubePlayer player,
+                boolean restored){
+            this.player = player;
+            if (!restored && videoId != null) {
+                player.cueVideo(videoId);
+            }
+        }
+
+        @Override
+        public void onInitializationFailure(
+                YouTubePlayer.Provider provider,
+                YouTubeInitializationResult result){
+            this.player = null;
+        }
+    }
+
+
+    class CueVideoClickListener implements View.OnClickListener{
+
+        @Override
+        public void onClick(View v){
+            RecyclerView recyclerView = (RecyclerView) v.getParent();
+            int viewIndex = recyclerView.getChildLayoutPosition(v);
+            String requestedVideoId = adapter.getItemVideoId(viewIndex);
+            playerFragment.pause();
+            playerFragment.player.cueVideo(requestedVideoId);
+        }
+
+    }
+
+
+    public class YouTubeQueryResult {
+        public String videoId;
+        public String title;
+        public String description;
+        public Bitmap thumbnail;
+
+        public YouTubeQueryResult (String videoId,
+                                   String title,
+                                   String description,
+                                   Bitmap thumbnail){
+            this.videoId = videoId;
+            this.title = title;
+            this.description = description;
+            this.thumbnail = thumbnail;
+        }
+
+        public YouTubeQueryResult (String videoId,
+                                   String title,
+                                   String description){
+            // Supply a stock image if
+            // there is no thumbnail
+            // available
+            this.videoId = videoId;
+            this.title = title;
+            this.description = description;
+
+        }
+
+    }
+
+
 }
+
+
+

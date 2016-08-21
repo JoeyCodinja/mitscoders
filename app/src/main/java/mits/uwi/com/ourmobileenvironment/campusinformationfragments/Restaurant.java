@@ -20,11 +20,15 @@ public class Restaurant extends SugarRecord {
 
 
 
-
     public Restaurant(){}
 
 
-    Restaurant(String name, String location, String businessHours, int photoId, float coordx,float coordy,String imgurl) {
+    Restaurant(String name,
+               String location,
+               String businessHours,
+               int photoId,
+               float coordx,
+               float coordy,String imgurl) {
         this.name = name;
         this.location = location;
         this.businessHours = businessHours;
@@ -34,6 +38,7 @@ public class Restaurant extends SugarRecord {
         this.fav = false;
         this.imgurl=imgurl;
     }
+
     public void setPhoto(int photoId){
         this.photoId = photoId;
     }
@@ -50,21 +55,29 @@ public class Restaurant extends SugarRecord {
         return this.name;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
     public void setFav(){
         if(fav == false)
             fav = true;
         else
             fav = false;
     }
+
     public double getCoordy() {
         return coordy;
     }
+
     public double getCoordx() {
         return coordx;
     }
+
     public String getBusinessHours() {
         return businessHours;
     }
+
     public String getImgurl() {
         return imgurl;
     }
