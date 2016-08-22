@@ -27,10 +27,7 @@ import mits.uwi.com.ourmobileenvironment.R;
  */
 public class TeachingEvalsWebView  extends Fragment {
     WebView mTeachEvals;
-<<<<<<< HEAD
 
-=======
->>>>>>> 668eac31574469ff02d04c59ab14e742a360160f
     String url = "http://evals.mona.uwi.edu/StudentLoginJ.asp";
 
     @Override
@@ -62,10 +59,6 @@ public class TeachingEvalsWebView  extends Fragment {
             }
         });
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 668eac31574469ff02d04c59ab14e742a360160f
         return v;
     }
 
@@ -76,11 +69,6 @@ public class TeachingEvalsWebView  extends Fragment {
         }
     }
 
-<<<<<<< HEAD
-=======
 
-
-
->>>>>>> 668eac31574469ff02d04c59ab14e742a360160f
 }
 

@@ -18,13 +18,8 @@
     >
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:autoLink="web|email|phone"
-        android:linksClickable="true"
-        android:paddingLeft="30dp"
-        android:textColor="#888888"
-        android:id="@+id/contact"/>
+        android:id="@+id/route_dialog"
+        android:layout_height="wrap_content" />
 
 
 

@@ -10,24 +10,24 @@ import java.util.Arrays;
 public class GuildBus extends  Transport {
 
     @Ignore
-    private ArrayList<String> RouteList;
+    private ArrayList<String> routelist;
     private String cost;
     private String departure_time;
     private String route;
     private String SerialisedRoute;
-    private String route_name;
+    private String routetitle;
 
 
-    public String getRoute_name() {
-        return route_name;
+    public String getRoutetitle() {
+        return routetitle;
     }
 
     public void setRoute_name(String route_name) {
-        this.route_name = route_name;
+        this.routetitle = route_name;
     }
 
-    public ArrayList<String> getRouteList() {
-        return RouteList;
+    public ArrayList<String> getRoutelist() {
+        return routelist;
     }
 
 
@@ -69,16 +69,16 @@ public class GuildBus extends  Transport {
 
     @Override
     public String getSearchField(){
-        return getRoute_name();
+        return getRoutetitle();
     }
 
     public void SerialiseRoute(){
-        this.SerialisedRoute= android.text.TextUtils.join(",",this.RouteList);
+        this.SerialisedRoute= android.text.TextUtils.join(",",this.routelist);
     }
 
     public void DeserialiseRoute(){
         String[] route=android.text.TextUtils.split(this.SerialisedRoute,",");
-        this.RouteList =new ArrayList<>(Arrays.asList(route));
+        this.routelist =new ArrayList<>(Arrays.asList(route));
 
     }
 

@@ -187,7 +187,7 @@ public class BusScheduleFragment extends TransportFragment<BusRoute> {
 
             public RouteDescViewHolder(View v) {
                 super(v);
-                landmark = (TextView) v.findViewById(R.id.landmark);
+                landmark = (TextView) v.findViewById(R.id.route_dialog);
 
 
             }
@@ -207,7 +207,7 @@ public class BusScheduleFragment extends TransportFragment<BusRoute> {
 
             @Override
             public RouteDescViewHolder onCreateViewHolder(ViewGroup parent,int pos){
-                View view=LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_jutc_dialogue_layout,parent,false);
+                View view=LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_route_dialog,parent,false);
                 return new RouteDescViewHolder(view);
 
             }
