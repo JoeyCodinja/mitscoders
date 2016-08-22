@@ -7,11 +7,15 @@ import android.opengl.Visibility;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
+import com.google.android.youtube.player.YouTubePlayer;
 
 import mits.uwi.com.ourmobileenvironment.R;
 import mits.uwi.com.ourmobileenvironment.homepagefragments.HomeVideosFragment.YouTubeQueryResult;
@@ -22,6 +26,7 @@ import mits.uwi.com.ourmobileenvironment.homepagefragments.HomeVideosFragment.Yo
 public class VideoListRecyclerAdapter extends
         RecyclerView.Adapter<VideoListRecyclerAdapter.ViewHolder> {
     YouTubeQueryResult[] videos;
+    YouTubePlayer player;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView videoTitle;
@@ -38,11 +43,19 @@ public class VideoListRecyclerAdapter extends
 
     }
 
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+    }
+
     // Adapter Constructor
     // Accepts the data set
     // That is the YouTubeQueryResult0
-    public VideoListRecyclerAdapter(YouTubeQueryResult[] result) {
+    public VideoListRecyclerAdapter(YouTubeQueryResult[] result,
+                                    YouTubePlayer player) {
         this.videos = result;
+        this.player = player;
     }
 
     @Override
@@ -54,6 +67,18 @@ public class VideoListRecyclerAdapter extends
                 .inflate(R.layout.video_list_item,
                         parent,
                         false);
+
+        v.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                ViewGroup parent = (ViewGroup) v.getParent();
+                int viewIndex = parent.indexOfChild(v);
+                player.pause();
+                player.cueVideo(videos[viewIndex].videoId);
+
+            }
+        });
 
         return new ViewHolder(v);
     }

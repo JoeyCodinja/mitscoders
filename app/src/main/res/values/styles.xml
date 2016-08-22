@@ -37,6 +37,8 @@
 
     <style name="campusinfotheme"
         parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:colorBackground">@color/actionbar_background_eateries</item>
+        <item name="background">@color/actionbar_background_eateries</item>
         <item name="android:actionBarStyle">@style/eateries_bar</item>
         <item name="actionBarStyle">@style/eateries_bar</item>
         <item name="android:windowContentOverlay">@null</item>

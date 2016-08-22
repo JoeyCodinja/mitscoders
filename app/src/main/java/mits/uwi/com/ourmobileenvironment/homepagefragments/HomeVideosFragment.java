@@ -118,6 +118,7 @@ public class HomeVideosFragment
 
         youtube = new YouTube.Builder(httpTransport, jsonFactory, httpRequestInitializer).build();
         try{
+
             SearchListResponse uwiTvChannelVideos = youtube.search()
                     .list("snippet")
                     .setChannelId(channelId)
@@ -130,8 +131,7 @@ public class HomeVideosFragment
             List videos = uwiTvChannelVideos.getItems();
             for (int video=0; video < uwiTvChannelVideos.getItems().size(); video++){
                 SearchResult video_item = (SearchResult)videos.get(video);
-
-                SearchResultSnippet video_item_snippet = (SearchResultSnippet) videos.get(video);
+                SearchResultSnippet video_item_snippet = video_item.getSnippet();
 
                 GenericUrl thumbnailUrl = new GenericUrl(
                         video_item_snippet.getThumbnails()
@@ -175,26 +175,15 @@ public class HomeVideosFragment
         @Override
         protected YouTubeQueryResult[] doInBackground(Context... params){
             return uwiTVChannelRequest();
+
         }
 
         @Override
         protected void onPostExecute(YouTubeQueryResult[] results){
             // Initializes the adapter with the results we got before
-            adapter = new VideoListRecyclerAdapter(results);
+            adapter = new VideoListRecyclerAdapter(results, playerFragment.player);
 
             videosListRecyclerView.setAdapter(adapter);
-
-            // Set onClick Listeners to
-            // cue vide based on
-            // the video that was
-            // clicked
-            for (int item=0; item < videosListRecyclerView.getChildCount(); item++){
-                View holder = videosListRecyclerView.getChildAt(item);
-                // Sets an onClickListener to
-                // cue the video that
-                // clicked from the list
-                holder.setOnClickListener(new CueVideoClickListener());
-            }
 
             for(int result=0; result < results.length; result++){
                 try {
@@ -270,20 +259,6 @@ public class HomeVideosFragment
                 YouTubeInitializationResult result){
             this.player = null;
         }
-    }
-
-
-    class CueVideoClickListener implements View.OnClickListener{
-
-        @Override
-        public void onClick(View v){
-            RecyclerView recyclerView = (RecyclerView) v.getParent();
-            int viewIndex = recyclerView.getChildLayoutPosition(v);
-            String requestedVideoId = adapter.getItemVideoId(viewIndex);
-            playerFragment.pause();
-            playerFragment.player.cueVideo(requestedVideoId);
-        }
-
     }
 
 

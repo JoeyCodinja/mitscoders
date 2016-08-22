@@ -149,15 +149,13 @@
             android:name=".CampusInformationActivity"
             android:label="@string/title_activity_campus_information"
             android:parentActivityName=".HomeActivity"
-            android:theme="@style/campusinfotheme">
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mits.uwi.com.ourmobileenvironment.HomeActivity" />
-            />
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
-
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
@@ -260,7 +258,8 @@
         <activity
             android:name=".CampusInformationSubActivity"
             android:label="@string/title_activity_campus_information_sub"
-            android:parentActivityName=".CampusInformationActivity">
+            android:parentActivityName=".CampusInformationActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mits.uwi.com.ourmobileenvironment.CampusInformationActivity" />
@@ -269,7 +268,7 @@
             android:name=".EateriesActivity"
             android:label="@string/title_activity_eateries"
             android:parentActivityName=".HomeActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mits.uwi.com.ourmobileenvironment.HomeActivity"/>

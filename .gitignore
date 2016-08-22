@@ -1,3 +1,6 @@
+# log files
+*.log
+
 # built application files
 *.apk
 *.ap_
