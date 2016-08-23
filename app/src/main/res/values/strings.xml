@@ -155,6 +155,8 @@
     <string name="action_names">Names</string>
 
     <!--Campus Information Strings-->
+    <string name="campus_info_action_bar_title">Campus Information</string>
+
     <string name="to_campus_life">Campus Life</string>
     <string name="to_faculties">Our Faculties</string>
     <string name="to_history">Our History</string>
@@ -172,13 +174,6 @@
         <item>Mission Statement</item>
         <item>The UWI\'s Vision</item>
     </string-array>
-
-    <string name="campus_info_snippet_title1">We are fully Accredited</string>
-    <string name="campus_info_snippet_title2">We are the home of the Pelicans</string>
-    <string name="campus_info_snippet_title3">We are a green, progressive campus</string>
-    <string name="campus_info_snippet_title4">Who we serve</string>
-    <string name="campus_info_snippet_title5">Mission Statement</string>
-    <string name="campus_info_snippet_title6">The UWI\'s Vision</string>
 
     <string name="campus_info_heading">
         The University of the West Indies (UWI), Mona Campus offers world class, accredited higher
@@ -232,36 +227,36 @@
         </item>
     </string-array>
 
-    <string name="campus_info_snippet_body1">
-        UWI Mona is a fully accredited tertiary-level institution. Our Programmes - available across
-        our 5 faculties, 8 schools and 12 specialist centres - have been closely examined and
-        evaluated  and we are proud of the \'flying colours\' we have continuously received.
-    </string>
-    <string name="campus_info_snippet_body2">
-        We are the home of the Pelicans, our enduring symbol of the humble Caribbean bird that sits
-        atop our coat of arms highlighting the attitude, and altitude of the distinctive UWI student.
-    </string>
-    <string name="campus_info_snippet_body3">
-        UWI is increasingly modeling eco friendly sustainable practices in its policy, operations
-        and research.
-    </string>
-    <string name="campus_info_snippet_body4">
-        Within the region, the UWI Mona serves 16 countries of the Commonwealth Caribbean\n
-        The UWI: One Institution, Four Campuses\n
-        UWI Mona: One Campus, Two Locations\nKingston Campus, Mona | Western Jamaica Campus, Montego Bay
-    </string>
-    <string name="campus_info_snippet_body5">
-        Our Mission Statement reflects the primary purpose of our University, that is, the reason
-        for its existence.To advance education and create knowledge through excellence in teaching,
-        research, innovation, public service, intellectual leadership and outreach in order to
-        support the inclusive (social, economic, political, cultural, environmental) development
-        of the Caribbean region and beyond.
-    </string>
-    <string name="campus_info_snippet_body6">
-        By 2017, the University will be globally recognised as a regionally integrated, innovative,
-        internationally competitive university, deeply rooted in all aspects of Caribbean
-        development and committed to serving the diverse people of the region and beyond.
-    </string>
+        <!-- Faculty Strings -->
+            <!--Science and Technology-->
+            <string name="faculty_fst_twitter">https://twitter.com/FstUwi_Mona</string>
+            <string name="faculty_fst_facebook">https://www.facebook.com/uwiscitech/</string>
+            <string name="faculty_fst_instagram">https://www.instagram.com/fstuwi_mona/</string>
+
+            <!--Humanities and Education-->
+            <string name="faculty_humed_twitter">https://twitter.com/UWIMona_HumEdu </string>
+            <string name="faculty_humed_facebook">http://something</string>
+            <string name="faculty_humed_instagram">https://www.instagram.com/uwimona_humedu/</string>
+
+            <!--Medical Sciences-->
+            <string name="faculty_medsci_twitter">http://something</string>
+            <string name="faculty_medsci_facebook">https://www.facebook.com/FacultyOfMedicalSciencesUwiMona/?fref=ts</string>
+            <string name="faculty_medsci_instagram">http://something</string>
+
+            <!--Social Sciences-->
+            <string name="faculty_sosci_twitter">http://something</string>
+            <string name="faculty_sosci_facebook"
+                >https://www.facebook.com/Faculty-of-Social-Sciences-UWI-Mona-251190541571594/
+            </string>
+            <string name="faculty_sosci_instagram">https://www.instagram.com/uwimona_fss/</string>
+
+            <!--Law-->
+            <string name="faculty_law_twitter">http://something</string>
+            <string name="faculty_law_facebook">
+                https://www.facebook.com/pages/Faculty-of-Law-UWI-Mona/278652678879606
+            </string>
+            <string name="faculty_law_instagram">http://something </string>
+
     <string name="title_activity_home">Home</string>
     <string-array name="navigation_menu_titles">
         <!--<item>E-mail</item>-->

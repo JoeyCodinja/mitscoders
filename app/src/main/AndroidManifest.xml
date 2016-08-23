@@ -3,6 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="mits.uwi.com.ourmobileenvironment">
 
+    <uses-sdk
+        android:minSdkVersion="12"
+        android:targetSdkVersion="17" />
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -15,6 +19,8 @@
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -89,7 +95,7 @@
                 android:value="mits.uwi.com.ourmobileenvironment.SASActivity" />
         </activity>
         <activity
-            android:name=".sas.classmap.activity.ClassMapActivity"
+            android:name=".sas.classmap.Activity.ClassMapActivity"
             android:label="@string/classmapFragment_title"
             android:parentActivityName=".SASActivity"
             android:theme="@style/sas_bartheme">
@@ -99,36 +105,53 @@
         </activity>
         <activity
             android:name=".sas.SAS_Splash"
-            android:theme="@style/Theme.Transparent" />
-
-        <service
-            android:name=".sas.timetable.services.TimeTableService"
-            android:exported="false" />
-
+            android:theme="@style/Theme.Transparent" >
+        </activity>
+        <service android:name=".sas.timetable.services.TimeTableService"
+            android:exported="false"/>
         <receiver android:name=".sas.timetable.receiver.TimeTableReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <!-- android:process=":remote" -->
-        <activity
-            android:name=".sas.settings.SasSettingsActivity"
+        <!--android:process=":remote"-->
+        <activity android:name=".sas.settings.SasSettingsActivity"
+            android:theme="@style/sas_bartheme"
             android:label="@string/action_settings"
-            android:parentActivityName=".SASActivity"
-            android:theme="@style/sas_bartheme">
+            android:parentActivityName=".SASActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVTY"
-                android:value="mits.uwi.com.ourmobileenivronment.SASActivity" />
+                android:value="mits.uwi.com.ourmobileenivronment.SASActivity"/>
         </activity>
         <activity
             android:name=".additional_systems.Evaluations.activities.TeachingEvalsActivity"
             android:label="@string/activity_evals"
-            android:parentActivityName=".HomeActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:parentActivityName=".HomeActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mits.uwi.com.ourmobileenvironment.HomeActivity" />
         </activity>
+
+        <activity android:name=".sas.unavailable.Activity.UnavailableActivity"
+            android:label="Unavailable Acivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:parentActivityName=".HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="mits.uwi.com.ourmobileenvironment.HomeActivity"/>
+        </activity>
+
+
+        <activity
+            android:name=".BOSSActivity"
+            android:label="@string/title_activity_boss"
+            android:parentActivityName=".HomeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="mits.uwi.com.ourmobileenvironment.HomeActivity" />
+        </activity>
+
         <activity
             android:name=".Transport.TransportActivity"
             android:configChanges="orientation"
@@ -136,7 +159,7 @@
             android:launchMode="singleTask"
             android:parentActivityName=".HomeActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/actionbartheme">
+            android:theme="@style/actionbartheme" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mits.uwi.com.ourmobileenvironment.HomeActivity" />
@@ -150,6 +173,8 @@
             android:label="@string/title_activity_campus_information"
             android:parentActivityName=".HomeActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mits.uwi.com.ourmobileenvironment.HomeActivity" />
@@ -160,19 +185,18 @@
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".campusinformationfragments.EateriesMapActivity"
+        <activity android:name=".campusinformationfragments.EateriesMapActivity"
             android:label="@string/title_activity_campus_information"
             android:parentActivityName=".CampusInformationActivity"
             android:theme="@style/campusinfotheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".CampusInformationActivity" />
+                android:value=".CampusInformationActivity"/>
         </activity>
         <activity
             android:name=".CampusDirectoryActivity"
             android:label="@string/title_activity_campus_directory"
-            android:parentActivityName=".HomeActivity">
+            android:parentActivityName=".HomeActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mits.uwi.com.ourmobileenvironment.HomeActivity" />
@@ -181,7 +205,7 @@
             android:name=".Directory.DirectoryActivity"
             android:label="@string/title_activity_directory"
             android:parentActivityName=".HomeActivity"
-            android:theme="@style/blueactionbartheme">
+            android:theme="@style/blueactionbartheme" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mits.uwi.com.ourmobileenvironment.HomeActivity" />
@@ -197,7 +221,7 @@
         <activity
             android:name=".ourvle.activities.OurVLELoginActivity"
             android:label="@string/title_activity_login"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mits.uwi.com.ourmobileenvironment.HomeActivity" />
@@ -205,36 +229,43 @@
         <activity
             android:name=".ourvle.activities.OurVLEActivity"
             android:label="@string/title_activity_home"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+        </activity>
         <activity
             android:name=".ourvle.activities.CourseListActivity"
             android:label="@string/activity_course_list"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+        </activity>
         <activity
             android:name=".ourvle.activities.CourseContentsActivity"
             android:label="@string/title_activity_course_contents"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+        </activity>
         <activity
             android:name=".ourvle.activities.ForumListActivity"
             android:label="@string/title_activity_forum_list"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+        </activity>
         <activity
             android:name=".ourvle.activities.ForumActivity"
             android:label="@string/title_activity_forum"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+        </activity>
         <activity
             android:name=".ourvle.activities.PostListActivity"
             android:label="@string/title_activity_post"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+        </activity>
         <activity
             android:name=".ourvle.activities.SplashActivity"
             android:label="@string/title_activity_splash"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+        </activity>
         <activity
             android:name=".ourvle.activities.MessageListActivity"
             android:label="@string/title_activity_message_list"
             android:parentActivityName=".ourvle.activities.OurVLEActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ourvle.activities.OurVLEActivity" />
@@ -250,7 +281,7 @@
         <activity
             android:name=".NewsViewActivity"
             android:label="@string/title_activity_news_view"
-            android:parentActivityName=".HomeActivity">
+            android:parentActivityName=".HomeActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mits.uwi.com.ourmobileenvironment.HomeActivity" />

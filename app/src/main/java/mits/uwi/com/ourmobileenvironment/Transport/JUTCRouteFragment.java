@@ -190,7 +190,7 @@ public class JUTCRouteFragment extends TransportFragment<JUTCRoute> {
 
             @Override
             public RouteDescViewHolder onCreateViewHolder(ViewGroup parent,int pos){
-                View view=LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_route_dialog,parent,false);
+                View view=LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_jutc_dialogue_layout,parent,false);
                 return new RouteDescViewHolder(view);
 
             }

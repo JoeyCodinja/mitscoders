@@ -71,6 +71,8 @@ public class HomeActivity extends AppCompatActivity {
         mAdapter = new HomePageArrayAdapter(this, mNavigationMenuTitles);
         mDrawerList.setAdapter(mAdapter);
 
+//        mDrawerList.addFooterView(getLayoutInflater().inflate(R.layout.social, mDrawerList));
+
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         //Fragment hosting Content

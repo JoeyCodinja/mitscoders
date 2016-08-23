@@ -88,7 +88,6 @@ public class ClassMapActivity extends FragmentActivity implements OnMapReadyCall
         map.setMyLocationEnabled(true);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(18.005941, -76.746896), 15.5f));
         map.getUiSettings().setScrollGesturesEnabled(false);
-        //map.
         //map.moveCamera(CameraUpdateFactory.newLatLngBounds(new LatLngBounds(new LatLng(17.999116, -76.743155),new LatLng(18.010231, -76.748827)),0));
         //map.moveCamera(CameraUpdateFactory.newLatLngBounds(new LatLngBounds(new LatLng(18.0033896,-76.7458279),new LatLng(18.0062918,-76.7469994)),0));
 

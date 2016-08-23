@@ -13,24 +13,17 @@ import android.webkit.WebViewClient;
 import mits.uwi.com.ourmobileenvironment.R;
 
 /**
-<<<<<<< HEAD
-<<<<<<< HEAD
  * Created by peoplesoft on 4/11/2016.
  */
 
-/*
-=======
->>>>>>> 668eac31574469ff02d04c59ab14e742a360160f
+/**
  * 
  * 
  * Created by jbutler on 4/11/2016.
  */
 public class TeachingEvalsWebView  extends Fragment {
     WebView mTeachEvals;
-<<<<<<< HEAD
 
-=======
->>>>>>> 668eac31574469ff02d04c59ab14e742a360160f
     String url = "http://evals.mona.uwi.edu/StudentLoginJ.asp";
 
     @Override
@@ -62,10 +55,6 @@ public class TeachingEvalsWebView  extends Fragment {
             }
         });
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 668eac31574469ff02d04c59ab14e742a360160f
         return v;
     }
 
@@ -76,11 +65,5 @@ public class TeachingEvalsWebView  extends Fragment {
         }
     }
 
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> 668eac31574469ff02d04c59ab14e742a360160f
 }
 

@@ -5,7 +5,6 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -189,7 +188,7 @@ public class TaxiServiceFragment extends TransportFragment<TaxiService> {
 
             @Override
             public ContactListViewHolder onCreateViewHolder(ViewGroup parent,int pos){
-                View view=LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_contact_list,parent,false);
+                View view=LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_contact_list_dialog,parent,false);
                 return new ContactListViewHolder(view);
 
             }

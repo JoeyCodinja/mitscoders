@@ -36,6 +36,7 @@ import mits.uwi.com.ourmobileenvironment.R;
 import mits.uwi.com.ourmobileenvironment.adapters.HomePageViewPagerAdapter;
 import mits.uwi.com.ourmobileenvironment.ourvle.activities.OurVLELoginActivity;
 import mits.uwi.com.ourmobileenvironment.sas.SAS_Splash;
+import mits.uwi.com.ourmobileenvironment.sas.unavailable.Activity.UnavailableActivity;
 
 import static java.lang.Math.pow;
 
@@ -132,7 +133,7 @@ public class HomeActivityFragment extends Fragment {
 //                                startActivity(i);
 //                                break;
                             case R.id.sas_fab:
-                                i = new Intent(getActivity(), SAS_Splash.class);
+                                i = new Intent(getActivity(), UnavailableActivity.class); //SAS_Splash.class);
                                 startActivity(i);
                                 break;
                         }

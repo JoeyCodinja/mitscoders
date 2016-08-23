@@ -42,12 +42,13 @@ public class TransportActivity extends AppCompatActivity  {
                 transportFragments.add(new BusScheduleFragment());
                 transportFragments.add(new JUTCRouteFragment());
                 transportFragments.add(new TaxiServiceFragment());
+                transportFragments.add(new GuildBusFragment());
                 return transportFragments.get(position);
             }
 
             @Override
             public int getCount() {
-                return 3;
+                return 4;
             }
 
             @Override
@@ -56,15 +57,16 @@ public class TransportActivity extends AppCompatActivity  {
                 title.add("Shuttle");
                 title.add("JUTC");
                 title.add("Taxi");
+                title.add("Guild");
                 return title.get(position);
 
             }
 
 
         });
-        bPage.setOffscreenPageLimit(2);
+        bPage.setOffscreenPageLimit(3);
         mSlidingTabLayout=(SlidingTabLayout) findViewById(R.id.sltab);
-        mSlidingTabLayout.setTabNum(3);
+        mSlidingTabLayout.setTabNum(4);
         mSlidingTabLayout.setCustomTabView(R.layout.tabview, R.id.tabtitle);
         mSlidingTabLayout.setViewPager(bPage);
         mSlidingTabLayout.setSelectedIndicatorColors(getResources().getColor(R.color.white));
