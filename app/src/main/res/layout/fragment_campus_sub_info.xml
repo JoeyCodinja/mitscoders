@@ -6,6 +6,6 @@
     <TextView
         android:id="@+id/campus_sub_info_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
+        android:layout_height="wrap_content"/>
+
 </LinearLayout>

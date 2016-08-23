@@ -11,6 +11,7 @@
     <color name="tabScrollColor">#8a140e</color>
     <color name="transparent" >#00FFFFFF</color>
     <color name="Primary">#004D40</color>
+    <color name="tintDisabled">#616161</color>
 
     <!--SAS-->
     <color name="event_color_01">#59dbe0</color>

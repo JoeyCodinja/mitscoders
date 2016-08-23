@@ -6,13 +6,21 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import mits.uwi.com.ourmobileenvironment.campusinformationfragments.ChooseFacultyFragment;
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.UWIInformationFragments.*;
 
-public class CampusInformationSubActivity extends Activity implements CampusLife.OnFragmentInteractionListener {
+public class CampusInformationSubActivity extends AppCompatActivity
+        implements CampusLife.OnFragmentInteractionListener,
+        History.OnFragmentInteractionListener,
+        HousingAccomodation.OnFragmentInteractionListener,
+        Faculties.OnFragmentInteractionListener,
+        Facilities.OnFragmentInteractionListener
+        {
 
     FragmentManager fm;
     Fragment fragment;
@@ -42,7 +50,7 @@ public class CampusInformationSubActivity extends Activity implements CampusLife
                     fragment = Facilities.newInstance();
                     break;
                 case R.id.to_faculties:
-                    fragment = Faculties.newInstance();
+                    fragment = ChooseFacultyFragment.newInstance();
                     break;
                 case R.id.to_history:
                     fragment = History.newInstance();
