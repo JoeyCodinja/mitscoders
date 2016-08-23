@@ -95,7 +95,7 @@
                 android:value="mits.uwi.com.ourmobileenvironment.SASActivity" />
         </activity>
         <activity
-            android:name=".sas.classmap.activity.ClassMapActivity"
+            android:name=".sas.classmap.Activity.ClassMapActivity"
             android:label="@string/classmapFragment_title"
             android:parentActivityName=".SASActivity"
             android:theme="@style/sas_bartheme">
@@ -142,6 +142,7 @@
                 android:value="mits.uwi.com.ourmobileenvironment.HomeActivity"/>
         </activity>
 
+
         <activity
             android:name=".BOSSActivity"
             android:label="@string/title_activity_boss"
@@ -172,6 +173,7 @@
             android:label="@string/title_activity_campus_information"
             android:parentActivityName=".HomeActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

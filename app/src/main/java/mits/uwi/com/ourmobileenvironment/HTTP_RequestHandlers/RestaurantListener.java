@@ -34,8 +34,6 @@ public class RestaurantListener implements Response.Listener<JSONObject> {
     private EateriesActivity eateriesActivity;
     private ImageLoader imageLoader;
 
-
-
     public RestaurantListener(String listname, ArrayList<Restaurant> resList, EateriesActivity eateriesActivity, Context resctx, Class<Restaurant> restaurantClass){
         this.listname=listname;
         this.eateriesActivity=eateriesActivity;
