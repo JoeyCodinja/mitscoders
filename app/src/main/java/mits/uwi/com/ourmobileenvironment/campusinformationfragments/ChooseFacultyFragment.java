@@ -54,7 +54,7 @@ public class ChooseFacultyFragment extends Fragment {
                                 .beginTransaction();
 
                     transaction.replace(((View)v.getParent().getParent()).getId(),
-                                        Faculties.newInstance());
+                                        Faculties.newInstance(v.getId()));
                     transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
                     transaction.addToBackStack(null);
                     transaction.commit();
