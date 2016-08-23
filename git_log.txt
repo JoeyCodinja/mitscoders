@@ -1,0 +1,1893 @@
+commit 3c1e3a14a986d7eb5c848e57a335f31603f13b59
+Author: Danuel Williams <joseph_thesaint@hotmail.com>
+Date:   Thu Aug 11 20:35:03 2016 -0500
+
+    Removed unused data directory
+
+diff --git a/app/build.gradle b/app/build.gradle
+index 56b66ba..09ff47c 100644
+--- a/app/build.gradle
++++ b/app/build.gradle
+@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
+ 
+ android {
+     compileSdkVersion 22
+-    buildToolsVersion "22.0.1"
++    buildToolsVersion '23.0.2'
+ 
+     defaultConfig {
+         applicationId "mits.uwi.com.ourmobileenvironment"
+@@ -22,6 +22,11 @@ android {
+             debuggable true
+         }
+     }
++    dexOptions{
++        preDexLibraries true
++        javaMaxHeapSize "2g"
++        incremental true
++    }
+     sourceSets {
+         main.java.srcDirs += 'src/main/<YOUR DIRECTORY>'
+     }
+@@ -36,6 +41,8 @@ dependencies {
+     compile 'com.github.bluejamesbond:textjustify-android:2.1.0'
+     compile 'com.android.support:cardview-v7:22.0.+'
+     compile 'com.android.support:recyclerview-v7:22.0+'
++    compile 'com.google.api-client:google-api-client:1.19.1'
++    compile 'com.google.apis:google-api-services-youtube:v3-rev178-1.22.0'
+     compile 'org.jsoup:jsoup:1.8.3'
+     compile 'com.pkmmte.view:circularimageview:1.1'
+     compile 'com.github.satyan:sugar:1.3.1'
+diff --git a/app/gradlew.bat b/app/gradlew.bat
+index aec9973..11d8c8a 100644
+--- a/app/gradlew.bat
++++ b/app/gradlew.bat
+@@ -9,7 +9,7 @@
+ if "%OS%"=="Windows_NT" setlocal
+ 
+ @rem Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
+-set DEFAULT_JVM_OPTS=
++set DEFAULT_JVM_OPTS="\"-Xmx1568\" \"-Xms256m\" \"-XX:MaxPermSize=1568m\""
+ 
+ set DIRNAME=%~dp0
+ if "%DIRNAME%" == "" set DIRNAME=.
+diff --git a/app/src/main/java/mits/uwi/com/ourmobileenvironment/DeveloperKey.java b/app/src/main/java/mits/uwi/com/ourmobileenvironment/DeveloperKey.java
+index d145b68..0760d6a 100644
+--- a/app/src/main/java/mits/uwi/com/ourmobileenvironment/DeveloperKey.java
++++ b/app/src/main/java/mits/uwi/com/ourmobileenvironment/DeveloperKey.java
+@@ -5,5 +5,5 @@ package mits.uwi.com.ourmobileenvironment;
+  */
+ public class DeveloperKey {
+ 
+-    final static String YOUTUBE_APIKEY = "AIzaSyACbaYTwu7uTaXXj9LGvRHW3iEFRr9RKHc";
++    public final static String YOUTUBE_APIKEY = "AIzaSyACbaYTwu7uTaXXj9LGvRHW3iEFRr9RKHc";
+ }
+diff --git a/app/src/main/java/mits/uwi/com/ourmobileenvironment/adapters/VideoListRecyclerAdapter.java b/app/src/main/java/mits/uwi/com/ourmobileenvironment/adapters/VideoListRecyclerAdapter.java
+new file mode 100644
+index 0000000..f8e3d15
+--- /dev/null
++++ b/app/src/main/java/mits/uwi/com/ourmobileenvironment/adapters/VideoListRecyclerAdapter.java
+@@ -0,0 +1,75 @@
++package mits.uwi.com.ourmobileenvironment.adapters;
++
++import android.graphics.Bitmap;
++import android.support.v7.widget.RecyclerView;
++import android.view.LayoutInflater;
++import android.view.View;
++import android.view.ViewGroup;
++import android.widget.ImageView;
++import android.widget.TextView;
++
++
++import mits.uwi.com.ourmobileenvironment.R;
++import mits.uwi.com.ourmobileenvironment.homepagefragments.HomeVideosFragment.YouTubeQueryResult;
++
++/**
++ * Created by Danuel on 11/8/2016.
++ */
++public class VideoListRecyclerAdapter extends
++        RecyclerView.Adapter<VideoListRecyclerAdapter.ViewHolder>{
++    YouTubeQueryResult[] videos;
++
++    public static class ViewHolder extends RecyclerView.ViewHolder{
++        TextView videoTitle;
++        TextView videoDescription;
++        ImageView videoThumbnail;
++
++        public ViewHolder(View v){
++            // Used to provide a reference to the views within the view_holder
++            super(v);
++            videoTitle = (TextView) v.findViewById(R.id.video_item_title);
++            videoDescription= (TextView) v.findViewById(R.id.video_item_description);
++            videoThumbnail = (ImageView) v.findViewById(R.id.video_item_thumbnail);
++        }
++
++    }
++
++    // Adapter Constructor
++    // Accepts the data set
++    // That is the YouTubeQueryResult0
++    public VideoListRecyclerAdapter(YouTubeQueryResult[] result){
++        this.videos = result;
++    }
++
++    @Override
++    public VideoListRecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
++                                                                  int viewType){
++        //TODO: Build video list item layout
++        View v = LayoutInflater
++                .from(parent.getContext())
++                .inflate(R.layout.video_list_item,
++                        parent,
++                        false);
++
++        return new ViewHolder(v);
++    }
++
++    @Override
++    public void onBindViewHolder(ViewHolder holder, int position){
++        // Replaces information within the
++        // ViewHolder with information from
++        // our data set
++        holder.videoTitle.setText(this.videos[position].title);
++        holder.videoDescription.setText(this.videos[position].description);
++        holder.videoThumbnail.setImageBitmap(this.videos[position].thumbnail);
++    }
++
++    @Override
++    public int getItemCount(){
++        return videos.length;
++    }
++
++
++
++}
++
+diff --git a/app/src/main/java/mits/uwi/com/ourmobileenvironment/campusinformationfragments/CampusInfoListFragment.java b/app/src/main/java/mits/uwi/com/ourmobileenvironment/campusinformationfragments/CampusInfoListFragment.java
+deleted file mode 100644
+index 8b4221e..0000000
+--- a/app/src/main/java/mits/uwi/com/ourmobileenvironment/campusinformationfragments/CampusInfoListFragment.java
++++ /dev/null
+@@ -1,77 +0,0 @@
+-package mits.uwi.com.ourmobileenvironment.campusinformationfragments;
+-
+-import android.content.Intent;
+-import android.os.Bundle;
+-import android.support.v4.app.Fragment;
+-import android.support.v4.app.FragmentManager;
+-import android.support.v4.app.ListFragment;
+-import android.view.View;
+-import android.widget.ArrayAdapter;
+-import android.widget.ListView;
+-
+-import com.bluejamesbond.text.DocumentView;
+-
+-import java.util.ArrayList;
+-
+-import mits.uwi.com.ourmobileenvironment.R;
+-
+-/**
+- * Created by Danuel on 26/06/2015.
+- */
+-public class CampusInfoListFragment extends ListFragment {
+-    @Override
+-    public void onCreate(Bundle savedInstanceState) {
+-        super.onCreate(savedInstanceState);
+-        ArrayList<String> mCampusInfosList = new ArrayList<String>();
+-        mCampusInfosList.add("Campus Eateries");
+-        mCampusInfosList.add("Campus Listings");
+-        mCampusInfosList.add("Campus Information");
+-        mCampusInfosList.add("CampusInformationTest");
+-
+-        ArrayAdapter<String> adapter =
+-                new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,
+-                        mCampusInfosList);
+-        setListAdapter(adapter);
+-
+-//        DocumentView campus_info_heading = (DocumentView)getActivity().findViewById(R.id.campus_info_heading_fragment);
+-//        if(campus_info_heading.getVisibility() == DocumentView.VISIBLE)
+-//        {
+-//            campus_info_heading.setVisibility(DocumentView.GONE);
+-//        }
+-    }
+-
+-    @Override
+-    public void onListItemClick(ListView l, View v, int position, long id) {
+-        super.onListItemClick(l, v, position, id);
+-
+-        FragmentManager fm = getActivity().getSupportFragmentManager();
+-        Fragment fragment;
+-        //Transfers the user to the fragment associated with the first time in the list
+-        // which in this case the Eateries Fragment, CampusListings Fragment as well as the
+-        // Campus Information Fragment, respectively
+-        if (position == 0){
+-            fragment = new EateriesFragment();
+-            fm.beginTransaction().replace(R.id.campusinfo_fragmentContainer, fragment)
+-                    .addToBackStack(null)
+-                    .commit();
+-        }
+-        if (position == 1){
+-            fragment = new CampusListingsFragment();
+-            fm.beginTransaction().replace(R.id.campusinfo_fragmentContainer, fragment)
+-                    .addToBackStack(null)
+-                    .commit();
+-        }
+-        if (position == 2){
+-            fragment = new CampusInformationFragment();
+-            fm.beginTransaction().replace(R.id.campusinfo_fragmentContainer,fragment)
+-                    .addToBackStack(null)
+-                    .commit();
+-        }
+-        if(position == 3){
+-            fragment =  new CampusInformationFragmentCustom();
+-            fm.beginTransaction().replace(R.id.campusinfo_fragmentContainer, fragment)
+-                    .addToBackStack(null)
+-                    .commit();
+-        }
+-    }
+-}
+diff --git a/app/src/main/java/mits/uwi/com/ourmobileenvironment/campusinformationfragments/CampusInformationFragment.java b/app/src/main/java/mits/uwi/com/ourmobileenvironment/campusinformationfragments/CampusInformationFragment.java
+index 1a884cb..9bb1857 100644
+--- a/app/src/main/java/mits/uwi/com/ourmobileenvironment/campusinformationfragments/CampusInformationFragment.java
++++ b/app/src/main/java/mits/uwi/com/ourmobileenvironment/campusinformationfragments/CampusInformationFragment.java
+@@ -2,6 +2,7 @@ package mits.uwi.com.ourmobileenvironment.campusinformationfragments;
+ 
+ 
+ import android.content.Intent;
++import android.graphics.Color;
+ import android.os.Handler;
+ import android.support.v4.app.Fragment;
+ import android.os.Bundle;
+@@ -9,15 +10,23 @@ import android.support.annotation.Nullable;
+ import android.support.v4.app.FragmentManager;
+ import android.support.v4.app.FragmentTransaction;
+ import android.support.v4.view.ViewPager;
++import android.view.Gravity;
+ import android.view.LayoutInflater;
+ import android.view.View;
+ import android.view.ViewGroup;
++import android.view.ViewParent;
+ import android.widget.Button;
+ import android.widget.ExpandableListView;
+ import android.support.design.widget.TabLayout;
++import android.widget.FrameLayout;
++import android.widget.ImageView;
++import android.widget.LinearLayout;
+ 
+ import com.bluejamesbond.text.DocumentView;
++import com.pkmmte.view.CircularImageView;
+ 
++import java.util.ArrayList;
++import java.util.List;
+ import java.util.Timer;
+ 
+ import mits.uwi.com.ourmobileenvironment.CampusInformationSubActivity;
+@@ -31,7 +40,8 @@ import mits.uwi.com.ourmobileenvironment.campusinformationfragments.UWIInformati
+  */
+ public class CampusInformationFragment extends Fragment {
+ 
+-    public final static String TO_WHERE_INT = "com.ourmobileenvironment.campusinformationfragments.TO_WHERE";
++    public final static String TO_WHERE_INT =
++            "com.ourmobileenvironment.campusinformationfragments.TO_WHERE";
+ 
+     ExpandableListView mCampusInfo_ExpandableList;
+     ViewPager  mCampusInfo_ViewPager;
+@@ -47,13 +57,17 @@ public class CampusInformationFragment extends Fragment {
+                             R.id.to_campus_life,
+                             R.id.to_shrugs};
+ 
+-    Button toCampusLife, toFaculties, toHistory, toCampusHousing, toCampusFacilites, toUnknown;
++    ArrayList<Object> indicators = new ArrayList<Object>();
++
++    final int active = Color.argb(255,81,81,77);
++    final int inactive = Color.argb(255,203,202,200);
++
++    Button toCampusLife, toFaculties, toHistory,
++            toCampusHousing, toCampusFacilites, toUnknown;
+ 
+     @Override
+     public void onCreate(Bundle savedInstanceState) {
+-
+         super.onCreate(savedInstanceState);
+-
+     }
+ 
+     @Nullable
+@@ -87,8 +101,11 @@ public class CampusInformationFragment extends Fragment {
+                 groups, children, groups.length);
+ 
+         mCampusInfo_ViewPager = (ViewPager)v.findViewById(R.id.campus_info_viewpager);
++
+         mCampusInfo_ViewPager.setAdapter(adapter);
+ 
++        mCampusInfo_ViewPager.addView(createViewPagerIndicator(groups.length));
++
+         // Allows the View Pager to swipe automatically
+         viewPagerSwipeHandler = new Handler();
+         viewPagerSwipeRunnable = new Runnable() {
+@@ -97,6 +114,8 @@ public class CampusInformationFragment extends Fragment {
+                 mCampusInfo_ViewPager
+                         .setCurrentItem((mCampusInfo_ViewPager.getCurrentItem() + 1) %
+                                 groups.length );
++                indicate(mCampusInfo_ViewPager.getCurrentItem() + 1 ,
++                        mCampusInfo_ViewPager.getParent());
+                 viewPagerSwipeHandler.postDelayed(this, 10000);
+             }
+         };
+@@ -109,9 +128,11 @@ public class CampusInformationFragment extends Fragment {
+             buttonInQuestion.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View v) {
+-                    Intent toSubCampusInfo = new Intent(getActivity(),
+-                                                        CampusInformationSubActivity.class);
+-                    toSubCampusInfo.putExtra(CampusInformationFragment.TO_WHERE_INT, buttonInQuestion.getId());
++                    Intent toSubCampusInfo =
++                            new Intent(getActivity(),
++                                       CampusInformationSubActivity.class);
++                    toSubCampusInfo.putExtra(CampusInformationFragment.TO_WHERE_INT,
++                            buttonInQuestion.getId());
+                     startActivity(toSubCampusInfo);
+                 }
+             });
+@@ -121,4 +142,52 @@ public class CampusInformationFragment extends Fragment {
+     }
+ 
+ 
++    public void indicate(int index, ViewParent viewParent){
++        FrameLayout frame = (FrameLayout)viewParent;
++        View view = frame.getChildAt(index);
++        view.setBackgroundColor(active);
++
++        for(int other_views=0;
++            other_views < frame.getChildCount()-1;
++            other_views ++){
++            if (other_views == index)
++                continue;
++            else{
++                view = frame.getChildAt(other_views);
++                if (view.getSolidColor() == active)
++                    view.setBackgroundColor(inactive);
++
++            }
++        }
++
++    }
++
++    public View createViewPagerIndicator(int magnitude){
++        LinearLayout indicatorGroup = new LinearLayout(this.getActivity());
++        indicatorGroup.setId(R.id.indicatorGroup);
++        indicatorGroup.setOrientation(LinearLayout.HORIZONTAL);
++        LinearLayout.LayoutParams indicatorGroupLayoutParams =
++                new LinearLayout.LayoutParams(
++                        LinearLayout.LayoutParams.WRAP_CONTENT,
++                        LinearLayout.LayoutParams.WRAP_CONTENT);
++        indicatorGroupLayoutParams.gravity =
++                Gravity.BOTTOM | Gravity.CENTER_VERTICAL;
++
++        indicatorGroup.setLayoutParams(indicatorGroupLayoutParams);
++
++        for (int view=0; view < magnitude; view++){
++            CircularImageView indicator = new CircularImageView(indicatorGroup.getContext());
++            if (view == 0){
++                indicator.setBackgroundColor(active);
++            }
++            else indicator.setBackgroundColor(inactive);
++            indicator.setMaxHeight(20);
++            indicator.setMaxWidth(20);
++            indicator.addShadow();
++            indicators.add(indicator.getId());
++            indicatorGroup.addView(indicatorGroup);
++        };
++
++        return indicatorGroup;
++    }
+ }
+diff --git a/app/src/main/java/mits/uwi/com/ourmobileenvironment/campusinformationfragments/CampusInformationFragmentCustom.java b/app/src/main/java/mits/uwi/com/ourmobileenvironment/campusinformationfragments/CampusInformationFragmentCustom.java
+deleted file mode 100644
+index ff98a4b..0000000
+--- a/app/src/main/java/mits/uwi/com/ourmobileenvironment/campusinformationfragments/CampusInformationFragmentCustom.java
++++ /dev/null
+@@ -1,29 +0,0 @@
+-package mits.uwi.com.ourmobileenvironment.campusinformationfragments;
+-
+-import android.os.Bundle;
+-import android.support.annotation.Nullable;
+-import android.support.v4.app.Fragment;
+-import android.view.LayoutInflater;
+-import android.view.View;
+-import android.view.ViewGroup;
+-
+-import mits.uwi.com.ourmobileenvironment.R;
+-
+-/**
+- * Created by Danuel on 23/07/2015.
+- */
+-public class CampusInformationFragmentCustom extends Fragment {
+-
+-    @Override
+-    public void onCreate(@Nullable Bundle savedInstanceState) {
+-        super.onCreate(savedInstanceState);
+-    }
+-
+-    @Nullable
+-    @Override
+-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+-        View v = inflater.inflate(R.layout.fragment_campusinformation_custom, container, false);
+-
+-        return v;
+-    }
+-}
+diff --git a/app/src/main/java/mits/uwi/com/ourmobileenvironment/campusinformationfragments/CampusListingsFragment.java b/app/src/main/java/mits/uwi/com/ourmobileenvironment/campusinformationfragments/CampusListingsFragment.java
+deleted file mode 100644
+index 44c12cf..0000000
+--- a/app/src/main/java/mits/uwi/com/ourmobileenvironment/campusinformationfragments/CampusListingsFragment.java
++++ /dev/null
+@@ -1,24 +0,0 @@
+-package mits.uwi.com.ourmobileenvironment.campusinformationfragments;
+-
+-import android.os.Bundle;
+-import android.support.annotation.Nullable;
+-import android.support.v4.app.Fragment;
+-import android.view.LayoutInflater;
+-import android.view.View;
+-import android.view.ViewGroup;
+-
+-/**
+- * Created by Danuel on 17/06/2015.
+- */
+-public class CampusListingsFragment extends Fragment {
+-    @Override
+-    public void onCreate(Bundle savedInstanceState) {
+-        super.onCreate(savedInstanceState);
+-    }
+-
+-    @Nullable
+-    @Override
+-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+-        return super.onCreateView(inflater, container, savedInstanceState);
+-    }
+-}
+diff --git a/app/src/main/java/mits/uwi/com/ourmobileenvironment/campusinformationfragments/UWIInformationFragments/CampusLife.java b/app/src/main/java/mits/uwi/com/ourmobileenvironment/campusinformationfragments/UWIInformationFragments/CampusLife.java
+index ce52320..b6f3ec9 100644
+--- a/app/src/main/java/mits/uwi/com/ourmobileenvironment/campusinformationfragments/UWIInformationFragments/CampusLife.java
++++ b/app/src/main/java/mits/uwi/com/ourmobileenvironment/campusinformationfragments/UWIInformationFragments/CampusLife.java
+@@ -19,14 +19,6 @@ import mits.uwi.com.ourmobileenvironment.R;
+  * create an instance of this fragment.
+  */
+ public class CampusLife extends Fragment {
+-    // TODO: Rename parameter arguments, choose names that match
+-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+-    private static final String ARG_PARAM1 = "param1";
+-    private static final String ARG_PARAM2 = "param2";
+-
+-    // TODO: Rename and change types of parameters
+-    private String mParam1;
+-    private String mParam2;
+ 
+     private OnFragmentInteractionListener mListener;
+ 
+@@ -41,11 +33,8 @@ public class CampusLife extends Fragment {
+     // TODO: Rename and change types and number of parameters
+     public static CampusLife newInstance(String param1, String param2) {
+         CampusLife fragment = new CampusLife();
+-        Bundle args = new Bundle();
+-        args.putString(ARG_PARAM1, param1);
+-        args.putString(ARG_PARAM2, param2);
+-        fragment.setArguments(args);
+-        return fragment;
++
++        return new CampusLife();
+     }
+ 
+     public CampusLife() {
+@@ -55,10 +44,6 @@ public class CampusLife extends Fragment {
+     @Override
+     public void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+-        if (getArguments() != null) {
+-            mParam1 = getArguments().getString(ARG_PARAM1);
+-            mParam2 = getArguments().getString(ARG_PARAM2);
+-        }
+     }
+ 
+     @Override
+diff --git a/app/src/main/java/mits/uwi/com/ourmobileenvironment/data/homepage_news/homepage_newsdata.txt b/app/src/main/java/mits/uwi/com/ourmobileenvironment/data/homepage_news/homepage_newsdata.txt
+deleted file mode 100644
+index ce794a1..0000000
+--- a/app/src/main/java/mits/uwi/com/ourmobileenvironment/data/homepage_news/homepage_newsdata.txt
++++ /dev/null
+@@ -1,222 +0,0 @@
+-<?xml version="1.0" encoding="utf-8" ?><rss version="2.0" xml:base="http://www.mona.uwi.edu/marcom/newsroom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+-  <channel>
+-    <title>UWI Mona News</title>
+-    <link>http://www.mona.uwi.edu/marcom/newsroom</link>
+-    <description></description>
+-    <language>en</language>
+-          <item>
+-    <title>THE UWI MONA TO BEGIN MARIJUANA CULTIVATION</title>
+-    <link>http://www.mona.uwi.edu/marcom/newsroom/entry/6166</link>
+-    <description>&lt;div class=&quot;story-main-image&quot;&gt;
+-&lt;img src=&quot;http://myspot.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/logo_with_wordmark_0.jpg&quot; /&gt;
+-&lt;/div&gt;
+-
+-&lt;div class=&quot;field field-type-filefield field-field-article-image&quot;&gt;
+-    &lt;div class=&quot;field-items&quot;&gt;
+-            &lt;div class=&quot;field-item odd&quot;&gt;
+-                    &lt;div class=&quot;filefield-file&quot;&gt;&lt;img class=&quot;filefield-icon field-icon-image-jpeg&quot;  alt=&quot;image/jpeg icon&quot; src=&quot;http://www.mona.uwi.edu/marcom/sites/all/modules/filefield/icons/image-x-generic.png&quot; /&gt;&lt;a href=&quot;http://www.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/logo_with_wordmark_0.jpg&quot; type=&quot;image/jpeg; length=69233&quot;&gt;logo_with_wordmark.jpg&lt;/a&gt;&lt;/div&gt;        &lt;/div&gt;
+-        &lt;/div&gt;
+-&lt;/div&gt;
+-&lt;p&gt;The University of the West Indies, Mona is to begin the controlled growing of specific strains of marijuana in an attempt to identify the DNA profiles of the plants. The initiative will provide cannabis plants which can then be tested to determine how the different strains interact with the human body, identify best practices for growing marijuana as well as develop products which may be used in the treatment of various illnesses and diseases.&lt;br /&gt;
+-&amp;nbsp;&lt;/p&gt;
+-&lt;p&gt;&lt;a href=&quot;http://www.mona.uwi.edu/marcom/newsroom/entry/6166&quot; target=&quot;_blank&quot;&gt;read more&lt;/a&gt;&lt;/p&gt;</description>
+-     <enclosure url="http://www.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/logo_with_wordmark_0.jpg" length="69233" type="image/jpeg" />
+- <pubDate>Wed, 08 Jul 2015 18:02:06 +0000</pubDate>
+- <dc:creator>10031111</dc:creator>
+- <guid isPermaLink="false">6166 at http://www.mona.uwi.edu/marcom</guid>
+-  </item>
+-  <item>
+-    <title>UWI Professor Verene Shepherd elected for UN Committee Against Racial Discrimination</title>
+-    <link>http://www.mona.uwi.edu/marcom/newsroom/entry/6165</link>
+-    <description>&lt;div class=&quot;story-main-image&quot;&gt;
+-&lt;img src=&quot;http://myspot.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/profesor_shepherd_0.jpg&quot; /&gt;
+-&lt;/div&gt;
+-
+-&lt;div class=&quot;field field-type-filefield field-field-article-image&quot;&gt;
+-    &lt;div class=&quot;field-items&quot;&gt;
+-            &lt;div class=&quot;field-item odd&quot;&gt;
+-                    &lt;div class=&quot;filefield-file&quot;&gt;&lt;img class=&quot;filefield-icon field-icon-image-jpeg&quot;  alt=&quot;image/jpeg icon&quot; src=&quot;http://www.mona.uwi.edu/marcom/sites/all/modules/filefield/icons/image-x-generic.png&quot; /&gt;&lt;a href=&quot;http://www.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/profesor_shepherd_0.jpg&quot; type=&quot;image/jpeg; length=34009&quot;&gt;profesor_shepherd.jpg&lt;/a&gt;&lt;/div&gt;        &lt;/div&gt;
+-        &lt;/div&gt;
+-&lt;/div&gt;
+-&lt;p&gt;The UWI congratulates Director of the Institute for Gender &amp;amp; Development Studies and Professor of Social History at the Mona Campus, Professor Verene Shepherd on her appointment to the United Nations Committee on the Elimination of Racial Discrimination (CERD).&lt;br /&gt;
+-&amp;nbsp;&lt;/p&gt;
+-&lt;p&gt;&lt;a href=&quot;http://www.mona.uwi.edu/marcom/newsroom/entry/6165&quot; target=&quot;_blank&quot;&gt;read more&lt;/a&gt;&lt;/p&gt;</description>
+-     <category domain="http://www.mona.uwi.edu/marcom/category/uwi-lecturers-recognition/uwi-lecturers-recognition">UWI Lecturers&#039; Recognition</category>
+- <enclosure url="http://www.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/profesor_shepherd_0.jpg" length="34009" type="image/jpeg" />
+- <pubDate>Fri, 03 Jul 2015 18:20:00 +0000</pubDate>
+- <dc:creator>10031111</dc:creator>
+- <guid isPermaLink="false">6165 at http://www.mona.uwi.edu/marcom</guid>
+-  </item>
+-  <item>
+-    <title>UN Secretary-General Ban Ki-moon visits UWI for Caribbean Youth Speak</title>
+-    <link>http://www.mona.uwi.edu/marcom/newsroom/entry/6163</link>
+-    <description>&lt;div class=&quot;story-main-image&quot;&gt;
+-&lt;img src=&quot;http://myspot.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/ban_ki-moon_0.jpg&quot; /&gt;
+-&lt;/div&gt;
+-
+-&lt;div class=&quot;field field-type-filefield field-field-article-image&quot;&gt;
+-    &lt;div class=&quot;field-items&quot;&gt;
+-            &lt;div class=&quot;field-item odd&quot;&gt;
+-                    &lt;div class=&quot;filefield-file&quot;&gt;&lt;img class=&quot;filefield-icon field-icon-image-jpeg&quot;  alt=&quot;image/jpeg icon&quot; src=&quot;http://www.mona.uwi.edu/marcom/sites/all/modules/filefield/icons/image-x-generic.png&quot; /&gt;&lt;a href=&quot;http://www.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/ban_ki-moon_0.jpg&quot; type=&quot;image/jpeg; length=12988&quot;&gt;ban_ki-moon.jpg&lt;/a&gt;&lt;/div&gt;        &lt;/div&gt;
+-        &lt;/div&gt;
+-&lt;/div&gt;
+-&lt;p&gt;Young people across the Caribbean will have a rare opportunity to directly state their concerns to the United Nation’s (UN) Secretary-General, Ban Ki-moon&amp;nbsp; when The University of the West Indies (The UWI) hosts a UN youth symposium at Cave Hill campus on Friday, July 3, 2015 starting at 10 a.m. (AST).&lt;br /&gt;
+-&amp;nbsp;&lt;br /&gt;
+-The UN Chief will be in Barbados for the 36th CARICOM Heads of Governments Summit and will engage university students and representatives of youth organisations across the region under the theme Caribbean Youth Speak: The World We Want Post -2015.&lt;br /&gt;
+-&amp;nbsp;&lt;/p&gt;
+-&lt;p&gt;&lt;a href=&quot;http://www.mona.uwi.edu/marcom/newsroom/entry/6163&quot; target=&quot;_blank&quot;&gt;read more&lt;/a&gt;&lt;/p&gt;</description>
+-     <enclosure url="http://www.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/ban_ki-moon_0.jpg" length="12988" type="image/jpeg" />
+- <pubDate>Mon, 29 Jun 2015 18:30:06 +0000</pubDate>
+- <dc:creator>10031111</dc:creator>
+- <guid isPermaLink="false">6163 at http://www.mona.uwi.edu/marcom</guid>
+-  </item>
+-  <item>
+-    <title>UWI Mona Student Wins Skills in Action Award</title>
+-    <link>http://www.mona.uwi.edu/marcom/newsroom/entry/6154</link>
+-    <description>&lt;div class=&quot;story-main-image&quot;&gt;
+-&lt;img src=&quot;http://myspot.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/skill_award.png&quot; /&gt;
+-&lt;/div&gt;
+-
+-&lt;div class=&quot;field field-type-filefield field-field-article-image&quot;&gt;
+-    &lt;div class=&quot;field-items&quot;&gt;
+-            &lt;div class=&quot;field-item odd&quot;&gt;
+-                    &lt;div class=&quot;filefield-file&quot;&gt;&lt;img class=&quot;filefield-icon field-icon-image-png&quot;  alt=&quot;image/png icon&quot; src=&quot;http://www.mona.uwi.edu/marcom/sites/all/modules/filefield/icons/image-x-generic.png&quot; /&gt;&lt;a href=&quot;http://www.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/skill_award.png&quot; type=&quot;image/png; length=172995&quot;&gt;skill_award.png&lt;/a&gt;&lt;/div&gt;        &lt;/div&gt;
+-        &lt;/div&gt;
+-&lt;/div&gt;
+-&lt;p style=&quot;font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 130%;&quot;&gt;Beauty services entrepreneur and graduate student in the Master’s degree programme in Leadership in TVET and Workforce Development, Alia Wedderburn, secured first place in the 2015 Skills in Action competition organized by the UNESCO-UNEVOC International Centre for Technical and Vocational Education and Training. &amp;nbsp;The announcement was made at the Second International Conference on Technical, Vocational Education and Training in the Caribbean &amp;nbsp;hosted by the School of Education &amp;nbsp;May 13 – 15, 2015 at the Hilton Rose Hall Resort and Spa, in Montego Bay, St. James.&lt;/p&gt;
+-&lt;p&gt;&lt;a href=&quot;http://www.mona.uwi.edu/marcom/newsroom/entry/6154&quot; target=&quot;_blank&quot;&gt;read more&lt;/a&gt;&lt;/p&gt;</description>
+-     <category domain="http://www.mona.uwi.edu/marcom/category/mona-salute/mona-salute">Mona Salute</category>
+- <enclosure url="http://www.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/skill_award.png" length="172995" type="image/png" />
+- <pubDate>Mon, 22 Jun 2015 18:01:28 +0000</pubDate>
+- <dc:creator>10033575</dc:creator>
+- <guid isPermaLink="false">6154 at http://www.mona.uwi.edu/marcom</guid>
+-  </item>
+-  <item>
+-    <title>MOU Signed Between The UWI, Mona and Private Sector Organization of Jamaica</title>
+-    <link>http://www.mona.uwi.edu/marcom/newsroom/entry/6130</link>
+-    <description>&lt;div class=&quot;story-main-image&quot;&gt;
+-&lt;img src=&quot;http://myspot.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/psoj_mou.jpg&quot; /&gt;
+-&lt;/div&gt;
+-
+-&lt;div class=&quot;field field-type-filefield field-field-article-image&quot;&gt;
+-    &lt;div class=&quot;field-items&quot;&gt;
+-            &lt;div class=&quot;field-item odd&quot;&gt;
+-                    &lt;div class=&quot;filefield-file&quot;&gt;&lt;img class=&quot;filefield-icon field-icon-image-jpeg&quot;  alt=&quot;image/jpeg icon&quot; src=&quot;http://www.mona.uwi.edu/marcom/sites/all/modules/filefield/icons/image-x-generic.png&quot; /&gt;&lt;a href=&quot;http://www.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/psoj_mou.jpg&quot; type=&quot;image/jpeg; length=80554&quot;&gt;psoj_mou.jpg&lt;/a&gt;&lt;/div&gt;        &lt;/div&gt;
+-        &lt;/div&gt;
+-&lt;/div&gt;
+-&lt;p&gt;The University of the West Indies, Mona, has signed a Memorandum of Understanding (MOU) with the Private Sector Organization of Jamaica (PSOJ). The MOU was signed recently by Pro-Vice Chancellor and Principal of The UWI, Mona Campus, Professor Archibald McDonald and Mr. William Mahfood, President of the Private Sector Organisation of Jamaica.&lt;br /&gt;&lt;br /&gt;This MOU will serve as a framework for specific collaborative initiatives to be developed jointly by the private sector through the PSOJ and the Faculties, Schools / Research Centres of the University of the West Indies.&lt;br /&gt;&lt;/p&gt;
+-&lt;p&gt;&lt;a href=&quot;http://www.mona.uwi.edu/marcom/newsroom/entry/6130&quot; target=&quot;_blank&quot;&gt;read more&lt;/a&gt;&lt;/p&gt;</description>
+-     <enclosure url="http://www.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/psoj_mou.jpg" length="80554" type="image/jpeg" />
+- <pubDate>Mon, 18 May 2015 18:18:41 +0000</pubDate>
+- <dc:creator>10031111</dc:creator>
+- <guid isPermaLink="false">6130 at http://www.mona.uwi.edu/marcom</guid>
+-  </item>
+-  <item>
+-    <title>Five Promoted to Rank of Professor </title>
+-    <link>http://www.mona.uwi.edu/marcom/newsroom/entry/6127</link>
+-    <description>&lt;div class=&quot;story-main-image&quot;&gt;
+-&lt;img src=&quot;http://myspot.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/lectureres_resized_-boyne_et_al2.png&quot; /&gt;
+-&lt;/div&gt;
+-
+-&lt;div class=&quot;field field-type-filefield field-field-article-image&quot;&gt;
+-    &lt;div class=&quot;field-items&quot;&gt;
+-            &lt;div class=&quot;field-item odd&quot;&gt;
+-                    &lt;div class=&quot;filefield-file&quot;&gt;&lt;img class=&quot;filefield-icon field-icon-image-png&quot;  alt=&quot;image/png icon&quot; src=&quot;http://www.mona.uwi.edu/marcom/sites/all/modules/filefield/icons/image-x-generic.png&quot; /&gt;&lt;a href=&quot;http://www.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/lectureres_resized_-boyne_et_al2.png&quot; type=&quot;image/png; length=106169&quot;&gt;lectureres_resized_-boyne_et_al2.png&lt;/a&gt;&lt;/div&gt;        &lt;/div&gt;
+-        &lt;/div&gt;
+-&lt;/div&gt;
+-&lt;p&gt;The University of the West Indies, Mona is pleased to announce the promotion of five members of staff to the rank of Professor. They are Senior Lecturers in the Tropical Medicine Research Institute, Dr. Michael Boyne and Dr. Colin McKenzie; Senior Lecturer in the Department of Community Health and Psychiatry, Faculty of Medical Sciences, Dr. Maria Jackson; Senior Lecturer in the Department of History and Archaeology, Faculty of Humanities &amp;amp; Education, Dr. Matthew Smith and Senior Lecturer in the Department of Economics and Associate Dean (Graduate Studies) in the Faculty of Social Sciences, Dr. David Tennant.&lt;/p&gt;
+-&lt;p&gt;&lt;img class=&quot;mceItem&quot; title=&quot;&amp;lt;--break-- /&gt;&quot; src=&quot;/marcom/sites/all/modules/wysiwyg/plugins/break/images/spacer.gif&quot; alt=&quot;&amp;lt;--break-&gt;&quot;&gt;&lt;/p&gt;
+-&lt;p&gt;&lt;a href=&quot;http://www.mona.uwi.edu/marcom/newsroom/entry/6127&quot; target=&quot;_blank&quot;&gt;read more&lt;/a&gt;&lt;/p&gt;</description>
+-     <enclosure url="http://www.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/lectureres_resized_-boyne_et_al2.png" length="106169" type="image/png" />
+- <pubDate>Mon, 11 May 2015 19:25:37 +0000</pubDate>
+- <dc:creator>10033575</dc:creator>
+- <guid isPermaLink="false">6127 at http://www.mona.uwi.edu/marcom</guid>
+-  </item>
+-  <item>
+-    <title>MOU Signed Between The UWI Mona and Ganja Growers and Producers Association</title>
+-    <link>http://www.mona.uwi.edu/marcom/newsroom/entry/6101</link>
+-    <description>&lt;div class=&quot;story-main-image&quot;&gt;
+-&lt;img src=&quot;http://myspot.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/ganja_mou_0.jpg&quot; /&gt;
+-&lt;/div&gt;
+-
+-&lt;div class=&quot;field field-type-filefield field-field-article-image&quot;&gt;
+-    &lt;div class=&quot;field-items&quot;&gt;
+-            &lt;div class=&quot;field-item odd&quot;&gt;
+-                    &lt;div class=&quot;filefield-file&quot;&gt;&lt;img class=&quot;filefield-icon field-icon-image-jpeg&quot;  alt=&quot;image/jpeg icon&quot; src=&quot;http://www.mona.uwi.edu/marcom/sites/all/modules/filefield/icons/image-x-generic.png&quot; /&gt;&lt;a href=&quot;http://www.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/ganja_mou_0.jpg&quot; type=&quot;image/jpeg; length=79148&quot;&gt;ganja_mou.jpg&lt;/a&gt;&lt;/div&gt;        &lt;/div&gt;
+-        &lt;/div&gt;
+-&lt;/div&gt;
+-&lt;p&gt;The University of the West Indies, Mona, has signed a Memorandum of Understanding with the Ganja Growers and Producers Association.&amp;nbsp; The MOU was signed on Friday, April 24, 2015, by Pro Vice Chancellor and Principal of The UWI, Mona Campus, Professor Archibald McDonald and Mr. Richard Crawford, Vice Chairman, Ganja Growers and Producers Association.&lt;br /&gt;&lt;/p&gt;
+-&lt;p&gt;&lt;a href=&quot;http://www.mona.uwi.edu/marcom/newsroom/entry/6101&quot; target=&quot;_blank&quot;&gt;read more&lt;/a&gt;&lt;/p&gt;</description>
+-     <enclosure url="http://www.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/ganja_mou_0.jpg" length="79148" type="image/jpeg" />
+- <pubDate>Tue, 28 Apr 2015 23:34:25 +0000</pubDate>
+- <dc:creator>10031111</dc:creator>
+- <guid isPermaLink="false">6101 at http://www.mona.uwi.edu/marcom</guid>
+-  </item>
+-  <item>
+-    <title>We are The 2015 UWI Intercampus Post-Graduate Debates Champions! </title>
+-    <link>http://www.mona.uwi.edu/marcom/newsroom/entry/6099</link>
+-    <description>&lt;div class=&quot;story-main-image&quot;&gt;
+-&lt;img src=&quot;http://myspot.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/debating_for_web.png&quot; /&gt;
+-&lt;/div&gt;
+-
+-&lt;div class=&quot;field field-type-filefield field-field-article-image&quot;&gt;
+-    &lt;div class=&quot;field-items&quot;&gt;
+-            &lt;div class=&quot;field-item odd&quot;&gt;
+-                    &lt;div class=&quot;filefield-file&quot;&gt;&lt;img class=&quot;filefield-icon field-icon-image-png&quot;  alt=&quot;image/png icon&quot; src=&quot;http://www.mona.uwi.edu/marcom/sites/all/modules/filefield/icons/image-x-generic.png&quot; /&gt;&lt;a href=&quot;http://www.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/debating_for_web.png&quot; type=&quot;image/png; length=153612&quot;&gt;debating_for_web.png&lt;/a&gt;&lt;/div&gt;        &lt;/div&gt;
+-        &lt;/div&gt;
+-&lt;/div&gt;
+-&lt;p&gt;On March 1, 2015 a contingent of five, regal in red, left the University of the West Indies (UWI), Mona and journeyed to our Caribbean neighbours down south. The destination was the sister campus in St. Augustine, Trinidad where the annual UWI Intercampus Post-Graduate Debates were scheduled to be held. The debaters from Mona were Donavon Johnson, currently pursuing an MSc. in International Public and Development Management and Wade David, a student in the MSc. Development Studies program at SALISES. Supporting the main men were the Deputy Representative of the Mona Association of Post Graduate Students (MAPS), Maliya Rabathaly, as well as two advisors, Mr Carlton Lowrie, past Director of the Office of Student Services and Development (OSSD) and Dr.&lt;/p&gt;
+-&lt;p&gt;&lt;a href=&quot;http://www.mona.uwi.edu/marcom/newsroom/entry/6099&quot; target=&quot;_blank&quot;&gt;read more&lt;/a&gt;&lt;/p&gt;</description>
+-     <category domain="http://www.mona.uwi.edu/marcom/category/mona-salute/mona-salute">Mona Salute</category>
+- <enclosure url="http://www.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/debating_for_web.png" length="153612" type="image/png" />
+- <pubDate>Fri, 24 Apr 2015 19:04:36 +0000</pubDate>
+- <dc:creator>10033575</dc:creator>
+- <guid isPermaLink="false">6099 at http://www.mona.uwi.edu/marcom</guid>
+-  </item>
+-  <item>
+-    <title>Youth Leaders Interact With President Obama At Historic UWI Town Hall Meeting</title>
+-    <link>http://www.mona.uwi.edu/marcom/newsroom/entry/6092</link>
+-    <description>&lt;div class=&quot;story-main-image&quot;&gt;
+-&lt;img src=&quot;http://myspot.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/obama_town_hall.png&quot; /&gt;
+-&lt;/div&gt;
+-
+-&lt;div class=&quot;field field-type-filefield field-field-article-image&quot;&gt;
+-    &lt;div class=&quot;field-items&quot;&gt;
+-            &lt;div class=&quot;field-item odd&quot;&gt;
+-                    &lt;div class=&quot;filefield-file&quot;&gt;&lt;img class=&quot;filefield-icon field-icon-image-png&quot;  alt=&quot;image/png icon&quot; src=&quot;http://www.mona.uwi.edu/marcom/sites/all/modules/filefield/icons/image-x-generic.png&quot; /&gt;&lt;a href=&quot;http://www.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/obama_town_hall.png&quot; type=&quot;image/png; length=216729&quot;&gt;obama_town_hall.png&lt;/a&gt;&lt;/div&gt;        &lt;/div&gt;
+-        &lt;/div&gt;
+-&lt;/div&gt;
+-&lt;p&gt;Some 350 young leaders from Jamaica and the wider Caribbean attended an historic Town Hall meeting with President of the United States Barack Obama&amp;nbsp;held at The University of the West Indies, (UWI) Mona Campus on Thursday,&amp;nbsp;&lt;/p&gt;
+-&lt;p&gt;April 9, 2015.&lt;/p&gt;
+-&lt;p&gt;President Obama used the opportunity to launch the Young Leaders of the Americas Initiative (YLAI) to expand opportunities for emerging entrepreneurs and civil society activists. The YLAI will provide 250 fellowships each year to enable participants from the United States and the region to develop joint business and civil society initiatives. He later invited questions from the floor, noting that young people will shape the future of our countries, region, and the planet, and it was important to hear their views.&lt;/p&gt;
+-&lt;p&gt;&lt;a href=&quot;http://www.mona.uwi.edu/marcom/newsroom/entry/6092&quot; target=&quot;_blank&quot;&gt;read more&lt;/a&gt;&lt;/p&gt;</description>
+-     <category domain="http://www.mona.uwi.edu/marcom/category/mona-salute/mona-salute">Mona Salute</category>
+- <category domain="http://www.mona.uwi.edu/marcom/category/research-innovation-news/research-innovation-news">Research &amp;  Innovation News</category>
+- <enclosure url="http://www.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/obama_town_hall.png" length="216729" type="image/png" />
+- <pubDate>Mon, 20 Apr 2015 16:31:45 +0000</pubDate>
+- <dc:creator>10033575</dc:creator>
+- <guid isPermaLink="false">6092 at http://www.mona.uwi.edu/marcom</guid>
+-  </item>
+-  <item>
+-    <title>Inderia Adjudah Named All Island Administrative Professional Of The Year</title>
+-    <link>http://www.mona.uwi.edu/marcom/newsroom/entry/6087</link>
+-    <description>&lt;div class=&quot;story-main-image&quot;&gt;
+-&lt;img src=&quot;http://myspot.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/inderia.jpg&quot; /&gt;
+-&lt;/div&gt;
+-
+-&lt;div class=&quot;field field-type-filefield field-field-article-image&quot;&gt;
+-    &lt;div class=&quot;field-items&quot;&gt;
+-            &lt;div class=&quot;field-item odd&quot;&gt;
+-                    &lt;div class=&quot;filefield-file&quot;&gt;&lt;img class=&quot;filefield-icon field-icon-image-jpeg&quot;  alt=&quot;image/jpeg icon&quot; src=&quot;http://www.mona.uwi.edu/marcom/sites/all/modules/filefield/icons/image-x-generic.png&quot; /&gt;&lt;a href=&quot;http://www.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/inderia.jpg&quot; type=&quot;image/jpeg; length=75414&quot;&gt;inderia.jpg&lt;/a&gt;&lt;/div&gt;        &lt;/div&gt;
+-        &lt;/div&gt;
+-&lt;/div&gt;
+-&lt;p&gt;Administrative Officer at The University of the West Indies, Mona Western Jamaica Campus (WJC), Ms.&amp;nbsp; Inderia Adjudah, has been named the All Island Administrative Professional of the Year by the Jamaica Association of Administrative Professionals (JAAP).&amp;nbsp; Ms. Adjudah was selected as the St. James parish representative to the National Competition which took place on Sunday, April 12, 2015 in Mandeville.&amp;nbsp;&lt;/p&gt;
+-&lt;p&gt;&lt;a href=&quot;http://www.mona.uwi.edu/marcom/newsroom/entry/6087&quot; target=&quot;_blank&quot;&gt;read more&lt;/a&gt;&lt;/p&gt;</description>
+-     <category domain="http://www.mona.uwi.edu/marcom/category/mona-salute/mona-salute">Mona Salute</category>
+- <enclosure url="http://www.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/inderia.jpg" length="75414" type="image/jpeg" />
+- <pubDate>Wed, 15 Apr 2015 22:00:11 +0000</pubDate>
+- <dc:creator>10033575</dc:creator>
+- <guid isPermaLink="false">6087 at http://www.mona.uwi.edu/marcom</guid>
+-  </item>
+-  </channel>
+-</rss>
+\ No newline at end of file
+diff --git a/app/src/main/java/mits/uwi/com/ourmobileenvironment/data/homepage_news/homepage_newsdata2.txt b/app/src/main/java/mits/uwi/com/ourmobileenvironment/data/homepage_news/homepage_newsdata2.txt
+deleted file mode 100644
+index d7fcc3d..0000000
+--- a/app/src/main/java/mits/uwi/com/ourmobileenvironment/data/homepage_news/homepage_newsdata2.txt
++++ /dev/null
+@@ -1,198 +0,0 @@
+-<?xml version="1.0" encoding="utf-8" ?><rss version="2.0" xml:base="http://www.mona.uwi.edu/marcom/uwinotebook" xmlns:dc="http://purl.org/dc/elements/1.1/">
+-  <channel>
+-    <title>UWI Notebook Headlines</title>
+-    <link>http://www.mona.uwi.edu/marcom/uwinotebook</link>
+-    <description></description>
+-    <language>en</language>
+-          <item>
+-    <title>Leader in Dental Training</title>
+-    <link>http://www.mona.uwi.edu/marcom/uwinotebook/entry/6019</link>
+-    <description>&lt;div class=&quot;story-main-image&quot;&gt;
+-&lt;img src=&quot;http://myspot.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/dentistry.jpg&quot; /&gt;
+-&lt;/div&gt;
+-
+-&lt;div class=&quot;field field-type-filefield field-field-article-image&quot;&gt;
+-    &lt;div class=&quot;field-items&quot;&gt;
+-            &lt;div class=&quot;field-item odd&quot;&gt;
+-                    &lt;div class=&quot;filefield-file&quot;&gt;&lt;img class=&quot;filefield-icon field-icon-image-jpeg&quot;  alt=&quot;image/jpeg icon&quot; src=&quot;http://www.mona.uwi.edu/marcom/sites/all/modules/filefield/icons/image-x-generic.png&quot; /&gt;&lt;a href=&quot;http://www.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/dentistry.jpg&quot; type=&quot;image/jpeg; length=87493&quot;&gt;dentistry.jpg&lt;/a&gt;&lt;/div&gt;        &lt;/div&gt;
+-        &lt;/div&gt;
+-&lt;/div&gt;
+-&lt;p&gt;Students pursuing the Doctor of Dental Surgery (D.D.S.) degree undergo a 5-year period of training involving the Basic Medical Sciences and the Basic, Advanced and Clinical Dental Sciences. Students complete the programme by treating patients in a comprehensive care dental polyclinic, and through rotations to hospitals, health centres and private offices. Training also includes the use of the latest dental simulation technology, allowing our students to develop and improve competencies.&lt;/p&gt;
+-&lt;p&gt;The programme’s quality is assured internally by the Academic Quality Assurance Committee (AQAC) and by the university’s Quality Assurance Standards Committee.&lt;/p&gt;
+-&lt;p&gt;&lt;a href=&quot;http://www.mona.uwi.edu/marcom/uwinotebook/entry/6019&quot; target=&quot;_blank&quot;&gt;read more&lt;/a&gt;&lt;/p&gt;</description>
+-     <pubDate>Thu, 19 Feb 2015 21:58:55 +0000</pubDate>
+- <dc:creator>10031111</dc:creator>
+- <guid isPermaLink="false">6019 at http://www.mona.uwi.edu/marcom</guid>
+-  </item>
+-  <item>
+-    <title>The Creative Imagination at its finest </title>
+-    <link>http://www.mona.uwi.edu/marcom/uwinotebook/entry/6018</link>
+-    <description>&lt;div class=&quot;story-main-image&quot;&gt;
+-&lt;img src=&quot;http://myspot.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/brian_heap_and_michael_holgate.jpg&quot; /&gt;
+-&lt;/div&gt;
+-
+-&lt;div class=&quot;field field-type-filefield field-field-article-image&quot;&gt;
+-    &lt;div class=&quot;field-items&quot;&gt;
+-            &lt;div class=&quot;field-item odd&quot;&gt;
+-                    &lt;div class=&quot;filefield-file&quot;&gt;&lt;img class=&quot;filefield-icon field-icon-image-jpeg&quot;  alt=&quot;image/jpeg icon&quot; src=&quot;http://www.mona.uwi.edu/marcom/sites/all/modules/filefield/icons/image-x-generic.png&quot; /&gt;&lt;a href=&quot;http://www.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/brian_heap_and_michael_holgate.jpg&quot; type=&quot;image/jpeg; length=116897&quot;&gt;brian_heap_and_michael_holgate.jpg&lt;/a&gt;&lt;/div&gt;        &lt;/div&gt;
+-        &lt;/div&gt;
+-&lt;/div&gt;
+-&lt;p&gt;The Philip Sherlock Centre for the Creative Arts at The University of the West Indies, Mona provides a safe haven for the development of the creative imagination among staff and students. The Centre is home to the University Singers, the University Dramatic Arts Society, the UWI Panoridim Steel Orchestra, the UWI Camera Club, the University Chorale, the University Pop Society, the University Jazz and Classical Ensemble and the University Dance Society.&lt;br /&gt;
+-&amp;nbsp;&lt;/p&gt;
+-&lt;p&gt;&lt;a href=&quot;http://www.mona.uwi.edu/marcom/uwinotebook/entry/6018&quot; target=&quot;_blank&quot;&gt;read more&lt;/a&gt;&lt;/p&gt;</description>
+-     <pubDate>Thu, 19 Feb 2015 21:49:35 +0000</pubDate>
+- <dc:creator>10031111</dc:creator>
+- <guid isPermaLink="false">6018 at http://www.mona.uwi.edu/marcom</guid>
+-  </item>
+-  <item>
+-    <title>A Learner-Centered Perspective to Teaching &amp; Learning with Technology: The 21st Century Difference</title>
+-    <link>http://www.mona.uwi.edu/marcom/uwinotebook/entry/5298</link>
+-    <description>&lt;div class=&quot;story-main-image&quot;&gt;
+-&lt;img src=&quot;http://myspot.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/david_yearwood.jpg&quot; /&gt;
+-&lt;/div&gt;
+-
+-&lt;div class=&quot;field field-type-filefield field-field-article-image&quot;&gt;
+-    &lt;div class=&quot;field-items&quot;&gt;
+-            &lt;div class=&quot;field-item odd&quot;&gt;
+-                    &lt;div class=&quot;filefield-file&quot;&gt;&lt;img class=&quot;filefield-icon field-icon-image-jpeg&quot;  alt=&quot;image/jpeg icon&quot; src=&quot;http://www.mona.uwi.edu/marcom/sites/all/modules/filefield/icons/image-x-generic.png&quot; /&gt;&lt;a href=&quot;http://www.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/david_yearwood.jpg&quot; type=&quot;image/jpeg; length=72896&quot;&gt;david_yearwood.jpg&lt;/a&gt;&lt;/div&gt;        &lt;/div&gt;
+-        &lt;/div&gt;
+-&lt;/div&gt;
+-&lt;p&gt;This year, the Centre for Excellence in Teaching and Learning in partnership with Guardian Life will host The UWI / Guardian Life Premium Teaching Lecture on Thursday October 10, 2013 at the Mona Visitors Lodge starting at 6:00 p.m. The lecture will be delivered by Dr. David Yearwood, Professor and Chair of the Technology Department at the University of North Dakota under the theme “A Learner-Centered Perspective to Teaching &amp;amp; Learning with Technology: The 21st Century Difference”&lt;br /&gt;&lt;/p&gt;
+-&lt;p&gt;&lt;a href=&quot;http://www.mona.uwi.edu/marcom/uwinotebook/entry/5298&quot; target=&quot;_blank&quot;&gt;read more&lt;/a&gt;&lt;/p&gt;</description>
+-     <pubDate>Tue, 01 Oct 2013 16:26:35 +0000</pubDate>
+- <dc:creator>10031111</dc:creator>
+- <guid isPermaLink="false">5298 at http://www.mona.uwi.edu/marcom</guid>
+-  </item>
+-  <item>
+-    <title>Approved Taxi Operators for Mona Campus</title>
+-    <link>http://www.mona.uwi.edu/marcom/uwinotebook/entry/5125</link>
+-    <description>
+-&lt;p class=&quot;MsoNormal&quot; style=&quot;margin-bottom: .0001pt; line-height: normal;&quot;&gt;&amp;nbsp;As part of an ongoing effort to facilitate a safe, secure system of transportation for students and staff on the Mona Campus, the Security Committee has granted permission for certain taxi operators to operate on The UWI, Mona Campus.&amp;nbsp; The names of the taxi operators have been vetted to ensure they have complied fully with the requirements of the law.&lt;/p&gt;
+-&lt;p class=&quot;MsoNormal&quot; style=&quot;margin-bottom: .0001pt; line-height: normal;&quot;&gt;&lt;strong&gt;&amp;nbsp;&lt;/strong&gt;&lt;/p&gt;
+-&lt;p&gt;&lt;a href=&quot;http://www.mona.uwi.edu/marcom/uwinotebook/entry/5125&quot; target=&quot;_blank&quot;&gt;read more&lt;/a&gt;&lt;/p&gt;</description>
+-     <pubDate>Wed, 08 May 2013 16:40:58 +0000</pubDate>
+- <dc:creator>10031111</dc:creator>
+- <guid isPermaLink="false">5125 at http://www.mona.uwi.edu/marcom</guid>
+-  </item>
+-  <item>
+-    <title>Notice to All Undergraduate Students Re: Final Exams</title>
+-    <link>http://www.mona.uwi.edu/marcom/uwinotebook/entry/5086</link>
+-    <description>&lt;div class=&quot;story-main-image&quot;&gt;
+-&lt;img src=&quot;http://myspot.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/for_notebook-_crest.jpg&quot; /&gt;
+-&lt;/div&gt;
+-
+-&lt;div class=&quot;field field-type-filefield field-field-article-image&quot;&gt;
+-    &lt;div class=&quot;field-items&quot;&gt;
+-            &lt;div class=&quot;field-item odd&quot;&gt;
+-                    &lt;div class=&quot;filefield-file&quot;&gt;&lt;img class=&quot;filefield-icon field-icon-image-jpeg&quot;  alt=&quot;image/jpeg icon&quot; src=&quot;http://www.mona.uwi.edu/marcom/sites/all/modules/filefield/icons/image-x-generic.png&quot; /&gt;&lt;a href=&quot;http://www.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/for_notebook-_crest.jpg&quot; type=&quot;image/jpeg; length=3485&quot;&gt;for_notebook-_crest.jpg&lt;/a&gt;&lt;/div&gt;        &lt;/div&gt;
+-        &lt;/div&gt;
+-&lt;/div&gt;
+-&lt;p&gt;&lt;strong&gt;FURTHER GUIDELINES RE: THE SITTING OF FINAL EXAMINATIONS FOR SEMESTER II 2012-2013 &lt;/strong&gt;&lt;/p&gt;
+-&lt;p&gt;&lt;strong&gt;&amp;nbsp;&lt;/strong&gt;&lt;/p&gt;
+-&lt;p&gt;&lt;a href=&quot;http://www.mona.uwi.edu/marcom/uwinotebook/entry/5086&quot; target=&quot;_blank&quot;&gt;read more&lt;/a&gt;&lt;/p&gt;</description>
+-     <pubDate>Thu, 11 Apr 2013 16:45:53 +0000</pubDate>
+- <dc:creator>10031111</dc:creator>
+- <guid isPermaLink="false">5086 at http://www.mona.uwi.edu/marcom</guid>
+-  </item>
+-  <item>
+-    <title>Annual Philip Sherlock Lecture: “If I could write this on zinc I would write this on zinc” </title>
+-    <link>http://www.mona.uwi.edu/marcom/uwinotebook/entry/4988</link>
+-    <description>&lt;div class=&quot;story-main-image&quot;&gt;
+-&lt;img src=&quot;http://myspot.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/keimiller.jpg&quot; /&gt;
+-&lt;/div&gt;
+-
+-&lt;div class=&quot;field field-type-filefield field-field-article-image&quot;&gt;
+-    &lt;div class=&quot;field-items&quot;&gt;
+-            &lt;div class=&quot;field-item odd&quot;&gt;
+-                    &lt;div class=&quot;filefield-file&quot;&gt;&lt;img class=&quot;filefield-icon field-icon-image-jpeg&quot;  alt=&quot;image/jpeg icon&quot; src=&quot;http://www.mona.uwi.edu/marcom/sites/all/modules/filefield/icons/image-x-generic.png&quot; /&gt;&lt;a href=&quot;http://www.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/keimiller.jpg&quot; type=&quot;image/jpeg; length=25170&quot;&gt;keimiller.jpg&lt;/a&gt;&lt;/div&gt;        &lt;/div&gt;
+-        &lt;/div&gt;
+-&lt;/div&gt;
+-&lt;p&gt;The annual Philip Sherlock Lecture will be delivered this year on February 25th at the Philip Sherlock Centre for the Creative arts by Dr. Kei Miller.&lt;br /&gt;
+-&amp;nbsp;&lt;br /&gt;
+-Dr. Miller, who is Reader in Caribbean Literature and Director of the Creative programme at the University of Glasgow, is a prolific writer, whose work has been widely recognized both within the Caribbean and further afield.&amp;nbsp; He is the author of three books of fiction, most notably ‘The Last Warner Woman’, as well as three collections of poetry, including the critically acclaimed ‘A Light Song of Light’.&amp;nbsp; He is also editor of Carcanet’s New Caribbean Poetry Anthology.&lt;br /&gt;
+-&amp;nbsp;&lt;/p&gt;
+-&lt;p&gt;&lt;a href=&quot;http://www.mona.uwi.edu/marcom/uwinotebook/entry/4988&quot; target=&quot;_blank&quot;&gt;read more&lt;/a&gt;&lt;/p&gt;</description>
+-     <pubDate>Fri, 15 Feb 2013 22:18:56 +0000</pubDate>
+- <dc:creator>10031111</dc:creator>
+- <guid isPermaLink="false">4988 at http://www.mona.uwi.edu/marcom</guid>
+-  </item>
+-  <item>
+-    <title>Notice to All Undergraduate Students Re: Mid-Semester Exams</title>
+-    <link>http://www.mona.uwi.edu/marcom/uwinotebook/entry/4965</link>
+-    <description>&lt;div class=&quot;story-main-image&quot;&gt;
+-&lt;img src=&quot;http://myspot.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/uwi.jpg&quot; /&gt;
+-&lt;/div&gt;
+-
+-&lt;div class=&quot;field field-type-filefield field-field-article-image&quot;&gt;
+-    &lt;div class=&quot;field-items&quot;&gt;
+-            &lt;div class=&quot;field-item odd&quot;&gt;
+-                    &lt;div class=&quot;filefield-file&quot;&gt;&lt;img class=&quot;filefield-icon field-icon-image-jpeg&quot;  alt=&quot;image/jpeg icon&quot; src=&quot;http://www.mona.uwi.edu/marcom/sites/all/modules/filefield/icons/image-x-generic.png&quot; /&gt;&lt;a href=&quot;http://www.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/uwi.jpg&quot; type=&quot;image/jpeg; length=3485&quot;&gt;uwi.jpg&lt;/a&gt;&lt;/div&gt;        &lt;/div&gt;
+-        &lt;/div&gt;
+-&lt;/div&gt;
+-&lt;p&gt;&lt;strong&gt;REGULATIONS GOVERNING THE SITTING OF EXAMINATIONS FOR SEMESTER II 2012-2013 &lt;/strong&gt;&lt;/p&gt;
+-&lt;p&gt;&lt;a href=&quot;http://www.mona.uwi.edu/marcom/uwinotebook/entry/4965&quot; target=&quot;_blank&quot;&gt;read more&lt;/a&gt;&lt;/p&gt;</description>
+-     <pubDate>Wed, 30 Jan 2013 23:20:00 +0000</pubDate>
+- <dc:creator>10031111</dc:creator>
+- <guid isPermaLink="false">4965 at http://www.mona.uwi.edu/marcom</guid>
+-  </item>
+-  <item>
+-    <title>Notice to Students Re: Tuition and Hall Fees </title>
+-    <link>http://www.mona.uwi.edu/marcom/uwinotebook/entry/4964</link>
+-    <description>&lt;div class=&quot;story-main-image&quot;&gt;
+-&lt;img src=&quot;http://myspot.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/uwi_0.jpg&quot; /&gt;
+-&lt;/div&gt;
+-
+-&lt;div class=&quot;field field-type-filefield field-field-article-image&quot;&gt;
+-    &lt;div class=&quot;field-items&quot;&gt;
+-            &lt;div class=&quot;field-item odd&quot;&gt;
+-                    &lt;div class=&quot;filefield-file&quot;&gt;&lt;img class=&quot;filefield-icon field-icon-image-jpeg&quot;  alt=&quot;image/jpeg icon&quot; src=&quot;http://www.mona.uwi.edu/marcom/sites/all/modules/filefield/icons/image-x-generic.png&quot; /&gt;&lt;a href=&quot;http://www.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/uwi_0.jpg&quot; type=&quot;image/jpeg; length=3485&quot;&gt;uwi.jpg&lt;/a&gt;&lt;/div&gt;        &lt;/div&gt;
+-        &lt;/div&gt;
+-&lt;/div&gt;
+-&lt;p&gt;&lt;strong&gt;REGULATIONS GOVERNING THE PAYMENT OF HALL AND TUITION FEES FOR&amp;nbsp;&amp;nbsp; SEMESTER II 2012/2013 &lt;/strong&gt;&lt;/p&gt;
+-&lt;p&gt;&lt;a href=&quot;http://www.mona.uwi.edu/marcom/uwinotebook/entry/4964&quot; target=&quot;_blank&quot;&gt;read more&lt;/a&gt;&lt;/p&gt;</description>
+-     <pubDate>Wed, 30 Jan 2013 23:08:26 +0000</pubDate>
+- <dc:creator>10031111</dc:creator>
+- <guid isPermaLink="false">4964 at http://www.mona.uwi.edu/marcom</guid>
+-  </item>
+-  <item>
+-    <title>UWI, Mona Hosts Contingent from Costa Rica as Part of Exchange Programme  </title>
+-    <link>http://www.mona.uwi.edu/marcom/uwinotebook/entry/4957</link>
+-    <description>&lt;div class=&quot;story-main-image&quot;&gt;
+-&lt;img src=&quot;http://myspot.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/flag-pins-costa-rica-jamaica.jpg&quot; /&gt;
+-&lt;/div&gt;
+-
+-&lt;div class=&quot;field field-type-filefield field-field-article-image&quot;&gt;
+-    &lt;div class=&quot;field-items&quot;&gt;
+-            &lt;div class=&quot;field-item odd&quot;&gt;
+-                    &lt;div class=&quot;filefield-file&quot;&gt;&lt;img class=&quot;filefield-icon field-icon-image-jpeg&quot;  alt=&quot;image/jpeg icon&quot; src=&quot;http://www.mona.uwi.edu/marcom/sites/all/modules/filefield/icons/image-x-generic.png&quot; /&gt;&lt;a href=&quot;http://www.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/flag-pins-costa-rica-jamaica.jpg&quot; type=&quot;image/jpeg; length=22707&quot;&gt;flag-pins-costa-rica-jamaica.jpg&lt;/a&gt;&lt;/div&gt;        &lt;/div&gt;
+-        &lt;/div&gt;
+-&lt;/div&gt;
+-&lt;p&gt;A contingent of students and faculty from the University of Costa Rica are visiting the UWI, Mona Campus as part of the annual exchange programme from January 19 to February 2, 2013.&amp;nbsp;&lt;br /&gt;
+-&amp;nbsp;&lt;br /&gt;
+-&amp;nbsp;&lt;/p&gt;
+-&lt;p&gt;&lt;a href=&quot;http://www.mona.uwi.edu/marcom/uwinotebook/entry/4957&quot; target=&quot;_blank&quot;&gt;read more&lt;/a&gt;&lt;/p&gt;</description>
+-     <pubDate>Tue, 22 Jan 2013 21:03:29 +0000</pubDate>
+- <dc:creator>10018884</dc:creator>
+- <guid isPermaLink="false">4957 at http://www.mona.uwi.edu/marcom</guid>
+-  </item>
+-  <item>
+-    <title>UWI, Mona Mentorship Programme 2012/13 Launch</title>
+-    <link>http://www.mona.uwi.edu/marcom/uwinotebook/entry/4885</link>
+-    <description>&lt;div class=&quot;story-main-image&quot;&gt;
+-&lt;img src=&quot;http://myspot.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/mentorship_photo_caption-dsc4283.jpg&quot; /&gt;
+-&lt;/div&gt;
+-
+-&lt;div class=&quot;field field-type-filefield field-field-article-image&quot;&gt;
+-    &lt;div class=&quot;field-items&quot;&gt;
+-            &lt;div class=&quot;field-item odd&quot;&gt;
+-                    &lt;div class=&quot;filefield-file&quot;&gt;&lt;img class=&quot;filefield-icon field-icon-image-jpeg&quot;  alt=&quot;image/jpeg icon&quot; src=&quot;http://www.mona.uwi.edu/marcom/sites/all/modules/filefield/icons/image-x-generic.png&quot; /&gt;&lt;a href=&quot;http://www.mona.uwi.edu/marcom/sites/default/files/marcom/article-images/mentorship_photo_caption-dsc4283.jpg&quot; type=&quot;image/jpeg; length=109899&quot;&gt;mentorship_photo_caption-dsc4283.jpg&lt;/a&gt;&lt;/div&gt;        &lt;/div&gt;
+-        &lt;/div&gt;
+-&lt;/div&gt;
+-&lt;p&gt;The UWI, Mona Campus launched the Mentorship Programme 2012/13 on Thursday, November 1, 2012 for the eighty (80) mentors and mentees who will participate in this year’s programme. The mentors are drawn from 43 corporate organisations in addition to the UWI, Mona Campus and the UWI Regional Headquarters. &amp;nbsp;The occasion saw Ms. Rose Cameron, Director of Student Services and Development highlighting the value of the programme to all involved. She described it as a ‘win/win’ partnership.” &amp;nbsp;She continued that, “the students who participate have a year-long opportunity to draw on the experience, talents and expertise of their mentors and the mentors gain satisfaction from nurturing and guiding the mentees.” &amp;nbsp;Ms.&lt;/p&gt;
+-&lt;p&gt;&lt;a href=&quot;http://www.mona.uwi.edu/marcom/uwinotebook/entry/4885&quot; target=&quot;_blank&quot;&gt;read more&lt;/a&gt;&lt;/p&gt;</description>
+-     <pubDate>Mon, 26 Nov 2012 17:38:12 +0000</pubDate>
+- <dc:creator>10018884</dc:creator>
+- <guid isPermaLink="false">4885 at http://www.mona.uwi.edu/marcom</guid>
+-  </item>
+-  </channel>
+-</rss>
+\ No newline at end of file
+diff --git a/app/src/main/java/mits/uwi/com/ourmobileenvironment/homepagefragments/HomeActivityFragment.java b/app/src/main/java/mits/uwi/com/ourmobileenvironment/homepagefragments/HomeActivityFragment.java
+index e96ee4d..eb54e1b 100644
+--- a/app/src/main/java/mits/uwi/com/ourmobileenvironment/homepagefragments/HomeActivityFragment.java
++++ b/app/src/main/java/mits/uwi/com/ourmobileenvironment/homepagefragments/HomeActivityFragment.java
+@@ -168,9 +168,6 @@ public class HomeActivityFragment extends Fragment {
+             @Override
+             public void onClick(View v) {
+                 v.setClickable(false);
+-                int height = ((FrameLayout)v.getParent().getParent()).getHeight();
+-                int width = ((FrameLayout)v.getParent().getParent()).getWidth();
+-
+                 if (!mMenuExpanded) {
+                     shade.setVisibility(View.VISIBLE);
+                     shade.animate().alpha(1).setDuration(150);
+@@ -179,15 +176,14 @@ public class HomeActivityFragment extends Fragment {
+                             mFABs.get(fab).setVisibility(View.VISIBLE);
+                             mFABs.get(fab).animate()
+                                     .setDuration(400)
+-                                    .alpha(1)
+-                                    .setListener(mFABAnimatorListener);
++                                    .alpha(1);
++
+                         }
+                         else {
+                             mFABs.get(fab).setVisibility(View.VISIBLE);
+                             mFABs.get(fab).animate()
+                                     .setDuration(400)
+-                                    .alpha(1)
+-                                    .setListener(mFABAnimatorListener);
++                                    .alpha(1);
+                         }
+                     }
+                     v.setClickable(true);
+@@ -210,7 +206,6 @@ public class HomeActivityFragment extends Fragment {
+             }
+         });
+ 
+-
+         adapter = new HomePageViewPagerAdapter(getActivity().getSupportFragmentManager(),
+                 new Fragment[]{new HomeNewsFragment(), new HomeVideosFragment()}
+         );
+diff --git a/app/src/main/java/mits/uwi/com/ourmobileenvironment/homepagefragments/HomeNewsFragment.java b/app/src/main/java/mits/uwi/com/ourmobileenvironment/homepagefragments/HomeNewsFragment.java
+index a2c508d..a6a9e38 100644
+--- a/app/src/main/java/mits/uwi/com/ourmobileenvironment/homepagefragments/HomeNewsFragment.java
++++ b/app/src/main/java/mits/uwi/com/ourmobileenvironment/homepagefragments/HomeNewsFragment.java
+@@ -1,24 +1,28 @@
+ package mits.uwi.com.ourmobileenvironment.homepagefragments;
+ 
+ 
++import android.animation.ObjectAnimator;
++import android.animation.TimeInterpolator;
++import android.animation.ValueAnimator;
+ import android.annotation.TargetApi;
+ import android.content.Context;
+ import android.content.Intent;
+ import android.graphics.Bitmap;
+ 
++import android.graphics.Color;
+ import android.os.AsyncTask;
+ import android.os.Build;
+ import android.os.Bundle;
+ import android.support.v4.app.Fragment;
+ import android.support.v7.widget.CardView;
+ import android.view.Gravity;
++import android.view.animation.AccelerateDecelerateInterpolator;
+ import android.widget.LinearLayout.LayoutParams;
+ import android.util.Log;
+ 
+ import android.view.LayoutInflater;
+ import android.view.View;
+ import android.view.ViewGroup;
+-import android.widget.FrameLayout;
+ import android.widget.ImageView;
+ import android.widget.LinearLayout;
+ import android.widget.TextView;
+@@ -58,6 +62,11 @@ public class HomeNewsFragment extends Fragment {
+     }
+ 
+     @Override
++    public void onDestroy(){
++        super.onDestroy();
++    }
++
++    @Override
+     public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                              Bundle savedInstanceState) {
+         // Inflate the layout for this fragment
+@@ -65,6 +74,7 @@ public class HomeNewsFragment extends Fragment {
+ 
+         LinearLayout[] columns = {(LinearLayout) v.findViewById(R.id.newsColumn1),
+                                   (LinearLayout) v.findViewById(R.id.newsColumn2)};
++
+         for (LinearLayout column: columns){
+             column.setVisibility(View.GONE);
+         }
+@@ -72,21 +82,29 @@ public class HomeNewsFragment extends Fragment {
+         LinearLayout columnParent = (LinearLayout) columns[0].getParent();
+ 
+         TextView loadingText = new TextView(columnParent.getContext());
+-        loadingText.setText("Loading the Lastest News Stories");
+-        loadingText.setGravity(Gravity.CENTER);
++        loadingText.setText("Loading the Latest News Stories");
++        loadingText.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
++        LinearLayout.LayoutParams lt_params = new LinearLayout.LayoutParams(
++                                                  LinearLayout.LayoutParams.MATCH_PARENT,
++                                                  LinearLayout.LayoutParams.MATCH_PARENT);
++        lt_params.gravity = Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL;
++
++        loadingText.setLayoutParams(lt_params);
+         loadingText.setId(R.id.loadingTextView);
+ 
+         columnParent.addView(loadingText);
+ 
+-        loadingText.animate()
+-                .alpha(0)
+-                .setDuration(1000);
+-        loadingText.animate()
+-                .alpha(1)
+-                .setDuration(1000).start();
++        ObjectAnimator anim = ObjectAnimator.ofFloat(loadingText, "alpha", 0f, 1f);
++        anim.setDuration(7500);
++        anim.setInterpolator(new AccelerateDecelerateInterpolator());
++        anim.setRepeatMode(ObjectAnimator.REVERSE);
++        anim.setRepeatCount(ObjectAnimator.INFINITE);
++        anim.start();
+ 
++        new RetrieveRSSFeedTask().executeOnExecutor(
++                AsyncTask.THREAD_POOL_EXECUTOR,
++                getActivity());
+ 
+-        new RetrieveRSSFeedTask().execute(getActivity());
+         return v;
+     }
+ 
+@@ -132,16 +150,17 @@ public class HomeNewsFragment extends Fragment {
+         @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+         private void makeNewsItemViews(View contextView) {
+ 
+-            LinearLayout[] columns = {(LinearLayout) contextView.findViewById(R.id.newsColumn1),
+-                    (LinearLayout) contextView.findViewById(R.id.newsColumn2)};
+-
++            LinearLayout[] columns =
++                    {(LinearLayout) contextView.findViewById(R.id.newsColumn1),
++                     (LinearLayout) contextView.findViewById(R.id.newsColumn2)};
+ 
+             LinearLayout newsHeader = (LinearLayout) contextView.findViewById(R.id.newsHeader);
+ 
+-            LayoutInflater layoutInflater = (LayoutInflater) getActivity()
+-                                                            .getBaseContext()
+-                                                            .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+-//
++            LayoutInflater layoutInflater =
++                    (LayoutInflater) getActivity()
++                                     .getBaseContext()
++                                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
++
+             // Removes the Loading screen
+             LinearLayout loadingTextViewParent = (LinearLayout)columns[0].getParent();
+ 
+@@ -246,4 +265,6 @@ public class HomeNewsFragment extends Fragment {
+             makeNewsItemViews(parentView);
+         }
+     }
++
++    
+ }
+diff --git a/app/src/main/java/mits/uwi/com/ourmobileenvironment/homepagefragments/HomeVideosFragment.java b/app/src/main/java/mits/uwi/com/ourmobileenvironment/homepagefragments/HomeVideosFragment.java
+index c24c6a2..4c43fad 100644
+--- a/app/src/main/java/mits/uwi/com/ourmobileenvironment/homepagefragments/HomeVideosFragment.java
++++ b/app/src/main/java/mits/uwi/com/ourmobileenvironment/homepagefragments/HomeVideosFragment.java
+@@ -1,13 +1,47 @@
+ package mits.uwi.com.ourmobileenvironment.homepagefragments;
+ 
+-import android.app.Activity;
+-import android.net.Uri;
++import android.graphics.Bitmap;
++import android.graphics.BitmapFactory;
+ import android.os.Bundle;
++import android.support.annotation.NonNull;
+ import android.support.v4.app.Fragment;
++import android.support.v4.app.FragmentTransaction;
++import android.support.v7.widget.LinearLayoutManager;
++import android.support.v7.widget.RecyclerView;
+ import android.view.LayoutInflater;
+ import android.view.View;
+ import android.view.ViewGroup;
++import android.widget.ImageView;
++import android.widget.TextView;
+ 
++import com.google.android.youtube.player.YouTubeInitializationResult;
++import com.google.android.youtube.player.YouTubePlayer;
++import com.google.android.youtube.player.YouTubePlayerSupportFragment;
++
++import com.google.api.client.http.GenericUrl;
++import com.google.api.client.http.HttpHeaders;
++import com.google.api.client.http.HttpRequest;
++import com.google.api.client.http.HttpRequestInitializer;
++import com.google.api.client.http.HttpResponse;
++import com.google.api.client.http.HttpTransport;
++import com.google.api.client.http.apache.ApacheHttpTransport;
++import com.google.api.client.json.JsonFactory;
++import com.google.api.client.json.jackson2.JacksonFactory;
++import com.google.api.services.youtube.YouTube;
++import com.google.api.services.youtube.model.SearchListResponse;
++import com.google.api.services.youtube.model.SearchResult;
++import com.google.api.services.youtube.model.SearchResultSnippet;
++import com.google.api.services.youtube.model.Thumbnail;
++
++
++import java.io.IOException;
++import java.util.ArrayList;
++import java.util.HashMap;
++import java.util.List;
++import java.util.Map;
++
++import mits.uwi.com.ourmobileenvironment.adapters.VideoListRecyclerAdapter;
++import mits.uwi.com.ourmobileenvironment.DeveloperKey;
+ import mits.uwi.com.ourmobileenvironment.R;
+ 
+ /**
+@@ -16,9 +50,12 @@ import mits.uwi.com.ourmobileenvironment.R;
+  * Use the {@link HomeVideosFragment#newInstance} factory method to
+  * create an instance of this fragment.
+  */
+-public class HomeVideosFragment extends Fragment {
++public class HomeVideosFragment
++        extends Fragment {
+ 
+-    public static HomeVideosFragment newInstance(String param1, String param2) {
++    VideoFragment uwitv_fragment;
++
++    public static HomeVideosFragment newInstance() {
+         HomeVideosFragment fragment = new HomeVideosFragment();
+ 
+         return fragment;
+@@ -29,18 +66,206 @@ public class HomeVideosFragment extends Fragment {
+     }
+ 
+     @Override
+-    public void onCreate(Bundle savedInstanceState) {
++    public void onCreate(
++            Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+     }
+ 
+     @Override
+-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+-                             Bundle savedInstanceState) {
++    public View onCreateView(
++            LayoutInflater inflater,
++            ViewGroup container,
++            Bundle savedInstanceState) {
++        RecyclerView videosListRecyclerView;
++        RecyclerView.LayoutManager videoListLayoutManager;
++        VideoListRecyclerAdapter adapter;
++
+         // Inflate the layout for this fragment
+-        return inflater.inflate(R.layout.fragment_home_videos, container, false);
++        View fragment_view = inflater.inflate(R.layout.fragment_home_videos, container, false);
++
++        videosListRecyclerView = (RecyclerView) fragment_view.findViewById(R.id.uwitv_videos_list);
++        videosListRecyclerView.setHasFixedSize(true);
++
++        videoListLayoutManager = new LinearLayoutManager(this.getActivity());
++
++        videosListRecyclerView.setLayoutManager(videoListLayoutManager);
++
++        adapter = new VideoListRecyclerAdapter(uwiTVChannelRequest());
++        videosListRecyclerView.setAdapter(adapter);
++
++        return fragment_view;
++
++    }
++
++    public ArrayList<String> getVideosfromUWITVChannel(){
++        ArrayList<String> videoIds = new ArrayList<>();
++
++        return videoIds;
++    }
++
++    public YouTubeQueryResult[] uwiTVChannelRequest(){
++
++        YouTube youtube;
++        YouTubeQueryResult[] results = new YouTubeQueryResult[20];
++        final String channelId = "UCN-DinGRVq5fDxa4byT8XwQ";
++
++        HttpTransport httpTransport = new ApacheHttpTransport();
++
++        JsonFactory jsonFactory = new JacksonFactory();
++
++        HttpRequestInitializer httpRequestInitializer = new HttpRequestInitializer() {
++            @Override
++            public void initialize(HttpRequest request) throws IOException {
++            }
++        };
++
++        youtube = new YouTube.Builder(httpTransport, jsonFactory, httpRequestInitializer).build();
++        try{
++            SearchListResponse uwiTvChannelVideos = youtube.search()
++                    .list("snippet")
++                    .setChannelId(channelId)
++                    .setOrder("date")
++                    .setType("video")
++                    .setMaxResults(Long.valueOf("20"))
++                    .execute();
++
++
++            List videos = uwiTvChannelVideos.getItems();
++            for (int video=0; video < uwiTvChannelVideos.getItems().size(); video++){
++                SearchResult video_item = (SearchResult)videos.get(video);
++
++                SearchResultSnippet video_item_snippet = (SearchResultSnippet) videos.get(video);
++
++                GenericUrl thumbnailUrl = new GenericUrl(
++                        video_item_snippet.getThumbnails()
++                                .getHigh()
++                                .getUrl());
++
++                HttpResponse thumbnailResponse =
++                        httpTransport.createRequestFactory()
++                                .buildGetRequest(thumbnailUrl)
++                                .execute();
++
++                Bitmap thumbnail = BitmapFactory.decodeStream(thumbnailResponse.getContent());
++
++                results[video] = new YouTubeQueryResult(video_item.getId().getVideoId(),
++                        video_item_snippet.getTitle(),
++                        video_item_snippet.getDescription(),
++                        thumbnail);
++
++            }
++
++        }
++        catch (java.io.IOException exception) {
++            // Return a single YouTubeQueryResult
++            // with error as the
++            // title, description, videoId
++            for(int index=0; index < results.length; index++){
++                if (results[index] == null) {
++                    results[index] = new YouTubeQueryResult(
++                            "error",
++                            "error",
++                            "error");
++                    break;
++                }
++            }
++        }
++
++
++        return results;
+     }
+ 
+ 
++    public static final class VideoFragment
++            extends YouTubePlayerSupportFragment
++            implements YouTubePlayer.OnInitializedListener{
++
++        private YouTubePlayer player;
++        private String videoId;
++
++        public static VideoFragment newInstance() { return new VideoFragment(); }
++
++        @Override
++        public void onCreate(Bundle savedInstanceState){
++            super.onCreate(savedInstanceState);
++            // Initializes the new player
++            initialize(DeveloperKey.YOUTUBE_APIKEY, this);
++            this.setVideoId("o-PSrpqu2s0");
++        }
++
++        @Override
++        public void onDestroy(){
++            if (player != null){
++                player.release();
++            }
++            super.onDestroy();
++        }
++
++        public void setVideoId(String videoId){
++            if (videoId != null && !videoId.equals(this.videoId)){
++                this.videoId = videoId;
++                if(player!=null){
++                    player.cueVideo(videoId);
++                }
++            }
++        }
+ 
++        public void pause(){
++            if (player != null){
++                player.pause();
++            }
++        }
+ 
++        @Override
++        public void onInitializationSuccess(
++                YouTubePlayer.Provider provider,
++                YouTubePlayer player,
++                boolean restored){
++            this.player = player;
++            if (!restored && videoId != null) {
++                player.cueVideo(videoId);
++            }
++        }
++
++        @Override
++        public void onInitializationFailure(
++                YouTubePlayer.Provider provider,
++                YouTubeInitializationResult result){
++            this.player = null;
++        }
++    }
++
++
++    public class YouTubeQueryResult {
++        public String videoId;
++        public String title;
++        public String description;
++        public Bitmap thumbnail;
++
++        public YouTubeQueryResult (String videoId,
++                                   String title,
++                                   String description,
++                                   Bitmap thumbnail){
++            this.videoId = videoId;
++            this.title = title;
++            this.description = description;
++            this.thumbnail = thumbnail;
++        }
++
++        public YouTubeQueryResult (String videoId,
++                                   String title,
++                                   String description){
++            // Supply a stock image if
++            // there is no thumbnail
++            // available
++            this.videoId = videoId;
++            this.title = title;
++            this.description = description;
++
++        }
++
++    }
+ }
++
++
++
+diff --git a/app/src/main/java/mits/uwi/com/ourmobileenvironment/homepagefragments/UWITVListVideosFragment.java b/app/src/main/java/mits/uwi/com/ourmobileenvironment/homepagefragments/UWITVListVideosFragment.java
+deleted file mode 100644
+index 616c699..0000000
+--- a/app/src/main/java/mits/uwi/com/ourmobileenvironment/homepagefragments/UWITVListVideosFragment.java
++++ /dev/null
+@@ -1,42 +0,0 @@
+-package mits.uwi.com.ourmobileenvironment.homepagefragments;
+-
+-import android.app.Activity;
+-import android.app.ListFragment;
+-import android.net.Uri;
+-import android.os.Bundle;
+-import android.app.Fragment;
+-import android.view.LayoutInflater;
+-import android.view.View;
+-import android.view.ViewGroup;
+-
+-import mits.uwi.com.ourmobileenvironment.R;
+-
+-
+-public class UWITVListVideosFragment extends ListFragment {
+-
+-
+-    public static UWITVListVideosFragment newInstance() {
+-        UWITVListVideosFragment fragment = new UWITVListVideosFragment();
+-        Bundle args = new Bundle();
+-        fragment.setArguments(args);
+-        return fragment;
+-    }
+-
+-    public UWITVListVideosFragment() {
+-        // Required empty public constructor
+-    }
+-
+-    @Override
+-    public void onCreate(Bundle savedInstanceState) {
+-        super.onCreate(savedInstanceState);
+-    }
+-
+-    @Override
+-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+-                             Bundle savedInstanceState) {
+-        // Inflate the layout for this fragment
+-        return inflater.inflate(R.layout.fragment_uwitvlist_videos, container, false);
+-    }
+-
+-
+-}
+diff --git a/app/src/main/java/mits/uwi/com/ourmobileenvironment/models/Home/Home_Videos.java b/app/src/main/java/mits/uwi/com/ourmobileenvironment/models/Home/Home_Videos.java
+new file mode 100644
+index 0000000..1c5b10b
+--- /dev/null
++++ b/app/src/main/java/mits/uwi/com/ourmobileenvironment/models/Home/Home_Videos.java
+@@ -0,0 +1,13 @@
++package mits.uwi.com.ourmobileenvironment.models.Home;
++
++import android.graphics.Bitmap;
++
++/**
++ * Created by Danuel on 11/8/2016.
++ */
++public class Home_Videos {
++
++
++
++}
++
+diff --git a/app/src/main/res/layout/fragment_campus_info2.xml b/app/src/main/res/layout/fragment_campus_info2.xml
+index 84f20a1..4d8b4c2 100644
+--- a/app/src/main/res/layout/fragment_campus_info2.xml
++++ b/app/src/main/res/layout/fragment_campus_info2.xml
+@@ -15,87 +15,67 @@
+         ext:documentView_textSize="14sp"
+         ext:documentView_insetPadding="10dip"
+         />
+-
+-    <android.support.v4.view.ViewPager
++    <FrameLayout
+         android:layout_height="wrap_content"
+-        android:layout_width="match_parent"
++        android:layout_width="wrap_content"
+         android:layout_below="@id/campus_information_heading"
+-        android:id="@+id/campus_info_viewpager"
+-        android:background="#498AAA"
+-        />
++        android:id="@+id/viewPagerFrame"
++        android:background="#9828c235">
++        <android.support.v4.view.ViewPager
++            android:layout_height="50dip"
++            android:layout_width="match_parent"
++            android:id="@+id/campus_info_viewpager"
++            android:background="#498AAA"/>
++    </FrameLayout>
+ 
+-    <LinearLayout
+-        android:orientation="vertical"
++    <RelativeLayout
+         android:layout_height="wrap_content"
+-        android:layout_width="fill_parent"
+-        android:layout_below="@id/campus_info_viewpager"
+-        android:background="#A98388"
+-        android:weightSum="1">
+-        <LinearLayout
++        android:layout_width="match_parent"
++        android:layout_below="@id/viewPagerFrame"
++        android:id="@+id/button_grid">
++        <Button
++            android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+-            android:layout_width="0dp"
+-            android:layout_weight="0.5"
+-            android:orientation="horizontal"
+-            android:weightSum="1.0">
+-            <Button
+-                android:id="@+id/to_campus_life"
+-                android:layout_height="wrap_content"
+-                android:layout_width="wrap_content"
+-                android:layout_weight="0.33"
+-                android:paddingLeft="15dp"
+-                android:paddingRight="15dp"
+-                android:text="@string/to_campus_life"/>
+-            <Button
+-                android:id="@+id/to_faculties"
+-                android:layout_height="wrap_content"
+-                android:layout_width="wrap_content"
+-                android:layout_weight="0.33"
+-                android:paddingLeft="15dp"
+-                android:paddingRight="15dp"
+-                android:text="@string/to_faculties"/>
+-            <Button
+-                android:id="@+id/to_history"
+-                android:layout_height="wrap_content"
+-                android:layout_width="wrap_content"
+-                android:layout_weight="0.33"
+-                android:paddingLeft="15dp"
+-                android:paddingRight="15dp"
+-                android:text="@string/to_history"/>
+-
+-        </LinearLayout>
+-
+-        <LinearLayout
++            android:id="@+id/to_campus_life"
++            android:text="@string/to_campus_life"/>
++        <Button
++            android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+-            android:layout_width="0dp"
+-            android:orientation="horizontal"
+-            android:layout_weight="0.5"
+-            android:weightSum="1.0">
+-            <Button
+-                android:id="@+id/to_campus_housing"
+-                android:layout_weight=".33"
+-                android:layout_width="0dp"
+-                android:layout_height="wrap_content"
+-                android:layout_marginEnd="10dp"
+-                android:layout_marginRight="10dp"
+-                android:text="@string/to_campus_housing"/>
+-            <Button
+-                android:id="@+id/to_campus_facilities"
+-                android:layout_weight=".33"
+-                android:layout_width="0dp"
+-                android:layout_height="wrap_content"
+-                android:layout_marginEnd="10dp"
+-                android:layout_marginRight="10dp"
+-                android:text="@string/to_campus_facilities"/>
+-            <Button
+-                android:id="@+id/to_shrugs"
+-                android:layout_weight=".33"
+-                android:layout_width="0dp"
+-                android:layout_height="wrap_content"
+-                android:layout_marginEnd="10dp"
+-                android:layout_marginRight="10dp"
+-                android:text="@string/to_something_wdk_yet"/>
+-
+-        </LinearLayout>
+-    </LinearLayout>
++            android:layout_toRightOf="@id/to_campus_life"
++            android:layout_toEndOf="@id/to_campus_life"
++            android:id="@+id/to_faculties"
++            android:text="@string/to_faculties"/>
++        <Button
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:layout_toRightOf="@id/to_faculties"
++            android:layout_toEndOf="@id/to_faculties"
++            android:id="@+id/to_history"
++            android:text="@string/to_history"/>
++        <Button
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:layout_below="@id/to_campus_life"
++            android:layout_alignLeft="@id/to_campus_life"
++            android:layout_alignStart="@id/to_campus_life"
++            android:id="@+id/to_campus_housing"
++            android:text="@string/to_campus_housing"/>
++        <Button
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:layout_below="@id/to_faculties"
++            android:layout_alignLeft="@id/to_faculties"
++            android:layout_alignStart="@id/to_faculties"
++            android:id="@+id/to_campus_facilities"
++            android:text="@string/to_campus_facilities"/>
++        <Button
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:layout_below="@id/to_history"
++            android:layout_alignLeft="@id/to_history"
++            android:layout_alignStart="@id/to_history"
++            android:id="@+id/to_shrugs"
++            android:text="@string/to_something_wdk_yet"/>
++    </RelativeLayout>
+ 
+ </RelativeLayout>
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/fragment_campusinformation_custom.xml b/app/src/main/res/layout/fragment_campusinformation_custom.xml
+deleted file mode 100644
+index 03708db..0000000
+--- a/app/src/main/res/layout/fragment_campusinformation_custom.xml
++++ /dev/null
+@@ -1,15 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    android:orientation="vertical" android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    xmlns:cardcarousel="http://schemas.android.com/apk/res-auto">
+-
+-    <mits.uwi.com.ourmobileenvironment.customviews.CardCarousel
+-        android:layout_width="match_parent"
+-        android:layout_height="match_parent"
+-        cardcarousel:labelTitle="@string/campus_info_snippet_title1"
+-        cardcarousel:labelBody="@string/campus_info_snippet_body1"
+-        cardcarousel:labelBackgroundColor="#FFFFA9"
+-        />
+-
+-</LinearLayout>
+\ No newline at end of file
+diff --git a/app/src/main/res/layout/fragment_home_news.xml b/app/src/main/res/layout/fragment_home_news.xml
+index 0fc2e73..0244cfe 100644
+--- a/app/src/main/res/layout/fragment_home_news.xml
++++ b/app/src/main/res/layout/fragment_home_news.xml
+@@ -1,5 +1,6 @@
+ <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
+     android:layout_height="fill_parent"
+     tools:context="mits.uwi.com.ourmobileenvironment.homepagefragments.HomeNewsFragment"
+     >
+diff --git a/app/src/main/res/layout/fragment_home_videos.xml b/app/src/main/res/layout/fragment_home_videos.xml
+index a9fa215..408997d 100644
+--- a/app/src/main/res/layout/fragment_home_videos.xml
++++ b/app/src/main/res/layout/fragment_home_videos.xml
+@@ -6,12 +6,19 @@
+ 
+ 
+     <fragment
+-        android:name="com.google.android.youtube.player.YouTubePlayerFragment"
++        class="mits.uwi.com.ourmobileenvironment.homepagefragments.HomeVideosFragment$VideoFragment"
+         android:id="@+id/uwitv_youtube_fragment"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"/>
+ 
+-    <!-- A list should be placed here to hold videos from the UWI TV page -->
++    <!-- UWI TV video list START -->
++
++    <android.support.v7.widget.RecyclerView
++        android:id="@+id/uwitv_videos_list"
++        android:scrollbars="vertical"
++        android:layout_width="match_parent"
++        android:layout_height="wrap_content"/>
++
+     <!-- UWI TV video list END-->
+ 
+ 
+diff --git a/app/src/main/res/layout/fragment_landing.xml b/app/src/main/res/layout/fragment_landing.xml
+index f7045d4..c2d88ef 100644
+--- a/app/src/main/res/layout/fragment_landing.xml
++++ b/app/src/main/res/layout/fragment_landing.xml
+@@ -39,64 +39,49 @@
+ 
+     <RelativeLayout
+         android:id="@+id/FABHolder"
+-        android:layout_height="wrap_content"
++        android:layout_height="match_parent"
+         android:layout_width="wrap_content"
+-        android:layout_gravity="bottom|right"
++        android:layout_gravity="bottom|end"
+         android:orientation="vertical"
+         >
+         <android.support.design.widget.FloatingActionButton
+             android:id="@+id/sas_fab"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
++            style="@style/FABButtons"
++            android:layout_alignParentTop="true"
+             android:src='@drawable/sas'
+             app:backgroundTint="#EAFFF501" />
+ 
+-        <!--<android.support.design.widget.FloatingActionButton-->
+-            <!--android:id="@+id/boss_fab"-->
+-            <!--android:layout_width="wrap_content"-->
+-            <!--android:layout_height="wrap_content"-->
+-            <!--android:layout_below="@id/sas_fab"-->
+-            <!--android:src="@drawable/boss"-->
+-            <!--app:backgroundTint="#EA28B206" />-->
+-
+         <android.support.design.widget.FloatingActionButton
+             android:id="@+id/ourvle_fab"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
++            style="@style/FABButtons"
+             android:layout_below="@id/sas_fab"
+             android:src="@drawable/ourvle"
+             app:backgroundTint="#FFE6110E"/>
+ 
+         <android.support.design.widget.FloatingActionButton
+             android:id="@+id/transport_fab"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
++            style="@style/FABButtons"
+             android:layout_below="@id/ourvle_fab"
+             android:src="@drawable/transportation"
+-            app:elevation="4dp"
+             app:backgroundTint="#FFFF7D00" />
+ 
+ 
+         <android.support.design.widget.FloatingActionButton
+             android:id="@+id/campus_info_fab"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
++            style="@style/FABButtons"
+             android:layout_below="@id/transport_fab"
+-            android:layout_gravity="bottom|right"
+             android:src="@drawable/sas"
+-            app:elevation="4dp"
+             app:backgroundTint="#DEBDA900"
+             />
+ 
+         <android.support.design.widget.FloatingActionButton
+             android:id='@+id/mainFab'
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_gravity="bottom|right"
+-            android:layout_below="@id/campus_info_fab"
++            style="@style/FABButtons"
++            android:gravity="bottom|end"
++            android:layout_alignParentBottom="true"
+             android:src="@drawable/pelican_white"
+-            app:elevation="4dp"
+             app:backgroundTint="#EA0010E2"
++
+             />
+     </RelativeLayout>
+ 
+diff --git a/app/src/main/res/layout/fragment_uwitvlist_videos.xml b/app/src/main/res/layout/fragment_uwitvlist_videos.xml
+deleted file mode 100644
+index fba1522..0000000
+--- a/app/src/main/res/layout/fragment_uwitvlist_videos.xml
++++ /dev/null
+@@ -1,8 +0,0 @@
+-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    tools:context="mits.uwi.com.ourmobileenvironment.homepagefragments.UWITVListVideosFragment">
+-
+-
+-
+-</FrameLayout>
+diff --git a/app/src/main/res/layout/video_list_item.xml b/app/src/main/res/layout/video_list_item.xml
+new file mode 100644
+index 0000000..ac69dee
+--- /dev/null
++++ b/app/src/main/res/layout/video_list_item.xml
+@@ -0,0 +1,31 @@
++<?xml version="1.0" encoding="utf-8"?>
++<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    android:orientation="vertical" android:layout_width="match_parent"
++    android:layout_height="match_parent">
++
++
++    <android.studio.v7.widget.CardView
++        xmlns:card_view="http://schemas.android.com/apk/res-auto"
++        android:id="@+id/video_item_card"
++        android:layout_gravity="center"
++        android:layout_width="match_parent"
++        android:layout_height="500dip">
++
++        <ImageView
++            android:id="@+id/video_item_thumbnail"
++            android:layout_height="match_parent"
++            android:layout_width="match_parent"/>
++
++        <TextView
++            android:id="@+id/video_item_title"
++            android:layout_height="wrap_content"
++            android:layout_width="wrap_content"
++            android:gravity="bottom|end"/>
++
++        <TextView
++            android:id="@+id/video_item_description"
++            android:layout_height="wrap_content"
++            android:layout_width="wrap_content"/>
++
++    </android.studio.v7.widget.CardView>
++</FrameLayout>
+\ No newline at end of file
+diff --git a/app/src/main/res/values/ids.xml b/app/src/main/res/values/ids.xml
+index 54a42c3..999d9a5 100644
+--- a/app/src/main/res/values/ids.xml
++++ b/app/src/main/res/values/ids.xml
+@@ -5,4 +5,6 @@
+     <item type="id" name="generic_image"/>
+ 
+     <item type="id" name="loadingTextView"/>
++
++    <item type="id" name="indicatorGroup"/>
+ </resources>
+\ No newline at end of file
+diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+index d7eccf9..6848b29 100644
+--- a/app/src/main/res/values/strings.xml
++++ b/app/src/main/res/values/strings.xml
+@@ -16,8 +16,12 @@
+ 
+         <!-- Video Tab Strings -->
+         <string name="player_error">There seems to be something wrong here</string>
++        <string name="initialization_player_error">
++            There was an error Initializing the Youtube Player (%1$s)
++        </string>
+         <string name='seek_to'>Jump To</string>
+ 
++
+     <!-- OurVLE strings -->
+     <string name="title_activity_our_vle">OurVLE</string>
+         <!--Navigation Buttons :: OURVle -->
+@@ -132,7 +136,7 @@
+     <string name="activity_evals">Teaching Evaluations</string>
+ 
+ 
+-        <!-- BOSS Strings -->
++    <!-- BOSS Strings -->
+     <string name="title_activity_boss">BOSS</string>
+ 
+ 
+diff --git a/app/src/main/res/values/styles.xml b/app/src/main/res/values/styles.xml
+index c2ef3f2..68b9fbf 100644
+--- a/app/src/main/res/values/styles.xml
++++ b/app/src/main/res/values/styles.xml
+@@ -142,8 +142,10 @@
+     <style name="FABButtons">
+         <item name="android:layout_width">wrap_content</item>
+         <item name="android:layout_height">wrap_content</item>
+-        <item name="android:layout_margin">16dp</item>
++        <item name="android:layout_margin">5dip</item>
+         <item name="android:layout_gravity">bottom|end</item>
++        <item name="android:gravity">bottom|end</item>
++        <item name="android:elevation">4dp</item>
+     </style>
+ 
+     <!--<style name="FAB_Main_Menu" parent="Widget.Design.FloatingActionButton">-->
+diff --git a/gradle.properties b/gradle.properties
+index 4809d8c..c754d01 100644
+--- a/gradle.properties
++++ b/gradle.properties
+@@ -5,7 +5,7 @@
+ #
+ # Specifies the JVM arguments used for the daemon process.
+ # The setting is particularly useful for tweaking memory settings.
+-# Default value: -Xmx10248m -XX:MaxPermSize=256m
++# Default value: -Xmx1024m -XX:MaxPermSize=256m
+ # org.gradle.jvmargs=-Xmx2048m -XX:MaxPermSize=512m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8
+ #
+ # When configured, Gradle will run in incubating parallel mode.
+@@ -14,8 +14,9 @@
+ # org.gradle.parallel=true
+ #Thu Jun 16 14:24:11 GMT-05:00 2016
+ #systemProp.https.proxyPort=8080
+-#systemProp.http.proxyHost=proxy-cluster.uwimona.edu.jm
+-#org.gradle.jvmargs=-Dfile.encoding\=UTF-8 -XX\:MaxPermSize\=512m -XX\:+HeapDumpOnOutOfMemoryError -Xmx512m
+-#systemProp.https.proxyHost=proxy-cluster.uwimona.edu.jm
+-#systemProp.http.proxyPort=8080
++#systemProp.http.proxyHost=proxy1.uwimona.edu.jm
++org.gradle.jvmargs=-Dfile.encoding\=UTF-8 -d64 -Xms256m -Xmx2048m -XX\:+HeapDumpOnOutOfMemoryError
++org.gradle.configureondemand=true
++org.gradle.daemon=true
++
+ 
+diff --git a/gradle/wrapper/gradle-wrapper.properties b/gradle/wrapper/gradle-wrapper.properties
+index 07fc193..6510c25 100644
+--- a/gradle/wrapper/gradle-wrapper.properties
++++ b/gradle/wrapper/gradle-wrapper.properties
+@@ -1,6 +1,7 @@
+-#Wed Apr 10 15:27:10 PDT 2013
++#Mon Jul 18 10:43:24 COT 2016
+ distributionBase=GRADLE_USER_HOME
+ distributionPath=wrapper/dists
+ zipStoreBase=GRADLE_USER_HOME
+ zipStorePath=wrapper/dists
+-distributionUrl=https\://services.gradle.org/distributions/gradle-2.8-all.zip
++distributionUrl=https\://services.gradle.org/distributions/gradle-2.10-all.zip
++
+diff --git a/gradlew b/gradlew
+index 91a7e26..abc9e96 100644
+--- a/gradlew
++++ b/gradlew
+@@ -7,7 +7,7 @@
+ ##############################################################################
+ 
+ # Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
+-DEFAULT_JVM_OPTS=""
++DEFAULT_JVM_OPTS="\"-Xmx1568\" \"-Xms256m\" \"-XX:MaxPermSize=1568m\""
+ 
+ APP_NAME="Gradle"
+ APP_BASE_NAME=`basename "$0"`
+diff --git a/java_pid6752.hprof b/java_pid6752.hprof
+new file mode 100644
+index 0000000..0e560d8
+Binary files /dev/null and b/java_pid6752.hprof differ

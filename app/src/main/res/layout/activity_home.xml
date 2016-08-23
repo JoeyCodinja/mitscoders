@@ -16,6 +16,9 @@
         android:layout_gravity="start"
         android:divider="@android:color/transparent"
         android:dividerHeight="0dp"
-        android:background="#fff8fdfb"/>
+        android:background="#fff8fdfb"
+        android:footerDividersEnabled="true"/>
+
+
 
 </android.support.v4.widget.DrawerLayout>

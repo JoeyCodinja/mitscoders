@@ -37,6 +37,8 @@
 
     <style name="campusinfotheme"
         parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:colorBackground">@color/actionbar_background_eateries</item>
+        <item name="background">@color/actionbar_background_eateries</item>
         <item name="android:actionBarStyle">@style/eateries_bar</item>
         <item name="actionBarStyle">@style/eateries_bar</item>
         <item name="android:windowContentOverlay">@null</item>
@@ -58,6 +60,7 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowActionBar">false</item>
     </style>
+
     <style name="SasTabLayout" parent="Widget.Design.TabLayout">
         <item name="tabMaxWidth">@dimen/navigation_max_width</item>
         <item name="tabIndicatorColor">@color/accent</item>
@@ -139,11 +142,17 @@
 
 
     <!-- TODO: Remove the Faux-FAB related styles, replace with new FAB colors -->
-    <style name="FABButtons">
+    <style name="FABButtons" parent="Widget.Design.FloatingActionButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">16dp</item>
-        <item name="android:layout_gravity">bottom|end</item>
+        <item name="android:elevation">4dp</item>
+        <item name="fabSize">normal</item>
+        <item name="elevation">4dp</item>
+
+    </style>
+
+    <style name="secondaryFABButtons" parent="FABButtons">
+        <item name="fabSize">mini</item>
     </style>
 
     <!--<style name="FAB_Main_Menu" parent="Widget.Design.FloatingActionButton">-->

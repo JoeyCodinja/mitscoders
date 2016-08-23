@@ -9,9 +9,10 @@ import com.android.volley.VolleyError;
 import java.util.ArrayList;
 import java.util.List;
 
+import mits.uwi.com.ourmobileenvironment.EateriesActivity;
 import mits.uwi.com.ourmobileenvironment.R;
 import mits.uwi.com.ourmobileenvironment.Transport.TransportFragment;
-import mits.uwi.com.ourmobileenvironment.campusinformationfragments.EateriesFragment;
+import mits.uwi.com.ourmobileenvironment.adapters.EateriesAdapter;
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.Restaurant;
 
 /**
@@ -23,12 +24,12 @@ public class RestaurantErrorListener implements Response.ErrorListener {
     private Class<Restaurant> restaurantClass;
     private Toast internetConnection;
     private ArrayList<Restaurant> restaurants;
-    private EateriesFragment eateriesFragment;
+    private EateriesActivity eateriesActivity;
 
 
-    public RestaurantErrorListener(Class<Restaurant> restaurantClass,Context mCtx,EateriesFragment eateriesFragment,ArrayList<Restaurant>restaurants){
+    public RestaurantErrorListener(Class<Restaurant> restaurantClass,Context mCtx,EateriesActivity eateriesActivity,ArrayList<Restaurant>restaurants){
         this.restaurantClass=restaurantClass;
-        this.eateriesFragment=eateriesFragment;
+        this.eateriesActivity=eateriesActivity;
         internetConnection=Toast.makeText(mCtx,"Please Check Internet Connection",Toast.LENGTH_SHORT);
         this.restaurants=restaurants;
 
@@ -38,7 +39,7 @@ public class RestaurantErrorListener implements Response.ErrorListener {
         try{
 
         List<Restaurant> objlist = Restaurant.listAll(restaurantClass);
-        EateriesFragment.EateriesAdapter adapter = eateriesFragment.getAdap();
+        EateriesAdapter adapter = eateriesActivity.getAdapter();
         if (objlist.isEmpty()) {
             internetConnection.show();
 
@@ -48,8 +49,8 @@ public class RestaurantErrorListener implements Response.ErrorListener {
                 restaurants.add(transport);
                 adapter.Add(transport);
             }
-            eateriesFragment.refreshView();
-            eateriesFragment.getActivity().findViewById(R.id.progress_bar).setVisibility(View.GONE);
+            eateriesActivity.refreshView();
+            eateriesActivity.findViewById(R.id.progress_bar).setVisibility(View.GONE);
 
 
         }
@@ -58,4 +59,5 @@ public class RestaurantErrorListener implements Response.ErrorListener {
             //no database created
         }
     }
+
 }

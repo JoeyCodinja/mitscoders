@@ -70,6 +70,7 @@ public class TimeTableService extends IntentService {
                if (mtimetable.isEmpty()) {
             Toast.makeText(getApplicationContext(), "No Events to Report", Toast.LENGTH_SHORT).show();
                }
+
                for(TimeTable event: mtimetable) {
                    calendar2 = Calendar.getInstance();
                    calendar2.setTime(event.getStartTime());
@@ -89,7 +90,6 @@ public class TimeTableService extends IntentService {
                    }
 
                }
-
            }
        }
     }

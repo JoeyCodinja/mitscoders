@@ -15,9 +15,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
 
+import mits.uwi.com.ourmobileenvironment.EateriesActivity;
 import mits.uwi.com.ourmobileenvironment.R;
 import mits.uwi.com.ourmobileenvironment.Transport.TransportFragment;
-import mits.uwi.com.ourmobileenvironment.campusinformationfragments.EateriesFragment;
+import mits.uwi.com.ourmobileenvironment.adapters.EateriesAdapter;
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.Restaurant;
 
 /**
@@ -30,14 +31,12 @@ public class RestaurantListener implements Response.Listener<JSONObject> {
     private Restaurant currentRes;
     private ArrayList resList;
     private Class<Restaurant> restaurantClass;
-    private EateriesFragment eateriesFragment;
+    private EateriesActivity eateriesActivity;
     private ImageLoader imageLoader;
 
-
-
-    public RestaurantListener(String listname,ArrayList<Restaurant> resList,EateriesFragment eateriesFragment,Context resctx,Class<Restaurant> restaurantClass){
+    public RestaurantListener(String listname, ArrayList<Restaurant> resList, EateriesActivity eateriesActivity, Context resctx, Class<Restaurant> restaurantClass){
         this.listname=listname;
-        this.eateriesFragment=eateriesFragment;
+        this.eateriesActivity=eateriesActivity;
         this.internalError=Toast.makeText(resctx, "Internal error occured please restart application", Toast.LENGTH_SHORT);
         this.resList=resList;
         this.restaurantClass=restaurantClass;
@@ -47,7 +46,7 @@ public class RestaurantListener implements Response.Listener<JSONObject> {
     public void onResponse(JSONObject response){
         Gson gson=new Gson();
         String status;
-        EateriesFragment.EateriesAdapter adapter=eateriesFragment.getAdap();
+        EateriesAdapter adapter=eateriesActivity.getAdapter();
         try {
             restuarantList=response.getJSONArray(listname);
             status=response.getString("Status");
@@ -61,8 +60,8 @@ public class RestaurantListener implements Response.Listener<JSONObject> {
                     currentRes.save();
                 }
             }
-            eateriesFragment.refreshView();
-            eateriesFragment.getActivity().findViewById(R.id.progress_bar).setVisibility(View.GONE);
+            eateriesActivity.refreshView();
+            eateriesActivity.findViewById(R.id.progress_bar).setVisibility(View.GONE);
 
         }
         catch (JSONException e){
