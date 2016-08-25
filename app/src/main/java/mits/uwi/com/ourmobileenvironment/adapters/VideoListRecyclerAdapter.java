@@ -39,6 +39,7 @@ public class VideoListRecyclerAdapter extends
             videoTitle = (TextView) v.findViewById(R.id.video_item_title);
             videoDescription = (TextView) v.findViewById(R.id.video_item_description);
             videoThumbnail = (ImageView) v.findViewById(R.id.video_item_thumbnail);
+
         }
 
     }
@@ -72,10 +73,9 @@ public class VideoListRecyclerAdapter extends
 
             @Override
             public void onClick(View v) {
-                ViewGroup parent = (ViewGroup) v.getParent();
-                int viewIndex = parent.indexOfChild(v);
+                String videoId = (String)v.getTag();
                 player.pause();
-                player.cueVideo(videos[viewIndex].videoId);
+                player.cueVideo(videoId);
 
             }
         });
@@ -88,6 +88,7 @@ public class VideoListRecyclerAdapter extends
         // Replaces information within the
         // ViewHolder with information from
         // our data set
+        ((View)holder.videoTitle.getParent().getParent()).setTag(getItemVideoId(position));
         try {
             holder.videoTitle.setText(this.videos[position].title);
             holder.videoDescription.setText(this.videos[position].description);
@@ -106,6 +107,7 @@ public class VideoListRecyclerAdapter extends
             View parent = (View) holder.videoTitle.getParent();
             parent.setVisibility(View.GONE);
         }
+
 
 
     }
