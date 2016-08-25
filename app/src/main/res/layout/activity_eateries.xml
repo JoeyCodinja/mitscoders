@@ -2,14 +2,15 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:padding="0dp"
+    android:padding="0dp" android:orientation="vertical"
     >
     <android.support.v7.widget.Toolbar
         android:id="@+id/eateries_toolbar"
         android:layout_height="@dimen/abc_action_bar_default_height_material"
         android:layout_width="match_parent"
         android:minHeight="@dimen/abc_action_bar_default_height_material"
-        android:background="#000000"/>
+        android:background="#9e9e9e"
+        android:title="@string/title_activity_eateries"/>
 
 
     <ProgressBar

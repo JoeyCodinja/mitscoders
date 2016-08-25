@@ -17,9 +17,12 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 
 import mits.uwi.com.ourmobileenvironment.Directory.DirectoryActivity;
+import mits.uwi.com.ourmobileenvironment.Transport.TransportActivity;
 import mits.uwi.com.ourmobileenvironment.adapters.HomePageArrayAdapter;
 import mits.uwi.com.ourmobileenvironment.additional_systems.Evaluations.activities.TeachingEvalsActivity;
 import mits.uwi.com.ourmobileenvironment.homepagefragments.HomeActivityFragment;
+import mits.uwi.com.ourmobileenvironment.ourvle.activities.OurVLELoginActivity;
+import mits.uwi.com.ourmobileenvironment.sas.SAS_Splash;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -95,33 +98,49 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void selectItem(int position) {
-        //E-mail
-        if (position == 0){
-            Intent i = new Intent(this, TeachingEvalsActivity.class);
+        String itemName = mAdapter.getItem(position);
+        Intent i = null;
+        switch(itemName){
+            case "E-mail":
+            case "Notifications":
+            case "Wi-Fi Finder":
+            case "Emergency Services":
+                break;
+            case "Teaching Evaluations":
+                i = new Intent(this, TeachingEvalsActivity.class);
+                break;
+            case "Directory":
+                i = new Intent(this, DirectoryActivity.class);
+                break;
+            case "Student Administrative Services":
+                i = new Intent(this, SAS_Splash.class);
+                break;
+            case "Our Virtual Learning Environment (OurVLE)":
+                i = new Intent(this, OurVLELoginActivity.class);
+                break;
+            case "Transnportation":
+                i = new Intent(this, TransportActivity.class);
+                break;
+            case "Campus Information":
+                i = new Intent(this, CampusInformationActivity.class);
+                break;
+            case "Eateries":
+                i = new Intent(this, EateriesActivity.class);
+                break;
+            default:
+                i = null;
+                break;
+        }
+
+        if (i != null){
             startActivity(i);
-        }
-        //Notifications
-        else if (position == 1){
-            Intent i = new Intent(this, DirectoryActivity.class);
-            startActivity(i);
-
-        }
-        //Directory
-        else if (position == 2){
-            Intent i = new Intent(this, DirectoryActivity.class);
-            startActivity(i);
-        }
-        //Wi-Fi Finder
-        else if (position == 3){
-
-        }
-        //Emergency Services
-        else if (position == 4){
-
+            mDrawerList.setItemChecked(position, true);
+            mNavigationDrawerLayout.closeDrawer(mDrawerList);
         }
 
-        mDrawerList.setItemChecked(position, true);
-        mNavigationDrawerLayout.closeDrawer(mDrawerList);
+        return;
+
+
     }
 
     @Override

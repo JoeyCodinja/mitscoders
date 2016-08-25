@@ -76,7 +76,7 @@ public class GlobalRequestHandler {
     }
 
     public void getShuttleRoutes(ArrayList<BusRoute> BusRouteList,BusScheduleFragment busScheduleFragment )  {
-        String url="https://webservice-rox117.c9users.io/service/shuttle_routes";
+        String url="http://rox116.pythonanywhere.com/service/shuttle_routes";
         TransportListener transportListener=new TransportListener("Shuttlelist",BusRouteList,busScheduleFragment,mCtx,BusRoute.class);
         TransportErrorListener transportErrorListener= new TransportErrorListener(BusRoute.class,mCtx,busScheduleFragment,BusRouteList);
         TransportRequest transportRequest= new TransportRequest(url,transportListener,transportErrorListener,mCtx);
@@ -84,7 +84,7 @@ public class GlobalRequestHandler {
     }
 
     public void getTaxiServices( ArrayList<TaxiService> taxiServiceList,TaxiServiceFragment taxiServiceFragment){
-        String url="https://webservice-rox117.c9users.io/service/taxi_services";
+        String url="http://rox116.pythonanywhere.com/service/taxi_services";
         TransportListener transportListener=new TransportListener("TaxiList",taxiServiceList,taxiServiceFragment,mCtx,TaxiService.class);
         TransportErrorListener transportErrorListener=new TransportErrorListener(TaxiService.class,mCtx,taxiServiceFragment,taxiServiceList);
         TransportRequest transportRequest=new TransportRequest(url,transportListener,transportErrorListener,mCtx);
@@ -93,7 +93,7 @@ public class GlobalRequestHandler {
     }
 
     public void getJUTCRoutes(ArrayList<JUTCRoute> jutcRoutes,JUTCRouteFragment jutcRouteFragment){
-        String url="https://webservice-rox117.c9users.io/service/jutc_routes";
+        String url="http://rox116.pythonanywhere.com/service/jutc_routes";
         TransportListener transportListener=new TransportListener("JUTCList",jutcRoutes,jutcRouteFragment,mCtx,JUTCRoute.class);
         TransportErrorListener transportErrorListener=new TransportErrorListener(JUTCRoute.class,mCtx,jutcRouteFragment,jutcRoutes);
         TransportRequest transportRequest=new TransportRequest(url,transportListener,transportErrorListener,mCtx);
@@ -102,7 +102,7 @@ public class GlobalRequestHandler {
 
 
     public void getRestaurantList(ArrayList<Restaurant> RList, EateriesActivity eateriesActivity){
-        String url="https://webservice-rox117.c9users.io/service//eateries";
+        String url="http://rox116.pythonanywhere.com/service/eateries";
         RestaurantListener restaurantListener = new RestaurantListener("RestaurantList", RList,
                                                                        eateriesActivity, mCtx,
                                                                        Restaurant.class);
@@ -116,7 +116,7 @@ public class GlobalRequestHandler {
     }
 
     public  void getGuildBusRoutes(ArrayList<GuildBus> GList,GuildBusFragment guildBusFragment){
-        String url="";
+        String url="http://rox116.pythonanywhere.com/service/guild_routes";
         TransportListener transportListener= new TransportListener("GuildBusList",GList,guildBusFragment,mCtx,GuildBus.class);
         TransportErrorListener transportErrorListener=new TransportErrorListener(GuildBus.class,mCtx,guildBusFragment,GList);
         TransportRequest transportRequest=new TransportRequest(url,transportListener,transportErrorListener,mCtx);

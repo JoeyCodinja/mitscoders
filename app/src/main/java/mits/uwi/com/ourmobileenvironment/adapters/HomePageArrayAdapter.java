@@ -2,6 +2,7 @@ package mits.uwi.com.ourmobileenvironment.adapters;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.PorterDuff;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,26 +34,43 @@ public class HomePageArrayAdapter extends ArrayAdapter<String> {
         ImageView nav_image = (ImageView)rowView.findViewById(R.id.nav_list_image);
         TextView nav_title = (TextView)rowView.findViewById(R.id.nav_list_title);
         nav_title.setText(values[position]);
-        switch(position){
-            case 0:
+        switch(values[position]){
+            case "E-mail":
                 //Email
                 nav_image.setImageResource(R.drawable.ic_email_grey_24px);
                 break;
-            case 1:
+            case "Notifications":
                 //Notifications
                 nav_image.setImageResource(R.drawable.ic_notifications_grey_24px);
                 break;
-            case 2:
+            case "Directory":
                 //Directory
                 nav_image.setImageResource(R.drawable.ic_contact_phone_grey_24px);
                 break;
-            case 3:
+            case "Teaching Evaluations":
+                break;
+            case "Wi-Fi Finder":
                 //Wi-Fi Finder
                 nav_image.setImageResource(R.drawable.ic_wifi_grey_24px);
                 break;
-            case 4:
+            case "Emergency Services":
                 //Emergency Services
                 nav_image.setImageResource(R.drawable.ic_announcement_grey_24px);
+                break;
+            case "Student Administrative Services":
+                nav_image.setImageResource(R.drawable.sas);
+                break;
+            case "Our Virtual Learning Environment (OurVLE)":
+                nav_image.setImageResource(R.drawable.ourvle);
+                break;
+            case "Transportation":
+                nav_image.setImageResource(R.drawable.transportation);
+                break;
+            case "Campus Information":
+                nav_image.setImageResource(R.drawable.campusinfo);
+                break;
+            case "Eateries":
+                nav_image.setImageResource(R.drawable.eateries);
                 break;
         }
 

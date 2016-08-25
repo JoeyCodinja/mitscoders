@@ -32,7 +32,7 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import mits.uwi.com.ourmobileenvironment.sas.classmap.activity.ClassMapActivity;
+import mits.uwi.com.ourmobileenvironment.sas.classmap.Activity.ClassMapActivity;
 import mits.uwi.com.ourmobileenvironment.sas.course.AddDropCourseFragment;
 import mits.uwi.com.ourmobileenvironment.sas.course.CourseListFragment;
 import mits.uwi.com.ourmobileenvironment.sas.holds.HoldsFragment;
@@ -398,8 +398,13 @@ public class SASActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        FragmentManager fm = getSupportFragmentManager();
         if (mDrawerLayout.isDrawerOpen(mRecyclerView)){
             mDrawerLayout.closeDrawers();
+        }
+        else if (fm.getFragments().size() == 1 &&
+                fm.getFragments().get(0) instanceof CourseListFragment){
+            super.onBackPressed();
         }
         else{
             getSupportFragmentManager().popBackStack();
