@@ -2,19 +2,29 @@
 package mits.uwi.com.ourmobileenvironment;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatCallback;
+import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.view.ActionMode;
+import android.support.v7.widget.Toolbar;
+import android.view.DragEvent;
+import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewParent;
+import android.widget.AdapterViewFlipper;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -22,12 +32,13 @@ import android.widget.LinearLayout;
 
 import com.pkmmte.view.CircularImageView;
 
+import mits.uwi.com.ourmobileenvironment.adapters.CampusInfoViewFlipperAdapter;
 import mits.uwi.com.ourmobileenvironment.adapters.CampusInfoViewPagerAdapter;
 
 import java.util.jar.Attributes;
 
 
-public class CampusInformationActivity extends AppCompatActivity {
+public class CampusInformationActivity extends Activity implements AppCompatCallback{
 
     public final static String TO_WHERE_INT =
             "com.ourmobileenvironment.campusinformationfragments.TO_WHERE";
@@ -41,8 +52,10 @@ public class CampusInformationActivity extends AppCompatActivity {
     private String[] group_bodies;
 
     private  ViewPager mCampusInfo_ViewPager;
+    private AdapterViewFlipper mCampusInfoFlipper;
 
     private CampusInfoViewPagerAdapter adapter;
+    private CampusInfoViewFlipperAdapter newAdapter;
 
     private int[] campusInfoSub = {R.id.to_campus_facilities,
                                    R.id.to_campus_housing,
@@ -55,9 +68,13 @@ public class CampusInformationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         group_headings = getResources().getStringArray(R.array.campus_info_snippet_titles);
         group_bodies = getResources().getStringArray(R.array.campus_info_snippet_body);
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_campus_info2);
+        AppCompatDelegate appCompatDelegate = AppCompatDelegate.create(this, this);
+        appCompatDelegate.onCreate(savedInstanceState);
+        appCompatDelegate.setContentView(R.layout.fragment_campus_info2);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.campus_info_toolbar);
+        appCompatDelegate.setSupportActionBar(toolbar);
 
         if (Build.VERSION.SDK_INT >= 16 && Build.VERSION.SDK_INT < 21){
             indicatorSelected = getResources().getDrawable(R.drawable.indicators_selected);
@@ -67,40 +84,75 @@ public class CampusInformationActivity extends AppCompatActivity {
             indicatorSelected = getResources().getDrawable(R.drawable.indicators, null);
         }
 
-        adapter = new CampusInfoViewPagerAdapter(getSupportFragmentManager(),
-                                                 group_headings,
-                                                 group_bodies,
-                                                 group_headings.length);
+//        adapter = new CampusInfoViewPagerAdapter(getFragmentManager(),
+//                                                 group_headings,
+//                                                 group_bodies,
+//                                                 group_headings.length);
 
-        mCampusInfo_ViewPager = (ViewPager)findViewById(R.id.campus_info_viewpager);
-        mCampusInfo_ViewPager.setAdapter(adapter);
+        newAdapter = new CampusInfoViewFlipperAdapter(group_headings,
+                                                      group_bodies,
+                                                      this);
 
-        indicators  = new Attributes(adapter.getCount());
+//        mCampusInfo_ViewPager = (ViewPager)findViewById(R.id.campus_info_viewpager);
+//        mCampusInfo_ViewPager.setAdapter(adapter);
 
-        mCampusInfo_ViewPager.addOnPageChangeListener(new CampusInfoViewPagerPageChangeListener());
-
-        FrameLayout viewPagerParent = (FrameLayout)mCampusInfo_ViewPager.getParent();
-        viewPagerParent.addView(createViewPagerIndicator(group_headings.length));
-
-        // Allows the View Pager to swipe automatically
-        viewPagerSwipeHandler = new Handler();
-        Runnable viewPagerSwipeRunnable = new Runnable() {
+        mCampusInfoFlipper = (AdapterViewFlipper) findViewById(R.id.campus_info_flipper);
+        mCampusInfoFlipper.setAdapter(newAdapter);
+        mCampusInfoFlipper.setAutoStart(true);
+        mCampusInfoFlipper.setOnTouchListener(new View.OnTouchListener(){
             @Override
-            public void run() {
-                if (mCampusInfo_ViewPager.getChildCount() == 0){
-                    viewPagerSwipeHandler.removeCallbacks(this);
-                    return;
+            public boolean onTouch(View v, MotionEvent event) {
+                float initX = event.getX();
+                if (event.getAction() == MotionEvent.ACTION_MOVE){
+                    if (event.getHistorySize() > 0){
+                        int historySize = event.getHistorySize();
+                        int pointerCount = event.getPointerCount();
+                        for (int i=0; i< historySize; i++){
+                            float nextX = event.getHistoricalX(i);
+                            if (nextX > initX){
+                                // Swipe Right
+                                mCampusInfoFlipper.showNext();
+                                return true;
+                            }
+                            else if (nextX < initX){
+                                //Swipe Left
+                                mCampusInfoFlipper.showPrevious();
+                                return true;
+                            }
+                        }
+                    }
                 }
-                mCampusInfo_ViewPager
-                        .setCurrentItem(
-                                (mCampusInfo_ViewPager.getCurrentItem() + 1) %
-                                        mCampusInfo_ViewPager.getChildCount());
-                viewPagerSwipeHandler.postDelayed(this, 10000);
 
+                return false;
             }
-        };
+        });
 
-        viewPagerSwipeHandler.postDelayed(viewPagerSwipeRunnable, 10000);
+//        indicators  = new Attributes(adapter.getCount());
+
+//        mCampusInfo_ViewPager.addOnPageChangeListener(new CampusInfoViewPagerPageChangeListener());
+//
+//        FrameLayout viewPagerParent = (FrameLayout)mCampusInfo_ViewPager.getParent();
+//        viewPagerParent.addView(createViewPagerIndicator(group_headings.length));
+//
+//        // Allows the View Pager to swipe automatically
+//        viewPagerSwipeHandler = new Handler();
+//        Runnable viewPagerSwipeRunnable = new Runnable() {
+//            @Override
+//            public void run() {
+//                if (mCampusInfo_ViewPager.getChildCount() == 0){
+//                    viewPagerSwipeHandler.removeCallbacks(this);
+//                    return;
+//                }
+//                mCampusInfo_ViewPager
+//                        .setCurrentItem(
+//                                (mCampusInfo_ViewPager.getCurrentItem() + 1) %
+//                                        mCampusInfo_ViewPager.getChildCount());
+//                viewPagerSwipeHandler.postDelayed(this, 10000);
+//
+//            }
+//        };
+//
+//        viewPagerSwipeHandler.postDelayed(viewPagerSwipeRunnable, 10000);
 
         // Sets up each button report to the SubInformation Activity when it is touched
         for ( int button_id: campusInfoSub){
@@ -123,8 +175,8 @@ public class CampusInformationActivity extends AppCompatActivity {
     @Override
     public void onDestroy(){
         super.onDestroy();
-        mCampusInfo_ViewPager.clearOnPageChangeListeners();
-        viewPagerSwipeHandler.removeCallbacks(null);
+//        mCampusInfo_ViewPager.clearOnPageChangeListeners();
+//        viewPagerSwipeHandler.removeCallbacks(null);
     }
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
@@ -151,6 +203,22 @@ public class CampusInformationActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onSupportActionModeStarted(ActionMode mode){
+
+    }
+
+    @Override
+    public void onSupportActionModeFinished(ActionMode mode){
+
+    }
+
+    @Nullable
+    @Override
+    public ActionMode onWindowStartingSupportActionMode(ActionMode.Callback callback){
+        return null;
     }
 
     public void indicate(int index){
@@ -254,5 +322,7 @@ public class CampusInformationActivity extends AppCompatActivity {
         }
 
     }
+
+
 }
 

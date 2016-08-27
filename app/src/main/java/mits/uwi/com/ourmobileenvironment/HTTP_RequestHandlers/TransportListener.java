@@ -1,6 +1,7 @@
 package mits.uwi.com.ourmobileenvironment.HTTP_RequestHandlers;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteException;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -40,11 +41,17 @@ public class TransportListener<T extends Transport> implements Response.Listener
         Gson gson=new Gson();
         String status;
         TransportFragment.TransportAdapter adapter=transportFragment.getAdap();
+        Log.e("resp",response.toString());
         try {
             objectList=response.getJSONArray(listName);
             status=response.getString("Status");
             if (status.equals("200")){
-                Deleteall();
+                try {
+                    Deleteall();
+                }
+                catch (SQLiteException e){
+                    //no database created
+                }
             }
             for (int i=0; i<objectList.length();i++){
                 currentrecord =gson.fromJson(objectList.getJSONObject(i).toString(), transportSubclass);
@@ -55,12 +62,13 @@ public class TransportListener<T extends Transport> implements Response.Listener
                     currentrecord.save();
                 }
             }
-            transportFragment.refreshView();
             transportFragment.getActivity().findViewById(R.id.progress_bar).setVisibility(View.GONE);
+            transportFragment.refreshView();
 
         }
         catch (JSONException e){
             internalError.show();
+            e.printStackTrace();
         }
 
 

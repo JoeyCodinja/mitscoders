@@ -1,8 +1,7 @@
 package mits.uwi.com.ourmobileenvironment.adapters;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.PorterDuff;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,10 +24,20 @@ public class HomePageArrayAdapter extends ArrayAdapter<String> {
         this.values = values;
     }
 
+
+    private View generateFooterView(ViewGroup parent){
+        LayoutInflater inflater =
+                (LayoutInflater)context
+                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View footer = inflater.inflate(R.layout.social, parent, false);
+        return footer;
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater)context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater =
+                (LayoutInflater)context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.nav_drawer_list_item, parent, false);
 
         ImageView nav_image = (ImageView)rowView.findViewById(R.id.nav_list_image);

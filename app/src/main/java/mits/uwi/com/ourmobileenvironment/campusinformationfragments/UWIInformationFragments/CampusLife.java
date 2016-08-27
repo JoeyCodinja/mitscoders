@@ -31,7 +31,7 @@ public class CampusLife extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_campus_life, container, false);
+        return inflater.inflate(R.layout.fragment_campus_sub_info, container, false);
     }
 
     public void onButtonPressed(Uri uri) {

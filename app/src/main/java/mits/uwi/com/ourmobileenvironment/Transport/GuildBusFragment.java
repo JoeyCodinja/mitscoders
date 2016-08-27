@@ -26,13 +26,14 @@ public class GuildBusFragment extends TransportFragment<GuildBus> {
     @Override
     public void  onCreate(Bundle savedInstance){
         super.onCreate(savedInstance);
+        loadGuildBusRoutes();
 
     }
 
     private void showDialog(int Index) {
         FragmentManager fm = getActivity().getSupportFragmentManager();
         GuildBusRouteDialog Landmark = new GuildBusRouteDialog();
-        Landmark.setRoutelist(transportModels.get(Index).getRouteList());
+        Landmark.setRoutelist(transportModels.get(Index).getRoutelist());
         Landmark.show(fm, "fragment_guild_bus");
     }
 
@@ -118,7 +119,7 @@ public class GuildBusFragment extends TransportFragment<GuildBus> {
         @Override
         public void onBindViewHolder(GuildBusViewHolder guildBusViewHolder, int i){
             GuildBus guildBus=Tlist.get(i);
-            guildBusViewHolder.route_name.setText(guildBus.getRoute_name());
+            guildBusViewHolder.route_name.setText(guildBus.getRoutetitle());
             guildBusViewHolder.departure_time.setText(guildBus.getDeparture_time());
             guildBusViewHolder.cost.setText(guildBus.getCost());
         }
