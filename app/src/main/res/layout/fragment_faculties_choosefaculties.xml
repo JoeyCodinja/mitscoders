@@ -5,21 +5,26 @@
     <Button
         android:id="@+id/fst_faculty_chosen"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:text="@string/fst_name"/>
     <Button
         android:id="@+id/humed_faculty_chosen"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:text="@string/humed_name"/>
     <Button
         android:id="@+id/socsci_faculty_chosen"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:text="@string/socsci_name"/>
     <Button
         android:id="@+id/medsci_faculty_chosen"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:text="@string/medsci_name"/>
     <Button
         android:id="@+id/law_faculty_chosen"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:text="@string/law_name"/>
 </LinearLayout>

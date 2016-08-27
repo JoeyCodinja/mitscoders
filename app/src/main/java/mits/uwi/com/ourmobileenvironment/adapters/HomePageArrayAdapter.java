@@ -57,6 +57,7 @@ public class HomePageArrayAdapter extends ArrayAdapter<String> {
                 nav_image.setImageResource(R.drawable.ic_contact_phone_grey_24px);
                 break;
             case "Teaching Evaluations":
+                nav_image.setImageResource(R.drawable.ic_library_books_black_24dp);
                 break;
             case "Wi-Fi Finder":
                 //Wi-Fi Finder
@@ -81,6 +82,8 @@ public class HomePageArrayAdapter extends ArrayAdapter<String> {
             case "Eateries":
                 nav_image.setImageResource(R.drawable.eateries_dark);
                 break;
+            case "Directions":
+                nav_image.setImageResource(R.drawable.ic_directions_black_24dp);
         }
 
         return rowView;

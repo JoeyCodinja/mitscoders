@@ -253,6 +253,7 @@
         <item>Transportation</item>
         <item>Campus Information</item>
         <item>Eateries</item>
+        <item>Directions</item>
     </string-array>
     <string-array name="FAB_menu_strings">
         <item>Student Administration System</item>

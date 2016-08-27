@@ -129,6 +129,9 @@ public class HomeActivity extends AppCompatActivity {
             case "Eateries":
                 i = new Intent(this, EateriesActivity.class);
                 break;
+            case "Directions":
+                i = new Intent(this, CampusDirectionActivity.class);
+                break;
             default:
                 i = null;
                 break;
