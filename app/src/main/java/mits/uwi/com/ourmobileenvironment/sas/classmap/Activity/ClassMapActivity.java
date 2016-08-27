@@ -1,4 +1,4 @@
-package mits.uwi.com.ourmobileenvironment.sas.classmap.activity;
+package mits.uwi.com.ourmobileenvironment.sas.classmap.Activity;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;

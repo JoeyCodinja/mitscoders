@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import mits.uwi.com.ourmobileenvironment.R;
-import mits.uwi.com.ourmobileenvironment.sas.classmap.activity.ClassMapActivity;
+import mits.uwi.com.ourmobileenvironment.sas.classmap.Activity.ClassMapActivity;
 import mits.uwi.com.ourmobileenvironment.sas.timetable.services.TimeTableService;
 
 /**
