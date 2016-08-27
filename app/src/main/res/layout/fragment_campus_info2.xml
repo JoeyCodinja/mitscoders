@@ -32,22 +32,22 @@
         android:layout_width="match_parent"
         android:layout_below="@id/campus_information_heading"
         android:id="@+id/viewPagerFrame">
-        <!--<android.support.v4.view.ViewPager-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:id="@+id/campus_info_viewpager"-->
-            <!--android:background="#498AAA"/>-->
-
-        <AdapterViewFlipper
+        <android.support.v4.view.ViewPager
+            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/campus_info_flipper"
-            android:flipInterval="3000"/>
+            android:id="@+id/campus_info_viewpager"/>
 
+        <!--<AdapterViewFlipper-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:id="@+id/campus_info_flipper"-->
+            <!--android:flipInterval="3000"-->
+            <!--android:autoStart="true"-->
+            <!--/>-->
     </FrameLayout>
 
     <RelativeLayout
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_below="@id/viewPagerFrame"
         android:id="@+id/button_grid">
@@ -58,30 +58,36 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:id="@+id/to_campus_life"
-            android:text="@string/to_campus_life"/>
+            android:text="@string/to_campus_life" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/to_campus_life"
             android:layout_toEndOf="@id/to_campus_life"
             android:id="@+id/to_faculties"
-            android:text="@string/to_faculties"/>
+            android:text="@string/to_faculties" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/to_campus_life"
             android:id="@+id/to_history"
-            android:text="@string/to_history"/>
+            android:text="@string/to_history"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/to_campus_housing"
+            android:text="@string/to_campus_housing"
             android:layout_below="@id/to_faculties"
-            android:text="@string/to_campus_housing" />
+            android:layout_toRightOf="@id/to_history"
+            android:layout_toEndOf="@id/to_history"/>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/to_campus_life"
+            android:layout_below="@id/to_history"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
             android:id="@+id/to_campus_facilities"
             android:text="@string/to_campus_facilities"/>
     </RelativeLayout>

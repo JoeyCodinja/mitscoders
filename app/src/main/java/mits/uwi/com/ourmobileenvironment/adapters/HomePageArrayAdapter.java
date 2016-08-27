@@ -67,19 +67,19 @@ public class HomePageArrayAdapter extends ArrayAdapter<String> {
                 nav_image.setImageResource(R.drawable.ic_announcement_grey_24px);
                 break;
             case "Student Administrative Services":
-                nav_image.setImageResource(R.drawable.sas);
+                nav_image.setImageResource(R.drawable.sas_dark);
                 break;
             case "Our Virtual Learning Environment (OurVLE)":
-                nav_image.setImageResource(R.drawable.ourvle);
+                nav_image.setImageResource(R.drawable.ourvle_dark);
                 break;
             case "Transportation":
-                nav_image.setImageResource(R.drawable.transportation);
+                nav_image.setImageResource(R.drawable.transportation_dark);
                 break;
             case "Campus Information":
-                nav_image.setImageResource(R.drawable.campusinfo);
+                nav_image.setImageResource(R.drawable.campusinfo_dark);
                 break;
             case "Eateries":
-                nav_image.setImageResource(R.drawable.eateries);
+                nav_image.setImageResource(R.drawable.eateries_dark);
                 break;
         }
 

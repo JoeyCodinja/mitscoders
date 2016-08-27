@@ -5,6 +5,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NavUtils;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
@@ -22,7 +24,7 @@ import mits.uwi.com.ourmobileenvironment.adapters.EateriesAdapter;
 
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.Restaurant;
 
-public class EateriesActivity extends Activity implements AppCompatCallback {
+public class EateriesActivity extends AppCompatActivity {
 
     private ArrayList<Restaurant> restaurants = new ArrayList<>();
     private EateriesAdapter eateriesAdapter;
@@ -31,15 +33,25 @@ public class EateriesActivity extends Activity implements AppCompatCallback {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AppCompatDelegate appCompatDelegate = AppCompatDelegate.create(this, this);
-        appCompatDelegate.onCreate(savedInstanceState);
-        appCompatDelegate.setContentView(R.layout.activity_eateries);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.eateries_toolbar);
-        toolbar.setTitle(R.string.title_activity_eateries);
-        appCompatDelegate.setSupportActionBar(toolbar);
-
-
+//        AppCompatDelegate appCompatDelegate = AppCompatDelegate.create(this, this);
+//        appCompatDelegate.onCreate(savedInstanceState);
+//        appCompatDelegate.setContentView(R.layout.activity_eateries);
+//
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.eateries_toolbar);
+//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                NavUtils.navigateUpFromSameTask(EateriesActivity.this);
+//            }
+//        });
+//        appCompatDelegate.setSupportActionBar(toolbar);
+//
+//        android.support.v7.app.ActionBar ab = appCompatDelegate.getSupportActionBar();
+//        ab.setHomeButtonEnabled(true);
+//        ab.setDefaultDisplayHomeAsUpEnabled(true);
+        setContentView(R.layout.activity_eateries);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         loadRestaurant();
 
         RecyclerView recList = (RecyclerView)findViewById(R.id.rv);

@@ -18,7 +18,7 @@
     <!-- Video Tab Strings -->
     <string name="player_error">There seems to be something wrong here</string>
         <string name="initialization_player_error">
-            There was an error Initializing the Youtube Player (%1$s)
+            There was an error initializing the Youtube Player (%1$s)
         </string>
     <string name='seek_to'>Jump To</string>
 
@@ -166,10 +166,16 @@
 
 
     <string name="title_activity_campus_information">Campus Information</string>
+    <string name="campus_info_snippet_body">
+        The University of the West Indies (UWI), Mona Campus offers world class, accredited higher
+        education programmes to Jamaica, the region and the globe. We engage in research and
+        development designed to support the social and economic growth of the Caribbean region,
+         the provision of community service, and the rnrichment of the academic experience
+    </string>
     <string-array name="campus_info_snippet_titles">
         <item>We are fully Accredited</item>
         <item>We are the home of the Pelicans</item>
-        <item>We are a gree, progressive campus</item>
+        <item>We are a green, progressive campus</item>
         <item>Who we serve</item>
         <item>Mission Statement</item>
         <item>The UWI\'s Vision</item>
@@ -181,6 +187,13 @@
         development designed to support the social and economic growth of the Caribbean region, the
         provision of community service, and the enrichment of the academic experience.
     </string>
+
+    <string name="campus_info_snippet_title1">We are fully Accredited</string>
+    <string name="campus_info_snippet_title2">We are the home of the Pelicans</string>
+    <string name="campus_info_snippet_title3">We are a green, progressive campus</string>
+    <string name="campus_info_snippet_title4">Who we serve</string>
+    <string name="campus_info_snippet_title5">Mission Statement</string>
+    <string name="campus_info_snippet_title6">The UWI\'s Vision</string>
 
     <string-array name="campus_info_snippet_body">
         <item>
@@ -227,36 +240,6 @@
         </item>
     </string-array>
 
-        <!-- Faculty Strings -->
-            <!--Science and Technology-->
-            <string name="faculty_fst_twitter">https://twitter.com/FstUwi_Mona</string>
-            <string name="faculty_fst_facebook">https://www.facebook.com/uwiscitech/</string>
-            <string name="faculty_fst_instagram">https://www.instagram.com/fstuwi_mona/</string>
-
-            <!--Humanities and Education-->
-            <string name="faculty_humed_twitter">https://twitter.com/UWIMona_HumEdu </string>
-            <string name="faculty_humed_facebook">http://something</string>
-            <string name="faculty_humed_instagram">https://www.instagram.com/uwimona_humedu/</string>
-
-            <!--Medical Sciences-->
-            <string name="faculty_medsci_twitter">http://something</string>
-            <string name="faculty_medsci_facebook">https://www.facebook.com/FacultyOfMedicalSciencesUwiMona/?fref=ts</string>
-            <string name="faculty_medsci_instagram">http://something</string>
-
-            <!--Social Sciences-->
-            <string name="faculty_sosci_twitter">http://something</string>
-            <string name="faculty_sosci_facebook"
-                >https://www.facebook.com/Faculty-of-Social-Sciences-UWI-Mona-251190541571594/
-            </string>
-            <string name="faculty_sosci_instagram">https://www.instagram.com/uwimona_fss/</string>
-
-            <!--Law-->
-            <string name="faculty_law_twitter">http://something</string>
-            <string name="faculty_law_facebook">
-                https://www.facebook.com/pages/Faculty-of-Law-UWI-Mona/278652678879606
-            </string>
-            <string name="faculty_law_instagram">http://something </string>
-
     <string name="title_activity_home">Home</string>
     <string-array name="navigation_menu_titles">
         <!--<item>E-mail</item>-->
@@ -265,6 +248,11 @@
         <item>Directory</item>
         <!--<item>Wi-Fi Finder</item>-->
         <!--<item>Emergency Services</item>-->
+        <item>Student Administrative Services</item>
+        <item>Our Virtual Learning Environment (OurVLE)</item>
+        <item>Transportation</item>
+        <item>Campus Information</item>
+        <item>Eateries</item>
     </string-array>
     <string-array name="FAB_menu_strings">
         <item>Student Administration System</item>
@@ -273,6 +261,107 @@
         <item>Transportation</item>
         <item>Campus Information</item>
     </string-array>
+    <!-- Campus Sub Information Strings -->
+    <!-- Faculties -->
+    <string name="fst_name">Faculty of Science and Technology</string>
+    <string name="medsci_name">Faculty Of Medical Sciences</string>
+    <string name="law_name">Faculty of Law</string>
+    <string name="humed_name">Faculty of Humanities \&amp; Education</string>
+    <string name="socsci_name">Faculty of Social Sciences</string>
+
+    <string name="sub_information_url_error">
+        This faculty does not exist on this social media.
+    </string>
+
+    <!-- Medical Sciences -->
+    <string-array name="medsci_info">
+        <item name="medsci_instagram">https://www.instagram.com/uwimedsci/</item>
+        <item name="medsci_facebook"></item>
+        <item name="medsci_twitter"></item>
+        <item name="medsci_snippet">
+            The medical faculty was the first to be established at the UWI Mona.
+            It began as an overseas college of the University of London.
+            Students at the time were required to complete one pre medical and
+            two preclinical years before entering the three year hospital based
+            programme.
+        </item>
+        <item>
+            http://www.mona.uwi.edu/fms/sites/default/files/fms/uploads/MBBS&#32;Student&#32;Handbook_Final.pdf
+        </item>
+    </string-array>
+    <!-- Science & Technology -->
+    <string-array name="fst_info">
+        <item name="fst_instagram">https://twitter.com/FstUwi_Mona</item>
+        <item name="fst_facebook">https://www.facebook.com/uwiscitech/</item>
+        <item name="fst_twitter">https://twitter.com/FstUwi_Mona</item>
+        <item name="fst_snippet">
+            Teaching in the Faculty of Natural Sciences began at Mona in
+            1949 with students in the departments of Botnay, Chemistry,
+            Mathematics, Physics and Zoology. It was later renamed the
+            Faculty of Science and Technology in August, 2012.\n\n The
+            Programmes offered cover a wide range of fields, including
+            Biochemistry, Life Sciences, Chemistry, Computer Science,
+            Geography and Geology, Mathematics, Physics and Engineering.
+        </item>
+        <item>
+            http://www.mona.uwi.edu/fpas/sites/default/files/fpas/uploads/fst-handbook-2014-final-3.pdf
+        </item>
+    </string-array>
+    <!-- Humanities and Education -->
+    <string-array name="humed_info">
+        <item name="humed_instagram">https://www.instagram.com/uwimona_humedu</item>
+        <item name="humed_facebook">https://www.facebook.com/HumEdMona</item>
+        <item name="humed_twitter">https://twitter.com/UWIMona_HumEdua</item>
+        <item name="humed_snippet">
+            The Faculty of Humanities and Education evolved out of the
+            original Faculty of Arts established in 1950 and the
+            Faculty of Arts and General Studies which was started in
+            1964 to co-ordinate the teaching of General Degree studies
+            instituted in 1963. In 2002, the decision was taken to
+            rename the faculty to the Faculty of Humanities and
+            Education
+        </item>
+        <item>
+            http://www.mona.uwi.edu/humed/sites/default/files/humed/u5/FHE&#32;Handbook&#32;2015-2016&#32;-&#32;&#40;for&#32;web&#41;.pdf
+        </item>
+    </string-array>
+
+    <!-- Law -->
+    <string-array name="law_info">
+        <item name="law_instagram">https://www.instagram.com/monalawsociety/</item>
+        <item name="law_facebook">https://www.facebook.com/pages/Faculty-of-Law-UWI-Mona</item>
+        <item name="law_twitter">https://twitter.com/monalawsociety</item>
+        <item name="law_snippet">
+            The faculty of Law was established at the University of
+            West Indies in 1970. Its primary objective is to provide
+            an academic qualification which is a compulsory prerequisite
+            to professional legal traning for lawyers in the Commonwealth
+            Caribbean. \n\nThe Faculty of Law offers an undergraduate
+            programme as well as graduate programs. The LLB programme is
+            run over a 3 year period for full time students and 5 - 6
+            years for part-time students.
+        </item>
+        <item>
+            http://www.mona.uwi.edu/law/sites/default/files/law/uploads/Facutly&#32;Handbook&#32;2012&#8212;REGULATIONS&#32;FOR&#32;THE&#32;DEGREE.pdf
+        </item>
+    </string-array>
+
+    <!-- Social Sciences -->
+    <string-array name="sosci_info">
+        <item name="sosci_instagram">https://www.instagram.com/uwimona_fss/</item>
+        <item name="sosci_facebook">https://www.facebook.com/Faculty-of-Social-Sciences-UWI-Mona-251190541571594/</item>
+        <item name="sosci_twitter">https://twitter.com/FSSConnect</item>
+        <item name="sosci_snippet">
+            Teaching in the Social Sciences courses such as Ecnomics,
+            Political Science, Government and Sociology commenced in the
+            Faculty of Arts at Mona. The faculty was established with two
+            departments, Economics and Government.
+        </item>
+        <item>
+            https://www.mona.uwi.edu/socsci/sites/default/files/socsci/uploads/fssundergraduatehandbook2015-2016_final_20150818.pdf
+        </item>
+    </string-array>
+
 
     <!-- Campus Directory Strings -->
     <string name="title_activity_campus_directory">Campus Directory</string>
@@ -394,11 +483,11 @@
     <string name="title_activity_news_view">News</string>
 
 
-
     <string name="title_activity_campus_information_sub">CampusInformationSubActivity</string>
-
-
-
+    <string name="social_twitter">Twitter Page</string>
+    <string name="social_facebook">Facebook</string>
+    <string name="social_instagram">Instagram</string>
+    <string name="title_activity_campus_direction">CampusDirectionActivity</string>
 
 
 </resources>

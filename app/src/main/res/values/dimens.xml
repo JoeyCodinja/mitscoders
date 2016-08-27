@@ -7,6 +7,7 @@
 
     <dimen name="indicator_height">4dip</dimen>
     <dimen name="indicator_width">4dip</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 
 
 </resources>

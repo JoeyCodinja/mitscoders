@@ -22,7 +22,7 @@ public class ChooseFacultyFragment extends Fragment {
             R.id.fst_faculty_chosen,
             R.id.humed_faculty_chosen,
             R.id.law_faculty_chosen,
-            R.id.socsci_faculty_chosen};
+            R.id.sosci_faculty_chosen};
 
 
     public static ChooseFacultyFragment newInstance(){
@@ -52,11 +52,28 @@ public class ChooseFacultyFragment extends Fragment {
                     FragmentTransaction transaction =
                             getFragmentManager()
                                 .beginTransaction();
-
+                    String toWhere = "";
+                    switch(v.getId()){
+                        case R.id.fst_faculty_chosen:
+                            toWhere = "FST";
+                            break;
+                        case R.id.medsci_faculty_chosen:
+                            toWhere = "MED";
+                            break;
+                        case R.id.law_faculty_chosen:
+                            toWhere = "LAW";
+                            break;
+                        case R.id.sosci_faculty_chosen:
+                            toWhere = "SOC";
+                            break;
+                        case R.id.humed_faculty_chosen:
+                            toWhere = "HUM";
+                            break;
+                    }
                     transaction.replace(((View)v.getParent().getParent()).getId(),
-                                        Faculties.newInstance(v.getId()));
+                                        Faculties.newInstance(toWhere));
                     transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-                    transaction.addToBackStack(null);
+                    transaction.addToBackStack("toFaculty");
                     transaction.commit();
                 }
             });

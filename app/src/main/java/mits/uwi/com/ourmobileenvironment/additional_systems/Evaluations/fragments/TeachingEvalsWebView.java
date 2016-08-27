@@ -12,10 +12,9 @@ import android.webkit.WebViewClient;
 
 import mits.uwi.com.ourmobileenvironment.R;
 
-
 /*
  *
- * 
+ *
  * Created by jbutler on 4/11/2016.
  */
 public class TeachingEvalsWebView  extends Fragment {

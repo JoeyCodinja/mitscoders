@@ -2,43 +2,46 @@ package mits.uwi.com.ourmobileenvironment.campusinformationfragments.UWIInformat
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.FragmentTransaction;
-import android.content.Intent;
-import android.database.DataSetObserver;
+import android.app.DownloadManager;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Environment;
+import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ExpandableListAdapter;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 
 import com.bluejamesbond.text.DocumentView;
 
-import java.util.Map;
-import java.util.jar.Attributes;
+import java.io.File;
 
+import mits.uwi.com.ourmobileenvironment.CampusInformationSubActivity;
 import mits.uwi.com.ourmobileenvironment.R;
 
 public class Faculties extends Fragment {
-    private OnFragmentInteractionListener mListener;
-    private int facultySelected;
-    ImageView dean;
-    ExpandableListView expandableListView;
-    DocumentView facultySnippet;
+    private ToSocialMediaIntents mListener;
+    private DownloadHandbook facultyHandbooks;
+    private String facultyChosen;
+    private Drawable dPicture;
+    private ImageView dean;
+    private ActionBar toolbar;
+    private DocumentView facultySnippet;
+    private Resources drawableResources;
 
-    public static Faculties newInstance(int faculty) {
-        Fragment f = new Faculties();
-        Bundle params = new Bundle();
-        params.putInt("facultySelected",
-                      faculty);
-        f.setArguments(params);
-        return new Faculties();
+    public static Faculties newInstance(String faculty) {
+        Faculties fragment = new Faculties();
+
+        Bundle args = new Bundle();
+        args.putString("facultyChosen", faculty);
+        fragment.setArguments(args);
+
+        return fragment;
     }
 
     public Faculties() {
@@ -48,52 +51,171 @@ public class Faculties extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        facultySelected = savedInstanceState.getInt("facultySelected");
+        facultyChosen = getArguments().getString("facultyChosen");
+        drawableResources = getResources();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_campus_sub_faculty,
+        View v = inflater.inflate(R.layout.fragment_faculties_campusinfosub,
                                   container,
                                   false);
-        dean = (ImageView) v.findViewById(R.id.dean);
-        expandableListView = (ExpandableListView) v.findViewById(R.id.faculty_information);
-        facultySnippet = (DocumentView) v.findViewById(R.id.faculty_snippet);
+        ImageView twitter = (ImageView)v.findViewById(R.id.twitterButton);
+        ImageView facebook = (ImageView)v.findViewById(R.id.facebookButton);
+        ImageView instagram = (ImageView)v.findViewById(R.id.instagramButton);
+        Button facultyHandbook = (Button)v.findViewById(R.id.dlProgramGuidelines);
 
-        switch (facultySelected){
-            case R.id.fst_faculty_chosen:
-                v = fstLayout(v);
+        facultySnippet = (DocumentView)v.findViewById(R.id.faculty_snippet);
+        dean = (ImageView) v.findViewById(R.id.dean_picture);
+
+        toolbar = ((CampusInformationSubActivity)getActivity()).getToolbar();
+
+        switch(facultyChosen){
+            case "FST":
+                v = layoutSciTech(v);
+                String[] fst_info = getResources().getStringArray(R.array.fst_info);
+                twitter.setTag(fst_info[2]);
+                instagram.setTag(fst_info[0]);
+                facebook.setTag(fst_info[1]);
+                facultyHandbook.setTag(fst_info[4]);
                 break;
-            case R.id.humed_faculty_chosen:
-                v = humedLayout(v);
+            case "HUM":
+                v = layoutHumEd(v);
+                String[] humed_info = getResources().getStringArray(R.array.humed_info);
+                twitter.setTag(humed_info[2]);
+                instagram.setTag(humed_info[0]);
+                facebook.setTag(humed_info[1]);
+                facultyHandbook.setTag(humed_info[4]);
                 break;
-            case R.id.law_faculty_chosen:
-                v = lawLayout(v);
+            case "LAW":
+                v = layoutLaw(v);
+                String[] law_info = getResources().getStringArray(R.array.law_info);
+                twitter.setTag(law_info[2]);
+                instagram.setTag(law_info[0]);
+                facebook.setTag(law_info[1]);
+                facultyHandbook.setTag(law_info[4]);
                 break;
-            case R.id.medsci_faculty_chosen:
-                v = medsciLayout(v);
+            case "MED":
+                v = layoutMedSci(v);
+                String[] medsci_info = getResources().getStringArray(R.array.medsci_info);
+                twitter.setTag(medsci_info[2]);
+                instagram.setTag(medsci_info[0]);
+                facebook.setTag(medsci_info[1]);
+                facultyHandbook.setTag(medsci_info[4]);
                 break;
-            case R.id.socsci_faculty_chosen:
-                v = sosciLayout(v);
+            case "SOC":
+                v = layoutSoSci(v);
+                String[] sosci_info = getResources().getStringArray(R.array.fst_info);
+                twitter.setTag(sosci_info[2]);
+                instagram.setTag(sosci_info[0]);
+                facebook.setTag(sosci_info[1]);
+                facultyHandbook.setTag(sosci_info[4]);
                 break;
         }
+
+        twitter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.toTwitter(v);
+            }
+        });
+
+        facebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.toFacebook(v);
+            }
+        });
+
+        instagram.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.toInstagram(v);
+            }
+        });
+
+        facultyHandbook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                facultyHandbooks.downloadFacultyHandbook((String)v.getTag(), facultyChosen);
+            }
+        });
 
         return v;
     }
 
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public View layoutSciTech(View v){
+        toolbar.setTitle(R.string.fst_name);
+        if (Build.VERSION.SDK_INT >= 16 && Build.VERSION.SDK_INT < 21)
+            dPicture = drawableResources.getDrawable(R.drawable.faculties_fpas_dean);
+        else
+            dPicture = drawableResources.getDrawable(R.drawable.faculties_fpas_dean, null);
+        dean.setImageDrawable(dPicture);
+        facultySnippet.setText(getResources().getStringArray(R.array.fst_info)[3]);
+
+        return v;
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public View layoutMedSci(View v){
+        toolbar.setTitle(R.string.medsci_name);
+        if (Build.VERSION.SDK_INT >= 16 && Build.VERSION.SDK_INT < 21)
+            dPicture = drawableResources.getDrawable(R.drawable.faculties_medsci_dean);
+        else
+            dPicture = drawableResources.getDrawable(R.drawable.faculties_medsci_dean, null);
+        dean.setImageDrawable(dPicture);
+        facultySnippet.setText(getResources().getStringArray(R.array.medsci_info)[3]);
+
+        return v;
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public View layoutLaw(View v){
+        toolbar.setTitle(R.string.law_name);
+        if (Build.VERSION.SDK_INT >= 16 && Build.VERSION.SDK_INT < 21)
+            dPicture = drawableResources.getDrawable(R.drawable.faculties_law_dean);
+        else
+            dPicture = drawableResources.getDrawable(R.drawable.faculties_law_dean, null);
+        dean.setImageDrawable(dPicture);
+        facultySnippet.setText(getResources().getStringArray(R.array.law_info)[3]);
+        return v;
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public View layoutSoSci(View v){
+        toolbar.setTitle(R.string.socsci_name);
+        if (Build.VERSION.SDK_INT >= 16 && Build.VERSION.SDK_INT < 21)
+            dPicture = drawableResources.getDrawable(R.drawable.faculties_sosci_dean);
+        else
+            dPicture = drawableResources.getDrawable(R.drawable.faculties_sosci_dean, null);
+        dean.setImageDrawable(dPicture);
+        facultySnippet.setText(getResources().getStringArray(R.array.sosci_info)[3]);
+
+        return v;
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public View layoutHumEd(View v){
+        toolbar.setTitle(R.string.humed_name);
+        if (Build.VERSION.SDK_INT >= 16 && Build.VERSION.SDK_INT < 21)
+            dPicture = drawableResources.getDrawable(R.drawable.faculties_humed_dean);
+        else
+            dPicture = drawableResources.getDrawable(R.drawable.faculties_humed_dean, null);
+        dean.setImageDrawable(dPicture);
+        facultySnippet.setText(getResources().getStringArray(R.array.humed_info)[3]);
+
+        return v;
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mListener = (OnFragmentInteractionListener) activity;
+            mListener = (ToSocialMediaIntents) activity;
+            facultyHandbooks = (DownloadHandbook) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -105,6 +227,7 @@ public class Faculties extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
 
     /**
      * This interface must be implemented by activities that contain this
@@ -121,213 +244,20 @@ public class Faculties extends Fragment {
         public void onFragmentInteraction(Uri uri);
     }
 
-    @TargetApi(21)
-    private View lawLayout(View v){
-        Drawable deanPicture;
-        ImageView dean;
 
-        if (Build.VERSION.SDK_INT > 16 && Build.VERSION.SDK_INT < 21){
-            deanPicture = getResources().getDrawable(R.drawable.faculties_law_dean);
-        }
-        else{
-            deanPicture =getResources().getDrawable(R.drawable.faculties_law_dean, null);
-        }
+    public interface ToSocialMediaIntents{
+        public void toTwitter(View v);
 
-        dean = (ImageView)v.findViewById(R.id.dean);
-        dean.setImageDrawable(deanPicture);
+        public void toFacebook(View v);
 
-        return v;
+        public void toInstagram(View v);
     }
 
-    @TargetApi(21)
-    private View sosciLayout(View v){
-        Drawable deanPicture;
-        if (Build.VERSION.SDK_INT > 16 && Build.VERSION.SDK_INT < 21){
-            deanPicture = getResources().getDrawable(R.drawable.faculties_sosci_dean);
-        }
-        else{
-            deanPicture =getResources().getDrawable(R.drawable.faculties_sosci_dean, null);
-        }
-        dean.setImageDrawable(deanPicture);
-        return v;
+    public interface DownloadHandbook{
+        public boolean downloadFacultyHandbook(String uri, String faculty);
+
+        public boolean fileAlreadyExists(String filename);
     }
-
-    @TargetApi(21)
-    private View humedLayout(View v){
-        Drawable deanPicture;
-
-        if (Build.VERSION.SDK_INT > 16 && Build.VERSION.SDK_INT < 21){
-            deanPicture = getResources().getDrawable(R.drawable.faculties_humed_dean);
-        }
-        else{
-            deanPicture =getResources().getDrawable(R.drawable.faculties_humed_dean, null);
-        }
-        dean.setImageDrawable(deanPicture);
-
-
-        return v;
-    }
-
-    @TargetApi(21)
-    private View fstLayout(View v){
-        Drawable deanPicture;
-        if (Build.VERSION.SDK_INT > 16 && Build.VERSION.SDK_INT < 21){
-            deanPicture = getResources().getDrawable(R.drawable.faculties_fpas_dean);
-        }
-        else{
-            deanPicture =getResources().getDrawable(R.drawable.faculties_fpas_dean, null);
-        }
-        dean.setImageDrawable(deanPicture);
-        return v;
-    }
-
-    @TargetApi(21)
-    private View medsciLayout(View v){
-        Drawable deanPicture;
-
-        if (Build.VERSION.SDK_INT > 16 && Build.VERSION.SDK_INT < 21){
-            deanPicture = getResources().getDrawable(R.drawable.faculties_medsci_dean);
-        }
-        else{
-            deanPicture =getResources().getDrawable(R.drawable.faculties_medsci_dean, null);
-        }
-
-        dean.setImageDrawable(deanPicture);
-        return v;
-    }
-
-    class FacultyInformationList implements ExpandableListAdapter {
-        String[] informationGroups;
-        FacultyInformation[] groupsInfo;
-
-        public FacultyInformationList(String[] groups, FacultyInformation[] groupsInfo){
-            informationGroups = groups;
-            this.groupsInfo = groupsInfo;
-        }
-
-        public class FacultyInformation {
-            String[] formLinks;
-            String[] documentLinks;
-            Attributes socialMediaLinks;
-            String facultyHistorySnippet;
-
-            public FacultyInformation(String facultyHistorySnippet,
-                                      String[] formLinks,
-                                      String[] documentLinks,
-                                      Attributes socialMediaLinks){
-                this.facultyHistorySnippet = facultyHistorySnippet;
-                this.formLinks = formLinks;
-                this.documentLinks = documentLinks;
-                this.socialMediaLinks = socialMediaLinks;
-            }
-
-            public FacultyInformation(String[] resourceLinks,
-                                      String[] formLinks,
-                                      String[] documentLinks,
-                                      String[] socialMediaLinks){
-                this.formLinks = resourceLinks;
-            }
-
-        }
-
-        @Override
-        public void registerDataSetObserver(DataSetObserver observer) {
-
-        }
-
-        @Override
-        public void unregisterDataSetObserver(DataSetObserver observer) {
-
-        }
-
-        @Override
-        public int getGroupCount() {
-            return informationGroups.length;
-        }
-
-        @Override
-        public int getChildrenCount(int groupPosition) {
-            return 0;
-        }
-
-        @Override
-        public Object getGroup(int groupPosition) {
-            return null;
-        }
-
-        @Override
-        public Object getChild(int groupPosition, int childPosition) {
-            return null;
-        }
-
-        @Override
-        public long getGroupId(int groupPosition) {
-            return 0;
-        }
-
-        @Override
-        public long getChildId(int groupPosition, int childPosition) {
-            return 0;
-        }
-
-        @Override
-        public boolean hasStableIds() {
-            return false;
-        }
-
-        @Override
-        public View getGroupView(int groupPosition,
-                                 boolean isExpanded,
-                                 View convertView,
-                                 ViewGroup parent) {
-            return null;
-        }
-
-        @Override
-        public View getChildView(int groupPosition,
-                                 int childPosition,
-                                 boolean isLastChild,
-                                 View convertView,
-                                 ViewGroup parent) {
-            return null;
-        }
-
-        @Override
-        public boolean isChildSelectable(int groupPosition, int childPosition) {
-            return false;
-        }
-
-        @Override
-        public boolean areAllItemsEnabled() {
-            return true;
-        }
-
-        @Override
-        public boolean isEmpty() {
-            return false;
-        }
-
-        @Override
-        public void onGroupExpanded(int groupPosition) {
-
-        }
-
-        @Override
-        public void onGroupCollapsed(int groupPosition) {
-
-        }
-
-        @Override
-        public long getCombinedChildId(long groupId, long childId) {
-            return 0;
-        }
-
-        @Override
-        public long getCombinedGroupId(long groupId) {
-            return 0;
-        }
-    }
-
 
 }
 

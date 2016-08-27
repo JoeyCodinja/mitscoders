@@ -1,35 +1,53 @@
 package mits.uwi.com.ourmobileenvironment;
 
 import android.app.Activity;
+
+import android.app.DownloadManager;
 import android.content.Intent;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
+
+import java.io.File;
 
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.ChooseFacultyFragment;
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.UWIInformationFragments.*;
 
 public class CampusInformationSubActivity extends AppCompatActivity
         implements CampusLife.OnFragmentInteractionListener,
-        History.OnFragmentInteractionListener,
-        HousingAccomodation.OnFragmentInteractionListener,
-        Faculties.OnFragmentInteractionListener,
-        Facilities.OnFragmentInteractionListener
-        {
+                    Faculties.OnFragmentInteractionListener,
+                    History.OnFragmentInteractionListener,
+                    Facilities.OnFragmentInteractionListener,
+                    HousingAccomodation.OnFragmentInteractionListener,
+                    Faculties.ToSocialMediaIntents,
+                    Faculties.DownloadHandbook
+                    {
 
     FragmentManager fm;
     Fragment fragment;
+    ActionBar toolbar;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_campus_information_sub);
+        toolbar = getSupportActionBar();
+
+        if (toolbar != null){
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+        }
+
 
         Intent fromCampusActivityMain = getIntent();
         Integer toWhichCampusInformationSub = fromCampusActivityMain
@@ -42,23 +60,29 @@ public class CampusInformationSubActivity extends AppCompatActivity
             switch(toWhichCampusInformationSub){
                 case R.id.to_campus_life:
                     fragment = CampusLife.newInstance();
+                    toolbar.setTitle(R.string.to_campus_life);
                     break;
                 case R.id.to_campus_housing:
                     fragment = HousingAccomodation.newInstance();
+                    toolbar.setTitle(R.string.to_campus_housing);
                     break;
                 case R.id.to_campus_facilities:
                     fragment = Facilities.newInstance();
+                    toolbar.setTitle(R.string.to_campus_facilities);
                     break;
                 case R.id.to_faculties:
                     fragment = ChooseFacultyFragment.newInstance();
+                    toolbar.setTitle(R.string.to_faculties);
                     break;
                 case R.id.to_history:
                     fragment = History.newInstance();
+                    toolbar.setTitle(R.string.to_history);
                     break;
             }
 
             fm.beginTransaction()
                     .add(R.id.campus_sub_fragment, fragment)
+                    .addToBackStack(null)
                     .commit();
         }
     }
@@ -75,6 +99,7 @@ public class CampusInformationSubActivity extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+              Log.d("CampusSubInfoFragment", String.valueOf(this.fragment.getId()));
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -85,8 +110,111 @@ public class CampusInformationSubActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+
     @Override
     public void onFragmentInteraction(Uri uri) {
-        Log.d("CampusSubInfoFragment", String.valueOf(this.fragment.getId()));
+
     }
+
+    @Override
+    public void onBackPressed(){
+        FragmentManager fm = getFragmentManager();
+        if (this.fragment instanceof ChooseFacultyFragment){
+            toolbar.setTitle(R.string.to_faculties);
+            fm.popBackStack();
+        }
+        super.onBackPressed();
+    }
+
+    public ActionBar getToolbar(){
+        return toolbar;
+    }
+
+    @Override
+    public void toTwitter(View v){
+        String url = (String)v.getTag();
+        if (url != null && !url.equals("")){
+            Intent i = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(url));
+            startActivity(i);
+        }
+        else
+            showURLErrorToast();
+    }
+
+    @Override
+    public void toFacebook(final View v) {
+        String url = (String)v.getTag();
+        if (url != null && !url.equals("")){
+            Intent i = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(url));
+            startActivity(i);
+        }
+        else
+            showURLErrorToast();
+    }
+
+    @Override
+    public void toInstagram(View v) {
+        String url = (String) v.getTag();
+        if (url != null && !url.equals("")) {
+            Intent i = new Intent(Intent.ACTION_VIEW).setData(Uri.parse(url));
+            startActivity(i);
+        }
+        else
+            showURLErrorToast();
+    }
+
+
+
+    private void showURLErrorToast(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(),
+                        R.string.sub_information_url_error,
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    @Override
+    public boolean fileAlreadyExists(String filename){
+                            File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+
+                            for (File file: dir.listFiles()){
+                                if (file.getName() == filename)
+                                    return true;
+                            }
+
+                            return false;
+                        }
+
+    @Override
+    public boolean downloadFacultyHandbook(String uri, String faculty){
+        Uri handBookDL  = new Uri.Builder().opaquePart(uri).build();
+
+        DownloadManager.Request progGuidelinesReq =
+                new DownloadManager.Request(handBookDL);
+
+        String filename = faculty;
+        // check to see if a file already exists
+        // if it does .. don't go through with the download
+        // if it doesn't ... go through with the download
+
+        filename += "faculty_handbook.pdf ";
+
+
+        if (fileAlreadyExists(filename))
+            return false;
+
+
+        progGuidelinesReq = progGuidelinesReq
+                .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,
+                        filename);
+        DownloadManager dlManager  = (DownloadManager)getSystemService(DOWNLOAD_SERVICE);
+        dlManager.enqueue(progGuidelinesReq);
+
+        return true;
+
+    }
+
 }

@@ -6,5 +6,6 @@ package mits.uwi.com.ourmobileenvironment;
 public class DeveloperKey {
 
     public final static String YOUTUBE_APIKEY = "AIzaSyACbaYTwu7uTaXXj9LGvRHW3iEFRr9RKHc";
+    public final static String MAPS_APIKEY = "AIzaSyAH12ZiI6phpy-9wHf65lpWvJv1lU2R6Hg";
 
 }

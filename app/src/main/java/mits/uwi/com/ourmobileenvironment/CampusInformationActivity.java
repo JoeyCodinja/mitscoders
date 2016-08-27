@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatCallback;
 import android.support.v7.app.AppCompatDelegate;
@@ -38,7 +39,7 @@ import mits.uwi.com.ourmobileenvironment.adapters.CampusInfoViewPagerAdapter;
 import java.util.jar.Attributes;
 
 
-public class CampusInformationActivity extends Activity implements AppCompatCallback{
+public class CampusInformationActivity extends AppCompatActivity implements AppCompatCallback{
 
     public final static String TO_WHERE_INT =
             "com.ourmobileenvironment.campusinformationfragments.TO_WHERE";
@@ -66,15 +67,15 @@ public class CampusInformationActivity extends Activity implements AppCompatCall
     @Override
     @TargetApi(21)
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_campus_info2);
+        getSupportActionBar().setTitle(R.string.title_activity_campus_information);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         group_headings = getResources().getStringArray(R.array.campus_info_snippet_titles);
         group_bodies = getResources().getStringArray(R.array.campus_info_snippet_body);
-        super.onCreate(savedInstanceState);
-        AppCompatDelegate appCompatDelegate = AppCompatDelegate.create(this, this);
-        appCompatDelegate.onCreate(savedInstanceState);
-        appCompatDelegate.setContentView(R.layout.fragment_campus_info2);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.campus_info_toolbar);
-        appCompatDelegate.setSupportActionBar(toolbar);
 
         if (Build.VERSION.SDK_INT >= 16 && Build.VERSION.SDK_INT < 21){
             indicatorSelected = getResources().getDrawable(R.drawable.indicators_selected);
@@ -84,10 +85,20 @@ public class CampusInformationActivity extends Activity implements AppCompatCall
             indicatorSelected = getResources().getDrawable(R.drawable.indicators, null);
         }
 
-//        adapter = new CampusInfoViewPagerAdapter(getFragmentManager(),
-//                                                 group_headings,
-//                                                 group_bodies,
-//                                                 group_headings.length);
+//        newAdapter = new CampusInfoViewFlipperAdapter(group_headings,
+//                                                   group_bodies,
+//                                                   this.getApplicationContext());
+
+        adapter = new CampusInfoViewPagerAdapter(getSupportFragmentManager(),
+                                                 group_headings,
+                                                 group_bodies,
+                                                 group_headings.length);
+
+//        mCampusInfoFlipper = (AdapterViewFlipper)findViewById(R.id.campus_info_flipper);
+//        mCampusInfoFlipper.setAdapter(newAdapter);
+
+        mCampusInfo_ViewPager = (ViewPager)findViewById(R.id.campus_info_viewpager);
+        mCampusInfo_ViewPager.setAdapter(adapter);
 
         newAdapter = new CampusInfoViewFlipperAdapter(group_headings,
                                                       group_bodies,
@@ -175,8 +186,8 @@ public class CampusInformationActivity extends Activity implements AppCompatCall
     @Override
     public void onDestroy(){
         super.onDestroy();
-//        mCampusInfo_ViewPager.clearOnPageChangeListeners();
-//        viewPagerSwipeHandler.removeCallbacks(null);
+        mCampusInfo_ViewPager.clearOnPageChangeListeners();
+        viewPagerSwipeHandler.removeCallbacks(null);
     }
     @Override
     public void onConfigurationChanged(Configuration newConfig) {

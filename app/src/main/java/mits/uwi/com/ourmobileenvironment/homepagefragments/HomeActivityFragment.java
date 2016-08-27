@@ -79,7 +79,7 @@ public class HomeActivityFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_landing, container, false);
         final FrameLayout shade = (FrameLayout) v.findViewById(R.id.shade);
-        RelativeLayout fabHolder = (RelativeLayout) v.findViewById(fabIDs[0]).getParent();
+        final RelativeLayout fabHolder = (RelativeLayout) v.findViewById(fabIDs[1]).getParent();
 
         shade.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -128,10 +128,6 @@ public class HomeActivityFragment extends Fragment {
                                 i = new Intent(getActivity(), EateriesActivity.class);
                                 startActivity(i);
                                 break;
-//                            case R.id.boss_fab:
-//                                i = new Intent(getActivity(), BOSSActivity.class);
-//                                startActivity(i);
-//                                break;
                             case R.id.sas_fab:
                                 i = new Intent(getActivity(), UnavailableActivity.class); //SAS_Splash.class);
                                 startActivity(i);
@@ -150,6 +146,7 @@ public class HomeActivityFragment extends Fragment {
                 if (!mMenuExpanded) {
                     shade.setVisibility(View.VISIBLE);
                     shade.animate().alpha(1).setDuration(150);
+                    fabHolder.setVisibility(View.VISIBLE);
                     for (int fab = 1; fab <= mFABs.size() - 1; fab++) {
                         if (mFABs.get(fab).getAlpha() == 0){
                             mFABs.get(fab).setVisibility(View.VISIBLE);
@@ -176,6 +173,7 @@ public class HomeActivityFragment extends Fragment {
                         mFABs.get(fab).setVisibility(View.GONE);
                     }
                     shade.setVisibility(View.GONE);
+                    fabHolder.setVisibility(View.GONE);
                     v.setClickable(true);
                     mMenuExpanded = false;
                 }
