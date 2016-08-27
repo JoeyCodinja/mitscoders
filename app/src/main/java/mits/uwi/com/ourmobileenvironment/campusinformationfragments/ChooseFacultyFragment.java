@@ -22,7 +22,7 @@ public class ChooseFacultyFragment extends Fragment {
             R.id.fst_faculty_chosen,
             R.id.humed_faculty_chosen,
             R.id.law_faculty_chosen,
-            R.id.sosci_faculty_chosen};
+            R.id.socsci_faculty_chosen};
 
 
     public static ChooseFacultyFragment newInstance(){
@@ -63,7 +63,7 @@ public class ChooseFacultyFragment extends Fragment {
                         case R.id.law_faculty_chosen:
                             toWhere = "LAW";
                             break;
-                        case R.id.sosci_faculty_chosen:
+                        case R.id.socsci_faculty_chosen:
                             toWhere = "SOC";
                             break;
                         case R.id.humed_faculty_chosen:

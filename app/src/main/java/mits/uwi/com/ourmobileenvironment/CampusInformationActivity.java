@@ -100,70 +100,64 @@ public class CampusInformationActivity extends AppCompatActivity implements AppC
         mCampusInfo_ViewPager = (ViewPager)findViewById(R.id.campus_info_viewpager);
         mCampusInfo_ViewPager.setAdapter(adapter);
 
-        newAdapter = new CampusInfoViewFlipperAdapter(group_headings,
-                                                      group_bodies,
-                                                      this);
 
-//        mCampusInfo_ViewPager = (ViewPager)findViewById(R.id.campus_info_viewpager);
-//        mCampusInfo_ViewPager.setAdapter(adapter);
-
-        mCampusInfoFlipper = (AdapterViewFlipper) findViewById(R.id.campus_info_flipper);
-        mCampusInfoFlipper.setAdapter(newAdapter);
-        mCampusInfoFlipper.setAutoStart(true);
-        mCampusInfoFlipper.setOnTouchListener(new View.OnTouchListener(){
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                float initX = event.getX();
-                if (event.getAction() == MotionEvent.ACTION_MOVE){
-                    if (event.getHistorySize() > 0){
-                        int historySize = event.getHistorySize();
-                        int pointerCount = event.getPointerCount();
-                        for (int i=0; i< historySize; i++){
-                            float nextX = event.getHistoricalX(i);
-                            if (nextX > initX){
-                                // Swipe Right
-                                mCampusInfoFlipper.showNext();
-                                return true;
-                            }
-                            else if (nextX < initX){
-                                //Swipe Left
-                                mCampusInfoFlipper.showPrevious();
-                                return true;
-                            }
-                        }
-                    }
-                }
-
-                return false;
-            }
-        });
-
-//        indicators  = new Attributes(adapter.getCount());
-
-//        mCampusInfo_ViewPager.addOnPageChangeListener(new CampusInfoViewPagerPageChangeListener());
-//
-//        FrameLayout viewPagerParent = (FrameLayout)mCampusInfo_ViewPager.getParent();
-//        viewPagerParent.addView(createViewPagerIndicator(group_headings.length));
-//
-//        // Allows the View Pager to swipe automatically
-//        viewPagerSwipeHandler = new Handler();
-//        Runnable viewPagerSwipeRunnable = new Runnable() {
+//        mCampusInfoFlipper = (AdapterViewFlipper) findViewById(R.id.campus_info_flipper);
+//        mCampusInfoFlipper.setAdapter(newAdapter);
+//        mCampusInfoFlipper.setAutoStart(true);
+//        mCampusInfoFlipper.setOnTouchListener(new View.OnTouchListener(){
 //            @Override
-//            public void run() {
-//                if (mCampusInfo_ViewPager.getChildCount() == 0){
-//                    viewPagerSwipeHandler.removeCallbacks(this);
-//                    return;
+//            public boolean onTouch(View v, MotionEvent event) {
+//                float initX = event.getX();
+//                if (event.getAction() == MotionEvent.ACTION_MOVE){
+//                    if (event.getHistorySize() > 0){
+//                        int historySize = event.getHistorySize();
+//                        int pointerCount = event.getPointerCount();
+//                        for (int i=0; i< historySize; i++){
+//                            float nextX = event.getHistoricalX(i);
+//                            if (nextX > initX){
+//                                // Swipe Right
+//                                mCampusInfoFlipper.showNext();
+//                                return true;
+//                            }
+//                            else if (nextX < initX){
+//                                //Swipe Left
+//                                mCampusInfoFlipper.showPrevious();
+//                                return true;
+//                            }
+//                        }
+//                    }
 //                }
-//                mCampusInfo_ViewPager
-//                        .setCurrentItem(
-//                                (mCampusInfo_ViewPager.getCurrentItem() + 1) %
-//                                        mCampusInfo_ViewPager.getChildCount());
-//                viewPagerSwipeHandler.postDelayed(this, 10000);
 //
+//                return false;
 //            }
-//        };
-//
-//        viewPagerSwipeHandler.postDelayed(viewPagerSwipeRunnable, 10000);
+//        });
+
+        indicators  = new Attributes(adapter.getCount());
+
+        mCampusInfo_ViewPager.addOnPageChangeListener(new CampusInfoViewPagerPageChangeListener());
+
+        FrameLayout viewPagerParent = (FrameLayout)mCampusInfo_ViewPager.getParent();
+        viewPagerParent.addView(createViewPagerIndicator(group_headings.length));
+
+        // Allows the View Pager to swipe automatically
+        viewPagerSwipeHandler = new Handler();
+        Runnable viewPagerSwipeRunnable = new Runnable() {
+            @Override
+            public void run() {
+                if (mCampusInfo_ViewPager.getChildCount() == 0){
+                    viewPagerSwipeHandler.removeCallbacks(this);
+                    return;
+                }
+                mCampusInfo_ViewPager
+                        .setCurrentItem(
+                                (mCampusInfo_ViewPager.getCurrentItem() + 1) %
+                                        mCampusInfo_ViewPager.getChildCount());
+                viewPagerSwipeHandler.postDelayed(this, 10000);
+
+            }
+        };
+
+        viewPagerSwipeHandler.postDelayed(viewPagerSwipeRunnable, 10000);
 
         // Sets up each button report to the SubInformation Activity when it is touched
         for ( int button_id: campusInfoSub){

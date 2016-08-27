@@ -216,7 +216,7 @@ public class HomeVideosFragment
             super.onCreate(savedInstanceState);
             // Initializes the new player
             initialize(DeveloperKey.YOUTUBE_APIKEY, this);
-            this.setVideoId("o-PSrpqu2s0");
+            this.setVideoId("23DvON5nk6Y");
         }
 
         @Override
