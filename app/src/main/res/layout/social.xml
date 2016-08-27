@@ -3,27 +3,7 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<<<<<<< Updated upstream
-    <ImageButton
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:src="@drawable/facebook"
-        />
 
-    <ImageButton
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:src="@drawable/twitter"/>
-
-    <ImageButton
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:src="@drawable/instagram"/>
-
-=======
     <ImageView
         android:contentDescription="@string/social_twitter"
         android:id="@+id/twitterButton"
@@ -56,6 +36,6 @@
         android:src="@drawable/instagram"
         android:scaleType="fitXY"
         android:layout_gravity="center_horizontal"/>
->>>>>>> Stashed changes
+
 
 </LinearLayout>
