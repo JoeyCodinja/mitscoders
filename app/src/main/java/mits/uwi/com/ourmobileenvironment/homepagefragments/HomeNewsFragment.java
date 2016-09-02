@@ -235,7 +235,7 @@ public class HomeNewsFragment extends Fragment {
                                 transferrableBitmap);
                         byte[] imageInBytes = transferrableBitmap.toByteArray();
 
-                        viewArticleIntent.putExtra("news_images", imageInBytes);
+                        viewArticleIntent.  putExtra("news_images", imageInBytes);
 
                         startActivity(viewArticleIntent);
                     }

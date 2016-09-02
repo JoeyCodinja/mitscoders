@@ -5,10 +5,12 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.DimenRes;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
@@ -17,6 +19,7 @@ import android.support.v7.app.AppCompatCallback;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.DragEvent;
 import android.view.GestureDetector;
 import android.view.Gravity;
@@ -39,20 +42,19 @@ import mits.uwi.com.ourmobileenvironment.adapters.CampusInfoViewPagerAdapter;
 import java.util.jar.Attributes;
 
 
-public class CampusInformationActivity extends AppCompatActivity implements AppCompatCallback{
+public class CampusInformationActivity extends AppCompatActivity{
 
     public final static String TO_WHERE_INT =
             "com.ourmobileenvironment.campusinformationfragments.TO_WHERE";
 
     private Drawable indicatorSelected, indicatorUnselected;
-    private Attributes indicators;
 
     private Handler viewPagerSwipeHandler;
 
     private String[] group_headings;
     private String[] group_bodies;
 
-    private  ViewPager mCampusInfo_ViewPager;
+    private ViewPager mCampusInfo_ViewPager;
     private AdapterViewFlipper mCampusInfoFlipper;
 
     private CampusInfoViewPagerAdapter adapter;
@@ -73,34 +75,28 @@ public class CampusInformationActivity extends AppCompatActivity implements AppC
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
         group_headings = getResources().getStringArray(R.array.campus_info_snippet_titles);
         group_bodies = getResources().getStringArray(R.array.campus_info_snippet_body);
 
         if (Build.VERSION.SDK_INT >= 16 && Build.VERSION.SDK_INT < 21){
-            indicatorSelected = getResources().getDrawable(R.drawable.indicators_selected);
-            indicatorUnselected = getResources().getDrawable(R.drawable.indicators);
+            indicatorSelected = getResources().getDrawable(R.drawable.selected_circle);
+            indicatorUnselected = getResources().getDrawable(R.drawable.unselected_circle);
         } else {
-            indicatorSelected = getResources().getDrawable(R.drawable.indicators_selected, null);
-            indicatorSelected = getResources().getDrawable(R.drawable.indicators, null);
+            indicatorSelected = getResources().getDrawable(R.drawable.selected_circle, null);
+            indicatorUnselected = getResources().getDrawable(R.drawable.unselected_circle, null);
         }
 
 //        newAdapter = new CampusInfoViewFlipperAdapter(group_headings,
 //                                                   group_bodies,
 //                                                   this.getApplicationContext());
-
         adapter = new CampusInfoViewPagerAdapter(getSupportFragmentManager(),
                                                  group_headings,
                                                  group_bodies,
                                                  group_headings.length);
-
 //        mCampusInfoFlipper = (AdapterViewFlipper)findViewById(R.id.campus_info_flipper);
 //        mCampusInfoFlipper.setAdapter(newAdapter);
-
         mCampusInfo_ViewPager = (ViewPager)findViewById(R.id.campus_info_viewpager);
         mCampusInfo_ViewPager.setAdapter(adapter);
-
-
 //        mCampusInfoFlipper = (AdapterViewFlipper) findViewById(R.id.campus_info_flipper);
 //        mCampusInfoFlipper.setAdapter(newAdapter);
 //        mCampusInfoFlipper.setAutoStart(true);
@@ -130,14 +126,11 @@ public class CampusInformationActivity extends AppCompatActivity implements AppC
 //
 //                return false;
 //            }
-//        });
-
-        indicators  = new Attributes(adapter.getCount());
-
+//        }
         mCampusInfo_ViewPager.addOnPageChangeListener(new CampusInfoViewPagerPageChangeListener());
 
         FrameLayout viewPagerParent = (FrameLayout)mCampusInfo_ViewPager.getParent();
-        viewPagerParent.addView(createViewPagerIndicator(group_headings.length));
+        viewPagerParent.addView(createViewPagerIndicator(group_headings.length), 1);
 
         // Allows the View Pager to swipe automatically
         viewPagerSwipeHandler = new Handler();
@@ -151,7 +144,7 @@ public class CampusInformationActivity extends AppCompatActivity implements AppC
                 mCampusInfo_ViewPager
                         .setCurrentItem(
                                 (mCampusInfo_ViewPager.getCurrentItem() + 1) %
-                                        mCampusInfo_ViewPager.getChildCount());
+                                        adapter.getCount());
                 viewPagerSwipeHandler.postDelayed(this, 10000);
 
             }
@@ -183,47 +176,11 @@ public class CampusInformationActivity extends AppCompatActivity implements AppC
         mCampusInfo_ViewPager.clearOnPageChangeListeners();
         viewPagerSwipeHandler.removeCallbacks(null);
     }
+
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_eateries, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onSupportActionModeStarted(ActionMode mode){
-
-    }
-
-    @Override
-    public void onSupportActionModeFinished(ActionMode mode){
-
-    }
-
-    @Nullable
-    @Override
-    public ActionMode onWindowStartingSupportActionMode(ActionMode.Callback callback){
-        return null;
     }
 
     public void indicate(int index){
@@ -238,21 +195,20 @@ public class CampusInformationActivity extends AppCompatActivity implements AppC
     public void indicate(int index, ViewParent viewParent){
         FrameLayout frame = (FrameLayout)viewParent;
         LinearLayout indicatorLayout = (LinearLayout)frame.getChildAt(1);
-        View view =  indicatorLayout.getChildAt(index);
-        view.setBackground(indicatorSelected);
-        indicators.putValue(String.valueOf(view.getId()),
-                String.valueOf(true));
+        ImageView view =  (ImageView)indicatorLayout.getChildAt(index);
+        view.setImageDrawable(indicatorSelected);
+        view.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        view.setTag(String.valueOf(true));
 
         for(int other_views=0;
-            other_views < frame.getChildCount()-1;
+            other_views < indicatorLayout.getChildCount();
             other_views ++){
             if (other_views != index){
-                view = indicatorLayout.getChildAt(other_views);
-                if (Boolean.valueOf(indicators.getValue(String.valueOf(view.getId())))){
-                    view.setBackground(indicatorUnselected);
-                    indicators.putValue(String.valueOf(view.getId()),
-                            String.valueOf(false));
-                    break;
+                view = (ImageView)indicatorLayout.getChildAt(other_views);
+                if (Boolean.valueOf((String)view.getTag())){
+                    view.setImageDrawable(indicatorUnselected);
+                    view.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+                    view.setTag(String.valueOf(false));
                 }
             }
         }
@@ -266,50 +222,48 @@ public class CampusInformationActivity extends AppCompatActivity implements AppC
         indicatorGroup.setOrientation(LinearLayout.HORIZONTAL);
         FrameLayout.LayoutParams indicatorGroupLayoutParams =
                 new FrameLayout.LayoutParams(
-                        LinearLayout.LayoutParams.WRAP_CONTENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT);
+                        FrameLayout.LayoutParams.MATCH_PARENT,
+                        (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                                                       20f,
+                                                       getResources().getDisplayMetrics()),
+                        Gravity.CENTER|Gravity.BOTTOM);
         indicatorGroup.setLayoutParams(indicatorGroupLayoutParams);
-        indicatorGroupLayoutParams.gravity = Gravity.CENTER_VERTICAL | Gravity.BOTTOM;
 
         for (int view=0; view < magnitude; view++){
             LinearLayout.LayoutParams indicatorLayoutParams =
                     new LinearLayout.LayoutParams(
-                            (int) getResources().getDimension(R.dimen.indicator_height),
-                            (int) getResources().getDimension(R.dimen.indicator_width));
-            indicatorLayoutParams.gravity= Gravity.CENTER;
+                            (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                                                           20f,
+                                                           getResources().getDisplayMetrics()),
+                            (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                                                           20f,
+                                                           getResources().getDisplayMetrics()),
+                            1.0f);
 
-            indicatorSet[view] = new CircularImageView(indicatorGroup.getContext());
+            indicatorSet[view] = new ImageView(getApplicationContext());
             Drawable indicatorImage;
 
-            int indicatorShapeID;
 
             if (view == 0){
-                indicatorShapeID = R.drawable.indicators_selected;
-                indicators.putValue(String.valueOf(indicatorSet[view].getId()),
-                        String.valueOf(true));
+                indicatorImage = indicatorSelected;
+                indicatorSet[view].setTag(String.valueOf(true));
             }
             else {
-                indicatorShapeID = R.drawable.indicators;
-                indicators.putValue(String.valueOf(indicatorSet[view].getId()),
-                        String.valueOf(false));
+                indicatorImage = indicatorUnselected;
+                indicatorSet[view].setTag(String.valueOf(false));
             }
+            System.out.print("indicatorId " + String.valueOf(indicatorSet[view].getId()));
 
-            if (Build.VERSION.SDK_INT >= 16 && Build.VERSION.SDK_INT < 21)
-                // Deprecated;
-                indicatorImage = getResources().getDrawable(indicatorShapeID);
-            else
-                indicatorImage = getResources().getDrawable(indicatorShapeID, null);
-
-            indicatorSet[view].setBackground(indicatorImage);
+            indicatorSet[view].setImageDrawable(indicatorImage);
+            indicatorSet[view].setScaleType(ImageView.ScaleType.CENTER_INSIDE);
             indicatorSet[view].setLayoutParams(indicatorLayoutParams);
-            indicatorSet[view].setPadding(2, 0, 2, 0);
             indicatorGroup.addView(indicatorSet[view]);
-        };
-
+        }
         return indicatorGroup;
     }
 
-    public class CampusInfoViewPagerPageChangeListener implements ViewPager.OnPageChangeListener{
+    public class CampusInfoViewPagerPageChangeListener
+            implements ViewPager.OnPageChangeListener{
 
         @Override
         public void onPageScrollStateChanged(int state){

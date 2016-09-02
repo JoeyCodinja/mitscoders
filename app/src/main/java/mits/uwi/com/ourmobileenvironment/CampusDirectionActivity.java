@@ -1,32 +1,28 @@
 package mits.uwi.com.ourmobileenvironment;
 
-import android.annotation.TargetApi;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.location.GpsStatus;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
+import android.content.res.XmlResourceParser;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.internal.IGoogleMapDelegate;
-import com.google.maps.DirectionsApi;
-import com.google.maps.DirectionsApiRequest;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.jar.Attributes;
 
 import mits.uwi.com.ourmobileenvironment.adapters.DirectionAdapter;
 
@@ -43,20 +39,24 @@ public class CampusDirectionActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Directions");
+        getSupportActionBar().setTitle("Take me to");
 
         ListView locationsListView = (ListView) findViewById(R.id.directionLocationsList);
-        adapter = new DirectionAdapter(buildLocations());
+        try {
+            adapter = new DirectionAdapter(buildLocations(this));
+        } catch (XmlPullParserException | IOException e) {
+            e.printStackTrace();
+        }
         locationsListView.setAdapter(adapter);
         locationsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -70,33 +70,57 @@ public class CampusDirectionActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
+        ProgressBar pbView = (ProgressBar)findViewById(R.id.pb_campus_direction);
+        ViewGroup pbParent = (ViewGroup)pbView.getParent();
+        pbParent.removeView(pbView);
+        locationsListView.setVisibility(View.VISIBLE);
     }
 
-    private ArrayList<ArrayList<String>> buildLocations(){
-        locations = new ArrayList<>();
-        ArrayList<String> locationNames = new ArrayList<String>();
-        ArrayList<String> locationCoords = new ArrayList<String>();
+    private ArrayList<ArrayList<String>> buildLocations(Context context)
+            throws XmlPullParserException, IOException{
+            XmlResourceParser tbt_locations =
+                    getResources().getXml(R.xml.tbt_locations);
+            locations = new ArrayList<>();
+            ArrayList<String> locationNames = new ArrayList<>();
+            ArrayList<String> locationCoords = new ArrayList<>();
+            ArrayList<String> locationCategory = new ArrayList<>();
+
+            while (tbt_locations.getEventType() != XmlResourceParser.END_DOCUMENT){
+                String tag_name = tbt_locations.getName();
+                if (tbt_locations.getEventType() == XmlResourceParser.START_TAG){
+                    switch (tag_name) {
+                        case "Name":
+                            locationNames.add(tbt_locations.getAttributeValue(0));
+                            break;
+                        case "Category":
+                            locationCategory.add(tbt_locations.getAttributeValue(0));
+                            break;
+                        case "Coords":
+                            String coordinates;
+                            coordinates = tbt_locations.getAttributeValue(0) +
+                                    ',' +
+                                    tbt_locations.getAttributeValue(1);
+                            locationCoords.add(coordinates);
+                            break;
+                    }
+                }
+                tbt_locations.next();
+            }
+            tbt_locations.close();
 
 
-        locationNames.add("Assembly Hall");
-        locationNames.add("Students Administrative Services Building");
-        locationNames.add("Admissions Building");
+            for(String location: locationNames){
+                int index = locationNames.indexOf(location);
 
-        locationCoords.add("18.005613,-76.747324");
-        locationCoords.add("18.005822,-76.747504");
-        locationCoords.add("18.006057,- 76.747168");
+                ArrayList<String> locationInfo =
+                        new ArrayList<>(
+                                Arrays.asList(location,
+                                              locationCoords.get(index),
+                                              locationCategory.get(index)));
+                locations.add(locationInfo);
+            }
 
-
-        for(String location: locationNames){
-            int index = locationNames.indexOf(location);
-
-            ArrayList<String> locationInfo =
-                    new ArrayList<>(Arrays.asList(location, locationCoords.get(index)));
-            locations.add(locationInfo);
-        }
-
-        return locations;
+            return locations;
     }
 
 

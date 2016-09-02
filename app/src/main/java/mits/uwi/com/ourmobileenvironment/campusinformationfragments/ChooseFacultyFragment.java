@@ -1,7 +1,7 @@
 package mits.uwi.com.ourmobileenvironment.campusinformationfragments;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,8 +72,9 @@ public class ChooseFacultyFragment extends Fragment {
                     }
                     transaction.replace(((View)v.getParent().getParent()).getId(),
                                         Faculties.newInstance(toWhere));
-                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-                    transaction.addToBackStack("toFaculty");
+                    //noinspection WrongConstant
+                    transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                            .addToBackStack("toFaculty");
                     transaction.commit();
                 }
             });

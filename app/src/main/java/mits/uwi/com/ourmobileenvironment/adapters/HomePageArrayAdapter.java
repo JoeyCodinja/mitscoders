@@ -52,10 +52,10 @@ public class HomePageArrayAdapter extends ArrayAdapter<String> {
                 //Notifications
                 nav_image.setImageResource(R.drawable.ic_notifications_grey_24px);
                 break;
-            case "Directory":
-                //Directory
-                nav_image.setImageResource(R.drawable.ic_contact_phone_grey_24px);
-                break;
+//            case "Directory":
+//                //Directory
+//                nav_image.setImageResource(R.drawable.ic_contact_phone_grey_24px);
+//                break;
             case "Teaching Evaluations":
                 nav_image.setImageResource(R.drawable.ic_library_books_black_24dp);
                 break;
@@ -82,8 +82,8 @@ public class HomePageArrayAdapter extends ArrayAdapter<String> {
             case "Eateries":
                 nav_image.setImageResource(R.drawable.eateries_dark);
                 break;
-            case "Directions":
-                nav_image.setImageResource(R.drawable.ic_directions_black_24dp);
+            case "Campus Navigation":
+                nav_image.setImageResource(R.drawable.ic_directions_grey_24dp);
         }
 
         return rowView;

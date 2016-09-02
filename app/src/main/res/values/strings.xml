@@ -245,7 +245,7 @@
         <!--<item>E-mail</item>-->
         <!--<item>Notifications</item>-->
         <item>Teaching Evaluations</item>
-        <item>Directory</item>
+        <!--<item>Directory</item>-->
         <!--<item>Wi-Fi Finder</item>-->
         <!--<item>Emergency Services</item>-->
         <item>Student Administrative Services</item>
@@ -253,7 +253,7 @@
         <item>Transportation</item>
         <item>Campus Information</item>
         <item>Eateries</item>
-        <item>Directions</item>
+        <item>Campus Navigation</item>
     </string-array>
     <string-array name="FAB_menu_strings">
         <item>Student Administration System</item>
@@ -261,6 +261,7 @@
         <item>OurVLE</item>
         <item>Transportation</item>
         <item>Campus Information</item>
+        <item>Eateries</item>
     </string-array>
     <!-- Campus Sub Information Strings -->
     <!-- Faculties -->

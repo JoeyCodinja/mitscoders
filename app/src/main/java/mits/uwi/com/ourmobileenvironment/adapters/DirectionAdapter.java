@@ -70,6 +70,11 @@ public class DirectionAdapter implements ListAdapter{
         return item.get(1);
     }
 
+    public String getItemLocationCategory(int position){
+        ArrayList<String>item = (ArrayList<String>)getItem(position);
+        return item.get(2);
+    }
+
     @Override
     public long getItemId(int position) {
         return 0;

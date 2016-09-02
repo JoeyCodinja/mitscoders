@@ -4,8 +4,8 @@ import android.app.Activity;
 
 import android.app.DownloadManager;
 import android.content.Intent;
-import android.app.Fragment;
-import android.app.FragmentManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -21,6 +21,7 @@ import java.io.File;
 
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.ChooseFacultyFragment;
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.UWIInformationFragments.*;
+import mits.uwi.com.ourmobileenvironment.sas.unavailable.Fragment.UnavailableFragment;
 
 public class CampusInformationSubActivity extends AppCompatActivity
         implements CampusLife.OnFragmentInteractionListener,
@@ -53,21 +54,21 @@ public class CampusInformationSubActivity extends AppCompatActivity
         Integer toWhichCampusInformationSub = fromCampusActivityMain
                 .getIntExtra(CampusInformationActivity.TO_WHERE_INT, 0);
 
-        fm = getFragmentManager();
+        fm = getSupportFragmentManager();
         fragment = fm.findFragmentById(R.id.campus_sub_fragment);
 
         if (fragment == null){
             switch(toWhichCampusInformationSub){
                 case R.id.to_campus_life:
-                    fragment = CampusLife.newInstance();
+                    fragment = new UnavailableFragment();
                     toolbar.setTitle(R.string.to_campus_life);
                     break;
                 case R.id.to_campus_housing:
-                    fragment = HousingAccomodation.newInstance();
+                    fragment = new UnavailableFragment();
                     toolbar.setTitle(R.string.to_campus_housing);
                     break;
                 case R.id.to_campus_facilities:
-                    fragment = Facilities.newInstance();
+                    fragment = new UnavailableFragment();
                     toolbar.setTitle(R.string.to_campus_facilities);
                     break;
                 case R.id.to_faculties:
@@ -75,7 +76,7 @@ public class CampusInformationSubActivity extends AppCompatActivity
                     toolbar.setTitle(R.string.to_faculties);
                     break;
                 case R.id.to_history:
-                    fragment = History.newInstance();
+                    fragment = new UnavailableFragment();
                     toolbar.setTitle(R.string.to_history);
                     break;
             }
@@ -118,9 +119,16 @@ public class CampusInformationSubActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed(){
-        FragmentManager fm = getFragmentManager();
+        FragmentManager fm = getSupportFragmentManager();
         if (this.fragment instanceof ChooseFacultyFragment){
             toolbar.setTitle(R.string.to_faculties);
+            fm.popBackStack();
+            fm.beginTransaction()
+                    .replace(R.id.campus_sub_fragment,
+                             ChooseFacultyFragment.newInstance())
+                    .commit();
+        }
+        else{
             fm.popBackStack();
         }
         super.onBackPressed();
@@ -178,19 +186,19 @@ public class CampusInformationSubActivity extends AppCompatActivity
 
     @Override
     public boolean fileAlreadyExists(String filename){
-                            File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
 
-                            for (File file: dir.listFiles()){
-                                if (file.getName() == filename)
-                                    return true;
-                            }
+        for (File file: dir.listFiles()){
+            if (file.getName() == filename)
+                return true;
+        }
 
-                            return false;
-                        }
+        return false;
+    }
 
     @Override
     public boolean downloadFacultyHandbook(String uri, String faculty){
-        Uri handBookDL  = new Uri.Builder().opaquePart(uri).build();
+        Uri handBookDL = Uri.parse(uri);
 
         DownloadManager.Request progGuidelinesReq =
                 new DownloadManager.Request(handBookDL);
@@ -210,6 +218,9 @@ public class CampusInformationSubActivity extends AppCompatActivity
         progGuidelinesReq = progGuidelinesReq
                 .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,
                         filename);
+        progGuidelinesReq.setTitle(filename);
+        progGuidelinesReq.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        progGuidelinesReq.allowScanningByMediaScanner();
         DownloadManager dlManager  = (DownloadManager)getSystemService(DOWNLOAD_SERVICE);
         dlManager.enqueue(progGuidelinesReq);
 

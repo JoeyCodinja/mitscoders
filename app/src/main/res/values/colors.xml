@@ -4,7 +4,8 @@
     <color name="actionbar_background">#FF9800</color>
     <color name="white">#FFFFFF</color>
     <color name="tabstrip">#E35216</color>
-    <color name="actionbar_background_eateries">#B79F1C</color>
+    <color name="actionbar_background_campusinfo">#B79F1C</color>
+    <color name="eateries">#008005</color>
     <color name="blue_background">#476EDE</color>
     <color name="ColorPrimary">#b79f1c</color>
     <color name="ColorPrimaryDark">#c31c13</color>

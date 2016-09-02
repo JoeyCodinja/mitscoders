@@ -33,20 +33,35 @@
     </style>
 
     <style name="campusinfotheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:colorBackground">@color/actionbar_background_eateries</item>
-        <item name="background">@color/actionbar_background_eateries</item>
-        <item name="android:actionBarStyle">@style/eateries_bar</item>
-        <item name="actionBarStyle">@style/eateries_bar</item>
+        <item name="android:colorBackground">@color/actionbar_background_campusinfo</item>
+        <item name="background">@color/actionbar_background_campusinfo</item>
+        <item name="android:actionBarStyle">@style/campus_information</item>
+        <item name="actionBarStyle">@style/campus_information</item>
         <item name="android:windowContentOverlay">@null</item>
 
     </style>
 
-    <style name="eateries_bar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
-        <item name="android:colorBackground">@color/actionbar_background_eateries</item>
-        <item name="background">@color/actionbar_background_eateries</item>
+    <style name="campus_information" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
+        <item name="android:colorBackground">@color/actionbar_background_campusinfo</item>
+        <item name="background">@color/actionbar_background_campusinfo</item>
         <item name="elevation">0dp</item>
         <item name="android:textAppearance">@style/AppActionBarTitleText</item>
     </style>
+
+    <style name="eateries" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:actionBarStyle">@style/eateriesbar</item>
+        <item name="actionBarStyle">@style/eateriesbar</item>
+        <item name="android:colorBackground">@color/eateries</item>
+        <item name="background">@color/eateries</item>
+    </style>
+
+    <style name="eateriesbar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
+        <item name="background">@color/eateries</item>
+        <item name="android:colorBackground">@color/eateries</item>
+        <item name="elevation">0dp</item>
+        <item name="android:textAppearance">@style/AppActionBarTitleText</item>
+    </style>
+
 
     <style name="sas_bartheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:actionBarStyle">@style/white_bar</item>

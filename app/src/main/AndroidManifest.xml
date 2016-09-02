@@ -171,7 +171,7 @@
             android:name=".CampusInformationActivity"
             android:label="@string/title_activity_campus_information"
             android:parentActivityName=".HomeActivity"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+            android:theme="@style/campusinfotheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mits.uwi.com.ourmobileenvironment.HomeActivity" />
@@ -183,7 +183,15 @@
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
         </activity>
-
+            <activity
+                android:name=".CampusInformationSubActivity"
+                android:label="@string/title_activity_campus_information_sub"
+                android:parentActivityName=".CampusInformationActivity"
+                android:theme="@style/campusinfotheme">
+                <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="mits.uwi.com.ourmobileenvironment.CampusInformationActivity" />
+            </activity>
         <activity
             android:name=".CampusDirectoryActivity"
             android:label="@string/title_activity_campus_directory"
@@ -271,15 +279,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mits.uwi.com.ourmobileenvironment.HomeActivity" />
         </activity>
-        <activity
-            android:name=".CampusInformationSubActivity"
-            android:label="@string/title_activity_campus_information_sub"
-            android:parentActivityName=".CampusInformationActivity"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="mits.uwi.com.ourmobileenvironment.CampusInformationActivity" />
-        </activity>
+
         <activity
             android:name=".CampusDirectionActivity"
             android:label="@string/title_activity_campus_direction"
@@ -293,7 +293,7 @@
             android:name=".EateriesActivity"
             android:label="@string/title_activity_eateries"
             android:parentActivityName=".HomeActivity"
-            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar">
+            android:theme="@style/eateries">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mits.uwi.com.ourmobileenvironment.HomeActivity" />

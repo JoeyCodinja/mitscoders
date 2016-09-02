@@ -111,9 +111,9 @@ public class HomeActivity extends AppCompatActivity {
             case "Teaching Evaluations":
                 i = new Intent(this, TeachingEvalsActivity.class);
                 break;
-            case "Directory":
-                i = new Intent(this, DirectoryActivity.class);
-                break;
+//            case "Directory":
+//                i = new Intent(this, DirectoryActivity.class);
+//                break;
             case "Student Administrative Services":
                 i = new Intent(this, SAS_Splash.class);
                 break;
@@ -129,7 +129,7 @@ public class HomeActivity extends AppCompatActivity {
             case "Eateries":
                 i = new Intent(this, EateriesActivity.class);
                 break;
-            case "Directions":
+            case "Campus Navigation":
                 i = new Intent(this, CampusDirectionActivity.class);
                 break;
             default:
