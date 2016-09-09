@@ -50,7 +50,7 @@ public class HomeActivityFragment extends Fragment {
     public static Boolean mMenuExpanded = false;
 
     int[] fabIDs = {R.id.mainFab,
-            R.id.campus_info_fab,
+//            R.id.campus_info_fab,
             R.id.transport_fab,
             R.id.ourvle_fab,
             R.id.eateries_fab,
@@ -112,10 +112,10 @@ public class HomeActivityFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         switch (v.getId()) {
-                            case R.id.campus_info_fab:
-                                i = new Intent(getActivity(), CampusInformationActivity.class);
-                                startActivity(i);
-                                break;
+//                            case R.id.campus_info_fab:
+//                                i = new Intent(getActivity(), CampusInformationActivity.class);
+//                                startActivity(i);
+//                                break;
                             case R.id.transport_fab:
                                 i = new Intent(getActivity(), TransportActivity.class);
                                 startActivity(i);

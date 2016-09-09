@@ -114,21 +114,21 @@ public class HomeActivity extends AppCompatActivity {
 //            case "Directory":
 //                i = new Intent(this, DirectoryActivity.class);
 //                break;
-            case "Student Administrative Services":
-                i = new Intent(this, SAS_Splash.class);
-                break;
-            case "Our Virtual Learning Environment (OurVLE)":
-                i = new Intent(this, OurVLELoginActivity.class);
-                break;
-            case "Transnportation":
-                i = new Intent(this, TransportActivity.class);
-                break;
+//            case "Student Administrative Services":
+//                i = new Intent(this, SAS_Splash.class);
+//                break;
+//            case "Our Virtual Learning Environment (OurVLE)":
+//                i = new Intent(this, OurVLELoginActivity.class);
+//                break;
+//            case "Transnportation":
+//                i = new Intent(this, TransportActivity.class);
+//                break;
             case "Campus Information":
                 i = new Intent(this, CampusInformationActivity.class);
                 break;
-            case "Eateries":
-                i = new Intent(this, EateriesActivity.class);
-                break;
+//            case "Eateries":
+//                i = new Intent(this, EateriesActivity.class);
+//                break;
             case "Campus Navigation":
                 i = new Intent(this, CampusDirectionActivity.class);
                 break;
@@ -193,7 +193,7 @@ public class HomeActivity extends AppCompatActivity {
         }
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            return false;
         }
 
         return super.onOptionsItemSelected(item);

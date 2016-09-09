@@ -52,12 +52,12 @@ public class HomePageArrayAdapter extends ArrayAdapter<String> {
                 //Notifications
                 nav_image.setImageResource(R.drawable.ic_notifications_grey_24px);
                 break;
-//            case "Directory":
-//                //Directory
-//                nav_image.setImageResource(R.drawable.ic_contact_phone_grey_24px);
-//                break;
+            case "Directory":
+                //Directory
+                nav_image.setImageResource(R.drawable.ic_contact_phone_grey_24px);
+                break;
             case "Teaching Evaluations":
-                nav_image.setImageResource(R.drawable.ic_library_books_black_24dp);
+                nav_image.setImageResource(R.drawable.ic_library_books_grey_24dp);
                 break;
             case "Wi-Fi Finder":
                 //Wi-Fi Finder

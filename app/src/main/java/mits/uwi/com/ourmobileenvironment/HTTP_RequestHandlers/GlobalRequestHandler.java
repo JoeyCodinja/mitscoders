@@ -4,15 +4,20 @@ package mits.uwi.com.ourmobileenvironment.HTTP_RequestHandlers;
  * Created by rox on 12/21/15.
  */
 import com.android.volley.Request;
+import com.android.volley.toolbox.HttpStack;
 import com.android.volley.toolbox.ImageLoader;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v4.util.LruCache;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+
+import java.io.InputStream;
 import java.util.ArrayList;
 
+import mits.uwi.com.ourmobileenvironment.DeveloperKey;
 import mits.uwi.com.ourmobileenvironment.EateriesActivity;
+import mits.uwi.com.ourmobileenvironment.R;
 import mits.uwi.com.ourmobileenvironment.Transport.BusRoute;
 import mits.uwi.com.ourmobileenvironment.Transport.BusScheduleFragment;
 import mits.uwi.com.ourmobileenvironment.Transport.GuildBus;
@@ -61,7 +66,12 @@ public class GlobalRequestHandler {
 
     public RequestQueue getRequestQueue() {
         if (mRequestQueue == null) {
-            mRequestQueue = Volley.newRequestQueue(mCtx);
+            InputStream keyStore = mCtx.getResources().openRawResource(R.raw.api);
+
+            mRequestQueue = Volley.newRequestQueue(mCtx,
+                    new ExtHttpClientStack(
+                            new SslHttpClient(keyStore,
+                                    DeveloperKey.KEYSTORE_PASS)));
         }
         return mRequestQueue;
     }
@@ -75,7 +85,7 @@ public class GlobalRequestHandler {
     }
 
     public void getShuttleRoutes(ArrayList<BusRoute> BusRouteList,BusScheduleFragment busScheduleFragment )  {
-        String url="https://rox116.pythonanywhere.com/service/shuttle_routes";
+        String url="https://mobile-app.mona.uwi.edu/service/shuttle_routes";
         TransportListener transportListener=new TransportListener("Shuttlelist",BusRouteList,busScheduleFragment,mCtx,BusRoute.class);
         TransportErrorListener transportErrorListener= new TransportErrorListener(BusRoute.class,mCtx,busScheduleFragment,BusRouteList);
         TransportRequest transportRequest= new TransportRequest(url,transportListener,transportErrorListener,mCtx);
@@ -83,7 +93,7 @@ public class GlobalRequestHandler {
     }
 
     public void getTaxiServices( ArrayList<TaxiService> taxiServiceList,TaxiServiceFragment taxiServiceFragment){
-        String url="http://rox116.pythonanywhere.com/service/taxi_services";
+        String url="https://mobile-app.mona.uwi.edu/service/taxi_services";
         TransportListener transportListener=new TransportListener("TaxiList",taxiServiceList,taxiServiceFragment,mCtx,TaxiService.class);
         TransportErrorListener transportErrorListener=new TransportErrorListener(TaxiService.class,mCtx,taxiServiceFragment,taxiServiceList);
         TransportRequest transportRequest=new TransportRequest(url,transportListener,transportErrorListener,mCtx);
@@ -92,7 +102,7 @@ public class GlobalRequestHandler {
     }
 
     public void getJUTCRoutes(ArrayList<JUTCRoute> jutcRoutes,JUTCRouteFragment jutcRouteFragment){
-        String url="http://rox116.pythonanywhere.com/service/jutc_routes";
+        String url="https://mobile-app.mona.uwi.edu/service/jutc_routes";
         TransportListener transportListener=new TransportListener("JUTCList",jutcRoutes,jutcRouteFragment,mCtx,JUTCRoute.class);
         TransportErrorListener transportErrorListener=new TransportErrorListener(JUTCRoute.class,mCtx,jutcRouteFragment,jutcRoutes);
         TransportRequest transportRequest=new TransportRequest(url,transportListener,transportErrorListener,mCtx);
@@ -100,7 +110,7 @@ public class GlobalRequestHandler {
     }
 
     public void getRestaurantList(ArrayList<Restaurant> RList, EateriesActivity eateriesActivity){
-        String url="http://rox116.pythonanywhere.com/service/eateries";
+        String url="https://mobile-app.mona.uwi.edu/service/eateries";
         RestaurantListener restaurantListener = new RestaurantListener("RestaurantList", RList,
                                                                        eateriesActivity, mCtx,
                                                                        Restaurant.class);
@@ -115,7 +125,7 @@ public class GlobalRequestHandler {
     }
 
     public  void getGuildBusRoutes(ArrayList<GuildBus> GList,GuildBusFragment guildBusFragment){
-        String url="http://rox116.pythonanywhere.com/service/guild_routes";
+        String url="https://mobile-app.mona.uwi.edu/service/guild_routes";
         TransportListener transportListener= new TransportListener("GuildList",GList,guildBusFragment,mCtx,GuildBus.class);
         TransportErrorListener transportErrorListener=new TransportErrorListener(GuildBus.class,mCtx,guildBusFragment,GList);
         TransportRequest transportRequest=new TransportRequest(url,transportListener,transportErrorListener,mCtx);

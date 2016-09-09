@@ -1,9 +1,15 @@
 <resources>
 
-    <style name="HomeActionBar.NoActionBar">
+    <style name="HomeViewActionBar.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+    <style name="HomeViewActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">#E4002B</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:elevation">4dp</item>
     </style>
 </resources>

@@ -116,7 +116,7 @@ public class EateriesAdapter extends RecyclerView.Adapter<EateriesAdapter.Eateri
                         if(input.equals(eateries.get(i).getName()))
                             MenuDataPasser.getInstance().setResName(eateries.get(i));
                     }
-                    //showDialog();
+//                    showDialog();
                 }
             });
 

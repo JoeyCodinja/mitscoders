@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">UWI MONA</string>
+    <string name="app_name">UWI Mona</string>
     <string name="action_settings">Settings</string>
 
     <!-- Landing strings -->
@@ -248,11 +248,11 @@
         <!--<item>Directory</item>-->
         <!--<item>Wi-Fi Finder</item>-->
         <!--<item>Emergency Services</item>-->
-        <item>Student Administrative Services</item>
-        <item>Our Virtual Learning Environment (OurVLE)</item>
-        <item>Transportation</item>
+        <!--<item>Student Administrative Services</item>-->
+        <!--<item>Our Virtual Learning Environment (OurVLE)</item>-->
+        <!--<item>Transportation</item>-->
         <item>Campus Information</item>
-        <item>Eateries</item>
+        <!--<item>Eateries</item>-->
         <item>Campus Navigation</item>
     </string-array>
     <string-array name="FAB_menu_strings">

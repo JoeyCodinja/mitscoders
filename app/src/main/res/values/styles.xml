@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -6,11 +6,12 @@
 
     </style>
 
-    <style name="HomeActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">#ffe20502</item>
+    <style name="HomeViewActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">#E4002B</item>
         <item name="android:windowContentOverlay">@null</item>
+        <item name="android:elevation" tools:targetApi="lollipop">0dp</item>
+        <item name="elevation">0dp</item>
     </style>
-
 
     <style name="actionbartheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:actionBarStyle">@style/orange_bar</item>
@@ -150,7 +151,9 @@
     <style name="FABButtons" parent="Widget.Design.FloatingActionButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:elevation">4dp</item>
+        <item name="android:elevation" tools:targetApi="lollipop">4dp</item>
+        <item name="android:layout_marginTop">15dip</item>
+        <!--<item name="useCompatPadding">true</item>-->
         <item name="fabSize">normal</item>
         <item name="elevation">4dp</item>
 
@@ -211,7 +214,7 @@
         <item name="textAllCaps">false</item>
     </style>
 
-    <style name="HomeActionBar.NoActionBar">
+    <style name="HomeViewActionBar.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
