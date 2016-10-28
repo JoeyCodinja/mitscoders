@@ -16,7 +16,6 @@
              android:background="#E4002B"
              app:tabIndicatorColor="#005EB8"
              app:tabIndicatorHeight="5dp"
-             android:elevation="4dp"
              />
 
          <android.support.v4.view.ViewPager
@@ -40,9 +39,9 @@
     <RelativeLayout
         android:id="@+id/FABHolder"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_gravity="bottom|end"
-        android:layout_marginBottom="90dip"
+        android:layout_marginBottom="90dp"
         android:layout_marginRight="@dimen/fab_margin"
         android:layout_marginEnd="@dimen/fab_margin"
         android:visibility="visible"
@@ -52,15 +51,22 @@
             style="@style/FABButtons"
             android:layout_above="@+id/ourvle_fab"
             android:src='@drawable/sas'
-            app:backgroundTint="#EAFFF501" />
+            app:backgroundTint="#ffd600"
+            android:layout_alignParentRight="true"
+            android:visibility="visible" />
         <TextView
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:text="@string/title_activity_sas"
-            android:background="@color/grey"
             android:layout_toLeftOf="@id/sas_fab"
-            android:layout_toStartOf="@id/sas_fab"/>
+            android:layout_toStartOf="@id/sas_fab"
+            android:layout_alignTop="@+id/sas_fab"
+            android:layout_marginTop="20dip"
+            android:layout_marginRight="10dip"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#bdbdbd" />
 
 
         <android.support.design.widget.FloatingActionButton
@@ -68,15 +74,22 @@
             style="@style/FABButtons"
             android:layout_above="@+id/transport_fab"
             android:src="@drawable/ourvle"
-            app:backgroundTint="#FFE6110E"/>
+            app:backgroundTint="#FFE6110E"
+            android:layout_alignParentRight="true"
+            android:visibility="visible" />
         <TextView
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:text="@string/title_activity_our_vle"
-            android:background="@color/grey"
             android:layout_toLeftOf="@id/ourvle_fab"
-            android:layout_toStartOf="@id/ourvle_fab"/>
+            android:layout_toStartOf="@id/ourvle_fab"
+            android:layout_alignTop="@id/ourvle_fab"
+            android:layout_marginTop="20dip"
+            android:layout_marginRight="10dip"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#bdbdbd" />
 
 
         <android.support.design.widget.FloatingActionButton
@@ -84,61 +97,73 @@
             style="@style/FABButtons"
             android:layout_above="@+id/eateries_fab"
             android:src="@drawable/transportation"
-            app:backgroundTint="#FFFF7D00" />
+            app:backgroundTint="#FFFF7D00"
+            android:layout_alignParentRight="true"
+            android:visibility="visible" />
         <TextView
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/title_activity_bus_schedule"
-            android:background="@color/grey"
             android:layout_toLeftOf="@id/transport_fab"
-            android:layout_toStartOf="@id/transport_fab"/>
-
-
-        <!--<android.support.design.widget.FloatingActionButton-->
-            <!--android:id="@id/campus_info_fab"-->
-            <!--style="@style/FABButtons"-->
-            <!--android:layout_above="@+id/eateries_fab"-->
-            <!--android:src="@drawable/sas"-->
-            <!--app:backgroundTint="#DEBDA900"-->
-            <!--/>-->
-        <!--<TextView-->
-            <!--android:visibility="gone"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:text="@string/title_activity_campus_information"-->
-            <!--android:background="@color/grey"-->
-            <!--android:layout_toLeftOf="@id/campus_info_fab"-->
-            <!--android:layout_toStartOf="@id/campus_info_fab"/>-->
-
+            android:layout_toStartOf="@id/transport_fab"
+            android:layout_alignTop="@id/transport_fab"
+            android:layout_marginTop="20dip"
+            android:layout_marginRight="10dip"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#bdbdbd" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@id/eateries_fab"
             style="@style/FABButtons"
             android:layout_alignParentBottom="true"
             android:src="@drawable/eateries"
-            app:backgroundTint="@color/eateries"/>
+            app:backgroundTint="@color/eateries"
+            android:layout_alignParentRight="true"
+            android:visibility="visible" />
         <TextView
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:text="@string/title_activity_eateries"
-            android:background="@color/grey"
             android:layout_toLeftOf="@id/eateries_fab"
-            android:layout_toStartOf="@id/eateries_fab"/>
+            android:layout_toStartOf="@id/eateries_fab"
+            android:layout_alignTop="@+id/eateries_fab"
+            android:layout_marginTop="20dip"
+            android:layout_marginRight="10dip"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#bdbdbd" />
 
 
     </RelativeLayout>
+    
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/mainFabHolder"
+        android:layout_gravity="bottom|end">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id='@+id/mainFab'
-        style="@style/FABButtons"
-        android:src="@drawable/pelican_white"
-        app:backgroundTint="#005EB8"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:adjustViewBounds="true"
-        android:elevation="6dp"/>
+        <android.support.design.widget.FloatingActionButton
+            style="@style/FABButtons"
+            app:backgroundTint="#004484"
+            app:elevation="6dp"
+            android:layout_marginTop="19dp"
+            android:layout_marginLeft="16dp"
+            android:adjustViewBounds="true"/>
+        <android.support.design.widget.FloatingActionButton
+            android:id='@+id/mainFab'
+            style="@style/FABButtons"
+            android:src="@drawable/pelican_white"
+            app:backgroundTint="#005EB8"
+            app:elevation="6dp"
+            android:layout_margin="@dimen/fab_margin"
+            android:adjustViewBounds="true"/>
+
+
+    </FrameLayout>
+
 
 
 </FrameLayout>

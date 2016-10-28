@@ -1,22 +1,22 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
 
     </style>
 
-    <style name="HomeViewActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">#E4002B</item>
+    <style name="LandingPageTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:windowContentOverlay">@null</item>
-        <item name="android:elevation" tools:targetApi="lollipop">0dp</item>
-        <item name="elevation">0dp</item>
+        <item name="android:actionBarStyle">@style/LandingPageActionBarStyle</item>
+        <item name="actionBarStyle">@style/LandingPageActionBarStyle</item>
     </style>
 
-    <style name="actionbartheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:actionBarStyle">@style/orange_bar</item>
-        <item name="actionBarStyle">@style/orange_bar</item>
-        <item name="android:windowContentOverlay">@null</item>
+    <style name="LandingPageActionBarStyle" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
+        <item name="android:colorBackground">@color/landingPagePrimary</item>
+        <item name="background">@color/landingPagePrimary</item>
+        <item name="elevation">0dp</item>
+        <item name="android:textAppearance">@style/AppActionBarTitleText</item>
     </style>
 
     <style name="orange_bar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
@@ -24,6 +24,12 @@
         <item name="background">@color/actionbar_background</item>
         <item name="elevation">0dp</item>
         <item name="android:textAppearance">@style/AppActionBarTitleText</item>
+    </style>
+
+    <style name="actionbartheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:actionBarStyle">@style/orange_bar</item>
+        <item name="actionBarStyle">@style/orange_bar</item>
+        <item name="android:windowContentOverlay">@null</item>
     </style>
 
     <style name="AppActionBarTitleText" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
@@ -34,8 +40,6 @@
     </style>
 
     <style name="campusinfotheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:colorBackground">@color/actionbar_background_campusinfo</item>
-        <item name="background">@color/actionbar_background_campusinfo</item>
         <item name="android:actionBarStyle">@style/campus_information</item>
         <item name="actionBarStyle">@style/campus_information</item>
         <item name="android:windowContentOverlay">@null</item>
@@ -52,8 +56,6 @@
     <style name="eateries" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:actionBarStyle">@style/eateriesbar</item>
         <item name="actionBarStyle">@style/eateriesbar</item>
-        <item name="android:colorBackground">@color/eateries</item>
-        <item name="background">@color/eateries</item>
     </style>
 
     <style name="eateriesbar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
@@ -105,7 +107,6 @@
     </style>
 
     <style name="bluebar" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
-
         <item name="android:colorBackground">@color/blue_background</item>
         <item name="background">@color/blue_background</item>
         <item name="elevation">10dp</item>
@@ -134,59 +135,23 @@
         <item name="android:windowExitAnimation">@anim/disappear</item>
     </style>
 
-
     <style name="MyCustomTabLayout" parent="Widget.Design.TabLayout">
         <item name="tabMaxWidth">@dimen/tab_max_width</item>
         <item name="tabTextAppearance">@style/MyCustomTabTextAppearance</item>
         <item name="colorAccent">@color/blue</item>
     </style>
 
-
     <style name="MyCustomTabTextAppearance" parent="TextAppearance.Design.Tab">
         <item name="textAllCaps">false</item>
     </style>
 
-
-    <!-- TODO: Remove the Faux-FAB related styles, replace with new FAB colors -->
     <style name="FABButtons" parent="Widget.Design.FloatingActionButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:elevation" tools:targetApi="lollipop">4dp</item>
-        <item name="android:layout_marginTop">15dip</item>
-        <!--<item name="useCompatPadding">true</item>-->
+        <item name="android:layout_marginTop">15dp</item>
         <item name="fabSize">normal</item>
-        <item name="elevation">4dp</item>
-
     </style>
-
-    <style name="secondaryFABButtons" parent="FABButtons">
-        <item name="fabSize">mini</item>
-    </style>
-
-    <!--<style name="FAB_Main_Menu" parent="Widget.Design.FloatingActionButton">-->
-    <!--<item name="app:backgroundTint">#EA0010E2</item>-->
-    <!--</style>-->
-
-    <!--<style name="FAB_Campus_Information" parent="Widget.Design.FloatingActionButton">-->
-    <!--<item name="app:backgroundTint">#DEBDA900</item>-->
-    <!--</style>-->
-
-    <!--<style name="FAB_Transportation" parent="Widget.Design.FloatingActionButton">-->
-    <!--<item name="app:backgroundTint">#FFFF7D00</item>-->
-    <!--</style>-->
-
-    <!--<style name="FAB_OurVLE">-->
-    <!--<item name="app:backgroundTint">#FFE6110E</item>-->
-    <!--</style>-->
-
-    <!--<style name="FAB_Boss">-->
-    <!--<item name="app:backgroundTint">#EA2BD206</item>-->
-    <!--</style>-->
-
-    <!--<style name="FAB_SAS">-->
-    <!--<item name="app:backgroundTint">#EAFFF501</item>-->
-    <!--</style>-->
-
 
     <style name="toolbarStyle" parent="Widget.AppCompat.ActionBar">
         <item name="android:background">@color/toolbar_background</item>
@@ -199,7 +164,6 @@
     </style>
 
     <style name="AppTabLayout" parent="Widget.Design.TabLayout">
-
         <item name="tabMaxWidth">@dimen/tab_max_width</item>
         <item name="android:tabStripEnabled">false</item>
         <item name="tabBackground">?attr/selectableItemBackground</item>
@@ -208,13 +172,12 @@
     </style>
 
     <style name="AppTabTextAppearance" parent="TextAppearance.Design.Tab">
-
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/range</item>
         <item name="textAllCaps">false</item>
     </style>
 
-    <style name="HomeViewActionBar.NoActionBar">
+    <style name="LandingPageTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>

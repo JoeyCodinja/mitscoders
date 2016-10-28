@@ -13,10 +13,12 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.view.Gravity;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.util.Log;
 
@@ -27,6 +29,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
@@ -34,8 +39,10 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.lang.Math;
 
+import mits.uwi.com.ourmobileenvironment.HomeActivity;
 import mits.uwi.com.ourmobileenvironment.NewsViewActivity;
 import mits.uwi.com.ourmobileenvironment.R;
+import mits.uwi.com.ourmobileenvironment.UWIMonaApplication;
 import mits.uwi.com.ourmobileenvironment.models.Home.Home_News;
 
 public class HomeNewsFragment extends Fragment {
@@ -43,6 +50,9 @@ public class HomeNewsFragment extends Fragment {
     private ArrayList<CardView> mNewsCards = new ArrayList<>();
     private Home_News mNewsItems;
     private String[] newsDescriptionStrings = new String[50];
+    private boolean forceCacheRead = false;
+
+    private long startNewsRetrieval, stopNewsRetrieval;
 
     public static HomeNewsFragment newInstance() {
         HomeNewsFragment fragment = new HomeNewsFragment();
@@ -58,12 +68,22 @@ public class HomeNewsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (!((HomeActivity)getActivity()).getSupportActionBar().isShowing())
+            ((HomeActivity)getActivity()).getSupportActionBar().show();
 
+        if (savedInstanceState != null){
+            this.forceCacheRead = savedInstanceState.getBoolean("forceCacheRead", false);
+        }
+        UWIMonaApplication application = (UWIMonaApplication)
+                this.getActivity()
+                        .getApplication();
+        application.screenViewHitAnalytics(("Fragment~HomeNewsFragment"));
     }
 
     @Override
-    public void onDestroy(){
-        super.onDestroy();
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putBoolean("forceCacheRead", forceCacheRead);
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -94,8 +114,8 @@ public class HomeNewsFragment extends Fragment {
 
         columnParent.addView(loadingText);
 
-        ObjectAnimator anim = ObjectAnimator.ofFloat(loadingText, "alpha", 0f, 1f);
-        anim.setDuration(7500);
+        ObjectAnimator anim = ObjectAnimator.ofFloat(loadingText, "alpha", 0.25f, 1f);
+        anim.setDuration(2500);
         anim.setInterpolator(new AccelerateDecelerateInterpolator());
         anim.setRepeatMode(ObjectAnimator.REVERSE);
         anim.setRepeatCount(ObjectAnimator.INFINITE);
@@ -112,12 +132,21 @@ public class HomeNewsFragment extends Fragment {
         ArrayList<Bitmap> newsItemImages = new ArrayList<>();
         ArrayList<String> newsItemTitles = new ArrayList<>();
         ArrayList<String> newsItemURLs = new ArrayList<>();
-        ArrayList<String> newsItemDescriptions = new ArrayList<>();
+        ArrayList<ArrayList<String>> newsItemDescriptions = new ArrayList<>();
         @Override
         protected Home_News doInBackground(Context... params) {
+            startNewsRetrieval = SystemClock.elapsedRealtime();
             try {
                 mNewsItems = new Home_News(params[0]);
-                if (!mNewsItems.didConnect || mNewsItems.loaded){
+                if (forceCacheRead){
+                    for(Element element: mNewsItems.getCachedNewsItems()){
+                        newsItemTitles.add(mNewsItems.getNewsItemTitle(element));
+                        newsItemImages.add(mNewsItems.getNewsItemImage(element));
+                        newsItemURLs.add(mNewsItems.getNewsItemURL(element));
+                        newsItemDescriptions.add(mNewsItems.getNewsItemDescription(element));
+                    }
+                }
+                else if (!mNewsItems.didConnect || mNewsItems.loaded){
                     for(Element element: mNewsItems.getCachedNewsItems()){
                         newsItemTitles.add(mNewsItems.getNewsItemTitle(element));
                         newsItemImages.add(mNewsItems.getNewsItemImage(element));
@@ -134,7 +163,7 @@ public class HomeNewsFragment extends Fragment {
                         newsItemDescriptions.add(mNewsItems.getNewsItemDescription(element));
                     }
                     mNewsItems.cacheNewsItems(newsItemElements);
-                    mNewsItems.loaded = true;
+                    forceCacheRead = true;
                 }
                 return mNewsItems;
             }
@@ -149,6 +178,12 @@ public class HomeNewsFragment extends Fragment {
 
         @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
         private void makeNewsItemViews(View contextView) {
+
+            if (contextView == null){
+                // Fixing the crash that occured with the app
+                // TODO: find out root cause of null value from contextView
+                return;
+            }
 
             LinearLayout[] columns =
                     {(LinearLayout) contextView.findViewById(R.id.newsColumn1),
@@ -184,30 +219,8 @@ public class HomeNewsFragment extends Fragment {
                 float imageWidth = newsItemImages.get(i).getWidth();
                 float imageHeight = newsItemImages.get(i).getHeight();
 
-                if (i == 0){
-                    newsCard.setLayoutParams(new CardView.LayoutParams(newsHeader.getWidth(),
-                                                                       400));
-                    newsCardImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                }
-
-                else if (imageWidth/imageHeight <= 1.8 &&
-                         imageWidth/imageHeight >= 1){
-                    // 4:3 image
-                  newsCardImage.setScaleType(ImageView.ScaleType.FIT_XY);
-                }
-
-                else if (newsItemImages.get(i).getWidth() < newsItemImages.get(i).getHeight()){
-                    // Vertical Rectangle
-                    if (imageHeight <= 100 || imageWidth <=100) {
-                        newsCard.setLayoutParams(new CardView.LayoutParams(columns[i % 2].getWidth(),
-                                columns[i % 2].getWidth()));
-                        newsCardImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                    }
-                }
-
                 newsCardImage.setImageBitmap(newsItemImages.get(i));
 
-                // Shortening titles
                 newsCardTitle.setText(newsItemTitles.get(i));
 
                 newsCard.setOnClickListener(new View.OnClickListener() {
@@ -237,10 +250,37 @@ public class HomeNewsFragment extends Fragment {
                 else
                     columns[i % 2].addView(newsCard);
 
-                ViewGroup.LayoutParams layoutparams = newsCard.getLayoutParams();
-                LayoutParams params = (LayoutParams) layoutparams;
+                if (i == 0){
+                    newsCard.setLayoutParams(new LinearLayout.LayoutParams(newsHeader.getWidth(),
+                            LinearLayout.LayoutParams.WRAP_CONTENT));
+                    newsCardImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                }
 
-                newsCard.setLayoutParams(params);
+                else if (imageWidth/imageHeight <= 1.8 &&
+                        imageWidth/imageHeight >= 1){
+                    // 4:3 image
+                    newsCard.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,
+                            LayoutParams.WRAP_CONTENT));
+                    newsCardImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                }
+
+                // Very Small Image
+                else if (imageHeight <= 100 || imageWidth <=100) {
+                    newsCard.setLayoutParams(
+                            new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,
+                                    LayoutParams.WRAP_CONTENT));
+                    newsCardImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                }
+
+                else if (newsItemImages.get(i).getWidth() < newsItemImages.get(i).getHeight()){
+                    newsCard.setLayoutParams(
+                            new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,
+                                    (int)imageHeight));
+                    newsCardImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                }
+                newsCard.setLayoutParams(
+                        new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT));
             }
         }
 
@@ -252,8 +292,18 @@ public class HomeNewsFragment extends Fragment {
                 Elements newsItems = mNewsItems.getNewsItems();
             }
             makeNewsItemViews(parentView);
+            stopNewsRetrieval = SystemClock.elapsedRealtime();
+            sendNewsResourceLoadingTimingAnalytics(stopNewsRetrieval - startNewsRetrieval);
         }
     }
 
+
+    private void sendNewsResourceLoadingTimingAnalytics(long timeElapsed){
+        UWIMonaApplication application = (UWIMonaApplication)this.getActivity().getApplication();
+        application.timingAnalytics("Resource Loading",
+                timeElapsed,
+                "RSSUWINews",
+                "UWI News RSS Load Time");
+    }
     
 }

@@ -2,7 +2,6 @@ package mits.uwi.com.ourmobileenvironment.campusinformationfragments.UWIInformat
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.DownloadManager;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -13,25 +12,47 @@ import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.bluejamesbond.text.DocumentView;
+import com.google.api.client.repackaged.org.apache.commons.codec.binary.StringUtils;
+import com.google.api.client.util.Strings;
+import com.orm.StringUtil;
 
-import java.io.File;
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import mits.uwi.com.ourmobileenvironment.CampusInformationSubActivity;
 import mits.uwi.com.ourmobileenvironment.R;
+import mits.uwi.com.ourmobileenvironment.adapters.FacultyExpandableListAdapter;
+import mits.uwi.com.ourmobileenvironment.faculty.FacultyInfo;
 
 public class Faculties extends Fragment {
-    private ToSocialMediaIntents mListener;
-    private DownloadHandbook facultyHandbooks;
+    private DownloadCoordinator facultyHandbooks;
     private String facultyChosen;
-    private Drawable dPicture;
+    private Drawable dPicture, deanDrawable;
     private ImageView dean;
+    private TextView deanTitleAndName;
     private ActionBar toolbar;
     private DocumentView facultySnippet;
     private Resources drawableResources;
+    private FacultyInfo[] faculties;
+    private ExpandableListAdapter facultyInformation;
 
     public static Faculties newInstance(String faculty) {
         Faculties fragment = new Faculties();
@@ -52,211 +73,138 @@ public class Faculties extends Fragment {
         super.onCreate(savedInstanceState);
         facultyChosen = getArguments().getString("facultyChosen");
         drawableResources = getResources();
+
+        try {
+            faculties = FacultyInfo.fromXML(this.getActivity().getApplicationContext());
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_faculties_campusinfosub,
                                   container,
                                   false);
-        ImageView twitter = (ImageView)v.findViewById(R.id.twitterButton);
-        ImageView facebook = (ImageView)v.findViewById(R.id.facebookButton);
-        ImageView instagram = (ImageView)v.findViewById(R.id.instagramButton);
-        Button facultyHandbook = (Button)v.findViewById(R.id.dlProgramGuidelines);
+
+
+
+        ExpandableListView facultyDetails =
+                (ExpandableListView)v.findViewById(R.id.faculty_expandable);
+        Animation easeIn = AnimationUtils.loadAnimation(this.getActivity(),
+                R.anim.ease_fade_in_right);
+        LayoutAnimationController layoutAnimationController= new LayoutAnimationController(easeIn);
+        facultyDetails.setLayoutAnimation(layoutAnimationController);
 
         facultySnippet = (DocumentView)v.findViewById(R.id.faculty_snippet);
-        dean = (ImageView) v.findViewById(R.id.dean_picture);
 
+        dean = (ImageView) v.findViewById(R.id.dean_picture);
+        deanTitleAndName = (TextView) v.findViewById(R.id.dean_title);
         toolbar = ((CampusInformationSubActivity)getActivity()).getToolbar();
 
-        switch(facultyChosen){
-            case "FST":
-                v = layoutSciTech(v);
-                String[] fst_info = getResources().getStringArray(R.array.fst_info);
-                twitter.setTag(fst_info[2]);
-                instagram.setTag(fst_info[0]);
-                facebook.setTag(fst_info[1]);
-                facultyHandbook.setTag(fst_info[4]);
+        for (FacultyInfo faculty: faculties){
+            if (faculty.facultyId.equals(facultyChosen)){
+                facultyInformation = new FacultyExpandableListAdapter(
+                        this.getActivity().getApplicationContext(),
+                        faculty,
+                        facultyChosen);
+                Map<String,Object> facultyPointer = (Map<String,Object>)faculty.facultyValues.get(faculty.facultyId);
+                facultyDetails.setAdapter(facultyInformation);
+                facultyDetails
+                        .setOnChildClickListener(
+                                (ExpandableListView.OnChildClickListener)facultyInformation);
+                facultySnippet.setText(facultyPointer.get("About").toString());
+                String facultyName = (String)facultyPointer.get("Name");
+                toolbar.setTitle(facultyName);
+                Map<String, Object> facultyResources =
+                        (Map<String, Object>)facultyPointer.get("Resources");
+                Set<String> resourceIds = facultyResources.keySet();
+                for (String id: resourceIds){
+                    String resourceName = (String)
+                            ((Map<String,Object>)facultyResources.get(id)).get("name");
+                    if (isImageIdentifier(id) && containsString("dean", resourceName)){
+                        String drawableId = (String)
+                                ((Map<String,Object>)facultyResources.get(id)).get("identifier");
+                        deanDrawable = fromStringIdentifierToDrawable(drawableId);
+                        dean.setImageDrawable(deanDrawable);
+                        deanTitleAndName.setText(resourceName);
+                    }
+
+                }
                 break;
-            case "HUM":
-                v = layoutHumEd(v);
-                String[] humed_info = getResources().getStringArray(R.array.humed_info);
-                twitter.setTag(humed_info[2]);
-                instagram.setTag(humed_info[0]);
-                facebook.setTag(humed_info[1]);
-                facultyHandbook.setTag(humed_info[4]);
-                break;
-            case "LAW":
-                v = layoutLaw(v);
-                String[] law_info = getResources().getStringArray(R.array.law_info);
-                twitter.setTag(law_info[2]);
-                instagram.setTag(law_info[0]);
-                facebook.setTag(law_info[1]);
-                facultyHandbook.setTag(law_info[4]);
-                break;
-            case "MED":
-                v = layoutMedSci(v);
-                String[] medsci_info = getResources().getStringArray(R.array.medsci_info);
-                twitter.setTag(medsci_info[2]);
-                instagram.setTag(medsci_info[0]);
-                facebook.setTag(medsci_info[1]);
-                facultyHandbook.setTag(medsci_info[4]);
-                break;
-            case "SOC":
-                v = layoutSoSci(v);
-                String[] sosci_info = getResources().getStringArray(R.array.fst_info);
-                twitter.setTag(sosci_info[2]);
-                instagram.setTag(sosci_info[0]);
-                facebook.setTag(sosci_info[1]);
-                facultyHandbook.setTag(sosci_info[4]);
-                break;
+            }
+        }
+        return v;
+    }
+
+    public Drawable fromStringIdentifierToDrawable(String identifier){
+        // TODO: Filler image needed
+        Drawable drawableRequested = null;
+        int resourceId = getResources().getIdentifier(identifier,
+                "drawable",
+                "mits.uwi.com.ourmobileenvironment");
+
+        if (Build.VERSION.SDK_INT >= 16 && Build.VERSION.SDK_INT < 21){
+            drawableRequested = getResources().getDrawable(resourceId);
+            if (drawableRequested == null)
+                drawableRequested = getResources().getDrawable(R.drawable.pelican_white);
+        }
+        else if (Build.VERSION.SDK_INT >= 21) {
+            drawableRequested = getResources().getDrawable(resourceId, null);
+            if (drawableRequested == null)
+                drawableRequested = getResources().getDrawable(R.drawable.pelican_white, null);
         }
 
-        twitter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListener.toTwitter(v);
-            }
-        });
+        return drawableRequested;
 
-        facebook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListener.toFacebook(v);
-            }
-        });
 
-        instagram.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListener.toInstagram(v);
-            }
-        });
-
-        facultyHandbook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                facultyHandbooks.downloadFacultyHandbook((String)v.getTag(), facultyChosen);
-            }
-        });
-
-        return v;
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public View layoutSciTech(View v){
-        toolbar.setTitle(R.string.fst_name);
-        if (Build.VERSION.SDK_INT >= 16 && Build.VERSION.SDK_INT < 21)
-            dPicture = drawableResources.getDrawable(R.drawable.faculties_fpas_dean);
-        else
-            dPicture = drawableResources.getDrawable(R.drawable.faculties_fpas_dean, null);
-        dean.setImageDrawable(dPicture);
-        facultySnippet.setText(getResources().getStringArray(R.array.fst_info)[3]);
-
-        return v;
-    }
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public View layoutMedSci(View v){
-        toolbar.setTitle(R.string.medsci_name);
-        if (Build.VERSION.SDK_INT >= 16 && Build.VERSION.SDK_INT < 21)
-            dPicture = drawableResources.getDrawable(R.drawable.faculties_medsci_dean);
-        else
-            dPicture = drawableResources.getDrawable(R.drawable.faculties_medsci_dean, null);
-        dean.setImageDrawable(dPicture);
-        facultySnippet.setText(getResources().getStringArray(R.array.medsci_info)[3]);
-
-        return v;
-    }
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public View layoutLaw(View v){
-        toolbar.setTitle(R.string.law_name);
-        if (Build.VERSION.SDK_INT >= 16 && Build.VERSION.SDK_INT < 21)
-            dPicture = drawableResources.getDrawable(R.drawable.faculties_law_dean);
-        else
-            dPicture = drawableResources.getDrawable(R.drawable.faculties_law_dean, null);
-        dean.setImageDrawable(dPicture);
-        facultySnippet.setText(getResources().getStringArray(R.array.law_info)[3]);
-        return v;
-    }
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public View layoutSoSci(View v){
-        toolbar.setTitle(R.string.socsci_name);
-        if (Build.VERSION.SDK_INT >= 16 && Build.VERSION.SDK_INT < 21)
-            dPicture = drawableResources.getDrawable(R.drawable.faculties_sosci_dean);
-        else
-            dPicture = drawableResources.getDrawable(R.drawable.faculties_sosci_dean, null);
-        dean.setImageDrawable(dPicture);
-        facultySnippet.setText(getResources().getStringArray(R.array.sosci_info)[3]);
-
-        return v;
-    }
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public View layoutHumEd(View v){
-        toolbar.setTitle(R.string.humed_name);
-        if (Build.VERSION.SDK_INT >= 16 && Build.VERSION.SDK_INT < 21)
-            dPicture = drawableResources.getDrawable(R.drawable.faculties_humed_dean);
-        else
-            dPicture = drawableResources.getDrawable(R.drawable.faculties_humed_dean, null);
-        dean.setImageDrawable(dPicture);
-        facultySnippet.setText(getResources().getStringArray(R.array.humed_info)[3]);
-
-        return v;
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (ToSocialMediaIntents) activity;
-            facultyHandbooks = (DownloadHandbook) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
-    }
-
-
-    public interface ToSocialMediaIntents{
-        public void toTwitter(View v);
-
-        public void toFacebook(View v);
-
-        public void toInstagram(View v);
-    }
-
-    public interface DownloadHandbook{
-        public boolean downloadFacultyHandbook(String uri, String faculty);
+    public interface DownloadCoordinator {
+        public boolean downloadResource(String uri, String resourceId);
 
         public boolean fileAlreadyExists(String filename);
     }
 
+    private boolean containsString(String searchString, String stringSearched){
+        Pattern matchQuery = Pattern.compile(searchString, Pattern.CASE_INSENSITIVE);
+        return matchQuery.matcher(stringSearched).find();
+    }
+
+    private boolean isImageIdentifier(String query){
+        Pattern matchQuery = Pattern.compile("img");
+        return matchQuery.matcher(query).find();
+    }
+
+    private boolean isDocumentIdentifier(String query){
+        Pattern matchQuery = Pattern.compile("doc");
+        return matchQuery.matcher(query).find();
+    }
+
+    private List<String> getInformationHeadings(String[] headingsKeys){
+        ArrayList<String> returnArray = new ArrayList<>();
+        Pattern camelCase = Pattern.compile("([A-Z][a-z]*)", 0 );
+        for (String heading: headingsKeys){
+            if (!(heading.equals("About") || heading.equals("Name"))){
+                String newHeading = "";
+                Matcher isCamelCase = camelCase.matcher(heading);
+                while (isCamelCase.find()){
+                    if (newHeading.length() == 0)
+                        newHeading = isCamelCase.group();
+                    else
+                        newHeading += " " + isCamelCase.group();
+                }
+                heading = newHeading;
+
+                returnArray.add(heading);
+            }
+        }
+        return returnArray;
+    }
 }
 

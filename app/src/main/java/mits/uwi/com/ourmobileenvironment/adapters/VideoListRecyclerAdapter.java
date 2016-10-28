@@ -41,7 +41,6 @@ public class VideoListRecyclerAdapter extends
             videoThumbnail = (ImageView) v.findViewById(R.id.video_item_thumbnail);
 
         }
-
     }
 
 
@@ -73,6 +72,10 @@ public class VideoListRecyclerAdapter extends
 
             @Override
             public void onClick(View v) {
+                if (player == null){
+                    // there is no player instance present
+                    return;
+                }
                 String videoId = (String)v.getTag();
                 player.pause();
                 player.cueVideo(videoId);
@@ -88,7 +91,7 @@ public class VideoListRecyclerAdapter extends
         // Replaces information within the
         // ViewHolder with information from
         // our data set
-        ((View)holder.videoTitle.getParent().getParent()).setTag(getItemVideoId(position));
+        ((View)holder.videoTitle.getParent().getParent().getParent()).setTag(getItemVideoId(position));
         try {
             holder.videoTitle.setText(this.videos[position].title);
             holder.videoDescription.setText(this.videos[position].description);
@@ -118,7 +121,12 @@ public class VideoListRecyclerAdapter extends
     }
 
     public String getItemVideoId(int position){
-        return videos[position].videoId;
+        try{
+            return videos[position].videoId;
+        }catch (NullPointerException e){
+            return "";
+        }
+
     }
 }
 

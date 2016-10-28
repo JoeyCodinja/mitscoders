@@ -2,58 +2,66 @@ package mits.uwi.com.ourmobileenvironment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.content.res.XmlResourceParser;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
-import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import mits.uwi.com.ourmobileenvironment.adapters.DirectionAdapter;
 
 public class CampusDirectionActivity extends AppCompatActivity {
 
     ArrayList<ArrayList<String>> locations;
+    String locationChosen;
     DirectionAdapter adapter;
+    String LOCATION_CHOSEN = "locationChosen";
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        UWIMonaApplication application = (UWIMonaApplication) getApplication();
+        application.screenViewHitAnalytics("Activity~CampusDirection");
+
+        try{
+            locationChosen = savedInstanceState.getString(LOCATION_CHOSEN);
+            if (locationChosen == null){
+                throw new NullPointerException();
+            }
+            resumeInterruptedAction(locationChosen);
+        } catch(NullPointerException e){
+            // Not resuming previous action; continue as normal
+        }
+
+
         setContentView(R.layout.activity_campus_direction);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Take me to");
 
         ListView locationsListView = (ListView) findViewById(R.id.directionLocationsList);
         try {
-            adapter = new DirectionAdapter(buildLocations(this));
+            adapter = new DirectionAdapter(this);
         } catch (XmlPullParserException | IOException e) {
             e.printStackTrace();
         }
@@ -61,13 +69,17 @@ public class CampusDirectionActivity extends AppCompatActivity {
         locationsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Uri navigationIntentURI =
-                        Uri.parse("google.navigation:q=" +
-                                  adapter.getItemLocationCoords(position));
-                Intent i = new Intent(Intent.ACTION_VIEW,
-                                      navigationIntentURI);
-                i.setPackage("com.google.android.apps.maps");
-                startActivity(i);
+                locationChosen = adapter.getItemLocationName(position);
+                String locationCoords = adapter.getItemLocationCoords(position);
+
+                // Check to see if package exsists
+                if (!isGoogleMapsInstalled()){
+                    // Prompt user to go download the application
+                    // Save the state of the user's action before we head off
+                    installGoogleMaps();
+                }
+                navigateTo(locationCoords);
+
             }
         });
         ProgressBar pbView = (ProgressBar)findViewById(R.id.pb_campus_direction);
@@ -76,53 +88,74 @@ public class CampusDirectionActivity extends AppCompatActivity {
         locationsListView.setVisibility(View.VISIBLE);
     }
 
-    private ArrayList<ArrayList<String>> buildLocations(Context context)
-            throws XmlPullParserException, IOException{
-            XmlResourceParser tbt_locations =
-                    getResources().getXml(R.xml.tbt_locations);
-            locations = new ArrayList<>();
-            ArrayList<String> locationNames = new ArrayList<>();
-            ArrayList<String> locationCoords = new ArrayList<>();
-            ArrayList<String> locationCategory = new ArrayList<>();
-
-            while (tbt_locations.getEventType() != XmlResourceParser.END_DOCUMENT){
-                String tag_name = tbt_locations.getName();
-                if (tbt_locations.getEventType() == XmlResourceParser.START_TAG){
-                    switch (tag_name) {
-                        case "Name":
-                            locationNames.add(tbt_locations.getAttributeValue(0));
-                            break;
-                        case "Category":
-                            locationCategory.add(tbt_locations.getAttributeValue(0));
-                            break;
-                        case "Coords":
-                            String coordinates;
-                            coordinates = tbt_locations.getAttributeValue(0) +
-                                    ',' +
-                                    tbt_locations.getAttributeValue(1);
-                            locationCoords.add(coordinates);
-                            break;
-                    }
-                }
-                tbt_locations.next();
-            }
-            tbt_locations.close();
-
-
-            for(String location: locationNames){
-                int index = locationNames.indexOf(location);
-
-                ArrayList<String> locationInfo =
-                        new ArrayList<>(
-                                Arrays.asList(location,
-                                              locationCoords.get(index),
-                                              locationCategory.get(index)));
-                locations.add(locationInfo);
-            }
-
-            return locations;
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        try{
+            outState.putString(LOCATION_CHOSEN, locationChosen);
+        }
+        catch (Exception e){
+            // TODO: find more accurate Exception to use other than this broad one
+            // Save nothing if the locationChoden variable was not set
+        }
+        super.onSaveInstanceState(outState, outPersistentState);
     }
 
+    private void resumeInterruptedAction(String locationChosen){
+        if (!isGoogleMapsInstalled()){
+            installGoogleMaps();
+        }
+        int locationIndex = adapter.getItemIndexFromLocationName(locationChosen);
+        if (locationIndex != -1)
+            navigateTo(adapter.getItemLocationCoords(locationIndex));
+        else{
+            Toast.makeText(this,
+                    "We could not find the location you previously requested",
+                    Toast.LENGTH_LONG).show();
+        }
+    }
 
+    private void navigateTo(String location_coords){
+        Uri navigationIntentURI =
+                Uri.parse("google.navigation:q=" +
+                        location_coords +
+                        "&mode=w");
+        Intent i = new Intent(Intent.ACTION_VIEW,
+                navigationIntentURI);
+        i.setPackage("com.google.android.apps.maps");
+        startActivity(i);
+    }
 
+    private boolean isGoogleMapsInstalled(){
+        PackageManager pm = getPackageManager();
+        List<ApplicationInfo> packages = pm.getInstalledApplications(0);
+
+        for (ApplicationInfo packageInfo: packages){
+            if (packageInfo.packageName.equals("com.google.android.apps.maps")){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isGooglePlayStoreInstalled(){
+        PackageManager pm = getPackageManager();
+        List<ApplicationInfo> packages = pm.getInstalledApplications(0);
+
+        for (ApplicationInfo packageInfo: packages){
+            if (packageInfo.packageName.equals("com.android.vending")){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void installGoogleMaps(){
+        // TODO: Receieve communication from App Store that the application was installed
+        String googleMapsMarketURI = "market://details?id=<com.google.android.apps.maps>";
+        if (isGooglePlayStoreInstalled()) {
+            Intent downloadGMaps = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse(googleMapsMarketURI));
+            startActivity(downloadGMaps);
+        }
+    }
 }

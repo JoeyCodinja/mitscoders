@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import mits.uwi.com.ourmobileenvironment.R;
 import mits.uwi.com.ourmobileenvironment.SlidingTabLayout;
 import mits.uwi.com.ourmobileenvironment.ToprightBar;
+import mits.uwi.com.ourmobileenvironment.UWIMonaApplication;
 
 public class TransportActivity extends AppCompatActivity  {
 
@@ -33,6 +34,10 @@ public class TransportActivity extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        UWIMonaApplication application = (UWIMonaApplication) getApplication();
+        application.screenViewHitAnalytics("Activity~Transport");
+
         setContentView(R.layout.buspager);
         FragmentManager fm = getSupportFragmentManager();
         bPage=(ViewPager)findViewById(R.id.buspager);

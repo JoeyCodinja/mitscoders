@@ -1,15 +1,19 @@
 <resources>
-
-    <style name="HomeViewActionBar.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-    </style>
-
-    <style name="HomeViewActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="LandingPageTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">#E4002B</item>
         <item name="android:windowContentOverlay">@null</item>
+        <item name="android:actionBarStyle">@style/LandingPageActionBarStyle</item>
+    </style>
+
+    <style name="LandingPageActionBarStyle" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
         <item name="android:elevation">4dp</item>
+        <item name="android:colorPrimary">#E4002B</item>
+    </style>
+
+    <style name="FABButtons" parent="Widget.Design.FloatingActionButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:elevation">4dp</item>
+        <item name="android:layout_marginTop">15dp</item>
     </style>
 </resources>

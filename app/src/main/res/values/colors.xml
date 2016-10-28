@@ -14,6 +14,8 @@
     <color name="Primary">#004D40</color>
     <color name="tintDisabled">#616161</color>
 
+    <color name="landingPagePrimary">#E4002B</color>
+
     <!--SAS-->
     <color name="event_color_01">#59dbe0</color>
     <color name="event_color_02">#f57f68</color>

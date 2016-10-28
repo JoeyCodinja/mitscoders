@@ -37,7 +37,7 @@ public class ChooseFacultyFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState){
 
         View v = inflater.inflate(R.layout.fragment_faculties_choosefaculties,
@@ -70,7 +70,7 @@ public class ChooseFacultyFragment extends Fragment {
                             toWhere = "HUM";
                             break;
                     }
-                    transaction.replace(((View)v.getParent().getParent()).getId(),
+                    transaction.replace(R.id.campus_sub_fragment,
                                         Faculties.newInstance(toWhere));
                     //noinspection WrongConstant
                     transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)

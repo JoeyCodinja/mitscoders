@@ -1,52 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:weightSum="6">
+    android:orientation="vertical"
+    android:layout_width="match_parent" android:layout_height="match_parent">
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:orientation="horizontal"
-            android:layout_weight="2">
+            android:layout_weight="1">
 
             <ImageView
                 android:id="@+id/dean_picture"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="170dip"
+                android:layout_height="170dip"
                 android:layout_alignParentLeft="true"
                 android:scaleType="centerInside"/>
-            <com.bluejamesbond.text.DocumentView
-                xmlns:document="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/faculty_snippet"
+            <TextView
+                android:id="@+id/dean_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/dean_picture"
-                android:layout_toEndOf="@id/dean_picture"
-                document:documentView_antialias="true"
+                android:layout_below="@id/dean_picture"
+                android:layout_toLeftOf="@+id/faculty_snippet"
+                android:textStyle="bold|italic"/>
+
+            <com.bluejamesbond.text.DocumentView
+                xmlns:document="http://schemas.android.com/apk/res-auto"
+                android:id="@id/faculty_snippet"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/dean_picture" android:layout_toEndOf="@id/dean_picture"
+                document:documentView_insetPadding="10dp" document:documentView_antialias="true"
                 document:documentView_textAlignment="justified"
-                document:documentView_lineHeightMultiplier="1.5"/>
+                document:documentView_lineHeightMultiplier="1.0"
+                android:scrollbarAlwaysDrawHorizontalTrack="true"/>
 
         </RelativeLayout>
 
-        <include layout="@layout/social"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_weight="1"/>
-    
-        <Button
-            android:id="@+id/dlProgramGuidelines"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/CornflowerBlue"
-            android:text="Download Faculty Handbook"
-            android:textColor="@color/WhiteSmoke"/>
-
         <ExpandableListView
             android:id="@+id/faculty_expandable"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"/>
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
 
 </LinearLayout>

@@ -71,6 +71,9 @@ public class SASActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sas);
 
+        UWIMonaApplication application = (UWIMonaApplication) getApplication();
+        application.screenViewHitAnalytics("Activity~SAS");
+
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.sas_fragmentContainer);
         if (fragment == null){

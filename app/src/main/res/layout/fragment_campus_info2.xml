@@ -16,7 +16,7 @@
         ext:documentView_antialias="true"
         ext:documentView_text="@string/campus_info_heading"
         ext:documentView_textAlignment="justified"
-        ext:documentView_textSize="18sp"
+        ext:documentView_textSize="15sp"
         ext:documentView_insetPadding="10dip"
         />
     <FrameLayout

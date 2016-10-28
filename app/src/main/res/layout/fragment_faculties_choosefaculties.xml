@@ -1,30 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <Button
         android:id="@+id/fst_faculty_chosen"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/fst_name"/>
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true" android:layout_alignParentTop="true"
+        android:background="@drawable/bn_faculty_scitech"
+        android:layout_toLeftOf="@+id/center_shim1" />
+    <!-- Center Shim -->
+    <View
+        android:id="@+id/center_shim1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_centerHorizontal="true"/>
+    <!-- Center Shim END -->
     <Button
         android:id="@+id/humed_faculty_chosen"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/humed_name"/>
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:layout_alignParentRight="true" android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/center_shim1"
+        android:background="@drawable/bn_faculties_humed_up"
+        />
     <Button
         android:id="@+id/socsci_faculty_chosen"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/socsci_name"/>
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:layout_below="@+id/fst_faculty_chosen" android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/center_shim2"
+        android:background="@drawable/bn_faculty_socsci" />
+    <!-- Center Shim -->
+    <View
+        android:id="@id/center_shim2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_centerHorizontal="true"/>
+    <!-- Center Shim END -->
     <Button
         android:id="@+id/medsci_faculty_chosen"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/medsci_name"/>
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:layout_below="@id/humed_faculty_chosen" android:layout_alignParentRight="true"
+        android:layout_toRightOf="@id/center_shim2"
+        android:background="@drawable/bn_faculty_medsci"/>
+
     <Button
         android:id="@+id/law_faculty_chosen"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/law_name"/>
-</LinearLayout>
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:layout_below="@id/medsci_faculty_chosen"
+        android:layout_centerInParent="true"
+        android:backgroundTintMode="src_in"
+        android:background="@drawable/bn_faculty_law" />
+</RelativeLayout>

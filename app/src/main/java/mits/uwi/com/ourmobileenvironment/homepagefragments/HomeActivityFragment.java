@@ -22,6 +22,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 
 import java.lang.reflect.Array;
@@ -56,6 +57,7 @@ public class HomeActivityFragment extends Fragment {
             R.id.eateries_fab,
 //            R.id.boss_fab,
             R.id.sas_fab};
+
 
     private ViewPager mHome_ViewPager;
     HomePageViewPagerAdapter adapter;
@@ -94,6 +96,10 @@ public class HomeActivityFragment extends Fragment {
                             .setDuration(2500 - (500 * (fab - 1)))
                             .alpha(0);
                     mFABs.get(fab).setVisibility(View.GONE);
+                    int mFABLocation = ((ViewGroup)mFABs.get(fab).getParent()).indexOfChild(mFABs.get(fab));
+                    TextView fab_label = (TextView)((ViewGroup)mFABs.get(fab).getParent()).getChildAt(mFABLocation + 1);
+                    fab_label.setVisibility(View.GONE);
+
                 }
                 mMenuExpanded = false;
                 return true;
@@ -106,6 +112,9 @@ public class HomeActivityFragment extends Fragment {
             if (fab > 0) {
                 mFABs.get(fab).setAlpha((float) 0);
                 mFABs.get(fab).setVisibility(View.GONE);
+                int mFABLocation = ((ViewGroup)mFABs.get(fab).getParent()).indexOfChild(mFABs.get(fab));
+                TextView fabLabel = (TextView) ((ViewGroup)mFABs.get(fab).getParent()).getChildAt(mFABLocation + 1);
+                fabLabel.setVisibility(View.GONE);
                 mFABs.get(fab).setOnClickListener(new View.OnClickListener() {
                     Intent i;
 
@@ -150,6 +159,9 @@ public class HomeActivityFragment extends Fragment {
                     for (int fab = 1; fab <= mFABs.size() - 1; fab++) {
                         if (mFABs.get(fab).getAlpha() == 0){
                             mFABs.get(fab).setVisibility(View.VISIBLE);
+                            int mFABLocation = ((ViewGroup)mFABs.get(fab).getParent()).indexOfChild(mFABs.get(fab));
+                            TextView fabLabel = (TextView) ((ViewGroup)mFABs.get(fab).getParent()).getChildAt(mFABLocation + 1);
+                            fabLabel.setVisibility(View.VISIBLE);
                             mFABs.get(fab).animate()
                                     .setDuration(400)
                                     .alpha(1);
@@ -171,6 +183,9 @@ public class HomeActivityFragment extends Fragment {
                                 .setDuration(2500 - (500 * (fab - 1)))
                                 .alpha(0);
                         mFABs.get(fab).setVisibility(View.GONE);
+                        int mFABLocation = ((ViewGroup)mFABs.get(fab).getParent()).indexOfChild(mFABs.get(fab));
+                        TextView fabLabel = (TextView) ((ViewGroup)mFABs.get(fab).getParent()).getChildAt(mFABLocation + 1);
+                        fabLabel.setVisibility(View.VISIBLE);
                     }
                     shade.setVisibility(View.GONE);
                     fabHolder.setVisibility(View.GONE);

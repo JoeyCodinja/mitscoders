@@ -4,25 +4,28 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 
-import mits.uwi.com.ourmobileenvironment.Directory.DirectoryActivity;
-import mits.uwi.com.ourmobileenvironment.Transport.TransportActivity;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.RunnableFuture;
+
 import mits.uwi.com.ourmobileenvironment.adapters.HomePageArrayAdapter;
 import mits.uwi.com.ourmobileenvironment.additional_systems.Evaluations.activities.TeachingEvalsActivity;
 import mits.uwi.com.ourmobileenvironment.homepagefragments.HomeActivityFragment;
-import mits.uwi.com.ourmobileenvironment.ourvle.activities.OurVLELoginActivity;
-import mits.uwi.com.ourmobileenvironment.sas.SAS_Splash;
 
 
 public class HomeActivity extends AppCompatActivity {
@@ -62,12 +65,12 @@ public class HomeActivity extends AppCompatActivity {
 
         mNavigationDrawerLayout.setDrawerListener(mNavigationDrawerToggle);
 
-        //Sets the UWI Coat of Arms as the Home Icon in the Action Bar
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_menu_light);
+        getSupportActionBar().setElevation(0f);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setTitle(R.string.title_activity_home);
-
+        getSupportActionBar().hide();
 
         mDrawerList = (ListView) findViewById(R.id.home_drawer_menu);
 
@@ -84,12 +87,13 @@ public class HomeActivity extends AppCompatActivity {
         fragment = fm.findFragmentById(R.id.home_content);
 
         if (fragment == null){
-            fragment = new HomeActivityFragment();
+            // Start with the Splash
+            fragment = new StartSplashFragment();
+//            fragment = new HomeActivityFragment();
             fm.beginTransaction()
                     .add(R.id.home_content, fragment)
                     .commit();
         }
-
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener{
@@ -168,18 +172,6 @@ public class HomeActivity extends AppCompatActivity {
         FrameLayout parentView = (FrameLayout)findViewById(R.id.shade).getParent();
         FrameLayout shade = (FrameLayout) parentView.getChildAt(1);
         parentView.removeView(shade);
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        return super.onPrepareOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_home, menu);
-        return true;
     }
 
     @Override

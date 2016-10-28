@@ -265,10 +265,10 @@
     </string-array>
     <!-- Campus Sub Information Strings -->
     <!-- Faculties -->
-    <string name="fst_name">Faculty of Science and Technology</string>
+    <string name="fst_name">Faculty of Science &amp; Technology</string>
     <string name="medsci_name">Faculty Of Medical Sciences</string>
     <string name="law_name">Faculty of Law</string>
-    <string name="humed_name">Faculty of Humanities \&amp; Education</string>
+    <string name="humed_name">Faculty of Humanities &amp; Education</string>
     <string name="socsci_name">Faculty of Social Sciences</string>
 
     <string name="sub_information_url_error">
@@ -276,7 +276,7 @@
     </string>
 
     <!-- Medical Sciences -->
-    <string-array name="medsci_info">
+    <string-array name="medsci_info" formatted="false">
         <item name="medsci_instagram">https://www.instagram.com/uwimedsci/</item>
         <item name="medsci_facebook"></item>
         <item name="medsci_twitter"></item>
@@ -288,9 +288,10 @@
             programme.
         </item>
         <item>
-            http://www.mona.uwi.edu/fms/sites/default/files/fms/uploads/MBBS&#32;Student&#32;Handbook_Final.pdf
+            <![CDATA[http://www.mona.uwi.edu/fms/sites/default/files/fms/uploads/MBBS%20Student%20Handbook_Final.pdf]]>
         </item>
     </string-array>
+
     <!-- Science & Technology -->
     <string-array name="fst_info">
         <item name="fst_instagram">https://twitter.com/FstUwi_Mona</item>
@@ -306,9 +307,10 @@
             Geography and Geology, Mathematics, Physics and Engineering.
         </item>
         <item>
-            http://www.mona.uwi.edu/fpas/sites/default/files/fpas/uploads/fst-handbook-2014-final-3.pdf
+            <![CDATA[http://www.mona.uwi.edu/fst/sites/default/files/fpas/uploads/handbook_2016-2017.pdf]]>
         </item>
     </string-array>
+
     <!-- Humanities and Education -->
     <string-array name="humed_info">
         <item name="humed_instagram">https://www.instagram.com/uwimona_humedu</item>
@@ -324,7 +326,7 @@
             Education
         </item>
         <item>
-            http://www.mona.uwi.edu/humed/sites/default/files/humed/u5/FHE&#32;Handbook&#32;2015-2016&#32;-&#32;&#40;for&#32;web&#41;.pdf
+            <![CDATA[http://www.mona.uwi.edu/humed/sites/default/files/humed/u5/FHE%20Handbook%202015-2016%20-%20(for%20web).pdf]]>
         </item>
     </string-array>
 
@@ -343,9 +345,10 @@
             run over a 3 year period for full time students and 5 - 6
             years for part-time students.
         </item>
-        <item>
-            http://www.mona.uwi.edu/law/sites/default/files/law/uploads/Facutly&#32;Handbook&#32;2012&#8212;REGULATIONS&#32;FOR&#32;THE&#32;DEGREE.pdf
+        <item formatted="false">
+            <![CDATA[http://www.mona.uwi.edu/law/sites/default/files/law/uploads/Facutly%20Handbook%202012--REGULATIONS%20FOR%20THE%20DEGREE.pdf]]>
         </item>
+
     </string-array>
 
     <!-- Social Sciences -->
@@ -354,13 +357,13 @@
         <item name="sosci_facebook">https://www.facebook.com/Faculty-of-Social-Sciences-UWI-Mona-251190541571594/</item>
         <item name="sosci_twitter">https://twitter.com/FSSConnect</item>
         <item name="sosci_snippet">
-            Teaching in the Social Sciences courses such as Ecnomics,
+            Teaching in the Social Sciences courses such as Economics,
             Political Science, Government and Sociology commenced in the
             Faculty of Arts at Mona. The faculty was established with two
             departments, Economics and Government.
         </item>
         <item>
-            https://www.mona.uwi.edu/socsci/sites/default/files/socsci/uploads/fssundergraduatehandbook2015-2016_final_20150818.pdf
+            <![CDATA[http://www.mona.uwi.edu/socsci/sites/default/files/socsci/uploads/fssundergraduatehandbook2016-2017_20160826tt.pdf]]>
         </item>
     </string-array>
 
@@ -490,6 +493,8 @@
     <string name="social_facebook">Facebook</string>
     <string name="social_instagram">Instagram</string>
     <string name="title_activity_campus_direction">CampusDirectionActivity</string>
+    <string name="download_faculty_handbook">Download Faculty Handbook</string>
+    <string name="social_snapchat">Snapchat</string>
 
 
 </resources>

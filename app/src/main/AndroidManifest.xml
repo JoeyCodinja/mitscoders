@@ -17,7 +17,7 @@
 
 
     <!--<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />-->
-    <!--<uses-permission android:name="android.permission.WAKE_LOCK" />-->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -38,7 +38,7 @@
         android:icon="@drawable/uwimonaappicon"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:theme="@style/HomeViewActionBar"
+        android:theme="@style/LandingPageTheme"
         tools:replace="android:icon">
         <meta-data
             android:name="UWIMOBILEDATABASE"
@@ -53,10 +53,23 @@
             android:name="QUERY_LOG"
             android:value="true" />
 
+        <!-- Register AnalyticsReceiver and AnalyticsService so that background dispatching
+             can be done on non-Google Play Devices -->
+        <receiver android:name="com.google.android.gms.analytics.AnalyticsReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH"/>
+            </intent-filter>
+        </receiver>
+        <service android:name="com.google.android.gms.analytics.AnalyticsService"
+            android:enabled="true"
+            android:exported="false"/>
+
         <activity
             android:name=".HomeActivity"
             android:label="@string/app_name"
-            android:theme="@style/HomeViewActionBar">
+            android:theme="@style/LandingPageTheme"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -172,7 +185,8 @@
             android:name=".CampusInformationActivity"
             android:label="@string/title_activity_campus_information"
             android:parentActivityName=".HomeActivity"
-            android:theme="@style/campusinfotheme">
+            android:theme="@style/campusinfotheme"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mits.uwi.com.ourmobileenvironment.HomeActivity" />
@@ -188,7 +202,8 @@
                 android:name=".CampusInformationSubActivity"
                 android:label="@string/title_activity_campus_information_sub"
                 android:parentActivityName=".CampusInformationActivity"
-                android:theme="@style/campusinfotheme">
+                android:theme="@style/campusinfotheme"
+                android:screenOrientation="portrait">
                 <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="mits.uwi.com.ourmobileenvironment.CampusInformationActivity" />
@@ -285,7 +300,7 @@
             android:name=".CampusDirectionActivity"
             android:label="@string/title_activity_campus_direction"
             android:parentActivityName=".HomeActivity"
-            android:theme="@style/HomeViewActionBar.NoActionBar">
+            android:theme="@style/LandingPageTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mits.uwi.com.ourmobileenvironment.HomeActivity" />

@@ -10,8 +10,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.DimenRes;
-import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -70,6 +68,10 @@ public class CampusInformationActivity extends AppCompatActivity{
     @TargetApi(21)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        UWIMonaApplication application = (UWIMonaApplication) getApplication();
+        application.screenViewHitAnalytics("Activity~CampusInformation");
+
         setContentView(R.layout.fragment_campus_info2);
         getSupportActionBar().setTitle(R.string.title_activity_campus_information);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -86,47 +88,12 @@ public class CampusInformationActivity extends AppCompatActivity{
             indicatorUnselected = getResources().getDrawable(R.drawable.unselected_circle, null);
         }
 
-//        newAdapter = new CampusInfoViewFlipperAdapter(group_headings,
-//                                                   group_bodies,
-//                                                   this.getApplicationContext());
         adapter = new CampusInfoViewPagerAdapter(getSupportFragmentManager(),
                                                  group_headings,
                                                  group_bodies,
                                                  group_headings.length);
-//        mCampusInfoFlipper = (AdapterViewFlipper)findViewById(R.id.campus_info_flipper);
-//        mCampusInfoFlipper.setAdapter(newAdapter);
         mCampusInfo_ViewPager = (ViewPager)findViewById(R.id.campus_info_viewpager);
         mCampusInfo_ViewPager.setAdapter(adapter);
-//        mCampusInfoFlipper = (AdapterViewFlipper) findViewById(R.id.campus_info_flipper);
-//        mCampusInfoFlipper.setAdapter(newAdapter);
-//        mCampusInfoFlipper.setAutoStart(true);
-//        mCampusInfoFlipper.setOnTouchListener(new View.OnTouchListener(){
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                float initX = event.getX();
-//                if (event.getAction() == MotionEvent.ACTION_MOVE){
-//                    if (event.getHistorySize() > 0){
-//                        int historySize = event.getHistorySize();
-//                        int pointerCount = event.getPointerCount();
-//                        for (int i=0; i< historySize; i++){
-//                            float nextX = event.getHistoricalX(i);
-//                            if (nextX > initX){
-//                                // Swipe Right
-//                                mCampusInfoFlipper.showNext();
-//                                return true;
-//                            }
-//                            else if (nextX < initX){
-//                                //Swipe Left
-//                                mCampusInfoFlipper.showPrevious();
-//                                return true;
-//                            }
-//                        }
-//                    }
-//                }
-//
-//                return false;
-//            }
-//        }
         mCampusInfo_ViewPager.addOnPageChangeListener(new CampusInfoViewPagerPageChangeListener());
 
         FrameLayout viewPagerParent = (FrameLayout)mCampusInfo_ViewPager.getParent();
@@ -170,13 +137,13 @@ public class CampusInformationActivity extends AppCompatActivity{
         }
 
     }
+
     @Override
     public void onDestroy(){
         super.onDestroy();
         mCampusInfo_ViewPager.clearOnPageChangeListeners();
         viewPagerSwipeHandler.removeCallbacks(null);
     }
-
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
@@ -281,7 +248,5 @@ public class CampusInformationActivity extends AppCompatActivity{
         }
 
     }
-
-
 }
 

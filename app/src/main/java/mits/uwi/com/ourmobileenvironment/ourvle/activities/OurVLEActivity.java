@@ -17,6 +17,7 @@ import java.io.File;
 
 import mits.uwi.com.ourmobileenvironment.HomeActivity;
 import mits.uwi.com.ourmobileenvironment.R;
+import mits.uwi.com.ourmobileenvironment.UWIMonaApplication;
 import mits.uwi.com.ourmobileenvironment.ourvle.classes.helpers.ImageDecoder;
 import mits.uwi.com.ourmobileenvironment.ourvle.classes.models.CourseForum;
 import mits.uwi.com.ourmobileenvironment.ourvle.classes.models.CourseModule;
@@ -36,6 +37,10 @@ public class OurVLEActivity extends AppCompatActivity implements OptionListFragm
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        UWIMonaApplication application = (UWIMonaApplication) getApplication();
+        application.screenViewHitAnalytics("Activity~OurVLE");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ourvle_home);
 

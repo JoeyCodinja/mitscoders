@@ -13,12 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
-
-import com.google.api.client.auth.oauth2.TokenResponse;
 
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpRequest;
@@ -32,14 +29,12 @@ import com.google.api.services.youtube.YouTube;
 import com.google.api.services.youtube.model.SearchListResponse;
 import com.google.api.services.youtube.model.SearchResult;
 import com.google.api.services.youtube.model.SearchResultSnippet;
-import com.google.api.client.auth.oauth2.TokenRequest;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
+import mits.uwi.com.ourmobileenvironment.UWIMonaApplication;
 import mits.uwi.com.ourmobileenvironment.adapters.VideoListRecyclerAdapter;
 import mits.uwi.com.ourmobileenvironment.DeveloperKey;
 import mits.uwi.com.ourmobileenvironment.R;
@@ -71,6 +66,10 @@ public class HomeVideosFragment
     public void onCreate(
             Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        UWIMonaApplication application = (UWIMonaApplication)this
+                .getActivity()
+                .getApplication();
+        application.screenViewHitAnalytics("Fragment~HomeVideosFragment");
     }
 
     @Override

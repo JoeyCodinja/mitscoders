@@ -1,0 +1,38 @@
+{
+  "project_info": {
+    "project_number": "924498905464",
+    "project_id": "uwimonaapplication"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:924498905464:android:f314b349349a9b38",
+        "android_client_info": {
+          "package_name": "mits.uwi.com.ourmobileenvironment"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkTPOhB4A5OcNPRUHOxXvmLoZHC3xdDRo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-85990741-1"
+          }
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

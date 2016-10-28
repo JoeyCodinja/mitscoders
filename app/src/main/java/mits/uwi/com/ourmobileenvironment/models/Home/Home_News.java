@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 
 
 import mits.uwi.com.ourmobileenvironment.R;
@@ -68,6 +69,7 @@ public class Home_News {
                 newsItems.add(item);
             }
         }
+        loaded = true;
         return newsItems;
     }
 
@@ -112,22 +114,26 @@ public class Home_News {
         //Item tag should have within it only one title
         return newsItemTitle.get(0).text();
     }
-
-    public String getNewsItemDescription(Element newsItem) {
+    public ArrayList<String> getNewsItemDescription(Element newsItem) {
 
         Document descriptionHTML;
         String descriptionHTMLString;
+        ArrayList<String> descriptionParagraphs = new ArrayList<>();
         Elements newsItemDescription = newsItem.getElementsByTag("description");
 
         descriptionHTMLString = newsItemDescription.get(0).text();
         descriptionHTML = Jsoup.parse(descriptionHTMLString);
+        for (Element paragraph: descriptionHTML.getElementsByTag("p")){
+            if (paragraph.text().contains("read more") || paragraph.text().isEmpty())
+                continue;
+            descriptionParagraphs.add(paragraph.text().trim());
+        }
 
-        return descriptionHTML.getElementsByTag("p").get(0).text();
+        return descriptionParagraphs;
     }
 
     public boolean cacheNewsItems(Elements newsItems){
         /* Caches the elements of the RSS feeds that are being displayed */
-
         try {
             File cacheDir = new File(calledContext.getCacheDir(), "newsItems");
             FileOutputStream cacheOutput = new FileOutputStream(cacheDir);

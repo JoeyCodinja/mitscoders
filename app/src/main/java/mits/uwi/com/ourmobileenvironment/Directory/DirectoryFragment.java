@@ -48,8 +48,6 @@ public class DirectoryFragment extends Fragment {
         getActivity().setTitle(R.string.title_activity_directory);
         mDirectories=DirectoryEntry.getmDirectories();
 
-
-
     }
 
     public DirectoryAdapter getDirectoryAdapter() {

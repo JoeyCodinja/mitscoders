@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.content.Context;
 import android.os.Bundle;
 import android.app.Activity;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
@@ -28,31 +29,26 @@ public class EateriesActivity extends AppCompatActivity {
 
     private ArrayList<Restaurant> restaurants = new ArrayList<>();
     private EateriesAdapter eateriesAdapter;
+    private long startLoadRestaurantData, endLoadRestaurantData;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        AppCompatDelegate appCompatDelegate = AppCompatDelegate.create(this, this);
-//        appCompatDelegate.onCreate(savedInstanceState);
-//        appCompatDelegate.setContentView(R.layout.activity_eateries);
-//
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.eateries_toolbar);
-//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                NavUtils.navigateUpFromSameTask(EateriesActivity.this);
-//            }
-//        });
-//        appCompatDelegate.setSupportActionBar(toolbar);
-//
-//        android.support.v7.app.ActionBar ab = appCompatDelegate.getSupportActionBar();
-//        ab.setHomeButtonEnabled(true);
-//        ab.setDefaultDisplayHomeAsUpEnabled(true);
+
+        UWIMonaApplication application = (UWIMonaApplication) getApplication();
+        application.screenViewHitAnalytics("Activity~Eateries");
+
         setContentView(R.layout.activity_eateries);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+
+        startLoadRestaurantData = SystemClock.elapsedRealtime();
+
         loadRestaurant();
+
+        endLoadRestaurantData = SystemClock.elapsedRealtime();
+        sendRestaurantLoadingTimeAnalytics(endLoadRestaurantData - startLoadRestaurantData);
 
         RecyclerView recList = (RecyclerView)findViewById(R.id.rv);
         recList.setHasFixedSize(true);
@@ -63,13 +59,6 @@ public class EateriesActivity extends AppCompatActivity {
         recList.setAdapter(eateriesAdapter);
 
         findViewById(R.id.progress_bar).setVisibility(View.VISIBLE);
-
-        // This call should retain the
-        // instance of the fragment
-        // even when the fragment
-        // has been detached
-        // --> setRetainInstance(true);
-        // TODO: Research; Relevant? Alternative action within activity
     }
 
     @Override
@@ -102,5 +91,12 @@ public class EateriesActivity extends AppCompatActivity {
         eateriesAdapter.notifyDataSetChanged();
     }
 
+    private void sendRestaurantLoadingTimeAnalytics(long timeElapsed){
+        UWIMonaApplication application = (UWIMonaApplication) getApplication();
+        application.timingAnalytics("Resource Loading",
+                timeElapsed,
+                "JSONRestaurantData",
+                "Restaurant Data Load Time");
+    }
 
 }

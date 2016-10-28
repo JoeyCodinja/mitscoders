@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <string name="ga_appName">UWI Mona App </string>
+    <string name="ga_appVersion">0.B</string>
+    <boolean name="ga_autoActivityTracking">true</boolean>
+    <boolean name="ga_dryRun">false</boolean>
+    <string name="ga_trackingId">UA-85990741-1</string>
+</resources>

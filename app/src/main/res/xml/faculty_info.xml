@@ -1,0 +1,131 @@
+<Faculties>
+    <Faculty id="FST" name="Faculty of Science &amp; Technology">
+        <About type="text">
+            Teaching in the Faculty of Natural Sciences began at Mona in 1949 with students in the departments of Botnay, Chemistry, Mathematics, Physics and Zoology. It was later renamed the Faculty of Science and Technology in August, 2012.
+
+            The Programmes offered cover a wide range of fields, including Biochemistry, Life Sciences, Chemistry, Computer Science, Geography and Geology, Mathematics, Physics and Engineering.
+        </About>
+        <SocialMedia>
+            <Facebook url="https://www.facebook.com/n/?uwiscitech/"/>
+            <Twitter url="https://twitter.com/FstUwi_Mona"/>
+            <Instagram url=""/>
+            <Snapchat url=""/>
+        </SocialMedia>
+        <Resources>
+            <Document url="http://www.mona.uwi.edu/fst/sites/default/files/fpas/uploads/handbook_2016-2017.pdf">
+                Faculty Handbook (Science &amp; Technology)
+            </Document>
+            <Image identifier="faculties_fpas_dean" url="">
+                Dean for the Faculty of Science &amp; Technology
+                Professor Paul Reese
+                (B.Sc. (Hons), U.W.I.; D.Phil., Sussex, C.Chem., FRSC)
+            </Image>
+        </Resources>
+        <Departments>
+            <Department name="Chemistry"></Department>
+            <Department name="Computing"></Department>
+            <Department name="Engineering"></Department>
+            <Department name="Geography and Geology"></Department>
+            <Department name="Life Sciences"></Department>
+            <Department name="Mathematics"></Department>
+            <Department name="Physics"></Department>
+        </Departments>
+    </Faculty>
+
+    <Faculty id="HUM" name="Faculty of Humanities &amp; Education">
+        <About type="text">
+            The Faculty of Humanities and Education evolved out of the original Faculty of Arts established in 1950 and the Faculty of Arts and General Studies which was started in 1964 to co-ordinate the teaching of General Degree studies instituted in 1963. In 2002, the decision was taken to rename the faculty to the Faculty of Humanities and Education
+        </About>
+        <SocialMedia>
+            <Facebook url="https://www.facebook.com/n/?HumEdMona"/>
+            <Twitter url="https://twitter.com/UWIMona_HumEdua"/>
+            <Instagram url="https://www.instagram.com/uwimona_humedu"/>
+            <Snapchat url=""/>
+        </SocialMedia>
+        <Resources>
+            <Document
+                url="http://www.mona.uwi.edu/humed/sites/default/files/humed/u5/FHE%20Handbook%202015-2016%20-%20(for%20web).pdf">Faculty Handbook (Humanities &amp; Education)
+            </Document>
+            <Image identifier="faculties_humed_dean" url="">
+                Dean for the Faculty of Humanities &amp; Education
+Professor Waibinte E. Wariboko
+(B.A. (Port Harcourt), M.A. (Ibadan), Ph.D. (Birmingham-UK))</Image>
+        </Resources>
+        <Departments>
+            <Department name="Caribbean Institute of Media and Communication"></Department>
+            <Department name="History and Archeology"></Department>
+            <Department name="Institute of Caribbean Studies"></Department>
+            <Department name="Language, Linguistics and Philosophy"></Department>
+            <Department name="Library and Information Studies"></Department>
+            <Department name="Literatures in English"></Department>
+            <Department name="Modern Languages and Literatures"></Department>
+            <Department name="School Of Education"></Department>
+        </Departments>
+    </Faculty>
+
+    <Faculty id="LAW" name="Faculty of Law">
+        <About type="text">
+            The faculty of Law was established at the University of West Indies in 1970. Its primary objective is to provide an academic qualification which is a compulsory prerequisite to professional legal training for lawyers in the Commonwealth Caribbean.
+
+The Faculty of Law offers an undergraduate programme as well as graduate programs. The LLB programme is run over a 3 year period for full time students and 5 - 6 years for part-time students.
+        </About>
+        <SocialMedia>
+            <Facebook url="https://www.facebook.com/n/?Faculty-of-Law-UWI-Mona"/>
+            <Twitter url="https://twitter.com/monalawsociety"/>
+            <Instagram url="https://www.instagram.com/monalawsociety/"/>
+            <Snapchat url=""/>
+        </SocialMedia>
+        <Resources>
+            <Document url="http://www.mona.uwi.edu/law/sites/default/files/law/uploads/Facutly%20Handbook%202012--REGULATIONS%20FOR%20THE%20DEGREE.pdf">Faculty Handbook (Law)
+            </Document>
+            <Image identifier="faculties_law_dean" url="">
+                Dean for the Faculty of Law
+                Dr. Leighton Jackson
+                (LL.B. Hons. (UWI) LL.M. (Sydney) Ph.D. (York) Djur (Osgoode))</Image>
+        </Resources>
+    </Faculty>
+
+    <Faculty id="SOC" name="Faculty of Social Sciences">
+        <About type="text">
+            Teaching in the Social Sciences courses such as Economics, Political Science, Government and Sociology commenced in the Faculty of Arts at Mona. The faculty was established with two departments, Economics and Government.
+        </About>
+        <SocialMedia>
+            <Facebook url="https://www.facebook.com/n/?Faculty-of-Social-Sciences-UWI-Mona-251190541571594"/>
+            <Twitter url="https://twitter.com/FSSConnect"/>
+            <Instagram url="https://www.instagram.com/uwimona_fss/"/>
+            <Snapchat url=""/>
+        </SocialMedia>
+        <Resources>
+            <Document url="http://www.mona.uwi.edu/socsci/sites/default/files/socsci/uploads/fssundergraduatehandbook2016-2017_20160826tt.pdf">Faculty Handbook (Social Sciences)</Document>
+            <Image identifier="faculties_sosci_dean" url="">
+                Dean for the Faculty of Social Sciences
+                Professor Ian Boxill</Image>
+        </Resources>
+        <Departments>
+            <Department name="Center for Hotel and Tourism Management"></Department>
+            <Department name="Economics"></Department>
+            <Department name="Government"></Department>
+            <Department name="Mona School of Business and Management"></Department>
+            <Department name="Sociology, Psychology and Social Work"></Department>
+            <Department name="Sir Authur Lewis Institute of Social and Economic Studies"></Department>
+        </Departments>
+    </Faculty>
+
+    <Faculty id="MED" name="Faculty of Medical Sciences">
+        <About type="text">
+            The medical faculty was the first to be established at the UWI Mona. It began as an overseas college of the University of London. Students at the time were required to complete one pre medical and two preclinical years before entering the three year hospital based programme.</About>
+        <SocialMedia>
+            <Facebook url=""/>
+            <Twitter url=""/>
+            <Instagram url="https://www.instagram.com/uwimedsci/"/>
+            <Snapchat url=""/>
+        </SocialMedia>
+        <Resources>
+            <Document url="http://www.mona.uwi.edu/fms/sites/default/files/fms/uploads/MBBS%20Student%20Handbook_Final.pdf">Faculty Handbook (Medical Sciences)</Document>
+            <Image identifier="faculties_medsci_dean" url="">
+                Dean for the Faculty of Medical Sciences
+                Professor Horace Fletcher
+            </Image>
+        </Resources>
+    </Faculty>
+</Faculties>
