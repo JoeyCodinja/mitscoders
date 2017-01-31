@@ -2,9 +2,9 @@ package mits.uwi.com.ourmobileenvironment.sas.course;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ListFragment;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +15,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.amulyakhare.textdrawable.TextDrawable;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import mits.uwi.com.ourmobileenvironment.R;
 import mits.uwi.com.ourmobileenvironment.sas.Course;
@@ -33,14 +37,47 @@ public class CourseListFragment extends ListFragment {
     private TextView mNotify;
     private String mTitle;
     private FloatingActionButton fab;
+    public static final String TAG = "CourseListFragment";
 
+    public static CourseListFragment newInstance(JSONObject studentObject){
+        CourseListFragment fragment = new CourseListFragment();
+        Bundle arguments = new Bundle(1);
+        try {
+            JSONArray courseRegistrations = ((JSONArray)studentObject.get("courseRegistrations"));
+            Course[] courseList = Course.CREATOR.newArray(courseRegistrations.length());
+            for(int cnt=0; cnt < courseRegistrations.length(); cnt++){
+                JSONObject registeredCourse = (JSONObject)courseRegistrations.get(cnt);
+                Course course = new Course(
+                        Integer.valueOf(registeredCourse.get("crn").toString()),
+                        registeredCourse.get("subjectCode").toString(),
+                        Integer.valueOf(registeredCourse.get("courseNumber").toString()),
+                        registeredCourse.get("courseTitle").toString(),
+                        "",
+                        "",
+                        registeredCourse.get("scheduleType").toString()
+                        );
+                courseList[cnt] = course;
+            }
+
+            arguments.putParcelableArray("courses", courseList);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return fragment;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().setTitle(R.string.to_sas_home);
-       // ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(R.string.to_sas_home);
-        mCourses = CourseList.get(getActivity()).getmCourses(); //Course.getmCourses();
+        // TODO: RetrieveCourses
+        Parcelable[] list = savedInstanceState.getParcelableArray("courses");
+        for (Parcelable item: list){
+            mCourses.add((Course)item);
+        }
+//        mCourses = CourseList.get(getActivity()).getmCourses(); //Course.getmCourses();
         adapter = new CourseAdapter(mCourses);
         setListAdapter(adapter);
         setRetainInstance(true);

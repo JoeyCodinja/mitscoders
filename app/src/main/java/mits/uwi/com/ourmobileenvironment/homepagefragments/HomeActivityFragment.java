@@ -31,6 +31,7 @@ import java.util.List;
 
 import mits.uwi.com.ourmobileenvironment.BOSSActivity;
 import mits.uwi.com.ourmobileenvironment.EateriesActivity;
+import mits.uwi.com.ourmobileenvironment.SASActivity;
 import mits.uwi.com.ourmobileenvironment.Transport.TransportActivity;
 import mits.uwi.com.ourmobileenvironment.CampusInformationActivity;
 import mits.uwi.com.ourmobileenvironment.R;
@@ -138,7 +139,7 @@ public class HomeActivityFragment extends Fragment {
                                 startActivity(i);
                                 break;
                             case R.id.sas_fab:
-                                i = new Intent(getActivity(), UnavailableActivity.class); //SAS_Splash.class);
+                                i = new Intent(getActivity(), SAS_Splash.class);
                                 startActivity(i);
                                 break;
                         }

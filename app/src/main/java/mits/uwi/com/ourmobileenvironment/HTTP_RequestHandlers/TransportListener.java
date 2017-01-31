@@ -12,29 +12,37 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import mits.uwi.com.ourmobileenvironment.R;
 import mits.uwi.com.ourmobileenvironment.Transport.Transport;
 import mits.uwi.com.ourmobileenvironment.Transport.TransportFragment;
 /**
  * Created by rox on 1/10/16.
  */
-public class TransportListener<T extends Transport> implements Response.Listener<JSONObject> {
+public class TransportListener<T extends Transport> implements Response.Listener<JSONObject>{
     private JSONArray objectList;
     private String listName;
     private Toast internalError ;
     private Transport currentrecord;
     private ArrayList Tlist;
     private TransportFragment transportFragment;
+    private HashMap<String, String> headers;
     private Class<T> transportSubclass;
 
-
-    public  TransportListener(String listName,ArrayList<T>Tlist,TransportFragment transportFragment,Context mCtx,Class<T>transportSubclass){
+    public TransportListener(String listName,
+                             ArrayList<T>Tlist,
+                             TransportFragment transportFragment,
+                             Context mCtx,
+                             Class<T>transportSubclass){
         this.listName=listName;
         this.Tlist=Tlist;
         this.transportFragment=transportFragment;
         this.transportSubclass=transportSubclass;
         this.internalError=Toast.makeText(mCtx, "Internal error occured please restart application", Toast.LENGTH_SHORT);
     }
+
+
 
     @Override
     public void onResponse(JSONObject response){

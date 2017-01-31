@@ -1,13 +1,15 @@
 package mits.uwi.com.ourmobileenvironment.sas;
 
 import android.content.Context;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.util.ArrayList;
 
 /**
  * Created by User on 11/14/2015.
  */
-public class CourseList {
+public class CourseList implements Parcelable {
     private ArrayList<Course> mCourses;
     private static CourseList sCourseList;
     private Context mAppContext;
@@ -24,15 +26,47 @@ public class CourseList {
         mCourses.add(new Course(22376, "COMP", 3160, "Artificial Intelligence", "The introductoion to Computing Course is...", "Undergraduate", "Lecture"));
     }
 
+    protected CourseList(Parcel in) {
+        in.readTypedList(mCourses, Course.CREATOR);
+    }
+
+    public static final Creator<CourseList> CREATOR = new Creator<CourseList>() {
+        @Override
+        public CourseList createFromParcel(Parcel in) {
+            return new CourseList(in);
+        }
+
+        @Override
+        public CourseList[] newArray(int size) {
+            return new CourseList[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        ArrayList<Course> courses = new ArrayList<>();
+        for (Course course: mCourses){
+            courses.add(course);
+        }
+        dest.writeTypedList(courses);
+    }
+
     public static CourseList get (Context c){
         if (sCourseList == null){
             sCourseList = new CourseList(c.getApplicationContext());
         }
         return sCourseList;
     }
+
     public ArrayList<Course> getmCourses(){
         return mCourses;
     }
+
     public Course getCourse(int Crn){
         for (Course c : mCourses){
             if (c.getCRN()== Crn)
@@ -40,4 +74,6 @@ public class CourseList {
         }
         return null;
     }
+
+
 }

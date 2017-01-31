@@ -1,12 +1,15 @@
 package mits.uwi.com.ourmobileenvironment.sas;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
 /**
  * Created by User on 9/17/2015.
  */
-public class Course {
+public class Course implements Parcelable{
 
     private int CRN,CourseCode,Capacity,Section_Actual, Section_Remaining;
     private String Title,Subj,Section,Time, Instructor, Date, Location,Type;
@@ -23,8 +26,39 @@ public class Course {
         this.Description = descr;
         this.Level = level;
         this.Type = type;
-
     }
+
+    protected Course(Parcel in) {
+        CRN = in.readInt();
+        CourseCode = in.readInt();
+        Capacity = in.readInt();
+        Section_Actual = in.readInt();
+        Section_Remaining = in.readInt();
+        Title = in.readString();
+        Subj = in.readString();
+        Section = in.readString();
+        Time = in.readString();
+        Instructor = in.readString();
+        Date = in.readString();
+        Location = in.readString();
+        Type = in.readString();
+        Credits = in.readDouble();
+        Attribute = in.readString();
+        Description = in.readString();
+        Level = in.readString();
+    }
+
+    public static final Creator<Course> CREATOR = new Creator<Course>() {
+        @Override
+        public Course createFromParcel(Parcel in) {
+            return new Course(in);
+        }
+
+        @Override
+        public Course[] newArray(int size) {
+            return new Course[size];
+        }
+    };
 
     public int getCRN() {
         return CRN;
@@ -214,5 +248,31 @@ public class Course {
         mCourses.add(new Course(792165,"COMP",2190,"Net-Centric Computing","This is a core course in the BSc Computer Science curriculum.It is the updated version of CS20A. Its primary focus is on the method of assessing time complexity of an algorithm, and on several algorithms that efficiently solve common problems across a wide range of domains. Hand in hand with the discussion of these algorithms, goes a discussion of the data structures that support them. Therefore each topic in this course is usually present as a family if problems, the types of algorithmc solutions available, the...\"\n" +
                 "        ","Undergraduate","Tutorial"));
         mCourses.add(new Course(22376,"COMP",3160,"Artificial Intelligence","The introductoion to Computing Course is...","Undergraduate","Lecture"));
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(CRN);
+        dest.writeInt(CourseCode);
+        dest.writeInt(Capacity);
+        dest.writeInt(Section_Actual);
+        dest.writeInt(Section_Remaining);
+        dest.writeString(Title);
+        dest.writeString(Subj);
+        dest.writeString(Section);
+        dest.writeString(Time);
+        dest.writeString(Instructor);
+        dest.writeString(Date);
+        dest.writeString(Location);
+        dest.writeString(Type);
+        dest.writeDouble(Credits);
+        dest.writeString(Attribute);
+        dest.writeString(Description);
+        dest.writeString(Level);
     }
 }

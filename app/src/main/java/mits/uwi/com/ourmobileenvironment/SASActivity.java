@@ -30,11 +30,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.List;
-
 import mits.uwi.com.ourmobileenvironment.sas.classmap.Activity.ClassMapActivity;
 import mits.uwi.com.ourmobileenvironment.sas.course.AddDropCourseFragment;
 import mits.uwi.com.ourmobileenvironment.sas.course.CourseListFragment;
+import mits.uwi.com.ourmobileenvironment.sas.dialog.LoginDialog;
 import mits.uwi.com.ourmobileenvironment.sas.holds.HoldsFragment;
 import mits.uwi.com.ourmobileenvironment.sas.requestoverride.RequestOverrideListFragment;
 import mits.uwi.com.ourmobileenvironment.sas.settings.SasSettingsActivity;
@@ -77,19 +76,12 @@ public class SASActivity extends AppCompatActivity {
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.sas_fragmentContainer);
         if (fragment == null){
-            fragment = new CourseListFragment();//CourseFragment();
-            fm.beginTransaction()
-                    .add(R.id.sas_fragmentContainer, fragment)
-                    .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                    //.addToBackStack(null)
-                    .commit();
+            fragment = new LoginDialog();
+            ((LoginDialog)fragment).show(fm, "Login");
+//            fragment = new CourseListFragment();//CourseFragment();
         }
         ToprightBar.setTopOverflow(this);
         mDrawerLayout = (DrawerLayout)findViewById(R.id.sas_drawer_layout);
-        /*tabLayout = (TabLayout)findViewById(R.id.tabLayout);
-        tabLayout.setTabTextColors(Color.BLACK, R.color.accent);
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.to_sas_home+"              \n  "));*/
 
         mRecyclerView =(RecyclerView)findViewById(R.id.RecyclerView);
         mRecyclerView.setHasFixedSize(true);
@@ -98,13 +90,11 @@ public class SASActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        //mNavList = (ListView)findViewById(R.id.navList);
-        //addDrawerItems();
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -189,10 +179,16 @@ public class SASActivity extends AppCompatActivity {
             }
         }
     }
+
     private void addDrawerItems(){
         mAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,list);
         mNavList.setAdapter(mAdapter);
     };
+
+    private void logInDialog(){
+        LoginDialog dialog = new LoginDialog();
+        dialog.show(getSupportFragmentManager(), LoginDialog.dialogKey);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -216,6 +212,7 @@ public class SASActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
     public class SasAdapter extends RecyclerView.Adapter<SasAdapter.ViewHolder>{
 
         private static final int TYPE_HEADER = 0;  // Declaring Variable to Understand which View is being worked on
@@ -265,19 +262,6 @@ public class SASActivity extends AppCompatActivity {
                       // Setting holder id = 0 as the object being populated are of type header view
                 }
             }
-
-           /* @Override
-            public void onClick(View v) {
-                // Save the selected positions to the SparseBooleanArray
-                if (selectedItems.get(getAdapterPosition(), false)) {
-                    selectedItems.delete(pos);
-                    itemView.setSelected(false);
-                }
-                else {
-                    selectedItems.put(getAdapterPosition(), true);
-                    itemView.setSelected(true);
-                }
-            }*/
         }
 
         SasAdapter(String Titles[],int Icons[],String Name, int logo){ // MyAdapter Constructor with titles and icons parameter

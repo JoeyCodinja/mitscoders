@@ -46,7 +46,7 @@ public class CampusDirectionActivity extends AppCompatActivity {
             if (locationChosen == null){
                 throw new NullPointerException();
             }
-            resumeInterruptedAction(locationChosen);
+            resumeInterruptedAction(locationChosen, getApplicationContext());
         } catch(NullPointerException e){
             // Not resuming previous action; continue as normal
         }
@@ -78,7 +78,7 @@ public class CampusDirectionActivity extends AppCompatActivity {
                     // Save the state of the user's action before we head off
                     installGoogleMaps();
                 }
-                navigateTo(locationCoords);
+                navigateTo(locationCoords, getApplicationContext());
 
             }
         });
@@ -100,13 +100,13 @@ public class CampusDirectionActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState, outPersistentState);
     }
 
-    private void resumeInterruptedAction(String locationChosen){
+    private void resumeInterruptedAction(String locationChosen, Context context){
         if (!isGoogleMapsInstalled()){
             installGoogleMaps();
         }
         int locationIndex = adapter.getItemIndexFromLocationName(locationChosen);
         if (locationIndex != -1)
-            navigateTo(adapter.getItemLocationCoords(locationIndex));
+            navigateTo(adapter.getItemLocationCoords(locationIndex), context);
         else{
             Toast.makeText(this,
                     "We could not find the location you previously requested",
@@ -114,7 +114,7 @@ public class CampusDirectionActivity extends AppCompatActivity {
         }
     }
 
-    private void navigateTo(String location_coords){
+    public static void navigateTo(String location_coords, Context context){
         Uri navigationIntentURI =
                 Uri.parse("google.navigation:q=" +
                         location_coords +
@@ -122,7 +122,7 @@ public class CampusDirectionActivity extends AppCompatActivity {
         Intent i = new Intent(Intent.ACTION_VIEW,
                 navigationIntentURI);
         i.setPackage("com.google.android.apps.maps");
-        startActivity(i);
+        context.startActivity(i);
     }
 
     private boolean isGoogleMapsInstalled(){

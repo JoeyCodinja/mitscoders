@@ -8,12 +8,17 @@ import com.android.volley.toolbox.HttpStack;
 import com.android.volley.toolbox.ImageLoader;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.util.LruCache;
+import android.support.v7.app.AppCompatActivity;
+
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import mits.uwi.com.ourmobileenvironment.DeveloperKey;
 import mits.uwi.com.ourmobileenvironment.EateriesActivity;
@@ -27,6 +32,10 @@ import mits.uwi.com.ourmobileenvironment.Transport.JUTCRouteFragment;
 import mits.uwi.com.ourmobileenvironment.Transport.TaxiService;
 import mits.uwi.com.ourmobileenvironment.Transport.TaxiServiceFragment;
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.Restaurant;
+import mits.uwi.com.ourmobileenvironment.sas.volley.SASAuthRequestListener;
+import mits.uwi.com.ourmobileenvironment.sas.volley.SASDataRequestListener;
+import mits.uwi.com.ourmobileenvironment.sas.volley.SASErrorListener;
+import mits.uwi.com.ourmobileenvironment.sas.volley.SASRequest;
 
 
 public class GlobalRequestHandler {
@@ -34,6 +43,7 @@ public class GlobalRequestHandler {
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
     private static Context mCtx;
+    private static HashMap<String, String> headers;
 
 
 
@@ -84,7 +94,7 @@ public class GlobalRequestHandler {
         return mImageLoader;
     }
 
-    public void getShuttleRoutes(ArrayList<BusRoute> BusRouteList,BusScheduleFragment busScheduleFragment )  {
+    public void getShuttleRoutes(ArrayList<BusRoute> BusRouteList, BusScheduleFragment busScheduleFragment )  {
         String url="https://mobile-app.mona.uwi.edu/service/shuttle_routes";
         TransportListener transportListener=new TransportListener("Shuttlelist",BusRouteList,busScheduleFragment,mCtx,BusRoute.class);
         TransportErrorListener transportErrorListener= new TransportErrorListener(BusRoute.class,mCtx,busScheduleFragment,BusRouteList);
@@ -124,11 +134,63 @@ public class GlobalRequestHandler {
 
     }
 
-    public  void getGuildBusRoutes(ArrayList<GuildBus> GList,GuildBusFragment guildBusFragment){
+    public void getGuildBusRoutes(ArrayList<GuildBus> GList,GuildBusFragment guildBusFragment){
         String url="https://mobile-app.mona.uwi.edu/service/guild_routes";
         TransportListener transportListener= new TransportListener("GuildList",GList,guildBusFragment,mCtx,GuildBus.class);
         TransportErrorListener transportErrorListener=new TransportErrorListener(GuildBus.class,mCtx,guildBusFragment,GList);
         TransportRequest transportRequest=new TransportRequest(url,transportListener,transportErrorListener,mCtx);
         mRequestQueue.add(transportRequest);
+    }
+
+    public void getStudentInfo(String studentId,
+                                   Fragment resultantFragment,
+                                   AppCompatActivity fragmentActivity){
+        String url= String.format("https://ext-web-srvs.uwimona.edu.jm/api/sas/registration/%s", studentId);
+        SASDataRequestListener listener = new SASDataRequestListener(resultantFragment, fragmentActivity);
+        SASErrorListener errorListener = new SASErrorListener(mCtx);
+        SASRequest.SASDataRequest request = new SASRequest.SASDataRequest(url ,
+                headers,
+                listener,
+                errorListener);
+        mRequestQueue.add(request);
+    }
+
+    public void getCourseInfoCRN(String CRN,
+                                 Fragment resultantFragment,
+                                 AppCompatActivity fragmentActivity){
+        // Retrieve Course Info via CRN
+        String url = String.format("https://ext-web-srvs.uwimona.edu.jm/api/sas/section/%s", CRN);
+        SASDataRequestListener listener = new SASDataRequestListener(resultantFragment, fragmentActivity);
+        SASErrorListener errorListener = new SASErrorListener(mCtx);
+        SASRequest.SASDataRequest request = new SASRequest.SASDataRequest(url ,
+                headers,
+                listener,
+                errorListener);
+        mRequestQueue.add(request);
+    }
+
+    public void getCourseInfoCC(String courseCode,
+                                Fragment resultantFragment,
+                                AppCompatActivity fragmentActivity){
+        // Retrieve Course Info via Cousre Code
+        String url = String.format("https://ext-web-srvs.uwimona.edu.jm/api/sas/course/%s", courseCode);
+        SASDataRequestListener listener = new SASDataRequestListener(resultantFragment, fragmentActivity);
+        SASErrorListener errorListener = new SASErrorListener(mCtx);
+        SASRequest.SASDataRequest request = new SASRequest.SASDataRequest(url ,
+                headers,
+                listener,
+                errorListener);
+        mRequestQueue.add(request);
+    }
+
+    public void getSASAuthToken(HashMap<String, String> credentials){
+        String url="https://ext-web-srvs.uwimona.edu.jm/api/oauth2/token";
+        SASAuthRequestListener listener = new SASAuthRequestListener(headers);
+        SASErrorListener errorListener = new SASErrorListener(mCtx);
+        SASRequest.SASAuthRequest request = new SASRequest.SASAuthRequest(url,
+                credentials,
+                listener,
+                errorListener);
+        mRequestQueue.add(request);
     }
 }

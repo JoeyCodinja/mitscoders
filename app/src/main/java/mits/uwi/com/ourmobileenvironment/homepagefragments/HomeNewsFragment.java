@@ -2,14 +2,11 @@ package mits.uwi.com.ourmobileenvironment.homepagefragments;
 
 
 import android.animation.ObjectAnimator;
-import android.animation.TimeInterpolator;
-import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,7 +15,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.view.Gravity;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.util.Log;
 
@@ -29,15 +25,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
-
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
-import java.lang.Math;
 
 import mits.uwi.com.ourmobileenvironment.HomeActivity;
 import mits.uwi.com.ourmobileenvironment.NewsViewActivity;
@@ -74,6 +66,7 @@ public class HomeNewsFragment extends Fragment {
         if (savedInstanceState != null){
             this.forceCacheRead = savedInstanceState.getBoolean("forceCacheRead", false);
         }
+
         UWIMonaApplication application = (UWIMonaApplication)
                 this.getActivity()
                         .getApplication();
@@ -89,17 +82,9 @@ public class HomeNewsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home_news, container, false);
 
-        LinearLayout[] columns = {(LinearLayout) v.findViewById(R.id.newsColumn1),
-                                  (LinearLayout) v.findViewById(R.id.newsColumn2)};
-
-        for (LinearLayout column: columns){
-            column.setVisibility(View.GONE);
-        }
-
-        LinearLayout columnParent = (LinearLayout) columns[0].getParent();
+        LinearLayout columnParent = (LinearLayout) v.findViewById(R.id.newsListing);
 
         TextView loadingText = new TextView(columnParent.getContext());
         loadingText.setText("Loading the Latest News Stories");
@@ -143,7 +128,7 @@ public class HomeNewsFragment extends Fragment {
                         newsItemTitles.add(mNewsItems.getNewsItemTitle(element));
                         newsItemImages.add(mNewsItems.getNewsItemImage(element));
                         newsItemURLs.add(mNewsItems.getNewsItemURL(element));
-                        newsItemDescriptions.add(mNewsItems.getNewsItemDescription(element));
+                        newsItemDescriptions.add(mNewsItems.getNewsItemArticle(element));
                     }
                 }
                 else if (!mNewsItems.didConnect || mNewsItems.loaded){
@@ -151,7 +136,7 @@ public class HomeNewsFragment extends Fragment {
                         newsItemTitles.add(mNewsItems.getNewsItemTitle(element));
                         newsItemImages.add(mNewsItems.getNewsItemImage(element));
                         newsItemURLs.add(mNewsItems.getNewsItemURL(element));
-                        newsItemDescriptions.add(mNewsItems.getNewsItemDescription(element));
+                        newsItemDescriptions.add(mNewsItems.getNewsItemArticle(element));
                     }
                 }
                 else{
@@ -160,7 +145,7 @@ public class HomeNewsFragment extends Fragment {
                         newsItemTitles.add(mNewsItems.getNewsItemTitle(element));
                         newsItemImages.add(mNewsItems.getNewsItemImage(element));
                         newsItemURLs.add(mNewsItems.getNewsItemURL(element));
-                        newsItemDescriptions.add(mNewsItems.getNewsItemDescription(element));
+                        newsItemDescriptions.add(mNewsItems.getNewsItemArticle(element));
                     }
                     mNewsItems.cacheNewsItems(newsItemElements);
                     forceCacheRead = true;
@@ -185,11 +170,7 @@ public class HomeNewsFragment extends Fragment {
                 return;
             }
 
-            LinearLayout[] columns =
-                    {(LinearLayout) contextView.findViewById(R.id.newsColumn1),
-                     (LinearLayout) contextView.findViewById(R.id.newsColumn2)};
-
-            LinearLayout newsHeader = (LinearLayout) contextView.findViewById(R.id.newsHeader);
+            LinearLayout newsListing = (LinearLayout) contextView.findViewById(R.id.newsListing);
 
             LayoutInflater layoutInflater =
                     (LayoutInflater) getActivity()
@@ -197,18 +178,10 @@ public class HomeNewsFragment extends Fragment {
                                      .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
             // Removes the Loading screen
-            LinearLayout loadingTextViewParent = (LinearLayout)columns[0].getParent();
 
-            loadingTextViewParent.removeView(loadingTextViewParent.findViewById(R.id.loadingTextView));
-
-
-            for (LinearLayout column: columns){
-                column.setVisibility(View.VISIBLE);
-            }
+            newsListing.removeView(newsListing.findViewById(R.id.loadingTextView));
 
             for (int i = 0; i < newsItemTitles.size(); i++) {
-                // Remove dummy views from both columns
-
                 final int finalI = i;
                 final Context finalContext = contextView.getContext();
 
@@ -243,44 +216,7 @@ public class HomeNewsFragment extends Fragment {
                         startActivity(viewArticleIntent);
                     }
                 });
-
-
-                if (i == 0)
-                    newsHeader.addView(newsCard);
-                else
-                    columns[i % 2].addView(newsCard);
-
-                if (i == 0){
-                    newsCard.setLayoutParams(new LinearLayout.LayoutParams(newsHeader.getWidth(),
-                            LinearLayout.LayoutParams.WRAP_CONTENT));
-                    newsCardImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                }
-
-                else if (imageWidth/imageHeight <= 1.8 &&
-                        imageWidth/imageHeight >= 1){
-                    // 4:3 image
-                    newsCard.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,
-                            LayoutParams.WRAP_CONTENT));
-                    newsCardImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                }
-
-                // Very Small Image
-                else if (imageHeight <= 100 || imageWidth <=100) {
-                    newsCard.setLayoutParams(
-                            new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,
-                                    LayoutParams.WRAP_CONTENT));
-                    newsCardImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                }
-
-                else if (newsItemImages.get(i).getWidth() < newsItemImages.get(i).getHeight()){
-                    newsCard.setLayoutParams(
-                            new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,
-                                    (int)imageHeight));
-                    newsCardImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                }
-                newsCard.setLayoutParams(
-                        new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                                LinearLayout.LayoutParams.WRAP_CONTENT));
+                newsListing.addView(newsCard);
             }
         }
 

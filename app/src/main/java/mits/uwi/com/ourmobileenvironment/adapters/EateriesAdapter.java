@@ -23,6 +23,7 @@ import mits.uwi.com.ourmobileenvironment.R;
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.EateriesMapActivity;
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.MenuDataPasser;
 import mits.uwi.com.ourmobileenvironment.campusinformationfragments.Restaurant;
+import mits.uwi.com.ourmobileenvironment.CampusDirectionActivity;
 
 /**
  * Created by Danuel on 18/8/2016.
@@ -111,6 +112,7 @@ public class EateriesAdapter extends RecyclerView.Adapter<EateriesAdapter.Eateri
             cv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View itemView) {
+
                     input = eateriesName.getText().toString();
                     for (int i =0 ; i <eateries.size(); i++){
                         if(input.equals(eateries.get(i).getName()))
@@ -136,21 +138,24 @@ public class EateriesAdapter extends RecyclerView.Adapter<EateriesAdapter.Eateri
                 @Override
                 public void onClick(View itemView) {
                     input = eateriesName.getText().toString();
-                    double x,y;
+                    String coords;
                     Context context = itemView.getContext();
                     //MenuDataPasser.getInstance().setResName(input);
                     for (int i =0 ; i <eateries.size(); i++){
                         if(input.equals(eateries.get(i).getName())) {
-                            x = eateries.get(i).getCoordx();
-                            y = eateries.get(i).getCoordy();
-                            Intent mapIntent = new Intent(context,
-                                                          EateriesMapActivity.class);
-                            mapIntent.putExtra("ICON",eateries.get(i).getPhoto());
-                            mapIntent.putExtra("NAME",eateries.get(i).getName());
-                            mapIntent.putExtra("LATITUDE", x);
-                            mapIntent.putExtra("LONGTITUDE", y);
-                            mapIntent.putExtra("HOURS",eateries.get(i).getBusinessHours());
-                            context.startActivity(mapIntent);
+                            coords = String.valueOf(eateries.get(i).getCoordx()) + ','
+                                    + String.valueOf(eateries.get(i).getCoordy());
+                            CampusDirectionActivity.navigateTo(coords, context);
+//                            x = eateries.get(i).getCoordx();
+//                            y = eateries.get(i).getCoordy();
+//                            Intent mapIntent = new Intent(context,
+//                                                          EateriesMapActivity.class);
+//                            mapIntent.putExtra("ICON",eateries.get(i).getPhoto());
+//                            mapIntent.putExtra("NAME",eateries.get(i).getName());
+//                            mapIntent.putExtra("LATITUDE", x);
+//                            mapIntent.putExtra("LONGTITUDE", y);
+//                            mapIntent.putExtra("HOURS",eateries.get(i).getBusinessHours());
+//                            context.startActivity(mapIntent);
                         }
                     }
                     // item clicked

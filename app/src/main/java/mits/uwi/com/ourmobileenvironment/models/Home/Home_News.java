@@ -79,8 +79,6 @@ public class Home_News {
         return newsItemURL.get(0).text();
     }
 
-
-
     public Bitmap getNewsItemImage(Element newsItem){
         Bitmap image = null;
         Document newsItemXMLData;
@@ -94,6 +92,9 @@ public class Home_News {
             InputStream in = new java.net.URL(newsImageTag.attributes().get("src"))
                     .openStream();
             image = BitmapFactory.decodeStream(in);
+            if (image == null){
+                throw new IOException("Haven't loaded image");
+            }
         }
         catch (IndexOutOfBoundsException|IOException e){
             try{
@@ -105,7 +106,6 @@ public class Home_News {
                 e.printStackTrace();
             }
         }
-
         return image;
     }
 
@@ -114,8 +114,29 @@ public class Home_News {
         //Item tag should have within it only one title
         return newsItemTitle.get(0).text();
     }
-    public ArrayList<String> getNewsItemDescription(Element newsItem) {
 
+    public ArrayList<String> getNewsItemArticle(Element newsItem){
+
+        Document article;
+        ArrayList<String> newsContentParagraph = new ArrayList<>();
+        Elements newsItemArticle = newsItem.getElementsByTag("link");
+
+        try {
+            article = Jsoup.connect(newsItemArticle.text()).get();
+        } catch (IOException e){
+            return newsContentParagraph;
+        }
+        Elements articleContent = article.getElementById("mainContent").getAllElements();
+        articleContent = articleContent.get(2).getElementsByClass("content").get(0).getElementsByTag("p");
+
+        for (Element paragraph: articleContent){
+            newsContentParagraph.add(paragraph.text().trim());
+        }
+
+        return newsContentParagraph;
+    }
+
+    public ArrayList<String> getNewsItemDescription(Element newsItem) {
         Document descriptionHTML;
         String descriptionHTMLString;
         ArrayList<String> descriptionParagraphs = new ArrayList<>();
