@@ -1,5 +1,6 @@
 package mits.uwi.com.ourmobileenvironment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -65,6 +66,7 @@ public class CampusDirectionActivity extends AppCompatActivity {
         } catch (XmlPullParserException | IOException e) {
             e.printStackTrace();
         }
+
         locationsListView.setAdapter(adapter);
         locationsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -78,7 +80,7 @@ public class CampusDirectionActivity extends AppCompatActivity {
                     // Save the state of the user's action before we head off
                     installGoogleMaps();
                 }
-                navigateTo(locationCoords, getApplicationContext());
+                navigateTo(locationCoords, view.getContext());
 
             }
         });
