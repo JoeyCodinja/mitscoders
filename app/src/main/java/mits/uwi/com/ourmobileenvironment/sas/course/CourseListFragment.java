@@ -27,6 +27,7 @@ import java.util.Iterator;
 import mits.uwi.com.ourmobileenvironment.R;
 import mits.uwi.com.ourmobileenvironment.sas.Course;
 import mits.uwi.com.ourmobileenvironment.sas.CourseList;
+import mits.uwi.com.ourmobileenvironment.sas.dialog.LoginDialog;
 
 /**
  * Created by User on 11/14/2015.
@@ -62,26 +63,40 @@ public class CourseListFragment extends ListFragment {
             arguments.putParcelableArray("courses", courseList);
 
         } catch (JSONException e) {
+            Toast.makeText(fragment.getActivity(),
+                    "Error loading list of Courses",
+                    Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
-
+        fragment.setArguments(arguments);
         return fragment;
+    }
+
+    public CourseListFragment(){
+
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().setTitle(R.string.to_sas_home);
+
         // TODO: RetrieveCourses
-        Parcelable[] list = savedInstanceState.getParcelableArray("courses");
-        for (Parcelable item: list){
-            mCourses.add((Course)item);
+        try{
+            Parcelable[] list = this.getArguments().getParcelableArray("courses");
+            mCourses = new ArrayList<>();
+            for (Parcelable item: list){
+                mCourses.add((Course)item);
+            }
+        } catch (NullPointerException e){
+            Toast.makeText(this.getActivity(),
+                    "No Courses Registered for in this semester",
+                    Toast.LENGTH_LONG).show();
+            mCourses = new ArrayList<>();
         }
-//        mCourses = CourseList.get(getActivity()).getmCourses(); //Course.getmCourses();
         adapter = new CourseAdapter(mCourses);
         setListAdapter(adapter);
         setRetainInstance(true);
-
     }
 
     @Override
@@ -164,13 +179,6 @@ public class CourseListFragment extends ListFragment {
                 course.setImageDrawable(TextDrawable.builder().beginConfig().bold().endConfig()
                         .buildRound("" + mTitle.charAt(0), getResources().getColor(R.color.event_color_04)));
             }
-            /*fab = (FloatingActionButton)convertView.findViewById(R.id.fab);
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(getActivity().getApplicationContext(), "Fab Pressed", Toast.LENGTH_SHORT);
-                }
-            });*/
             return convertView;
         }
     }

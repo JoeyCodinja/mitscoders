@@ -9,6 +9,7 @@ import com.android.volley.toolbox.StringRequest;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -27,14 +28,28 @@ public class SASRequest{
         }
 
         @Override
-        protected Map<String, String> getParams() throws AuthFailureError {
-            HashMap params = new HashMap<>();
-            params.put("username", "mitsUser");
+        public byte[] getBody() throws AuthFailureError {
+            Map<String, String> params = new HashMap<String, String>();
+            params.put("username", "mitsTest");
             params.put("password", "Op3nUp");
-            params.put("grant_type", "'uwiMona_clientApp'");
-            return params;
+            params.put("grant_type", "uwiMona_clientApp");
+
+            Iterator iterator = params.keySet().iterator();
+            String encodedParams = "";
+            String key = (String)iterator.next();
+            while(iterator.hasNext()){
+                String value = params.get(key);
+                encodedParams = encodedParams.concat( key + "=" + value + "&");
+                key = (String)iterator.next();
+            }
+            encodedParams = encodedParams.concat(key + "=" +  params.get(key));
+            return encodedParams.getBytes();
         }
 
+        @Override
+        public String getBodyContentType() {
+            return "application/x-www-form-urlencoded";
+        }
     }
 
     public static class SASDataRequest extends JsonObjectRequest {

@@ -41,6 +41,7 @@ import mits.uwi.com.ourmobileenvironment.sas.volley.SASRequest;
 public class GlobalRequestHandler {
     private static GlobalRequestHandler mInstance;
     private RequestQueue mRequestQueue;
+    private RequestQueue secureRequestQueue;
     private ImageLoader mImageLoader;
     private static Context mCtx;
     private static HashMap<String, String> headers;
@@ -49,6 +50,7 @@ public class GlobalRequestHandler {
 
     private GlobalRequestHandler(Context context) {
         mCtx = context.getApplicationContext();
+        headers = new HashMap<String, String>();
         mRequestQueue = getRequestQueue();
         mImageLoader = new ImageLoader(mRequestQueue,
                 new ImageLoader.ImageCache() {
@@ -74,7 +76,15 @@ public class GlobalRequestHandler {
         return mInstance;
     }
 
-    public RequestQueue getRequestQueue() {
+    public void updateHeaders(HashMap<String, String> newHeaders){
+        this.headers = newHeaders;
+    }
+
+    public RequestQueue getAlternateRequestQueue(){
+        return Volley.newRequestQueue(mCtx);
+    }
+
+    public RequestQueue getRequestQueue(){
         if (mRequestQueue == null) {
             InputStream keyStore = mCtx.getResources().openRawResource(R.raw.api);
 
@@ -82,6 +92,8 @@ public class GlobalRequestHandler {
                     new ExtHttpClientStack(
                             new SslHttpClient(keyStore,
                                     DeveloperKey.KEYSTORE_PASS)));
+            mRequestQueue.start();
+
         }
         return mRequestQueue;
     }
@@ -143,8 +155,8 @@ public class GlobalRequestHandler {
     }
 
     public void getStudentInfo(String studentId,
-                                   Fragment resultantFragment,
-                                   AppCompatActivity fragmentActivity){
+                               Fragment resultantFragment,
+                               AppCompatActivity fragmentActivity){
         String url= String.format("https://ext-web-srvs.uwimona.edu.jm/api/sas/registration/%s", studentId);
         SASDataRequestListener listener = new SASDataRequestListener(resultantFragment, fragmentActivity);
         SASErrorListener errorListener = new SASErrorListener(mCtx);
@@ -152,7 +164,7 @@ public class GlobalRequestHandler {
                 headers,
                 listener,
                 errorListener);
-        mRequestQueue.add(request);
+        getAlternateRequestQueue().add(request);
     }
 
     public void getCourseInfoCRN(String CRN,
@@ -166,7 +178,7 @@ public class GlobalRequestHandler {
                 headers,
                 listener,
                 errorListener);
-        mRequestQueue.add(request);
+        getAlternateRequestQueue().add(request);
     }
 
     public void getCourseInfoCC(String courseCode,
@@ -180,17 +192,28 @@ public class GlobalRequestHandler {
                 headers,
                 listener,
                 errorListener);
-        mRequestQueue.add(request);
+        getAlternateRequestQueue().add(request);
     }
 
-    public void getSASAuthToken(HashMap<String, String> credentials){
+    public void getSASAuthToken(HashMap<String, String> credentials) {
+        getSASAuthToken(credentials, null);
+    }
+
+    public void getSASAuthToken(HashMap<String, String> credentials, SASAuthRequestListener altListener){
         String url="https://ext-web-srvs.uwimona.edu.jm/api/oauth2/token";
-        SASAuthRequestListener listener = new SASAuthRequestListener(headers);
+        SASAuthRequestListener listener;
+        if (altListener != null){
+            listener = altListener;
+            listener.setHeaders(headers);
+        } else{
+             listener = new SASAuthRequestListener(headers);
+        }
+
         SASErrorListener errorListener = new SASErrorListener(mCtx);
         SASRequest.SASAuthRequest request = new SASRequest.SASAuthRequest(url,
                 credentials,
                 listener,
                 errorListener);
-        mRequestQueue.add(request);
+        getAlternateRequestQueue().add(request);
     }
 }

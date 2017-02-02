@@ -8,6 +8,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -23,6 +24,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -67,6 +69,7 @@ public class SASActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sas);
 
@@ -76,10 +79,16 @@ public class SASActivity extends AppCompatActivity {
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.sas_fragmentContainer);
         if (fragment == null){
-            fragment = new LoginDialog();
-            ((LoginDialog)fragment).show(fm, "Login");
-//            fragment = new CourseListFragment();//CourseFragment();
+            DialogFragment dialog = LoginDialog.newInstance(this);
+            dialog.show(fm, LoginDialog.dialogKey);
+
+//            fragment = new CourseListFragment()
+//            fm.beginTransaction()
+//                    .add(R.id.sas_fragmentContainer, dialog)
+//                    .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+//                    .commit();
         }
+
         ToprightBar.setTopOverflow(this);
         mDrawerLayout = (DrawerLayout)findViewById(R.id.sas_drawer_layout);
 
@@ -120,7 +129,6 @@ public class SASActivity extends AppCompatActivity {
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
-        //mNavList.setOnItemClickListener(new DrawerItemClickListener());
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener{
@@ -132,7 +140,7 @@ public class SASActivity extends AppCompatActivity {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             switch(position) {
                 case 0:
-                    fragment = new CourseListFragment();//CourseFragment();
+                    fragment = new CourseListFragment();
                     break;
                 case 1:
                     fragment = new AddDropCourseFragment();
@@ -148,7 +156,7 @@ public class SASActivity extends AppCompatActivity {
                     break;
             }
             if (position !=7) {
-                if (position==0) {
+                if (position == 0) {
                     fm.beginTransaction()
                             .replace(R.id.sas_fragmentContainer, fragment)
                             .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right)
@@ -184,11 +192,6 @@ public class SASActivity extends AppCompatActivity {
         mAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,list);
         mNavList.setAdapter(mAdapter);
     };
-
-    private void logInDialog(){
-        LoginDialog dialog = new LoginDialog();
-        dialog.show(getSupportFragmentManager(), LoginDialog.dialogKey);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

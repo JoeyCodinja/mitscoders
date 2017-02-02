@@ -1,6 +1,7 @@
 package mits.uwi.com.ourmobileenvironment.sas.dialog;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -11,12 +12,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -26,6 +27,7 @@ import mits.uwi.com.ourmobileenvironment.HTTP_RequestHandlers.GlobalRequestHandl
 import mits.uwi.com.ourmobileenvironment.HomeActivity;
 import mits.uwi.com.ourmobileenvironment.R;
 import mits.uwi.com.ourmobileenvironment.sas.course.CourseListFragment;
+import mits.uwi.com.ourmobileenvironment.sas.volley.SASAuthRequestListener;
 
 /**
  * Created by Danuel on 30/1/2017.
@@ -35,13 +37,40 @@ public class LoginDialog extends DialogFragment {
 
     private TextView username, password;
     private ViewGroup mContainer;
+    private FragmentActivity parentActivity;
+
+    public LoginDialog(){
+        // Required empty constructor
+    }
+
+    public static LoginDialog newInstance(Activity activity) {
+        
+        Bundle args = new Bundle();
+        
+        LoginDialog fragment = new LoginDialog();
+        fragment.setArguments(args);
+        fragment.setActivity(activity);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.sas_dialog_signin, null);
+
+        password = (TextView)dialogView.findViewById(R.id.password);
+        username = (TextView)dialogView.findViewById(R.id.studentId);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setPositiveButton("Log in", new DialogInterface.OnClickListener(){
+        builder.setView(dialogView)
+          .setPositiveButton("Log in", new DialogInterface.OnClickListener(){
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // Sign-in
@@ -52,8 +81,6 @@ public class LoginDialog extends DialogFragment {
                 credentials.put("username", username.getText().toString());
                 credentials.put("password", password.getText().toString());
                 signIn(credentials, getActivity().getApplicationContext());
-
-
             }
         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
             @Override
@@ -64,37 +91,26 @@ public class LoginDialog extends DialogFragment {
                 startActivity(i);
 
             }
-        }).setOnDismissListener( new DialogInterface.OnDismissListener(){
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                // Never dismiss the dialog
-                onCreateDialog(null);
-            }
-        });
+        }).setTitle("Login");
 
         return builder.create();
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        getActivity().getWindow().requestFeature();
-        View v =inflater.inflate(R.layout.sas_dialog_signin, container, false);
-
-        mContainer = container;
-
-        username = ((EditText)v.findViewById(R.id.studentId));
-        password = ((EditText)v.findViewById(R.id.password));
-
-        return v;
+    private void signIn(HashMap<String, String> credentials, Context context){
+        final GlobalRequestHandler globalRequestHandler = GlobalRequestHandler.getInstance(context);
+        final HashMap<String, String> studentCreds = credentials;
+        globalRequestHandler.getSASAuthToken(credentials, new SASAuthRequestListener(){
+            @Override
+            public void onResponse(String s) {
+                super.onResponse(s);
+                globalRequestHandler.getStudentInfo(studentCreds.get("username"),
+                        new CourseListFragment(),
+                        (AppCompatActivity)parentActivity);
+            }
+        });
     }
 
-    private void signIn(HashMap<String, String> credentials, Context context){
-        GlobalRequestHandler globalRequestHandler = GlobalRequestHandler.getInstance(context);
-        globalRequestHandler.getSASAuthToken(credentials);
-        globalRequestHandler.getStudentInfo(credentials.get("username"),
-                CourseListFragment.instantiate(getActivity().getApplicationContext(),
-                                               CourseListFragment.TAG),
-                (AppCompatActivity)getActivity());
+    private void setActivity(Activity activity){
+        parentActivity = (FragmentActivity)activity;
     }
 }

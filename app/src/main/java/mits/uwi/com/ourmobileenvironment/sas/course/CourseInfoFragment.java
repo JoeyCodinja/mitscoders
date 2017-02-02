@@ -11,6 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import mits.uwi.com.ourmobileenvironment.R;
 import mits.uwi.com.ourmobileenvironment.sas.Course;
@@ -29,6 +33,32 @@ public class CourseInfoFragment extends Fragment {
     private int courseId;
     private FloatingActionButton fab;
 
+    public CourseInfoFragment newInstance(JSONObject courseObject){
+        Bundle args = new Bundle();
+        CourseInfoFragment fragment = new CourseInfoFragment();
+        try {
+            Course course = new Course(
+                    Integer.valueOf(courseObject.get("crn").toString()),
+                    courseObject.get("subjectCode").toString(),
+                    Integer.valueOf(courseObject.get("courseNumber").toString()),
+                    courseObject.get("courseTitle").toString(),
+                    "",
+                    "",
+                    courseObject.get("scheduleType").toString()
+            );
+            args.putParcelable("course", course);
+        } catch(JSONException e){
+            e.printStackTrace();
+            Toast.makeText(getActivity().getApplicationContext(),
+                    "Error Loading Course Info",
+                    Toast.LENGTH_LONG).show();
+
+        }
+        fragment.setArguments(args);
+        return fragment;
+
+    }
+    
     // or attachToRecyclerView
     public static CourseInfoFragment newInstance(int CRN){
         Bundle args = new Bundle();
@@ -41,11 +71,16 @@ public class CourseInfoFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        courseId = (int)getActivity().getIntent().getSerializableExtra(EXTRA_COURSE_ID);//(int)getArguments().getSerializable(EXTRA_COURSE_ID);
-        mCourse = CourseList.get(getActivity()).getCourse(courseId);
-        getActivity().setTitle(mCourse.getTitle());
-        ((CourseInfoActivity )getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setRetainInstance(true);
+        try{
+            courseId = (int)getActivity().getIntent().getSerializableExtra(EXTRA_COURSE_ID);//(int)getArguments().getSerializable(EXTRA_COURSE_ID);
+            mCourse = CourseList.get(getActivity()).getCourse(courseId);
+            getActivity().setTitle(mCourse.getTitle());
+            ((CourseInfoActivity )getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            setRetainInstance(true);
+        }
+        catch (NullPointerException e){
+            mCourse = savedInstanceState.getParcelable("course");
+        }
 
     }
 
