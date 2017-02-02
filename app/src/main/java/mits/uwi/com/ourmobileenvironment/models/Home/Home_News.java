@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -34,8 +35,8 @@ public class Home_News {
 
     private final String TAG = "Home_News";
     private Document RSS1, RSS2;
-    private String[] RSS_feeds = {"http://www.mona.uwi.edu/marcom/newsroom/feed",
-                                  "http://www.mona.uwi.edu/marcom/uwinotebook/feed"};
+    private String[] RSS_feeds = {"https://www.mona.uwi.edu/marcom/newsroom/feed",
+                                  "https://www.mona.uwi.edu/marcom/uwinotebook/feed"};
     public boolean didConnect;
     public boolean loaded;
     private Context calledContext;
@@ -53,6 +54,9 @@ public class Home_News {
         {
             e.printStackTrace();
             Log.e(TAG, e.getClass() + e.getMessage());
+            Toast.makeText(context,
+                    "Unable to retrieve news items. Please check internet connection",
+                    Toast.LENGTH_LONG).show();
             didConnect = false;
             loaded = false;
         }
@@ -75,7 +79,6 @@ public class Home_News {
 
     public String getNewsItemURL(Element newsItem){
         Elements newsItemURL = newsItem.getElementsByTag("link");
-
         return newsItemURL.get(0).text();
     }
 
@@ -87,13 +90,20 @@ public class Home_News {
 
         try{
             newsItemXMLData = Jsoup.parse(Parser.unescapeEntities(newsItemDataString, false));
+            // TODO: Ensure that HTTP 302 request are resolved
             Element newsImageTag = newsItemXMLData.getElementsByTag("img")
                     .get(0);
             InputStream in = new java.net.URL(newsImageTag.attributes().get("src"))
                     .openStream();
             image = BitmapFactory.decodeStream(in);
             if (image == null){
-                throw new IOException("Haven't loaded image");
+                String otherDomain = newsImageTag.attributes().get("src");
+                otherDomain = otherDomain.replace("http://myspot.mona.uwi.edu", "https://www.mona.uwi.edu");
+                in = new java.net.URL(otherDomain).openStream();
+                image = BitmapFactory.decodeStream(in);
+                if (image == null){
+                    throw new IOException("Haven't loaded image");
+                }
             }
         }
         catch (IndexOutOfBoundsException|IOException e){
@@ -119,13 +129,15 @@ public class Home_News {
 
         Document article;
         ArrayList<String> newsContentParagraph = new ArrayList<>();
-        Elements newsItemArticle = newsItem.getElementsByTag("link");
 
         try {
-            article = Jsoup.connect(newsItemArticle.text()).get();
-        } catch (IOException e){
+            article = Jsoup.connect(getNewsItemURL(newsItem)).get();
+        } catch (IOException e) {
+            return newsContentParagraph;
+        } catch (IllegalArgumentException e){
             return newsContentParagraph;
         }
+
         Elements articleContent = article.getElementById("mainContent").getAllElements();
         articleContent = articleContent.get(2).getElementsByClass("content").get(0).getElementsByTag("p");
 
@@ -153,11 +165,11 @@ public class Home_News {
         return descriptionParagraphs;
     }
 
-    public boolean cacheNewsItems(Elements newsItems){
+    public boolean cacheNewsItems(Elements newsItems) throws IOException{
         /* Caches the elements of the RSS feeds that are being displayed */
+        File cacheDir = new File(calledContext.getCacheDir(), "newsItems");
+        FileOutputStream cacheOutput = new FileOutputStream(cacheDir);
         try {
-            File cacheDir = new File(calledContext.getCacheDir(), "newsItems");
-            FileOutputStream cacheOutput = new FileOutputStream(cacheDir);
             cacheOutput.write(newsItems.toString().getBytes());
             cacheOutput.close();
         }

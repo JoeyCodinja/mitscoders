@@ -122,10 +122,6 @@ public class HomeActivityFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         switch (v.getId()) {
-//                            case R.id.campus_info_fab:
-//                                i = new Intent(getActivity(), CampusInformationActivity.class);
-//                                startActivity(i);
-//                                break;
                             case R.id.transport_fab:
                                 i = new Intent(getActivity(), TransportActivity.class);
                                 startActivity(i);
@@ -199,7 +195,9 @@ public class HomeActivityFragment extends Fragment {
         });
 
         adapter = new HomePageViewPagerAdapter(getActivity().getSupportFragmentManager(),
-                new Fragment[]{new HomeNewsFragment(), new HomeVideosFragment()}
+                new Fragment[]{new HomeNewsFragment(),
+                               /*new HomeEventFragment(),*/
+                               new HomeVideosFragment()}
         );
 
         mHome_ViewPager = (ViewPager) v.findViewById(R.id.landing_viewpager);
@@ -209,7 +207,8 @@ public class HomeActivityFragment extends Fragment {
         tabs = (TabLayout) v.findViewById(R.id.landing_tabs);
         tabs.setupWithViewPager(mHome_ViewPager);
         tabs.getTabAt(0).setIcon(R.drawable.ic_home_white_24dp);
-        tabs.getTabAt(1).setIcon(R.drawable.filmstrip_selected);
+        /*tabs.getTabAt(1).setIcon(R.drawable.ic_event_grey_24dp);*/
+        tabs.getTabAt(1).setIcon(R.drawable.ic_tv_grey_24dp);
 
         tabs.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -217,8 +216,11 @@ public class HomeActivityFragment extends Fragment {
                 if (tab.getPosition() == 0) {
                     tab.setIcon(R.drawable.ic_home_white_24dp);
                     mHome_ViewPager.setCurrentItem(0, true);
-                } else if (tab.getPosition() == 1) {
-                    tab.setIcon(R.drawable.filmstrip);
+//                } else if (tab.getPosition() == 1) {
+//                    tab.setIcon(R.drawable.ic_event_white_24dp);
+//                    mHome_ViewPager.setCurrentItem(1, true);
+                } else if (tab.getPosition() == 1){
+                    tab.setIcon(R.drawable.ic_tv_white_24dp);
                     mHome_ViewPager.setCurrentItem(1, true);
                 }
             }
@@ -227,8 +229,10 @@ public class HomeActivityFragment extends Fragment {
             public void onTabUnselected(TabLayout.Tab tab) {
                 if (tab.getPosition() == 0) {
                     tab.setIcon(R.drawable.home_selected);
+//                } else if (tab.getPosition() == 1) {
+//                    tab.setIcon(R.drawable.ic_event_grey_24dp);
                 } else if (tab.getPosition() == 1) {
-                    tab.setIcon(R.drawable.filmstrip_selected);
+                    tab.setIcon(R.drawable.ic_tv_grey_24dp);
                 }
             }
 

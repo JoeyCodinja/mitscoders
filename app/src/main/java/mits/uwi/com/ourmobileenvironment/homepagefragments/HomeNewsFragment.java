@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Looper;
 import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
@@ -24,11 +25,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOError;
+import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 import mits.uwi.com.ourmobileenvironment.HomeActivity;
@@ -39,10 +44,9 @@ import mits.uwi.com.ourmobileenvironment.models.Home.Home_News;
 
 public class HomeNewsFragment extends Fragment {
 
-    private ArrayList<CardView> mNewsCards = new ArrayList<>();
     private Home_News mNewsItems;
-    private String[] newsDescriptionStrings = new String[50];
     private boolean forceCacheRead = false;
+    private AsyncTask newsLoadTask;
 
     private long startNewsRetrieval, stopNewsRetrieval;
 
@@ -60,8 +64,12 @@ public class HomeNewsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (!((HomeActivity)getActivity()).getSupportActionBar().isShowing())
-            ((HomeActivity)getActivity()).getSupportActionBar().show();
+        try {
+            if (!((HomeActivity) getActivity()).getSupportActionBar().isShowing())
+                ((HomeActivity) getActivity()).getSupportActionBar().show();
+        } catch(NullPointerException e){
+            e.printStackTrace();
+        }
 
         if (savedInstanceState != null){
             this.forceCacheRead = savedInstanceState.getBoolean("forceCacheRead", false);
@@ -106,10 +114,9 @@ public class HomeNewsFragment extends Fragment {
         anim.setRepeatCount(ObjectAnimator.INFINITE);
         anim.start();
 
-        new RetrieveRSSFeedTask().executeOnExecutor(
+        newsLoadTask =  new RetrieveRSSFeedTask().executeOnExecutor(
                 AsyncTask.THREAD_POOL_EXECUTOR,
                 getActivity());
-
         return v;
     }
 
@@ -120,6 +127,7 @@ public class HomeNewsFragment extends Fragment {
         ArrayList<ArrayList<String>> newsItemDescriptions = new ArrayList<>();
         @Override
         protected Home_News doInBackground(Context... params) {
+            Looper.prepare();
             startNewsRetrieval = SystemClock.elapsedRealtime();
             try {
                 mNewsItems = new Home_News(params[0]);
@@ -147,18 +155,30 @@ public class HomeNewsFragment extends Fragment {
                         newsItemURLs.add(mNewsItems.getNewsItemURL(element));
                         newsItemDescriptions.add(mNewsItems.getNewsItemArticle(element));
                     }
-                    mNewsItems.cacheNewsItems(newsItemElements);
-                    forceCacheRead = true;
+                    try{
+                        mNewsItems.cacheNewsItems(newsItemElements);
+                        forceCacheRead = true;
+                    } catch (IOException e){
+                        Log.e("HomeNewsFragment", "Unable to cache news items");
+                        e.printStackTrace();
+                    }
+
                 }
                 return mNewsItems;
             }
-            catch(Exception e)
+            catch(IOError e)
             {
                 Log.e("HomeNewsFragment", e.getClass() + "\n" + e.getMessage());
                 e.printStackTrace();
-                return mNewsItems;
-            }
+                Toast.makeText(params[0], "Error Loading News", Toast.LENGTH_LONG).show();
+                newsLoadTask.cancel(true);
 
+            }
+            catch(UnknownHostException e){
+                Toast.makeText(params[0], e.getMessage(), Toast.LENGTH_LONG).show();
+                newsLoadTask.cancel(true);
+            }
+            return null;
         }
 
         @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -181,6 +201,18 @@ public class HomeNewsFragment extends Fragment {
 
             newsListing.removeView(newsListing.findViewById(R.id.loadingTextView));
 
+            if (newsItemTitles.size() == 0){
+                TextView unableToLoadNewsMessage = new TextView(newsListing.getContext());
+                unableToLoadNewsMessage.setText("Unable to Load News. Please Check Internet Connection");
+                unableToLoadNewsMessage.setTextSize(30);
+                unableToLoadNewsMessage.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL);
+                LinearLayout.LayoutParams layout = (LinearLayout.LayoutParams)newsListing.
+                        getLayoutParams();
+                layout.gravity = Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL;
+                unableToLoadNewsMessage.setLayoutParams(layout);
+                newsListing.addView(unableToLoadNewsMessage);
+            }
+
             for (int i = 0; i < newsItemTitles.size(); i++) {
                 final int finalI = i;
                 final Context finalContext = contextView.getContext();
@@ -189,9 +221,26 @@ public class HomeNewsFragment extends Fragment {
                 ImageView newsCardImage = (ImageView)newsCard.findViewById(R.id.news_card_image);
                 TextView newsCardTitle = (TextView)newsCard.findViewById(R.id.news_card_title);
 
-                float imageWidth = newsItemImages.get(i).getWidth();
-                float imageHeight = newsItemImages.get(i).getHeight();
-
+                try{
+                    float imageWidth = newsItemImages.get(i).getWidth();
+                    float imageHeight = newsItemImages.get(i).getHeight();
+                } catch (NullPointerException e){
+                    Toast.makeText(finalContext,
+                            "Unable to load news items",
+                            Toast.LENGTH_LONG)
+                            .show();
+                    newsLoadTask.cancel(true);
+                    TextView unableToLoadNewsMessage = new TextView(newsListing.getContext());
+                    unableToLoadNewsMessage.setText("Unable to Load News. Please Check Internet Connection");
+                    unableToLoadNewsMessage.setTextSize(30);
+                    unableToLoadNewsMessage.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL);
+                    LinearLayout.LayoutParams layout = (LinearLayout.LayoutParams)newsListing.
+                            getLayoutParams();
+                    layout.gravity = Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL;
+                    unableToLoadNewsMessage.setLayoutParams(layout);
+                    newsListing.addView(unableToLoadNewsMessage);
+                    break;
+                }
                 newsCardImage.setImageBitmap(newsItemImages.get(i));
 
                 newsCardTitle.setText(newsItemTitles.get(i));

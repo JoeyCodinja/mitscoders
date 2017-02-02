@@ -32,6 +32,7 @@ import com.google.api.services.youtube.model.SearchResultSnippet;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import mits.uwi.com.ourmobileenvironment.UWIMonaApplication;
@@ -99,10 +100,10 @@ public class HomeVideosFragment
 
     }
 
-    public YouTubeQueryResult[] uwiTVChannelRequest(){
+    public ArrayList<YouTubeQueryResult> uwiTVChannelRequest(){
 
         YouTube youtube;
-        YouTubeQueryResult[] results = new YouTubeQueryResult[20];
+        ArrayList<YouTubeQueryResult> results = new ArrayList<>();
         final String channelId = "UCN-DinGRVq5fDxa4byT8XwQ";
 
         HttpTransport httpTransport = new ApacheHttpTransport();
@@ -123,11 +124,12 @@ public class HomeVideosFragment
                     .setChannelId(channelId)
                     .setOrder("date")
                     .setType("video")
-                    .setMaxResults(Long.valueOf("20"))
+                    .setMaxResults(Long.valueOf("25"))
                     .setKey(DeveloperKey.YOUTUBE_APIKEY)
                     .execute();
 
             List videos = uwiTvChannelVideos.getItems();
+
             for (int video=0; video < uwiTvChannelVideos.getItems().size(); video++){
                 SearchResult video_item = (SearchResult)videos.get(video);
                 SearchResultSnippet video_item_snippet = video_item.getSnippet();
@@ -144,10 +146,10 @@ public class HomeVideosFragment
 
                 Bitmap thumbnail = BitmapFactory.decodeStream(thumbnailResponse.getContent());
 
-                results[video] = new YouTubeQueryResult(video_item.getId().getVideoId(),
+                results.add(new YouTubeQueryResult(video_item.getId().getVideoId(),
                         video_item_snippet.getTitle(),
                         video_item_snippet.getDescription(),
-                        thumbnail);
+                        thumbnail));
 
             }
 
@@ -156,12 +158,10 @@ public class HomeVideosFragment
             // Return a single YouTubeQueryResult
             // with error as the
             // title, description, videoId
-            for(int index=0; index < results.length; index++){
-                if (results[index] == null) {
-                    results[index] = new YouTubeQueryResult(
-                            "error",
-                            "error",
-                            "error");
+            for(int index=0; index < results.size(); index++){
+                if (results.get(index) == null) {
+                    results.add(index, new YouTubeQueryResult("error", "Error occured", "There was an issue retrieving the UWI TV videos"));
+                    results.remove(index + 1);
                     break;
                 }
             }
@@ -170,25 +170,24 @@ public class HomeVideosFragment
     }
 
 
-    public class AsyncYouTubeQueryRunner extends AsyncTask<Context, Void, YouTubeQueryResult[]> {
+    public class AsyncYouTubeQueryRunner extends AsyncTask<Context, Void, ArrayList<YouTubeQueryResult>> {
         @Override
-        protected YouTubeQueryResult[] doInBackground(Context... params){
+        protected ArrayList<YouTubeQueryResult> doInBackground(Context... params){
             return uwiTVChannelRequest();
-
         }
 
         @Override
-        protected void onPostExecute(YouTubeQueryResult[] results){
+        protected void onPostExecute(ArrayList<YouTubeQueryResult> results){
             // Initializes the adapter with the results we got before
             adapter = new VideoListRecyclerAdapter(results, playerFragment.player);
 
             videosListRecyclerView.setAdapter(adapter);
 
-            for(int result=0; result < results.length; result++){
+            for(int result=0; result < results.size(); result++){
                 try {
-                    if (results[result].title.equals("error") &&
-                            results[result].description.equals("error") &&
-                            results[result].videoId.equals("error")) {
+                    if (results.get(result).title.equals("error") &&
+                            results.get(result).description.equals("error") &&
+                            results.get(result).videoId.equals("error")) {
 
                     }
                 }
@@ -259,7 +258,6 @@ public class HomeVideosFragment
             this.player = null;
         }
     }
-
 
     public class YouTubeQueryResult {
         public String videoId;

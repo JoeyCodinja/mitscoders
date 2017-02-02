@@ -17,6 +17,8 @@ import android.widget.TextView;
 
 import com.google.android.youtube.player.YouTubePlayer;
 
+import java.util.ArrayList;
+
 import mits.uwi.com.ourmobileenvironment.R;
 import mits.uwi.com.ourmobileenvironment.homepagefragments.HomeVideosFragment.YouTubeQueryResult;
 
@@ -25,7 +27,7 @@ import mits.uwi.com.ourmobileenvironment.homepagefragments.HomeVideosFragment.Yo
  */
 public class VideoListRecyclerAdapter extends
         RecyclerView.Adapter<VideoListRecyclerAdapter.ViewHolder> {
-    YouTubeQueryResult[] videos;
+    ArrayList<YouTubeQueryResult> videos;
     YouTubePlayer player;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -51,8 +53,8 @@ public class VideoListRecyclerAdapter extends
 
     // Adapter Constructor
     // Accepts the data set
-    // That is the YouTubeQueryResult0
-    public VideoListRecyclerAdapter(YouTubeQueryResult[] result,
+    // That is the YouTubeQueryResult
+    public VideoListRecyclerAdapter(ArrayList<YouTubeQueryResult> result,
                                     YouTubePlayer player) {
         this.videos = result;
         this.player = player;
@@ -93,15 +95,15 @@ public class VideoListRecyclerAdapter extends
         // our data set
         ((View)holder.videoTitle.getParent().getParent().getParent()).setTag(getItemVideoId(position));
         try {
-            holder.videoTitle.setText(this.videos[position].title);
-            holder.videoDescription.setText(this.videos[position].description);
-            if (this.videos[position].thumbnail == null){
+            holder.videoTitle.setText(this.videos.get(position).title);
+            holder.videoDescription.setText(this.videos.get(position).description);
+            if (this.videos.get(position).thumbnail == null){
                 Bitmap standardThumbnail =
                         BitmapFactory.decodeResource(holder.videoTitle.getResources(),
                                                      R.drawable.uwi_coat_of_arms_48);
                 holder.videoThumbnail.setImageBitmap(standardThumbnail);
             }
-            holder.videoThumbnail.setImageBitmap(this.videos[position].thumbnail);
+            holder.videoThumbnail.setImageBitmap(this.videos.get(position).thumbnail);
         } catch (NullPointerException e){
             // If there is nothing
             // else in the list
@@ -117,12 +119,12 @@ public class VideoListRecyclerAdapter extends
 
     @Override
     public int getItemCount() {
-        return videos.length;
+        return videos.size();
     }
 
     public String getItemVideoId(int position){
         try{
-            return videos[position].videoId;
+            return videos.get(position).videoId;
         }catch (NullPointerException e){
             return "";
         }
