@@ -37,7 +37,7 @@ public class CampusDirectionActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         UWIMonaApplication application = (UWIMonaApplication) getApplication();
         application.screenViewHitAnalytics("Activity~CampusDirection");
@@ -78,9 +78,13 @@ public class CampusDirectionActivity extends AppCompatActivity {
                 if (!isGoogleMapsInstalled()){
                     // Prompt user to go download the application
                     // Save the state of the user's action before we head off
+                    Bundle saveState = new Bundle();
+                    onSaveInstanceState(saveState);
                     installGoogleMaps();
+
+                } else{
+                    navigateTo(locationCoords, view.getContext());
                 }
-                navigateTo(locationCoords, view.getContext());
 
             }
         });
@@ -153,11 +157,13 @@ public class CampusDirectionActivity extends AppCompatActivity {
 
     private void installGoogleMaps(){
         // TODO: Receieve communication from App Store that the application was installed
-        String googleMapsMarketURI = "market://details?id=<com.google.android.apps.maps>";
+        String googleMapsMarketURI = "market://details?id=com.google.android.apps.maps";
         if (isGooglePlayStoreInstalled()) {
             Intent downloadGMaps = new Intent(Intent.ACTION_VIEW,
                     Uri.parse(googleMapsMarketURI));
             startActivity(downloadGMaps);
+        } else{
+            Toast.makeText(this, "Unable to find Google Play Store", Toast.LENGTH_LONG);
         }
     }
 }
